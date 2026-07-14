@@ -14,9 +14,9 @@ import { MetaPixel } from "./components/MetaPixel";
 const jsonLd = {
   "@context": "https://schema.org",
   "@type": "RealEstateListing",
-  name: "Moradia Leça do Balio",
+  name: "Moradia T5 Leça do Balio",
   description:
-    "Moradia de arquitetura de autor num loteamento fechado de vinte residências em Leça do Balio, Matosinhos. 2.545 m² de terreno, piscina aquecida.",
+    "Moradia T5 de arquitetura de autor num loteamento fechado de vinte residências em Leça do Balio, Matosinhos. 2.545 m² de terreno, piscina aquecida.",
   url: "https://ruidacruzconsultor.pt/leca-do-balio",
   image: "https://ruidacruzconsultor.pt/images/leca-do-balio/01-hero-fachada.jpg",
   address: {

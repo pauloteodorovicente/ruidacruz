@@ -44,7 +44,7 @@ export async function POST(req: Request) {
         tags: ["site-leca-do-balio"],
         source: "Site - Landing Leça do Balio",
         customFields: [
-          { id: FIELD_IMOVEIS_DE_INTERESSE, field_value: ["Moradia | Leça do Balio | Matosinhos"] },
+          { id: FIELD_IMOVEIS_DE_INTERESSE, field_value: ["Moradia T5 | Leça do Balio | Matosinhos"] },
           { id: FIELD_ZONAS, field_value: "Grande Porto" },
         ],
       }),

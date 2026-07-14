@@ -3,9 +3,9 @@ export type Locale = "pt" | "en";
 export const content = {
   pt: {
     meta: {
-      title: "Moradia Leça do Balio | Uma Propriedade Rara — Rui da Cruz",
+      title: "Moradia T5 Leça do Balio | Uma Propriedade Rara — Rui da Cruz",
       description:
-        "Moradia de arquitetura de autor num loteamento fechado de vinte residências em Leça do Balio, Matosinhos. 2.545 m² de terreno, piscina aquecida, a minutos do Porto. Representação por Rui da Cruz.",
+        "Moradia T5 de arquitetura de autor num loteamento fechado de vinte residências em Leça do Balio, Matosinhos. 2.545 m² de terreno, piscina aquecida, a minutos do Porto. Representação por Rui da Cruz.",
     },
     nav: {
       whatsapp: "WhatsApp Direto",
@@ -17,14 +17,14 @@ export const content = {
       location: "Leça do Balio, Matosinhos",
     },
     identification: {
-      tags: ["Loteamento Fechado", "Arquitetura de Autor"],
+      tags: ["Moradia T5", "Loteamento Fechado", "Arquitetura de Autor"],
       title: "Uma propriedade rara, onde a privacidade encontra a excelência",
       lede: "Vinte residências, um único endereço junto à Quinta do Chantre — a poucos minutos do Porto.",
       price: "1.950.000 €",
       specs: [
+        { label: "Tipologia", value: "T5" },
         { label: "Terreno", value: "2.545 m²" },
         { label: "Construção", value: "~700 m²" },
-        { label: "Suítes", value: "4 + 1 quarto" },
         { label: "Garagem", value: "2 viaturas" },
       ],
       ctaPrimary: "Solicitar Visita Privada",
@@ -44,6 +44,7 @@ export const content = {
     features: {
       eyebrow: "Em Detalhe",
       items: [
+        "Tipologia T5 · 4 suítes + 1 quarto",
         "Loteamento fechado e reservado",
         "Arquitetura de autor · Manuel Ventura",
         "2.545 m² de terreno",
@@ -87,9 +88,9 @@ export const content = {
   },
   en: {
     meta: {
-      title: "Leça do Balio Residence | A Rare Property — Rui da Cruz",
+      title: "T5 Leça do Balio Residence | A Rare Property — Rui da Cruz",
       description:
-        "Architect-designed residence in a gated enclave of twenty homes in Leça do Balio, Matosinhos. 2,545 sqm plot, heated pool, minutes from Porto. Represented by Rui da Cruz.",
+        "5-bedroom (T5) architect-designed residence in a gated enclave of twenty homes in Leça do Balio, Matosinhos. 2,545 sqm plot, heated pool, minutes from Porto. Represented by Rui da Cruz.",
     },
     nav: {
       whatsapp: "WhatsApp Direct",
@@ -101,14 +102,14 @@ export const content = {
       location: "Leça do Balio, Matosinhos",
     },
     identification: {
-      tags: ["Gated Enclave", "Architect-Designed"],
+      tags: ["5-Bedroom Residence", "Gated Enclave", "Architect-Designed"],
       title: "A rare property, where privacy meets excellence",
       lede: "Twenty residences, one singular address beside Quinta do Chantre — minutes from Porto.",
       price: "€1,950,000",
       specs: [
+        { label: "Bedrooms", value: "5 (T5)" },
         { label: "Plot", value: "2,545 sqm" },
         { label: "Built Area", value: "~700 sqm" },
-        { label: "Suites", value: "4 + 1 bedroom" },
         { label: "Garage", value: "2 cars" },
       ],
       ctaPrimary: "Request a Private Viewing",
@@ -128,6 +129,7 @@ export const content = {
     features: {
       eyebrow: "In Detail",
       items: [
+        "5 bedrooms (T5) · 4 suites + 1 bedroom",
         "Gated & private enclave",
         "Architect-designed · Manuel Ventura",
         "2,545 sqm plot",
