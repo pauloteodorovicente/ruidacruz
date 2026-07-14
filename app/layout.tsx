@@ -15,9 +15,19 @@ const dmSans = DM_Sans({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://ruidacruzconsultor.pt"),
   title: "Moradia Leça do Balio | Rui da Cruz",
   description:
     "Uma propriedade rara onde a privacidade encontra a excelência — Leça do Balio, Matosinhos.",
+  openGraph: {
+    title: "Moradia Leça do Balio | Uma Propriedade Rara",
+    description:
+      "Loteamento fechado de vinte residências, 2.545 m² de terreno, piscina aquecida. A minutos do Porto.",
+    images: ["/images/leca-do-balio/01-hero-fachada.jpg"],
+    locale: "pt_PT",
+    type: "website",
+  },
+  robots: { index: true, follow: true },
 };
 
 // Evita flash do tema errado no primeiro paint: lê a preferência salva

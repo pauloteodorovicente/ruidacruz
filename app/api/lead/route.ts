@@ -1,0 +1,75 @@
+import { NextResponse } from "next/server";
+
+const GHL_BASE = "https://services.leadconnectorhq.com";
+const GHL_VERSION = "2021-07-28";
+
+const FIELD_IMOVEIS_DE_INTERESSE = "WAtJLnU545LLu3YWwi4F";
+const FIELD_ZONAS = "Avo84eso9QlaqwFW8IAz";
+
+export async function POST(req: Request) {
+  const token = process.env.GHL_API_TOKEN;
+  const locationId = process.env.GHL_LOCATION_ID;
+
+  if (!token || !locationId) {
+    return NextResponse.json({ error: "GHL not configured" }, { status: 500 });
+  }
+
+  const body = await req.json().catch(() => null);
+  const name = typeof body?.name === "string" ? body.name.trim() : "";
+  const phone = typeof body?.phone === "string" ? body.phone.trim() : "";
+  const message = typeof body?.message === "string" ? body.message.trim() : "";
+
+  if (!name || !phone) {
+    return NextResponse.json({ error: "name and phone are required" }, { status: 400 });
+  }
+
+  const [firstName, ...rest] = name.split(" ");
+  const lastName = rest.join(" ") || undefined;
+
+  const headers = {
+    Authorization: `Bearer ${token}`,
+    Version: GHL_VERSION,
+    "Content-Type": "application/json",
+  };
+
+  try {
+    const contactRes = await fetch(`${GHL_BASE}/contacts/`, {
+      method: "POST",
+      headers,
+      body: JSON.stringify({
+        locationId,
+        firstName,
+        lastName,
+        phone,
+        tags: ["site-leca-do-balio"],
+        source: "Site - Landing Leça do Balio",
+        customFields: [
+          { id: FIELD_IMOVEIS_DE_INTERESSE, field_value: ["Moradia | Leça do Balio | Matosinhos"] },
+          { id: FIELD_ZONAS, field_value: "Grande Porto" },
+        ],
+      }),
+    });
+
+    const contactData = await contactRes.json();
+
+    if (!contactRes.ok) {
+      console.error("GHL contact error", contactData);
+      return NextResponse.json({ error: "ghl_contact_failed" }, { status: 502 });
+    }
+
+    const contactId = contactData?.contact?.id;
+
+    if (contactId && message) {
+      await fetch(`${GHL_BASE}/contacts/${contactId}/notes`, {
+        method: "POST",
+        headers,
+        body: JSON.stringify({ body: `Mensagem do formulário (Leça do Balio): ${message}` }),
+      }).catch((err) => console.error("GHL note error", err));
+    }
+
+    return NextResponse.json({ ok: true, contactId });
+  } catch (err) {
+    console.error("GHL request error", err);
+    return NextResponse.json({ error: "unexpected_error" }, { status: 500 });
+  }
+}
