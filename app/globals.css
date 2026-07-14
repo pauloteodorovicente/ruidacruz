@@ -1,0 +1,64 @@
+@import "tailwindcss";
+
+:root {
+  --font-display: var(--font-cormorant);
+  --font-body: var(--font-dm-sans);
+}
+
+/* Dark — tema de assinatura (padrão) */
+:root,
+[data-theme="dark"] {
+  --color-bg: #040815;
+  --color-bg-raised: #0a1024;
+  --color-fg: #f5f3ef;
+  --color-fg-muted: rgba(245, 243, 239, 0.62);
+  --color-accent: #ce946e;
+  --color-accent-strong: #e0ab86;
+  --color-accent-dark: #a66a42;
+  --color-border: rgba(245, 243, 239, 0.12);
+}
+
+/* Light — mesma identidade (marinho profundo + cobre), papéis invertidos, não é um "dark invertido" */
+[data-theme="light"] {
+  --color-bg: #faf8f4;
+  --color-bg-raised: #ffffff;
+  --color-fg: #0c1220;
+  --color-fg-muted: rgba(12, 18, 32, 0.62);
+  --color-accent: #b97a52;
+  --color-accent-strong: #a66a42;
+  --color-accent-dark: #8a5636;
+  --color-border: rgba(12, 18, 32, 0.1);
+}
+
+@theme inline {
+  --color-background: var(--color-bg);
+  --color-background-raised: var(--color-bg-raised);
+  --color-foreground: var(--color-fg);
+  --color-foreground-muted: var(--color-fg-muted);
+  --color-accent: var(--color-accent);
+  --color-accent-strong: var(--color-accent-strong);
+  --color-accent-dark: var(--color-accent-dark);
+  --color-border: var(--color-border);
+  --font-display: var(--font-display);
+  --font-body: var(--font-body);
+}
+
+body {
+  background: var(--color-bg);
+  color: var(--color-fg);
+  font-family: var(--font-body), system-ui, sans-serif;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+h1, h2, h3, .font-display {
+  font-family: var(--font-display), Georgia, serif;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
