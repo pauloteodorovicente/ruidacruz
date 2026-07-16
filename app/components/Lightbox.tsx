@@ -16,6 +16,7 @@ export function Lightbox() {
   const [open, setOpen] = useState(false);
   const [index, setIndex] = useState(0);
   const thumbRefs = useRef<(HTMLButtonElement | null)[]>([]);
+  const stripRef = useRef<HTMLDivElement>(null);
 
   const items: Item[] = [
     { type: "video" },
@@ -45,6 +46,17 @@ export function Lightbox() {
   useEffect(() => {
     thumbRefs.current[index]?.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
   }, [index]);
+
+  function pageStrip(direction: 1 | -1) {
+    const strip = stripRef.current;
+    const first = thumbRefs.current[0];
+    const second = thumbRefs.current[1];
+    if (!strip || !first || !second) return;
+    const itemPitch = second.offsetLeft - first.offsetLeft;
+    const visibleCount = Math.max(1, Math.floor(strip.clientWidth / itemPitch));
+    const pageAmount = Math.max(1, visibleCount - 2) * itemPitch;
+    strip.scrollBy({ left: direction * pageAmount, behavior: "smooth" });
+  }
 
   const current = items[index];
 
@@ -118,8 +130,25 @@ export function Lightbox() {
             </div>
           </div>
 
-          <div className="shrink-0 border-t border-white/10 bg-black/60 px-4 py-3 overflow-x-auto">
-            <div className="flex gap-2 w-max mx-auto">
+          <div className="relative shrink-0 border-t border-white/10 bg-black/60 px-12 py-3">
+            <button
+              onClick={() => pageStrip(-1)}
+              aria-label="Ver miniaturas anteriores"
+              className="absolute left-1 top-1/2 -translate-y-1/2 z-10 flex h-8 w-8 items-center justify-center rounded-full bg-black/50 text-white/70 hover:text-white hover:bg-black/70 transition-colors text-lg"
+            >
+              ‹
+            </button>
+            <button
+              onClick={() => pageStrip(1)}
+              aria-label="Ver mais miniaturas"
+              className="absolute right-1 top-1/2 -translate-y-1/2 z-10 flex h-8 w-8 items-center justify-center rounded-full bg-black/50 text-white/70 hover:text-white hover:bg-black/70 transition-colors text-lg"
+            >
+              ›
+            </button>
+            <div
+              ref={stripRef}
+              className="flex gap-2 overflow-x-auto scroll-smooth [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+            >
               {items.map((item, i) => (
                 <button
                   key={i}
