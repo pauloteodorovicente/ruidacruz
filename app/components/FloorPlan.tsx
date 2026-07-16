@@ -46,7 +46,7 @@ export function FloorPlan() {
           <button
             onClick={() => setOpen(false)}
             aria-label="Fechar"
-            className="absolute top-5 right-5 z-10 text-white/70 hover:text-white text-3xl leading-none"
+            className="absolute top-4 right-4 z-10 flex h-11 w-11 items-center justify-center text-white/70 hover:text-white text-3xl leading-none"
           >
             ×
           </button>

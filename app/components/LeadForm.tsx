@@ -1,49 +1,16 @@
 "use client";
 
-import { useState, type FormEvent } from "react";
 import { useLanguage } from "@/lib/language-context";
+import { useLeadForm } from "@/lib/use-lead-form";
 import { Reveal } from "./Reveal";
-
-declare global {
-  interface Window {
-    fbq?: (...args: unknown[]) => void;
-  }
-}
-
-type Status = "idle" | "submitting" | "success" | "error";
 
 export function LeadForm() {
   const { t } = useLanguage();
   const f = t.form;
-  const [status, setStatus] = useState<Status>("idle");
-
-  async function handleSubmit(e: FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-    setStatus("submitting");
-
-    const formData = new FormData(e.currentTarget);
-    const payload = {
-      name: String(formData.get("name") ?? ""),
-      phone: String(formData.get("phone") ?? ""),
-      message: String(formData.get("message") ?? ""),
-    };
-
-    try {
-      const res = await fetch("/api/lead", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
-      });
-      if (!res.ok) throw new Error("request failed");
-      setStatus("success");
-      window.fbq?.("track", "Lead", { content_name: "Moradia Leça do Balio" });
-    } catch {
-      setStatus("error");
-    }
-  }
+  const { status, handleSubmit } = useLeadForm();
 
   return (
-    <section id="contacto" className="bg-[#040815] text-[#f5f3ef] px-6 py-16 md:px-12 md:py-24">
+    <section id="contacto" className="bg-[#040815] text-[#f5f3ef] px-6 pt-16 pb-28 md:px-12 md:py-24">
       <Reveal className="mx-auto max-w-xl text-center block">
         <p className="text-xs tracking-[0.25em] uppercase text-[#ce946e] mb-3">{f.eyebrow}</p>
         <h2 className="font-display text-3xl md:text-4xl mb-3">{f.title}</h2>

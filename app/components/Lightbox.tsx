@@ -75,7 +75,7 @@ export function Lightbox({ open, index, onIndexChange, onClose }: LightboxProps)
       <button
         onClick={onClose}
         aria-label="Fechar"
-        className="absolute top-5 right-5 z-10 text-white/70 hover:text-white text-3xl leading-none"
+        className="absolute top-4 right-4 z-10 flex h-11 w-11 items-center justify-center text-white/70 hover:text-white text-3xl leading-none"
       >
         ×
       </button>
@@ -87,14 +87,14 @@ export function Lightbox({ open, index, onIndexChange, onClose }: LightboxProps)
         <button
           onClick={prev}
           aria-label="Anterior"
-          className="absolute left-2 md:left-6 z-10 text-white/60 hover:text-white text-4xl px-2"
+          className="absolute left-1 md:left-6 z-10 flex h-12 w-12 items-center justify-center text-white/60 hover:text-white text-4xl"
         >
           ‹
         </button>
         <button
           onClick={next}
           aria-label="Próxima"
-          className="absolute right-2 md:right-6 z-10 text-white/60 hover:text-white text-4xl px-2"
+          className="absolute right-1 md:right-6 z-10 flex h-12 w-12 items-center justify-center text-white/60 hover:text-white text-4xl"
         >
           ›
         </button>
@@ -129,14 +129,14 @@ export function Lightbox({ open, index, onIndexChange, onClose }: LightboxProps)
         <button
           onClick={() => pageStrip(-1)}
           aria-label="Ver miniaturas anteriores"
-          className="absolute left-1 top-1/2 -translate-y-1/2 z-10 flex h-8 w-8 items-center justify-center rounded-full bg-black/50 text-white/70 hover:text-white hover:bg-black/70 transition-colors text-lg"
+          className="absolute left-1 top-1/2 -translate-y-1/2 z-10 flex h-10 w-10 items-center justify-center rounded-full bg-black/50 text-white/70 hover:text-white hover:bg-black/70 transition-colors text-lg"
         >
           ‹
         </button>
         <button
           onClick={() => pageStrip(1)}
           aria-label="Ver mais miniaturas"
-          className="absolute right-1 top-1/2 -translate-y-1/2 z-10 flex h-8 w-8 items-center justify-center rounded-full bg-black/50 text-white/70 hover:text-white hover:bg-black/70 transition-colors text-lg"
+          className="absolute right-1 top-1/2 -translate-y-1/2 z-10 flex h-10 w-10 items-center justify-center rounded-full bg-black/50 text-white/70 hover:text-white hover:bg-black/70 transition-colors text-lg"
         >
           ›
         </button>

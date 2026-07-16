@@ -92,7 +92,7 @@ export function Gallery() {
                         setOverArrow(false);
                       }}
                       aria-label={locale === "pt" ? "Foto anterior" : "Previous photo"}
-                      className="absolute left-3 top-1/2 -translate-y-1/2 z-10 flex h-8 w-8 items-center justify-center rounded-full bg-black/35 text-white/80 backdrop-blur-sm transition-colors hover:bg-black/55 hover:text-white cursor-pointer"
+                      className="absolute left-3 top-1/2 -translate-y-1/2 z-10 flex h-10 w-10 items-center justify-center rounded-full bg-black/35 text-white/80 backdrop-blur-sm transition-colors hover:bg-black/55 hover:text-white cursor-pointer"
                     >
                       ‹
                     </button>
@@ -108,7 +108,7 @@ export function Gallery() {
                         setOverArrow(false);
                       }}
                       aria-label={locale === "pt" ? "Próxima foto" : "Next photo"}
-                      className="absolute right-3 top-1/2 -translate-y-1/2 z-10 flex h-8 w-8 items-center justify-center rounded-full bg-black/35 text-white/80 backdrop-blur-sm transition-colors hover:bg-black/55 hover:text-white cursor-pointer"
+                      className="absolute right-3 top-1/2 -translate-y-1/2 z-10 flex h-10 w-10 items-center justify-center rounded-full bg-black/35 text-white/80 backdrop-blur-sm transition-colors hover:bg-black/55 hover:text-white cursor-pointer"
                     >
                       ›
                     </button>
@@ -134,9 +134,9 @@ export function Gallery() {
             setLightboxIndex(0);
             setLightboxOpen(true);
           }}
-          className="mt-8 inline-flex items-center gap-2 border border-border px-6 py-3 text-sm tracking-[0.08em] uppercase text-foreground transition-all hover:border-accent hover:text-accent hover:-translate-y-0.5 focus-visible:outline-2 focus-visible:outline-accent focus-visible:outline-offset-2"
+          className="mt-8 flex flex-wrap items-center justify-center gap-x-2 gap-y-1 border border-border px-6 py-3 text-sm tracking-[0.08em] uppercase text-foreground transition-all hover:border-accent hover:text-accent hover:-translate-y-0.5 focus-visible:outline-2 focus-visible:outline-accent focus-visible:outline-offset-2 text-center"
         >
-          {locale === "pt" ? "Ver Galeria Completa" : "View Full Gallery"}
+          <span>{locale === "pt" ? "Ver Galeria Completa" : "View Full Gallery"}</span>
           <span className="text-foreground-muted normal-case tracking-normal text-xs">
             ({lightboxItemCount - 1} {locale === "pt" ? "fotos + vídeo" : "photos + video"})
           </span>

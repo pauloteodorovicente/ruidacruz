@@ -10,8 +10,8 @@ export function Location() {
   const l = t.location;
 
   return (
-    <section className="bg-background-raised py-14 md:py-20 border-y border-border">
-      <Reveal className="mx-auto max-w-3xl px-6 md:px-12 block">
+    <section className="bg-background-raised px-6 py-14 md:px-12 md:py-20 border-y border-border">
+      <Reveal className="mx-auto max-w-3xl block">
         <p className="text-xs tracking-[0.25em] uppercase text-accent mb-2">{l.eyebrow}</p>
         <h2 className="font-display text-3xl md:text-4xl mb-6">{l.title}</h2>
         <p className="font-body text-base md:text-lg text-foreground-muted leading-relaxed mb-6">
@@ -26,16 +26,6 @@ export function Location() {
           {l.mapLink} →
         </a>
       </Reveal>
-
-      <div className="relative w-full h-[180px] md:h-[260px] mt-10 border-y border-border overflow-hidden">
-        <iframe
-          src={`https://maps.google.com/maps?q=${MAP_QUERY}&t=k&z=16&output=embed`}
-          title={l.title}
-          loading="lazy"
-          className="absolute inset-0 h-full w-full grayscale-[45%] contrast-[1.08] brightness-[0.9] saturate-[0.85]"
-          style={{ border: 0 }}
-        />
-      </div>
     </section>
   );
 }
