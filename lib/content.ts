@@ -185,4 +185,5 @@ export const galleryImages = [
   { src: "/images/leca-do-balio/10-garagem.jpg", alt: { pt: "Garagem para duas viaturas", en: "Two-car garage" } },
   { src: "/images/leca-do-balio/03-aereo-localizacao.jpg", alt: { pt: "Vista aérea com o Porto ao fundo", en: "Aerial view with Porto in the background" } },
   { src: "/images/leca-do-balio/06-aereo-terraco.jpg", alt: { pt: "Terraço e deck vistos do ar", en: "Terrace and deck from above" } },
+  { src: "/images/leca-do-balio/12-corredor-vidro.jpg", alt: { pt: "Corredor com parede de vidro para o jardim", en: "Corridor with glass wall opening to the garden" } },
 ] as const;

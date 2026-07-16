@@ -62,7 +62,6 @@ export const fullGalleryImages: string[] = [
   "/images/leca-do-balio/full/081-81-DSC_1748.jpg",
   "/images/leca-do-balio/full/082-82-DSC_1744.jpg",
   "/images/leca-do-balio/full/083-83-DSC_1735.jpg",
-  "/images/leca-do-balio/full/085-85-DSC_1702.jpg",
   "/images/leca-do-balio/full/086-86-DSC_1732.jpg",
   "/images/leca-do-balio/full/087-87-DSC_1729.jpg",
   "/images/leca-do-balio/full/088-88-DSC_1720.jpg",
