@@ -24,7 +24,7 @@ export const content = {
       specs: [
         { label: "Tipologia", value: "T5" },
         { label: "Terreno", value: "2.545 m²" },
-        { label: "Construção", value: "~700 m²" },
+        { label: "Construção", value: "431 m²" },
         { label: "Garagem", value: "2 viaturas" },
       ],
       ctaPrimary: "Solicitar Visita Privada",
@@ -38,6 +38,7 @@ export const content = {
         "Inserida na zona de proteção da Quinta do Chantre — património arquitetónico classificado — esta moradia integra um loteamento privado e reservado, composto por apenas vinte residências de grande dimensão. Aqui, a privacidade não é um privilégio. É uma condição intrínseca do lugar.",
         "Implantada num lote de 2.545 m², rodeada por jardins maduros, um lago ornamental e uma piscina aquecida, a propriedade foi concebida para quem valoriza espaço, discrição e qualidade de vida sem abdicar da proximidade à cidade.",
         "Assinada pelo arquiteto Manuel Ventura, com paisagismo da arquiteta Marta Cudell, a casa revela uma arquitetura intemporal: volumes amplos, luz natural em todas as divisões e uma ligação permanente ao exterior. Os amplos vãos envidraçados convidam o jardim para dentro de casa, criando ambientes serenos em qualquer estação do ano.",
+        "O programa interior foi pensado para uma vida em pleno: um ginásio de 30 m², sala multimédia e sala multiusos, distribuídos pelo rés-do-chão, complementam os cinco quartos e a ampla sala comum do piso superior — espaços com propósito definido, não apenas metragem.",
         "A poucos minutos do Porto, de Matosinhos, da Maia e do Aeroporto Francisco Sá Carneiro, a propriedade oferece uma centralidade rara — junto ao Mosteiro de Leça do Balio e ao Corredor Verde do Leça, quilómetros de percursos entre natureza e cidade.",
       ],
       closing:
@@ -50,6 +51,8 @@ export const content = {
         "Loteamento fechado e reservado",
         "Arquitetura de autor · Manuel Ventura",
         "2.545 m² de terreno",
+        "Ginásio privativo de 30 m²",
+        "Sala multimédia e sala multiusos",
         "Piscina aquecida",
         "Jardim maduro e lago ornamental",
         "Garagem para 2 viaturas",
@@ -128,7 +131,7 @@ export const content = {
       specs: [
         { label: "Bedrooms", value: "5 (T5)" },
         { label: "Plot", value: "2,545 sqm" },
-        { label: "Built Area", value: "~700 sqm" },
+        { label: "Built Area", value: "431 sqm" },
         { label: "Garage", value: "2 cars" },
       ],
       ctaPrimary: "Request a Private Viewing",
@@ -142,6 +145,7 @@ export const content = {
         "This home was built for those who demand the extraordinary — a haven of absolute privacy, set within the protected grounds of Quinta do Chantre, one of the region's classified architectural landmarks. A private, gated enclave of only twenty residences, where privacy is not a privilege. It is the nature of the place.",
         "Set on a 2,545 sqm plot, embraced by mature gardens, an ornamental lake and a heated pool, the deck and the water create a seamless transition between interior elegance and nature — a space designed to be enjoyed in every season.",
         "Designed by architect Manuel Ventura, with landscape design by Marta Cudell, the architecture reveals itself through breathtaking high ceilings and vast glass walls that flood every room with natural light. Spaces conceived for true entertaining, where craftsmanship rivals the great addresses of Europe.",
+        "The interior program was conceived for a life lived fully: a 30 sqm gym, a media room and a multi-purpose room on the ground floor complement the five bedrooms and the generous living room upstairs — spaces with defined purpose, not just square meters.",
         "Just north of Porto — minutes from Matosinhos, Maia and Francisco Sá Carneiro Airport — the property sits beside the Leça do Balio Monastery and the Corredor Verde do Leça, kilometers of walking and cycling paths through an exceptional natural landscape.",
       ],
       closing:
@@ -154,6 +158,8 @@ export const content = {
         "Gated & private enclave",
         "Architect-designed · Manuel Ventura",
         "2,545 sqm plot",
+        "Private 30 sqm gym",
+        "Media room and multi-purpose room",
         "Heated pool",
         "Mature gardens & ornamental lake",
         "Garage for 2 cars",

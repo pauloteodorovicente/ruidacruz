@@ -15,6 +15,7 @@ export function Gallery() {
   const [hovering, setHovering] = useState(false);
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [lightboxIndex, setLightboxIndex] = useState(0);
+  const [featuredIndex, setFeaturedIndex] = useState(0);
 
   function handleMouseMove(e: React.MouseEvent<HTMLDivElement>) {
     const grid = gridRef.current;
@@ -30,6 +31,11 @@ export function Gallery() {
     setLightboxOpen(true);
   }
 
+  function stepFeatured(e: React.MouseEvent, direction: 1 | -1) {
+    e.stopPropagation();
+    setFeaturedIndex((i) => (i + direction + galleryImages.length) % galleryImages.length);
+  }
+
   return (
     <section className="bg-background px-6 py-14 md:px-12 md:py-20">
       <div className="mx-auto max-w-6xl">
@@ -42,26 +48,58 @@ export function Gallery() {
           onMouseMove={handleMouseMove}
           className="relative grid grid-cols-2 md:grid-cols-3 gap-2 md:gap-3"
         >
-          {galleryImages.map((img, idx) => (
-            <button
-              key={img.src}
-              type="button"
-              onClick={() => openAt(idx)}
-              onMouseEnter={() => setHovering(true)}
-              onMouseLeave={() => setHovering(false)}
-              aria-label={locale === "pt" ? `Ver foto: ${img.alt.pt}` : `View photo: ${img.alt.en}`}
-              className={`relative overflow-hidden text-left md:cursor-none focus-visible:outline-2 focus-visible:outline-accent focus-visible:outline-offset-2 ${idx === 0 ? "col-span-2 row-span-2 aspect-square md:aspect-auto" : "aspect-square"}`}
-            >
-              <Image
-                src={img.src}
-                alt={img.alt[locale]}
-                fill
-                sizes={idx === 0 ? "(max-width: 768px) 100vw, 66vw" : "(max-width: 768px) 50vw, 33vw"}
-                quality={90}
-                className="object-cover hover:scale-[1.03] transition-transform duration-500"
-              />
-            </button>
-          ))}
+          {galleryImages.map((img, idx) => {
+            const isFeatured = idx === 0;
+            const displayImg = isFeatured ? galleryImages[featuredIndex] : img;
+            return (
+              <div
+                key={isFeatured ? `featured-${featuredIndex}` : img.src}
+                role="button"
+                tabIndex={0}
+                onClick={() => openAt(isFeatured ? featuredIndex : idx)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault();
+                    openAt(isFeatured ? featuredIndex : idx);
+                  }
+                }}
+                onMouseEnter={() => setHovering(true)}
+                onMouseLeave={() => setHovering(false)}
+                aria-label={locale === "pt" ? `Ver foto: ${displayImg.alt.pt}` : `View photo: ${displayImg.alt.en}`}
+                className={`relative overflow-hidden text-left md:cursor-none focus-visible:outline-2 focus-visible:outline-accent focus-visible:outline-offset-2 ${isFeatured ? "col-span-2 row-span-2 aspect-square md:aspect-auto" : "aspect-square"}`}
+              >
+                <Image
+                  src={displayImg.src}
+                  alt={displayImg.alt[locale]}
+                  fill
+                  sizes={isFeatured ? "(max-width: 768px) 100vw, 66vw" : "(max-width: 768px) 50vw, 33vw"}
+                  quality={90}
+                  className="object-cover hover:scale-[1.03] transition-transform duration-500"
+                />
+
+                {isFeatured && (
+                  <>
+                    <button
+                      type="button"
+                      onClick={(e) => stepFeatured(e, -1)}
+                      aria-label={locale === "pt" ? "Foto anterior" : "Previous photo"}
+                      className="absolute left-3 top-1/2 -translate-y-1/2 z-10 flex h-8 w-8 items-center justify-center rounded-full bg-black/35 text-white/80 backdrop-blur-sm transition-colors hover:bg-black/55 hover:text-white cursor-pointer"
+                    >
+                      ‹
+                    </button>
+                    <button
+                      type="button"
+                      onClick={(e) => stepFeatured(e, 1)}
+                      aria-label={locale === "pt" ? "Próxima foto" : "Next photo"}
+                      className="absolute right-3 top-1/2 -translate-y-1/2 z-10 flex h-8 w-8 items-center justify-center rounded-full bg-black/35 text-white/80 backdrop-blur-sm transition-colors hover:bg-black/55 hover:text-white cursor-pointer"
+                    >
+                      ›
+                    </button>
+                  </>
+                )}
+              </div>
+            );
+          })}
 
           {/* Cursor customizado — elemento de assinatura, só em telas com mouse (md+) */}
           <div

@@ -17,6 +17,17 @@ export function Location() {
         <p className="font-body text-base md:text-lg text-foreground-muted leading-relaxed mb-6">
           {l.text}
         </p>
+
+        <div className="relative aspect-[16/10] border border-border overflow-hidden mb-4">
+          <iframe
+            src={`https://maps.google.com/maps?q=${MAP_QUERY}&t=k&z=16&output=embed`}
+            title={l.title}
+            loading="lazy"
+            className="absolute inset-0 h-full w-full grayscale-[45%] contrast-[1.08] brightness-[0.9] saturate-[0.85]"
+            style={{ border: 0 }}
+          />
+        </div>
+
         <a
           href={`https://www.google.com/maps/search/?api=1&query=${MAP_QUERY}`}
           target="_blank"

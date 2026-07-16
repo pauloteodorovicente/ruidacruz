@@ -5,6 +5,7 @@ import { PropertyIdentification } from "@/app/components/PropertyIdentification"
 import { Narrative } from "@/app/components/Narrative";
 import { Features } from "@/app/components/Features";
 import { Gallery } from "@/app/components/Gallery";
+import { FloorPlan } from "@/app/components/FloorPlan";
 import { Location } from "@/app/components/Location";
 import { Testimonials } from "@/app/components/Testimonials";
 import { LeadForm } from "@/app/components/LeadForm";
@@ -34,7 +35,7 @@ const jsonLd = {
   numberOfRooms: 5,
   floorSize: {
     "@type": "QuantitativeValue",
-    value: 700,
+    value: 431,
     unitCode: "MTK",
   },
   lotSize: {
@@ -64,6 +65,7 @@ export default function LecaDoBalioPage() {
         <Narrative />
         <Features />
         <Gallery />
+        <FloorPlan />
         <Location />
         <Testimonials />
         <LeadForm />
