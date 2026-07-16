@@ -1,7 +1,9 @@
 "use client";
 
+import Image from "next/image";
 import { useLanguage } from "@/lib/language-context";
 import { Reveal } from "./Reveal";
+import { RevealText } from "./RevealText";
 
 export function PropertyIdentification() {
   const { t } = useLanguage();
@@ -25,9 +27,7 @@ export function PropertyIdentification() {
               </span>
             ))}
           </div>
-          <h1 className="font-display text-4xl md:text-5xl leading-tight mb-6">
-            {i.title}
-          </h1>
+          <RevealText text={i.title} className="font-display text-4xl md:text-5xl leading-tight mb-6" />
           <p className="font-body text-lg text-foreground-muted leading-relaxed max-w-xl">
             {i.lede}
           </p>
@@ -46,6 +46,17 @@ export function PropertyIdentification() {
                 </div>
               ))}
             </dl>
+
+            <div className="flex items-center gap-3 mb-6 pb-6 border-t border-border pt-6">
+              <div className="relative h-11 w-11 shrink-0 overflow-hidden rounded-full">
+                <Image src="/images/rui/rui-cruz.jpg" alt={i.agentName} fill sizes="44px" className="object-cover" />
+              </div>
+              <div>
+                <p className="font-display text-sm leading-tight">{i.agentName}</p>
+                <p className="text-[11px] text-foreground-muted leading-tight">{i.agentTitle}</p>
+              </div>
+            </div>
+
             <div className="flex flex-col gap-3">
               <button
                 onClick={scrollToForm}

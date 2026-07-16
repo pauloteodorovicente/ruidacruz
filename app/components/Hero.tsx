@@ -60,7 +60,7 @@ export function Hero() {
   }
 
   return (
-    <div ref={wrapperRef} className="relative h-[160vh]">
+    <div ref={wrapperRef} data-hero-wrapper className="relative h-[160vh]">
       <section className="sticky top-0 h-[75vh] min-h-[520px] w-full overflow-hidden bg-black">
         {autoplayVideo && (
           <video

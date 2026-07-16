@@ -29,6 +29,8 @@ export const content = {
       ],
       ctaPrimary: "Solicitar Visita Privada",
       ctaWhatsapp: "Falar via WhatsApp",
+      agentName: "Rui da Cruz",
+      agentTitle: "Consultor Imobiliário · RE/MAX Vantagem Platina",
     },
     narrative: {
       eyebrow: "A Propriedade",
@@ -64,6 +66,23 @@ export const content = {
       title: "Mosteiro de Leça do Balio, Matosinhos",
       text: "Um enclave residencial de prestígio na Área Metropolitana do Porto — junto ao Mosteiro de Leça do Balio e ao Corredor Verde do Leça, com acesso rápido a Matosinhos, Maia e ao Aeroporto Francisco Sá Carneiro.",
       mapLink: "Ver no mapa",
+    },
+    testimonials: {
+      eyebrow: "Representações Anteriores",
+      title: "A confiança de quem já foi representado",
+      rating: "4,9 · 34 avaliações no Google",
+      items: [
+        {
+          quote:
+            "Tive o prazer de trabalhar com o Rui da Cruz durante mais de quatro anos e posso dizer, com toda a sinceridade, que não confiaria as minhas necessidades imobiliárias em Portugal a mais ninguém. A viver no Canadá, a gestão à distância poderia ter sido complicada — mas a sua dedicação e apoio constante tornaram todo o processo simples e tranquilo.",
+          author: "Isabel Da Silva",
+        },
+        {
+          quote:
+            "Um ótimo profissional que sabe do que fala. Sem a ajuda do Rui o meu negócio não teria sido possível, e certamente teria perdido o meu depósito do CPCV.",
+          author: "Eduardo Lacerda",
+        },
+      ],
     },
     form: {
       eyebrow: "Contacto",
@@ -114,6 +133,8 @@ export const content = {
       ],
       ctaPrimary: "Request a Private Viewing",
       ctaWhatsapp: "Talk via WhatsApp",
+      agentName: "Rui da Cruz",
+      agentTitle: "Real Estate Consultant · RE/MAX Vantagem Platina",
     },
     narrative: {
       eyebrow: "The Property",
@@ -149,6 +170,23 @@ export const content = {
       title: "Leça do Balio Monastery, Matosinhos",
       text: "A prestigious residential enclave in the Porto Metropolitan Area — beside the Leça do Balio Monastery and the Corredor Verde do Leça, with fast access to Matosinhos, Maia and Francisco Sá Carneiro Airport.",
       mapLink: "View on map",
+    },
+    testimonials: {
+      eyebrow: "Past Representations",
+      title: "The trust of those already represented",
+      rating: "4.9 · 34 reviews on Google",
+      items: [
+        {
+          quote:
+            "I have had the pleasure of working with Rui da Cruz for more than four years, and I can honestly say I would not trust anyone else with my real estate needs in Portugal. Living in Canada while managing real estate matters in Portugal could have been challenging, but their dedication, expertise, and consistent support made the process seamless.",
+          author: "Isabel Da Silva",
+        },
+        {
+          quote:
+            "A great professional who knows his craft. Without Rui's help my deal would not have been possible, and I would certainly have lost my CPCV deposit.",
+          author: "Eduardo Lacerda",
+        },
+      ],
     },
     form: {
       eyebrow: "Contact",

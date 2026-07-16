@@ -6,6 +6,7 @@ import { Narrative } from "@/app/components/Narrative";
 import { Features } from "@/app/components/Features";
 import { Gallery } from "@/app/components/Gallery";
 import { Location } from "@/app/components/Location";
+import { Testimonials } from "@/app/components/Testimonials";
 import { LeadForm } from "@/app/components/LeadForm";
 import { WhatsAppFloating } from "@/app/components/WhatsAppFloating";
 import { Footer } from "@/app/components/Footer";
@@ -64,6 +65,7 @@ export default function LecaDoBalioPage() {
         <Features />
         <Gallery />
         <Location />
+        <Testimonials />
         <LeadForm />
       </main>
       <Footer />
