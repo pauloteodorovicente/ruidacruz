@@ -2,6 +2,7 @@
 
 import { useState, type FormEvent } from "react";
 import { useLanguage } from "@/lib/language-context";
+import { Reveal } from "./Reveal";
 
 declare global {
   interface Window {
@@ -43,7 +44,7 @@ export function LeadForm() {
 
   return (
     <section id="contacto" className="bg-[#040815] text-[#f5f3ef] px-6 py-16 md:px-12 md:py-24">
-      <div className="mx-auto max-w-xl text-center">
+      <Reveal className="mx-auto max-w-xl text-center block">
         <p className="text-xs tracking-[0.25em] uppercase text-[#ce946e] mb-3">{f.eyebrow}</p>
         <h2 className="font-display text-3xl md:text-4xl mb-3">{f.title}</h2>
         <p className="text-sm text-white/60 mb-10">{f.subtitle}</p>
@@ -77,7 +78,7 @@ export function LeadForm() {
             <button
               type="submit"
               disabled={status === "submitting"}
-              className="mt-2 py-3.5 bg-[#ce946e] text-[#040815] font-body text-sm tracking-[0.05em] uppercase hover:bg-[#e0ab86] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+              className="mt-2 py-3.5 bg-[#ce946e] text-[#040815] font-body text-sm tracking-[0.05em] uppercase transition-all hover:bg-[#e0ab86] hover:-translate-y-0.5 focus-visible:outline-2 focus-visible:outline-[#ce946e] focus-visible:outline-offset-2 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-y-0"
             >
               {status === "submitting" ? f.submitting : f.submit}
             </button>
@@ -86,7 +87,7 @@ export function LeadForm() {
             )}
           </form>
         )}
-      </div>
+      </Reveal>
     </section>
   );
 }

@@ -1,6 +1,7 @@
 "use client";
 
 import { useLanguage } from "@/lib/language-context";
+import { Reveal } from "./Reveal";
 
 export function PropertyIdentification() {
   const { t } = useLanguage();
@@ -13,7 +14,7 @@ export function PropertyIdentification() {
   return (
     <section className="relative bg-background px-6 py-14 md:px-12 md:py-20">
       <div className="mx-auto max-w-6xl grid grid-cols-1 md:grid-cols-5 gap-10 md:gap-16">
-        <div className="md:col-span-3">
+        <Reveal className="md:col-span-3 block">
           <div className="flex gap-3 mb-6">
             {i.tags.map((tag) => (
               <span
@@ -30,10 +31,10 @@ export function PropertyIdentification() {
           <p className="font-body text-lg text-foreground-muted leading-relaxed max-w-xl">
             {i.lede}
           </p>
-        </div>
+        </Reveal>
 
-        <div className="md:col-span-2">
-          <div className="md:sticky md:top-8 bg-background-raised border border-border p-8">
+        <Reveal className="md:col-span-2 block">
+          <div className="md:sticky md:top-8 bg-background-raised border border-border border-t-2 border-t-accent p-8 shadow-[0_20px_50px_-20px_rgba(0,0,0,0.25)]">
             <p className="font-display text-3xl mb-6">{i.price}</p>
             <dl className="grid grid-cols-2 gap-y-4 mb-8">
               {i.specs.map((spec) => (
@@ -48,7 +49,7 @@ export function PropertyIdentification() {
             <div className="flex flex-col gap-3">
               <button
                 onClick={scrollToForm}
-                className="w-full py-3.5 bg-accent text-background font-body text-sm tracking-[0.05em] uppercase hover:bg-accent-strong transition-colors"
+                className="w-full py-3.5 bg-accent text-background font-body text-sm tracking-[0.05em] uppercase transition-all hover:bg-accent-strong hover:-translate-y-0.5 hover:shadow-lg focus-visible:outline-2 focus-visible:outline-accent focus-visible:outline-offset-2"
               >
                 {i.ctaPrimary}
               </button>
@@ -56,13 +57,13 @@ export function PropertyIdentification() {
                 href={`https://wa.me/351939081583?text=${encodeURIComponent(t.whatsappMessage)}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full py-3.5 border border-border text-center font-body text-sm tracking-[0.05em] uppercase hover:border-accent hover:text-accent transition-colors"
+                className="w-full py-3.5 border border-border text-center font-body text-sm tracking-[0.05em] uppercase transition-all hover:border-accent hover:text-accent hover:-translate-y-0.5 focus-visible:outline-2 focus-visible:outline-accent focus-visible:outline-offset-2"
               >
                 {i.ctaWhatsapp}
               </a>
             </div>
           </div>
-        </div>
+        </Reveal>
       </div>
     </section>
   );

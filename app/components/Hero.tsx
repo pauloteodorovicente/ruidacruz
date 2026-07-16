@@ -11,11 +11,19 @@ export function Hero() {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [muted, setMuted] = useState(true);
   const [videoEnded, setVideoEnded] = useState(false);
+  const [autoplayVideo, setAutoplayVideo] = useState(true);
+
+  useEffect(() => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      setAutoplayVideo(false);
+    }
+  }, []);
 
   // Parallax: enquanto a secção fica presa no topo (scroll dentro do wrapper
   // mais alto), o texto sobe por conta própria — sinaliza que é intencional,
-  // não a página travada.
+  // não a página travada. Respeita prefers-reduced-motion.
   useEffect(() => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     let ticking = false;
 
     function update() {
@@ -54,28 +62,36 @@ export function Hero() {
   return (
     <div ref={wrapperRef} className="relative h-[160vh]">
       <section className="sticky top-0 h-[75vh] min-h-[520px] w-full overflow-hidden bg-black">
-        <video
-          ref={videoRef}
-          className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-1000 ${videoEnded ? "opacity-0" : "opacity-100"}`}
-          src="/videos/hero.mp4"
-          autoPlay
-          muted
-          playsInline
-          preload="auto"
-          onEnded={() => setVideoEnded(true)}
-        />
+        {autoplayVideo && (
+          <video
+            ref={videoRef}
+            className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-1000 ${videoEnded ? "opacity-0" : "opacity-100"}`}
+            src="/videos/hero.mp4"
+            poster="/images/leca-do-balio/01-hero-fachada.jpg"
+            autoPlay
+            muted
+            playsInline
+            preload="auto"
+            onEnded={() => setVideoEnded(true)}
+          />
+        )}
 
         <Image
           src="/images/leca-do-balio/01-hero-fachada.jpg"
           alt={t.hero.location}
           fill
+          priority
+          fetchPriority="high"
           sizes="100vw"
-          className={`object-cover transition-opacity duration-1000 ${videoEnded ? "opacity-100" : "opacity-0"}`}
+          className={`object-cover transition-opacity duration-1000 ${!autoplayVideo || videoEnded ? "opacity-100" : "opacity-0"}`}
         />
 
+        {/* Legibilidade do texto sobre o vídeo */}
         <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-black/30" />
+        {/* Scrim: transição suave para a cor de fundo da secção seguinte, adapta-se ao tema */}
+        <div className="absolute bottom-0 left-0 right-0 h-24 md:h-32 bg-gradient-to-t from-background to-transparent" />
 
-        {!videoEnded && (
+        {autoplayVideo && !videoEnded && (
           <button
             onClick={toggleSound}
             aria-label={muted ? "Ativar som" : "Silenciar"}

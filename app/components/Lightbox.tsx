@@ -67,7 +67,7 @@ export function Lightbox() {
           setIndex(0);
           setOpen(true);
         }}
-        className="mt-8 inline-flex items-center gap-2 border border-border px-6 py-3 text-sm tracking-[0.08em] uppercase text-foreground hover:border-accent hover:text-accent transition-colors"
+        className="mt-8 inline-flex items-center gap-2 border border-border px-6 py-3 text-sm tracking-[0.08em] uppercase text-foreground transition-all hover:border-accent hover:text-accent hover:-translate-y-0.5 focus-visible:outline-2 focus-visible:outline-accent focus-visible:outline-offset-2"
       >
         {locale === "pt" ? "Ver Galeria Completa" : "View Full Gallery"}
         <span className="text-foreground-muted normal-case tracking-normal text-xs">

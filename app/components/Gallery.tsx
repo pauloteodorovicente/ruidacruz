@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useLanguage } from "@/lib/language-context";
 import { galleryImages } from "@/lib/content";
 import { Lightbox } from "./Lightbox";
+import { Reveal } from "./Reveal";
 
 export function Gallery() {
   const { t, locale } = useLanguage();
@@ -12,8 +13,10 @@ export function Gallery() {
   return (
     <section className="bg-background px-6 py-14 md:px-12 md:py-20">
       <div className="mx-auto max-w-6xl">
-        <p className="text-xs tracking-[0.25em] uppercase text-accent mb-2">{g.eyebrow}</p>
-        <h2 className="font-display text-3xl md:text-4xl mb-10">{g.title}</h2>
+        <Reveal className="block">
+          <p className="text-xs tracking-[0.25em] uppercase text-accent mb-2">{g.eyebrow}</p>
+          <h2 className="font-display text-3xl md:text-4xl mb-10">{g.title}</h2>
+        </Reveal>
         <div className="grid grid-cols-2 md:grid-cols-3 gap-2 md:gap-3">
           {galleryImages.map((img, idx) => (
             <div
