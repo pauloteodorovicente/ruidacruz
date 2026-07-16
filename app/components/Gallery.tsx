@@ -13,6 +13,7 @@ export function Gallery() {
   const gridRef = useRef<HTMLDivElement>(null);
   const cursorRef = useRef<HTMLDivElement>(null);
   const [hovering, setHovering] = useState(false);
+  const [overArrow, setOverArrow] = useState(false);
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [lightboxIndex, setLightboxIndex] = useState(0);
   const [featuredIndex, setFeaturedIndex] = useState(0);
@@ -82,6 +83,14 @@ export function Gallery() {
                     <button
                       type="button"
                       onClick={(e) => stepFeatured(e, -1)}
+                      onMouseEnter={(e) => {
+                        e.stopPropagation();
+                        setOverArrow(true);
+                      }}
+                      onMouseLeave={(e) => {
+                        e.stopPropagation();
+                        setOverArrow(false);
+                      }}
                       aria-label={locale === "pt" ? "Foto anterior" : "Previous photo"}
                       className="absolute left-3 top-1/2 -translate-y-1/2 z-10 flex h-8 w-8 items-center justify-center rounded-full bg-black/35 text-white/80 backdrop-blur-sm transition-colors hover:bg-black/55 hover:text-white cursor-pointer"
                     >
@@ -90,6 +99,14 @@ export function Gallery() {
                     <button
                       type="button"
                       onClick={(e) => stepFeatured(e, 1)}
+                      onMouseEnter={(e) => {
+                        e.stopPropagation();
+                        setOverArrow(true);
+                      }}
+                      onMouseLeave={(e) => {
+                        e.stopPropagation();
+                        setOverArrow(false);
+                      }}
                       aria-label={locale === "pt" ? "Próxima foto" : "Next photo"}
                       className="absolute right-3 top-1/2 -translate-y-1/2 z-10 flex h-8 w-8 items-center justify-center rounded-full bg-black/35 text-white/80 backdrop-blur-sm transition-colors hover:bg-black/55 hover:text-white cursor-pointer"
                     >
@@ -105,7 +122,7 @@ export function Gallery() {
           <div
             ref={cursorRef}
             className={`pointer-events-none absolute top-0 left-0 z-20 hidden h-16 w-16 items-center justify-center rounded-full border border-white/70 bg-black/30 backdrop-blur-sm text-[11px] tracking-[0.1em] uppercase text-white transition-opacity duration-200 md:flex ${
-              hovering ? "opacity-100" : "opacity-0"
+              hovering && !overArrow ? "opacity-100" : "opacity-0"
             }`}
           >
             {locale === "pt" ? "Ver" : "View"}
