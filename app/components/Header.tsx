@@ -7,7 +7,7 @@ export function Header() {
   const { locale, toggle, t } = useLanguage();
 
   return (
-    <header className="absolute top-0 left-0 right-0 z-30 flex items-center justify-between px-6 py-6 md:px-12 md:py-8">
+    <header className="fixed top-0 left-0 right-0 z-30 flex items-center justify-between px-6 py-6 md:px-12 md:py-8">
       <div className="font-display text-lg md:text-xl tracking-wide text-white drop-shadow-sm">
         Rui da Cruz
       </div>
@@ -15,9 +15,10 @@ export function Header() {
         <button
           onClick={toggle}
           aria-label="Toggle language"
-          className="text-xs tracking-[0.15em] uppercase hover:text-accent transition-colors drop-shadow-sm"
+          className="text-lg leading-none hover:scale-110 transition-transform drop-shadow-sm"
+          title={locale === "pt" ? "Switch to English" : "Mudar para Português"}
         >
-          {locale === "pt" ? "EN" : "PT"}
+          {locale === "pt" ? "🇬🇧" : "🇵🇹"}
         </button>
         <span className="opacity-30">·</span>
         <span className="drop-shadow-sm">

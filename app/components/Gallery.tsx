@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { useLanguage } from "@/lib/language-context";
 import { galleryImages } from "@/lib/content";
+import { Lightbox } from "./Lightbox";
 
 export function Gallery() {
   const { t, locale } = useLanguage();
@@ -23,12 +24,14 @@ export function Gallery() {
                 src={img.src}
                 alt={img.alt[locale]}
                 fill
-                sizes="(max-width: 768px) 50vw, 33vw"
+                sizes={idx === 0 ? "(max-width: 768px) 100vw, 66vw" : "(max-width: 768px) 50vw, 33vw"}
+                quality={90}
                 className="object-cover hover:scale-[1.03] transition-transform duration-500"
               />
             </div>
           ))}
         </div>
+        <Lightbox />
       </div>
     </section>
   );
