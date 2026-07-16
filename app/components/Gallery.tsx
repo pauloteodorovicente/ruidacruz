@@ -4,7 +4,7 @@ import { useRef, useState } from "react";
 import Image from "next/image";
 import { useLanguage } from "@/lib/language-context";
 import { galleryImages } from "@/lib/content";
-import { Lightbox } from "./Lightbox";
+import { Lightbox, lightboxItemCount } from "./Lightbox";
 import { Reveal } from "./Reveal";
 
 export function Gallery() {
@@ -13,6 +13,8 @@ export function Gallery() {
   const gridRef = useRef<HTMLDivElement>(null);
   const cursorRef = useRef<HTMLDivElement>(null);
   const [hovering, setHovering] = useState(false);
+  const [lightboxOpen, setLightboxOpen] = useState(false);
+  const [lightboxIndex, setLightboxIndex] = useState(0);
 
   function handleMouseMove(e: React.MouseEvent<HTMLDivElement>) {
     const grid = gridRef.current;
@@ -20,6 +22,12 @@ export function Gallery() {
     if (!grid || !cursor) return;
     const rect = grid.getBoundingClientRect();
     cursor.style.transform = `translate(${e.clientX - rect.left}px, ${e.clientY - rect.top}px) translate(-50%, -50%)`;
+  }
+
+  function openAt(idx: number) {
+    // +1 porque o vídeo ocupa a posição 0 na galeria completa do Lightbox
+    setLightboxIndex(idx + 1);
+    setLightboxOpen(true);
   }
 
   return (
@@ -35,11 +43,14 @@ export function Gallery() {
           className="relative grid grid-cols-2 md:grid-cols-3 gap-2 md:gap-3"
         >
           {galleryImages.map((img, idx) => (
-            <div
+            <button
               key={img.src}
+              type="button"
+              onClick={() => openAt(idx)}
               onMouseEnter={() => setHovering(true)}
               onMouseLeave={() => setHovering(false)}
-              className={`relative overflow-hidden md:cursor-none ${idx === 0 ? "col-span-2 row-span-2 aspect-square md:aspect-auto" : "aspect-square"}`}
+              aria-label={locale === "pt" ? `Ver foto: ${img.alt.pt}` : `View photo: ${img.alt.en}`}
+              className={`relative overflow-hidden text-left md:cursor-none focus-visible:outline-2 focus-visible:outline-accent focus-visible:outline-offset-2 ${idx === 0 ? "col-span-2 row-span-2 aspect-square md:aspect-auto" : "aspect-square"}`}
             >
               <Image
                 src={img.src}
@@ -49,7 +60,7 @@ export function Gallery() {
                 quality={90}
                 className="object-cover hover:scale-[1.03] transition-transform duration-500"
               />
-            </div>
+            </button>
           ))}
 
           {/* Cursor customizado — elemento de assinatura, só em telas com mouse (md+) */}
@@ -62,7 +73,26 @@ export function Gallery() {
             {locale === "pt" ? "Ver" : "View"}
           </div>
         </div>
-        <Lightbox />
+
+        <button
+          onClick={() => {
+            setLightboxIndex(0);
+            setLightboxOpen(true);
+          }}
+          className="mt-8 inline-flex items-center gap-2 border border-border px-6 py-3 text-sm tracking-[0.08em] uppercase text-foreground transition-all hover:border-accent hover:text-accent hover:-translate-y-0.5 focus-visible:outline-2 focus-visible:outline-accent focus-visible:outline-offset-2"
+        >
+          {locale === "pt" ? "Ver Galeria Completa" : "View Full Gallery"}
+          <span className="text-foreground-muted normal-case tracking-normal text-xs">
+            ({lightboxItemCount - 1} {locale === "pt" ? "fotos + vídeo" : "photos + video"})
+          </span>
+        </button>
+
+        <Lightbox
+          open={lightboxOpen}
+          index={lightboxIndex}
+          onIndexChange={setLightboxIndex}
+          onClose={() => setLightboxOpen(false)}
+        />
       </div>
     </section>
   );
