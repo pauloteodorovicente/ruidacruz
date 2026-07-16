@@ -52,6 +52,10 @@ export function Gallery() {
           {galleryImages.map((img, idx) => {
             const isFeatured = idx === 0;
             const displayImg = isFeatured ? galleryImages[featuredIndex] : img;
+            // As últimas 3 fotos ficam escondidas só no mobile (grid 2 colunas
+            // não fecha certo com 11 itens após a foto principal); no desktop
+            // (grid 3 colunas) o total de 12 continua a fechar perfeitamente.
+            const hideOnMobile = idx >= galleryImages.length - 3;
             return (
               <div
                 key={isFeatured ? `featured-${featuredIndex}` : img.src}
@@ -67,7 +71,7 @@ export function Gallery() {
                 onMouseEnter={() => setHovering(true)}
                 onMouseLeave={() => setHovering(false)}
                 aria-label={locale === "pt" ? `Ver foto: ${displayImg.alt.pt}` : `View photo: ${displayImg.alt.en}`}
-                className={`relative overflow-hidden text-left md:cursor-none focus-visible:outline-2 focus-visible:outline-accent focus-visible:outline-offset-2 ${isFeatured ? "col-span-2 row-span-2 aspect-square md:aspect-auto" : "aspect-square"}`}
+                className={`relative overflow-hidden text-left md:cursor-none focus-visible:outline-2 focus-visible:outline-accent focus-visible:outline-offset-2 ${isFeatured ? "col-span-2 row-span-2 aspect-square md:aspect-auto" : "aspect-square"} ${hideOnMobile ? "hidden md:block" : ""}`}
               >
                 <Image
                   src={displayImg.src}
