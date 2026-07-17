@@ -18,8 +18,8 @@ export function FloorPlan() {
 
   const copy = {
     eyebrow: locale === "pt" ? "Planta" : "Floor Plan",
-    title: locale === "pt" ? "Planta Baixa" : "Floor Plan",
-    cta: locale === "pt" ? "Ver Planta Baixa" : "View Floor Plan",
+    title: locale === "pt" ? "Plantas do Imóvel" : "Property Floor Plans",
+    cta: locale === "pt" ? "Ver Plantas (2 Pisos)" : "View Plans (2 Floors)",
     credit: "Manuel Ventura Arquitecto",
   };
 

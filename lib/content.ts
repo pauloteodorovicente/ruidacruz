@@ -3,9 +3,9 @@ export type Locale = "pt" | "en";
 export const content = {
   pt: {
     meta: {
-      title: "Moradia T5 Leça do Balio | Uma Propriedade Rara — Rui da Cruz",
+      title: "Moradia T5 Leça do Balio | Uma Propriedade Rara — Rui Da Cruz",
       description:
-        "Moradia T5 de arquitetura de autor num loteamento fechado de vinte residências em Leça do Balio, Matosinhos. 2.545 m² de terreno, piscina aquecida, a minutos do Porto. Representação por Rui da Cruz.",
+        "Moradia T5 de arquitetura de autor num loteamento fechado de vinte residências em Leça do Balio, Matosinhos. 2.545 m² de terreno, piscina interior aquecida, a minutos do Porto. Representação por Rui Da Cruz.",
     },
     nav: {
       whatsapp: "WhatsApp Direto",
@@ -17,7 +17,7 @@ export const content = {
       location: "Leça do Balio, Matosinhos",
     },
     identification: {
-      tags: ["Moradia T5", "Loteamento Fechado", "Arquitetura de Autor"],
+      tags: ["Moradia T5", "Loteamento Fechado", "Arquitetura de Autor", "RE/MAX Collection"],
       title: "Uma propriedade rara, onde a privacidade encontra a excelência",
       lede: "Vinte residências, um único endereço junto à Quinta do Chantre — a poucos minutos do Porto.",
       price: "1.950.000 €",
@@ -25,18 +25,18 @@ export const content = {
         { label: "Tipologia", value: "T5" },
         { label: "Terreno", value: "2.545 m²" },
         { label: "Construção", value: "431 m²" },
-        { label: "Garagem", value: "2 viaturas" },
+        { label: "Garagem", value: "Box 2 + 2 exteriores" },
       ],
       ctaPrimary: "Solicitar Visita Privada",
       ctaWhatsapp: "Falar via WhatsApp",
-      agentName: "Rui da Cruz",
-      agentTitle: "Consultor Imobiliário · RE/MAX Vantagem Platina",
+      agentName: "Rui Da Cruz",
+      agentTitle: "Consultor Imobiliário · RE/MAX Vantagem Platina · Certificado RE/MAX Collection",
     },
     narrative: {
       eyebrow: "A Propriedade",
       paragraphs: [
         "Inserida na zona de proteção da Quinta do Chantre — património arquitetónico classificado — esta moradia integra um loteamento privado e reservado, composto por apenas vinte residências de grande dimensão. Aqui, a privacidade não é um privilégio. É uma condição intrínseca do lugar.",
-        "Implantada num lote de 2.545 m², rodeada por jardins maduros, um lago ornamental e uma piscina aquecida, a propriedade foi concebida para quem valoriza espaço, discrição e qualidade de vida sem abdicar da proximidade à cidade.",
+        "Implantada num lote de 2.545 m², rodeada por jardins maduros, um lago ornamental e uma piscina interior aquecida, a propriedade foi concebida para quem valoriza espaço, discrição e qualidade de vida sem abdicar da proximidade à cidade.",
         "Assinada pelo arquiteto Manuel Ventura, com paisagismo da arquiteta Marta Cudell, a casa revela uma arquitetura intemporal: volumes amplos, luz natural em todas as divisões e uma ligação permanente ao exterior. Os amplos vãos envidraçados convidam o jardim para dentro de casa, criando ambientes serenos em qualquer estação do ano.",
         "O programa interior foi pensado para uma vida em pleno: um ginásio de 30 m², sala multimédia e sala multiusos, distribuídos pelo rés-do-chão, complementam os cinco quartos e a ampla sala comum do piso superior — espaços com propósito definido, não apenas metragem.",
         "A poucos minutos do Porto, de Matosinhos, da Maia e do Aeroporto Francisco Sá Carneiro, a propriedade oferece uma centralidade rara — junto ao Mosteiro de Leça do Balio e ao Corredor Verde do Leça, quilómetros de percursos entre natureza e cidade.",
@@ -53,9 +53,9 @@ export const content = {
         "2.545 m² de terreno",
         "Ginásio privativo de 30 m²",
         "Sala multimédia e sala multiusos",
-        "Piscina aquecida",
+        "Piscina interior aquecida",
         "Jardim maduro e lago ornamental",
-        "Garagem para 2 viaturas",
+        "Garagem box para 2 viaturas + 2 lugares exteriores",
         "Construção de 2013",
         "A minutos do Porto e do Aeroporto Francisco Sá Carneiro",
       ],
@@ -67,7 +67,7 @@ export const content = {
     location: {
       eyebrow: "Localização",
       title: "Mosteiro de Leça do Balio, Matosinhos",
-      text: "Um enclave residencial de prestígio na Área Metropolitana do Porto — junto ao Mosteiro de Leça do Balio e ao Corredor Verde do Leça, com acesso rápido a Matosinhos, Maia e ao Aeroporto Francisco Sá Carneiro.",
+      text: "Um enclave residencial de prestígio na Área Metropolitana do Porto — junto à Quinta do Chantre e ao Mosteiro de Leça do Balio, no Corredor Verde do Leça, com acesso rápido a Matosinhos, Maia e ao Aeroporto Francisco Sá Carneiro.",
       mapLink: "Ver no mapa",
     },
     testimonials: {
@@ -97,22 +97,22 @@ export const content = {
       consent: "Concordo com o tratamento dos meus dados para fins de contacto comercial.",
       submit: "Solicitar Visita Privada",
       submitting: "A enviar…",
-      success: "Recebido. O Rui da Cruz entrará em contacto em breve.",
+      success: "Recebido. O Rui Da Cruz entrará em contacto em breve.",
       error: "Não foi possível enviar. Tente novamente ou contacte via WhatsApp.",
     },
     footer: {
       whatsapp: "+351 939 081 583",
       ami: "AMI 7772 · Prestígio Global – Sociedade de Mediação Imobiliária, S.A.",
-      rights: "Representação exclusiva por Rui da Cruz, RE/MAX Vantagem Platina.",
+      rights: "Representação exclusiva por Rui Da Cruz, RE/MAX Vantagem Platina.",
     },
     whatsappMessage:
       "Olá Rui, tenho interesse na Moradia em Leça do Balio (1.950.000 €). Gostaria de agendar uma visita.",
   },
   en: {
     meta: {
-      title: "T5 Leça do Balio Residence | A Rare Property — Rui da Cruz",
+      title: "T5 Leça do Balio Residence | A Rare Property — Rui Da Cruz",
       description:
-        "5-bedroom (T5) architect-designed residence in a gated enclave of twenty homes in Leça do Balio, Matosinhos. 2,545 sqm plot, heated pool, minutes from Porto. Represented by Rui da Cruz.",
+        "5-bedroom (T5) architect-designed residence in a gated enclave of twenty homes in Leça do Balio, Matosinhos. 2,545 sqm plot, indoor heated pool, minutes from Porto. Represented by Rui Da Cruz.",
     },
     nav: {
       whatsapp: "WhatsApp Direct",
@@ -124,7 +124,7 @@ export const content = {
       location: "Leça do Balio, Matosinhos",
     },
     identification: {
-      tags: ["5-Bedroom Residence", "Gated Enclave", "Architect-Designed"],
+      tags: ["5-Bedroom Residence", "Gated Enclave", "Architect-Designed", "RE/MAX Collection"],
       title: "A rare property, where privacy meets excellence",
       lede: "Twenty residences, one singular address beside Quinta do Chantre — minutes from Porto.",
       price: "€1,950,000",
@@ -132,18 +132,18 @@ export const content = {
         { label: "Bedrooms", value: "5 (T5)" },
         { label: "Plot", value: "2,545 sqm" },
         { label: "Built Area", value: "431 sqm" },
-        { label: "Garage", value: "2 cars" },
+        { label: "Garage", value: "Box 2 + 2 outdoor" },
       ],
       ctaPrimary: "Request a Private Viewing",
       ctaWhatsapp: "Talk via WhatsApp",
-      agentName: "Rui da Cruz",
-      agentTitle: "Real Estate Consultant · RE/MAX Vantagem Platina",
+      agentName: "Rui Da Cruz",
+      agentTitle: "Real Estate Consultant · RE/MAX Vantagem Platina · RE/MAX Collection Certified",
     },
     narrative: {
       eyebrow: "The Property",
       paragraphs: [
         "This home was built for those who demand the extraordinary — a haven of absolute privacy, set within the protected grounds of Quinta do Chantre, one of the region's classified architectural landmarks. A private, gated enclave of only twenty residences, where privacy is not a privilege. It is the nature of the place.",
-        "Set on a 2,545 sqm plot, embraced by mature gardens, an ornamental lake and a heated pool, the deck and the water create a seamless transition between interior elegance and nature — a space designed to be enjoyed in every season.",
+        "Set on a 2,545 sqm plot, embraced by mature gardens, an ornamental lake and an indoor heated pool, the deck and the water create a seamless transition between interior elegance and nature — a space designed to be enjoyed in every season.",
         "Designed by architect Manuel Ventura, with landscape design by Marta Cudell, the architecture reveals itself through breathtaking high ceilings and vast glass walls that flood every room with natural light. Spaces conceived for true entertaining, where craftsmanship rivals the great addresses of Europe.",
         "The interior program was conceived for a life lived fully: a 30 sqm gym, a media room and a multi-purpose room on the ground floor complement the five bedrooms and the generous living room upstairs — spaces with defined purpose, not just square meters.",
         "Just north of Porto — minutes from Matosinhos, Maia and Francisco Sá Carneiro Airport — the property sits beside the Leça do Balio Monastery and the Corredor Verde do Leça, kilometers of walking and cycling paths through an exceptional natural landscape.",
@@ -160,9 +160,9 @@ export const content = {
         "2,545 sqm plot",
         "Private 30 sqm gym",
         "Media room and multi-purpose room",
-        "Heated pool",
+        "Indoor heated pool",
         "Mature gardens & ornamental lake",
-        "Garage for 2 cars",
+        "Enclosed garage for 2 cars + 2 outdoor spaces",
         "Built in 2013",
         "Minutes from Porto & Francisco Sá Carneiro Airport",
       ],
@@ -174,7 +174,7 @@ export const content = {
     location: {
       eyebrow: "Location",
       title: "Leça do Balio Monastery, Matosinhos",
-      text: "A prestigious residential enclave in the Porto Metropolitan Area — beside the Leça do Balio Monastery and the Corredor Verde do Leça, with fast access to Matosinhos, Maia and Francisco Sá Carneiro Airport.",
+      text: "A prestigious residential enclave in the Porto Metropolitan Area — beside Quinta do Chantre and the Leça do Balio Monastery, along the Corredor Verde do Leça, with fast access to Matosinhos, Maia and Francisco Sá Carneiro Airport.",
       mapLink: "View on map",
     },
     testimonials: {
@@ -204,13 +204,13 @@ export const content = {
       consent: "I agree to the processing of my data for commercial contact purposes.",
       submit: "Request a Private Viewing",
       submitting: "Sending…",
-      success: "Received. Rui da Cruz will be in touch shortly.",
+      success: "Received. Rui Da Cruz will be in touch shortly.",
       error: "Could not send. Please try again or reach out via WhatsApp.",
     },
     footer: {
       whatsapp: "+351 939 081 583",
       ami: "AMI 7772 · Prestígio Global – Sociedade de Mediação Imobiliária, S.A.",
-      rights: "Exclusively represented by Rui da Cruz, RE/MAX Vantagem Platina.",
+      rights: "Exclusively represented by Rui Da Cruz, RE/MAX Vantagem Platina.",
     },
     whatsappMessage:
       "Hi Rui, I'm interested in the Leça do Balio residence (€1,950,000). I'd like to schedule a viewing.",

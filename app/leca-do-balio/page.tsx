@@ -18,7 +18,7 @@ const jsonLd = {
   "@type": "RealEstateListing",
   name: "Moradia T5 Leça do Balio",
   description:
-    "Moradia T5 de arquitetura de autor num loteamento fechado de vinte residências em Leça do Balio, Matosinhos. 2.545 m² de terreno, piscina aquecida.",
+    "Moradia T5 de arquitetura de autor num loteamento fechado de vinte residências em Leça do Balio, Matosinhos. 2.545 m² de terreno, piscina interior aquecida.",
   url: "https://ruidacruzconsultor.pt/leca-do-balio",
   image: "https://ruidacruzconsultor.pt/images/leca-do-balio/01-hero-fachada.jpg",
   address: {
@@ -45,7 +45,7 @@ const jsonLd = {
   },
   broker: {
     "@type": "RealEstateAgent",
-    name: "Rui da Cruz",
+    name: "Rui Da Cruz",
     telephone: "+351939081583",
   },
 };

@@ -3,7 +3,7 @@
 import { useLanguage } from "@/lib/language-context";
 import { Reveal } from "./Reveal";
 
-const MAP_QUERY = "Mosteiro+de+Leça+do+Balio+Matosinhos+Portugal";
+const MAP_URL = "https://www.google.com/maps/place/Q.ta+do+Chantre,+Le%C3%A7a+do+Balio/@41.2217061,-8.6256119,17z";
 
 export function Location() {
   const { t } = useLanguage();
@@ -18,7 +18,7 @@ export function Location() {
           {l.text}
         </p>
         <a
-          href={`https://www.google.com/maps/search/?api=1&query=${MAP_QUERY}`}
+          href={MAP_URL}
           target="_blank"
           rel="noopener noreferrer"
           className="inline-block text-sm tracking-[0.05em] uppercase text-accent border-b border-accent pb-0.5 hover:text-accent-strong transition-colors focus-visible:outline-2 focus-visible:outline-accent focus-visible:outline-offset-4"

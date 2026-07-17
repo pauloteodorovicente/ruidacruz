@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { useLanguage } from "@/lib/language-context";
 import { ThemeToggle } from "./ThemeToggle";
+import { FlagGB, FlagPT } from "./FlagIcon";
 
 export function Header() {
   const { locale, toggle, t } = useLanguage();
@@ -46,16 +47,16 @@ export function Header() {
       className={`fixed top-0 left-0 right-0 z-30 flex items-center justify-between px-6 py-6 md:px-12 md:py-8 transition-colors duration-300 ${colorClass}`}
     >
       <div className={`font-display text-lg md:text-xl tracking-wide ${overHero ? "drop-shadow-sm" : ""}`}>
-        Rui da Cruz
+        Rui Da Cruz
       </div>
       <div className="flex items-center gap-5">
         <button
           onClick={toggle}
           aria-label="Toggle language"
-          className={`flex h-[18px] w-[18px] items-center justify-center text-lg leading-none hover:scale-110 transition-transform ${overHero ? "drop-shadow-sm" : ""}`}
+          className={`flex h-[18px] w-6 items-center justify-center overflow-hidden rounded-[2px] ring-1 ring-white/40 hover:scale-110 transition-transform ${overHero ? "drop-shadow-sm" : ""}`}
           title={locale === "pt" ? "Switch to English" : "Mudar para Português"}
         >
-          {locale === "pt" ? "🇬🇧" : "🇵🇹"}
+          {locale === "pt" ? <FlagGB className="h-full w-full" /> : <FlagPT className="h-full w-full" />}
         </button>
         <span className="opacity-30">·</span>
         <span className={`flex h-[18px] w-[18px] items-center justify-center ${overHero ? "drop-shadow-sm" : ""}`}>

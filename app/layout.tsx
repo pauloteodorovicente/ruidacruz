@@ -16,7 +16,7 @@ const dmSans = DM_Sans({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://ruidacruzconsultor.pt"),
-  title: "Moradia Leça do Balio | Rui da Cruz",
+  title: "Moradia Leça do Balio | Rui Da Cruz",
   description:
     "Uma propriedade rara onde a privacidade encontra a excelência — Leça do Balio, Matosinhos.",
   openGraph: {
