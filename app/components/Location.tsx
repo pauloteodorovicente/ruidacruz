@@ -3,7 +3,10 @@
 import { useLanguage } from "@/lib/language-context";
 import { Reveal } from "./Reveal";
 
-const MAP_URL = "https://www.google.com/maps/place/Q.ta+do+Chantre,+Le%C3%A7a+do+Balio/@41.2217061,-8.6256119,17z";
+// Coordenadas exatas que o Rui indicou (Quinta do Chantre), em formato de
+// busca simples — não "place", para não abrir a ficha completa do Google
+// com anúncios de hotéis/aluguer de temporada da região ao lado.
+const MAP_URL = "https://www.google.com/maps/search/?api=1&query=41.221706,-8.625612";
 
 export function Location() {
   const { t } = useLanguage();
