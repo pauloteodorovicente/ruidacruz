@@ -20,6 +20,18 @@ const nextConfig: NextConfig = {
         destination: "https://ruidacruzconsultor.pt/:path*",
         permanent: true,
       },
+      {
+        source: "/:path*",
+        has: [{ type: "host", value: "ruidacruzconsultor.org" }],
+        destination: "https://ruidacruzconsultor.pt/:path*",
+        permanent: true,
+      },
+      {
+        source: "/:path*",
+        has: [{ type: "host", value: "www.ruidacruzconsultor.org" }],
+        destination: "https://ruidacruzconsultor.pt/:path*",
+        permanent: true,
+      },
     ];
   },
 };
