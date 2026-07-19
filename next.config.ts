@@ -5,34 +5,23 @@ const nextConfig: NextConfig = {
     remotePatterns: [{ hostname: "i.ytimg.com" }],
   },
   async redirects() {
-    // Duas regras separadas: "has" dentro do mesmo objeto funciona como E,
-    // não OU — um request não pode ter dois hosts ao mesmo tempo.
-    return [
-      {
-        source: "/:path*",
-        has: [{ type: "host", value: "ruidacruzconsultor.com" }],
-        destination: "https://ruidacruzconsultor.pt/:path*",
-        permanent: true,
-      },
-      {
-        source: "/:path*",
-        has: [{ type: "host", value: "www.ruidacruzconsultor.com" }],
-        destination: "https://ruidacruzconsultor.pt/:path*",
-        permanent: true,
-      },
-      {
-        source: "/:path*",
-        has: [{ type: "host", value: "ruidacruzconsultor.org" }],
-        destination: "https://ruidacruzconsultor.pt/:path*",
-        permanent: true,
-      },
-      {
-        source: "/:path*",
-        has: [{ type: "host", value: "www.ruidacruzconsultor.org" }],
-        destination: "https://ruidacruzconsultor.pt/:path*",
-        permanent: true,
-      },
+    // .com é o domínio canônico (maioria dos compradores é internacional).
+    // .pt e .org (e seus "www") redirecionam pra ele. Cada host tem sua
+    // própria regra — "has" dentro do mesmo objeto funciona como E, não OU,
+    // então dois hosts diferentes nunca poderiam casar na mesma regra.
+    const aliasHosts = [
+      "ruidacruzconsultor.pt",
+      "www.ruidacruzconsultor.pt",
+      "ruidacruzconsultor.org",
+      "www.ruidacruzconsultor.org",
+      "www.ruidacruzconsultor.com",
     ];
+    return aliasHosts.map((host) => ({
+      source: "/:path*",
+      has: [{ type: "host" as const, value: host }],
+      destination: "https://ruidacruzconsultor.com/:path*",
+      permanent: true,
+    }));
   },
 };
 
