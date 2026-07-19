@@ -21,6 +21,7 @@ export const content = {
       title: "Uma propriedade rara, onde a privacidade encontra a excelência",
       lede: "Vinte residências, um único endereço junto à Quinta do Chantre — a poucos minutos do Porto.",
       price: "1.950.000 €",
+      reference: "Ref. 122481641-38",
       specs: [
         { label: "Tipologia", value: "T5" },
         { label: "Terreno", value: "2.545 m²" },
@@ -128,6 +129,7 @@ export const content = {
       title: "A rare property, where privacy meets excellence",
       lede: "Twenty residences, one singular address beside Quinta do Chantre — minutes from Porto.",
       price: "€1,950,000",
+      reference: "Ref. 122481641-38",
       specs: [
         { label: "Bedrooms", value: "5 (T5)" },
         { label: "Plot", value: "2,545 sqm" },

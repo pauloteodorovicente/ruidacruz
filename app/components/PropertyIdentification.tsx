@@ -35,7 +35,8 @@ export function PropertyIdentification() {
 
         <Reveal className="md:col-span-2 block">
           <div className="md:sticky md:top-8 bg-background-raised border border-border border-t-2 border-t-accent p-8 shadow-[0_20px_50px_-20px_rgba(0,0,0,0.25)]">
-            <p className="font-display text-3xl mb-6">{i.price}</p>
+            <p className="font-display text-3xl mb-1">{i.price}</p>
+            <p className="text-[11px] tracking-[0.1em] uppercase text-foreground-muted mb-6">{i.reference}</p>
             <dl className="grid grid-cols-2 gap-y-4 mb-8">
               {i.specs.map((spec) => (
                 <div key={spec.label}>
