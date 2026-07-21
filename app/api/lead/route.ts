@@ -6,6 +6,22 @@ const GHL_VERSION = "2021-07-28";
 const FIELD_IMOVEIS_DE_INTERESSE = "WAtJLnU545LLu3YWwi4F";
 const FIELD_ZONAS = "Avo84eso9QlaqwFW8IAz";
 
+// Tenta de novo em falhas de rede ou 5xx/429 do GHL (transitórias). Erros 4xx
+// (ex.: payload inválido) não se resolvem repetindo, então retorna na hora.
+async function fetchWithRetry(url: string, options: RequestInit, retries = 1): Promise<Response> {
+  for (let attempt = 0; ; attempt++) {
+    try {
+      const res = await fetch(url, options);
+      if (res.ok || attempt >= retries || (res.status >= 400 && res.status < 500)) {
+        return res;
+      }
+    } catch (err) {
+      if (attempt >= retries) throw err;
+    }
+    await new Promise((resolve) => setTimeout(resolve, 600 * (attempt + 1)));
+  }
+}
+
 export async function POST(req: Request) {
   const token = process.env.GHL_API_TOKEN;
   const locationId = process.env.GHL_LOCATION_ID;
@@ -33,7 +49,7 @@ export async function POST(req: Request) {
   };
 
   try {
-    const contactRes = await fetch(`${GHL_BASE}/contacts/`, {
+    const contactRes = await fetchWithRetry(`${GHL_BASE}/contacts/`, {
       method: "POST",
       headers,
       body: JSON.stringify({
@@ -50,26 +66,33 @@ export async function POST(req: Request) {
       }),
     });
 
-    const contactData = await contactRes.json();
+    const contactData = await contactRes.json().catch(() => null);
 
     if (!contactRes.ok) {
-      console.error("GHL contact error", contactData);
+      console.error("GHL contact error", {
+        status: contactRes.status,
+        body: contactData,
+        timestamp: new Date().toISOString(),
+      });
       return NextResponse.json({ error: "ghl_contact_failed" }, { status: 502 });
     }
 
     const contactId = contactData?.contact?.id;
 
     if (contactId && message) {
-      await fetch(`${GHL_BASE}/contacts/${contactId}/notes`, {
+      await fetchWithRetry(`${GHL_BASE}/contacts/${contactId}/notes`, {
         method: "POST",
         headers,
         body: JSON.stringify({ body: `Mensagem do formulário (Leça do Balio): ${message}` }),
-      }).catch((err) => console.error("GHL note error", err));
+      }).catch((err) => console.error("GHL note error", { message: String(err), timestamp: new Date().toISOString() }));
     }
 
     return NextResponse.json({ ok: true, contactId });
   } catch (err) {
-    console.error("GHL request error", err);
+    console.error("GHL request error", {
+      message: err instanceof Error ? err.message : String(err),
+      timestamp: new Date().toISOString(),
+    });
     return NextResponse.json({ error: "unexpected_error" }, { status: 500 });
   }
 }

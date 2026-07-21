@@ -17,7 +17,14 @@ export function LeadForm() {
         <p className="text-sm text-white/60 mb-10">{f.subtitle}</p>
 
         {status === "success" ? (
-          <p className="font-display text-xl text-[#ce946e] py-8">{f.success}</p>
+          <div className="flex flex-col items-center gap-4 py-8">
+            <span className="flex h-12 w-12 items-center justify-center rounded-full border border-[#ce946e]">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ce946e" strokeWidth="2">
+                <path d="M5 13l4 4L19 7" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </span>
+            <p className="font-display text-xl text-[#ce946e]">{f.success}</p>
+          </div>
         ) : (
           <form onSubmit={handleSubmit} className="flex flex-col gap-4 text-left">
             <input

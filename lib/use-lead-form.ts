@@ -10,6 +10,24 @@ declare global {
 
 export type LeadFormStatus = "idle" | "submitting" | "success" | "error";
 
+// Uma nova tentativa se a primeira falhar (rede instável do visitante, blip
+// momentâneo) antes de mostrar erro pra quem está a preencher o formulário.
+async function submitWithRetry(payload: object, retries = 1): Promise<Response> {
+  for (let attempt = 0; ; attempt++) {
+    try {
+      const res = await fetch("/api/lead", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+      if (res.ok || attempt >= retries) return res;
+    } catch (err) {
+      if (attempt >= retries) throw err;
+    }
+    await new Promise((resolve) => setTimeout(resolve, 700));
+  }
+}
+
 export function useLeadForm() {
   const [status, setStatus] = useState<LeadFormStatus>("idle");
 
@@ -25,11 +43,7 @@ export function useLeadForm() {
     };
 
     try {
-      const res = await fetch("/api/lead", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
-      });
+      const res = await submitWithRetry(payload, 1);
       if (!res.ok) throw new Error("request failed");
       setStatus("success");
       window.fbq?.("track", "Lead", { content_name: "Moradia Leça do Balio" });
