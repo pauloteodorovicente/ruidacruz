@@ -49,7 +49,10 @@ export async function POST(req: Request) {
   };
 
   try {
-    const contactRes = await fetchWithRetry(`${GHL_BASE}/contacts/`, {
+    // "upsert" em vez de criar: se o telefone já existe como contacto (ex.: o
+    // mesmo lead preenchendo de novo), atualiza em vez de rejeitar como
+    // duplicado — a criação simples falha com 400 nesse caso.
+    const contactRes = await fetchWithRetry(`${GHL_BASE}/contacts/upsert`, {
       method: "POST",
       headers,
       body: JSON.stringify({

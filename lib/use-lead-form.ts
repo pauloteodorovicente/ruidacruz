@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
+import { defaultCountryCode } from "./country-codes";
 
 declare global {
   interface Window {
@@ -36,9 +37,13 @@ export function useLeadForm() {
     setStatus("submitting");
 
     const formData = new FormData(e.currentTarget);
+    const countryCode = String(formData.get("countryCode") ?? defaultCountryCode);
+    // Só dígitos, sem o zero de tronco local (ex.: "0" antes do número em
+    // vários países europeus) — o código do país já cobre esse papel.
+    const localDigits = String(formData.get("phone") ?? "").replace(/\D/g, "").replace(/^0+/, "");
     const payload = {
       name: String(formData.get("name") ?? ""),
-      phone: String(formData.get("phone") ?? ""),
+      phone: `${countryCode}${localDigits}`,
       message: String(formData.get("message") ?? ""),
     };
 

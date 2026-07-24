@@ -2,6 +2,7 @@
 
 import { useLanguage } from "@/lib/language-context";
 import { useLeadForm } from "@/lib/use-lead-form";
+import { countryCodes, defaultCountryCode } from "@/lib/country-codes";
 import { Reveal } from "./Reveal";
 
 export function LeadForm() {
@@ -33,12 +34,27 @@ export function LeadForm() {
               placeholder={f.name}
               className="bg-transparent border border-white/20 px-4 py-3 text-sm placeholder:text-white/40 focus:border-[#ce946e] outline-none transition-colors"
             />
-            <input
-              name="phone"
-              required
-              placeholder={f.phone}
-              className="bg-transparent border border-white/20 px-4 py-3 text-sm placeholder:text-white/40 focus:border-[#ce946e] outline-none transition-colors"
-            />
+            <div className="flex gap-2">
+              <select
+                name="countryCode"
+                defaultValue={defaultCountryCode}
+                aria-label={f.countryCode}
+                className="shrink-0 bg-[#040815] border border-white/20 pl-3 pr-1 py-3 text-sm focus:border-[#ce946e] outline-none transition-colors"
+              >
+                {countryCodes.map((c) => (
+                  <option key={c.code} value={c.code}>
+                    {c.flag} {c.code}
+                  </option>
+                ))}
+              </select>
+              <input
+                name="phone"
+                type="tel"
+                required
+                placeholder={f.phone}
+                className="min-w-0 flex-1 bg-transparent border border-white/20 px-4 py-3 text-sm placeholder:text-white/40 focus:border-[#ce946e] outline-none transition-colors"
+              />
+            </div>
             <textarea
               name="message"
               rows={3}
