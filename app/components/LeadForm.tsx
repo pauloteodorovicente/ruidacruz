@@ -2,7 +2,7 @@
 
 import { useLanguage } from "@/lib/language-context";
 import { useLeadForm } from "@/lib/use-lead-form";
-import { CountryCodeSelect } from "./CountryCodeSelect";
+import { PhoneField } from "./PhoneField";
 import { Reveal } from "./Reveal";
 
 export function LeadForm() {
@@ -34,16 +34,7 @@ export function LeadForm() {
               placeholder={f.name}
               className="bg-transparent border border-white/20 px-4 py-3 text-sm placeholder:text-white/40 focus:border-[#ce946e] outline-none transition-colors"
             />
-            <div className="flex gap-2">
-              <CountryCodeSelect ariaLabel={f.countryCode} />
-              <input
-                name="phone"
-                type="tel"
-                required
-                placeholder={f.phone}
-                className="min-w-0 flex-1 bg-transparent border border-white/20 px-4 py-3 text-sm placeholder:text-white/40 focus:border-[#ce946e] outline-none transition-colors"
-              />
-            </div>
+            <PhoneField countryAriaLabel={f.countryCode} phonePlaceholderFallback={f.phone} />
             <textarea
               name="message"
               rows={3}
