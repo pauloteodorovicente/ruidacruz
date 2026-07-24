@@ -34,7 +34,7 @@ export function LeadForm() {
               placeholder={f.name}
               className="bg-transparent border border-white/20 px-4 py-3 text-sm placeholder:text-white/40 focus:border-[#ce946e] outline-none transition-colors"
             />
-            <PhoneField countryAriaLabel={f.countryCode} phonePlaceholderFallback={f.phone} />
+            <PhoneField countryAriaLabel={f.countryCode} invalidMessage={f.phoneInvalid} />
             <textarea
               name="message"
               rows={3}

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
-import { defaultCountryCode } from "./country-codes";
+import { parsePhoneNumber, type CountryCode } from "libphonenumber-js";
 
 declare global {
   interface Window {
@@ -37,13 +37,22 @@ export function useLeadForm() {
     setStatus("submitting");
 
     const formData = new FormData(e.currentTarget);
-    const countryCode = String(formData.get("countryCode") ?? defaultCountryCode);
-    // Só dígitos, sem o zero de tronco local (ex.: "0" antes do número em
-    // vários países europeus) — o código do país já cobre esse papel.
-    const localDigits = String(formData.get("phone") ?? "").replace(/\D/g, "").replace(/^0+/, "");
+    const countryCode = String(formData.get("countryCode") ?? "+351");
+    const countryIso = String(formData.get("countryIso") ?? "PT") as CountryCode;
+    const nationalDigits = String(formData.get("phone") ?? "").replace(/\D/g, "");
+    // Usa a mesma lib pra montar o E.164 certo (cobre zero de tronco local e
+    // outras particularidades por país); cai pra concatenação simples só se
+    // o número não fizer sentido pra libphonenumber por algum motivo.
+    let phone = `${countryCode}${nationalDigits}`;
+    try {
+      const parsed = parsePhoneNumber(nationalDigits, countryIso);
+      if (parsed) phone = parsed.number;
+    } catch {
+      // mantém o fallback
+    }
     const payload = {
       name: String(formData.get("name") ?? ""),
-      phone: `${countryCode}${localDigits}`,
+      phone,
       message: String(formData.get("message") ?? ""),
     };
 
