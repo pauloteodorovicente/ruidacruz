@@ -18,3 +18,5 @@ export const countryCodes = [
 ] as const;
 
 export const defaultCountryCode = countryCodes[0].code;
+
+export type CountryCode = (typeof countryCodes)[number];
