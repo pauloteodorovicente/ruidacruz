@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import { getPropertyByReference, getPropertyPhotos } from "@/lib/properties";
+import { getPropertyByReference, getPropertyPhotos, getPropertyFloorplans } from "@/lib/properties";
 import { getPropertyByReferenceForAdmin } from "@/lib/admin-properties";
 import { isAdminAuthenticated } from "@/lib/admin-auth";
 import { LanguageProvider } from "@/lib/language-context";
@@ -10,35 +10,36 @@ import { PropertyHero } from "@/app/components/PropertyHero";
 import { PropertyDetails } from "@/app/components/PropertyDetails";
 import { PropertyHighlights } from "@/app/components/PropertyHighlights";
 import { PropertyGallery } from "@/app/components/PropertyGallery";
+import { PropertyFloorPlan } from "@/app/components/PropertyFloorPlan";
 import { PropertyLocation } from "@/app/components/PropertyLocation";
 import { ArchitectCredit } from "@/app/components/ArchitectCredit";
 import { LeadForm } from "@/app/components/LeadForm";
-import type { Property, PropertyPhoto } from "@/lib/properties";
+import type { Property, PropertyPhoto, PropertyFloorplan } from "@/lib/properties";
 import type { ReactNode } from "react";
 
 // Os 3 modos de layout reordenam/adicionam seções pra dar destaque ao que
 // mais importa naquele tipo de imóvel — Arquitetura destaca quem assinou o
 // projeto, Paisagem/Terreno e Urbano adiantam a Localização, só que com
 // enquadramentos diferentes (jardim/terreno vs. vizinhança/cidade).
-function sectionsForMode(property: Property, photos: PropertyPhoto[]): ReactNode[] {
+function sectionsForMode(property: Property, photos: PropertyPhoto[], floorplans: PropertyFloorplan[]): ReactNode[] {
   const details = <PropertyDetails property={property} key="details" />;
   const highlights = <PropertyHighlights property={property} key="highlights" />;
   const gallery = <PropertyGallery photos={photos} alt={property.title} key="gallery" />;
+  const floorplan = <PropertyFloorPlan floorplans={floorplans} propertyReference={property.reference} key="floorplan" />;
   const location = <PropertyLocation property={property} key="location" />;
 
   switch (property.layout_mode) {
     case "arquitetura":
-      return [details, <ArchitectCredit property={property} key="architect" />, highlights, gallery, location];
+      return [details, <ArchitectCredit property={property} key="architect" />, highlights, gallery, floorplan, location];
     case "paisagem_terreno":
-      return [details, highlights, location, gallery];
+      return [details, highlights, location, gallery, floorplan];
     case "urbano":
-      return [details, location, highlights, gallery];
+      return [details, location, highlights, gallery, floorplan];
   }
 }
 
-// Fase 5: template genérico de imóvel. Ainda faltam (próximos outputs):
-// planta, e a galeria com lightbox completo (essa versão é só um grid) —
-// ver Checklist de Construção.
+// Fase 5: template genérico de imóvel. Ainda falta a galeria com lightbox
+// completo (essa versão é só um grid) — ver Checklist de Construção.
 export default async function ImovelPage({
   params,
 }: {
@@ -54,6 +55,7 @@ export default async function ImovelPage({
   if (!property) notFound();
 
   const photos = await getPropertyPhotos(property.id);
+  const floorplans = await getPropertyFloorplans(property.id);
   const coverImage = photos[0]?.storage_path ?? "/images/leca-do-balio/01-hero-fachada.jpg";
 
   return (
@@ -66,7 +68,7 @@ export default async function ImovelPage({
       <Header />
       <main className="flex-1">
         <PropertyHero property={property} coverImage={coverImage} />
-        {sectionsForMode(property, photos)}
+        {sectionsForMode(property, photos, floorplans)}
         <LeadForm
           property={{ reference: property.reference, title: property.title, zone: property.zone }}
         />

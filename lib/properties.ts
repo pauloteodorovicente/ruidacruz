@@ -8,11 +8,12 @@ export type {
   Locale,
   Property,
   PropertyPhoto,
+  PropertyFloorplan,
   PropertyTranslation,
 } from "@/lib/property-types";
 export { recommendLayoutMode } from "@/lib/property-types";
 
-import type { Property, PropertyPhoto, PropertyTranslation, Locale } from "@/lib/property-types";
+import type { Property, PropertyPhoto, PropertyFloorplan, PropertyTranslation, Locale } from "@/lib/property-types";
 
 export async function getProperties(): Promise<Property[]> {
   const supabase = await createClient();
@@ -42,6 +43,18 @@ export async function getPropertyPhotos(propertyId: string): Promise<PropertyPho
   const supabase = await createClient();
   const { data, error } = await supabase
     .from("property_photos")
+    .select("*")
+    .eq("property_id", propertyId)
+    .order("position", { ascending: true });
+
+  if (error) throw error;
+  return data ?? [];
+}
+
+export async function getPropertyFloorplans(propertyId: string): Promise<PropertyFloorplan[]> {
+  const supabase = await createClient();
+  const { data, error } = await supabase
+    .from("property_floorplans")
     .select("*")
     .eq("property_id", propertyId)
     .order("position", { ascending: true });

@@ -46,6 +46,14 @@ export type PropertyPhoto = {
   position: number;
 };
 
+export type PropertyFloorplan = {
+  id: string;
+  property_id: string;
+  storage_path: string;
+  floor_label: string;
+  position: number;
+};
+
 export type PropertyTranslation = {
   id: string;
   property_id: string;
