@@ -35,7 +35,9 @@ export default async function ImovelPage({
         <PropertyHighlights property={property} />
         <PropertyGallery photos={photos} alt={property.title} />
         <PropertyLocation property={property} />
-        <LeadForm />
+        <LeadForm
+          property={{ reference: property.reference, title: property.title, zone: property.zone }}
+        />
       </main>
       <Footer />
       <WhatsAppFloating />

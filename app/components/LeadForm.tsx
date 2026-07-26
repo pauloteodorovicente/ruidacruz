@@ -1,14 +1,14 @@
 "use client";
 
 import { useLanguage } from "@/lib/language-context";
-import { useLeadForm } from "@/lib/use-lead-form";
+import { useLeadForm, type LeadFormProperty } from "@/lib/use-lead-form";
 import { PhoneField } from "./PhoneField";
 import { Reveal } from "./Reveal";
 
-export function LeadForm() {
+export function LeadForm({ property }: { property?: LeadFormProperty }) {
   const { t } = useLanguage();
   const f = t.form;
-  const { status, handleSubmit } = useLeadForm();
+  const { status, handleSubmit } = useLeadForm(property);
 
   return (
     <section id="contacto" className="bg-[#040815] text-[#f5f3ef] px-6 pt-16 pb-28 md:px-12 md:py-24">

@@ -34,10 +34,22 @@ export async function POST(req: Request) {
   const name = typeof body?.name === "string" ? body.name.trim() : "";
   const phone = typeof body?.phone === "string" ? body.phone.trim() : "";
   const message = typeof body?.message === "string" ? body.message.trim() : "";
+  const propertyReference = typeof body?.propertyReference === "string" ? body.propertyReference.trim() : "";
+  const propertyTitle = typeof body?.propertyTitle === "string" ? body.propertyTitle.trim() : "";
+  const zone = typeof body?.zone === "string" ? body.zone.trim() : "";
 
   if (!name || !phone) {
     return NextResponse.json({ error: "name and phone are required" }, { status: 400 });
   }
+
+  // Sem propertyReference (a landing da Leça do Balio hoje não manda esses
+  // campos), cai no comportamento de sempre — não muda nada em produção.
+  const tag = propertyReference ? `site-${propertyReference}` : "site-leca-do-balio";
+  const interestLabel = propertyReference
+    ? `${propertyTitle || "Imóvel"} | ${propertyReference}`
+    : "Moradia T5 | Leça do Balio | Matosinhos | 122481641-38";
+  const zoneValue = zone || "Grande Porto";
+  const source = propertyTitle ? `Site - ${propertyTitle}` : "Site - Landing Leça do Balio";
 
   const [firstName, ...rest] = name.split(" ");
   const lastName = rest.join(" ") || undefined;
@@ -60,11 +72,11 @@ export async function POST(req: Request) {
         firstName,
         lastName,
         phone,
-        tags: ["site-leca-do-balio"],
-        source: "Site - Landing Leça do Balio",
+        tags: [tag],
+        source,
         customFields: [
-          { id: FIELD_IMOVEIS_DE_INTERESSE, field_value: ["Moradia T5 | Leça do Balio | Matosinhos | 122481641-38"] },
-          { id: FIELD_ZONAS, field_value: "Grande Porto" },
+          { id: FIELD_IMOVEIS_DE_INTERESSE, field_value: [interestLabel] },
+          { id: FIELD_ZONAS, field_value: zoneValue },
         ],
       }),
     });
@@ -86,7 +98,7 @@ export async function POST(req: Request) {
       await fetchWithRetry(`${GHL_BASE}/contacts/${contactId}/notes`, {
         method: "POST",
         headers,
-        body: JSON.stringify({ body: `Mensagem do formulário (Leça do Balio): ${message}` }),
+        body: JSON.stringify({ body: `Mensagem do formulário (${propertyTitle || "Leça do Balio"}): ${message}` }),
       }).catch((err) => console.error("GHL note error", { message: String(err), timestamp: new Date().toISOString() }));
     }
 

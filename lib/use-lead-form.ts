@@ -29,7 +29,15 @@ async function submitWithRetry(payload: object, retries = 1): Promise<Response> 
   }
 }
 
-export function useLeadForm() {
+export type LeadFormProperty = {
+  reference: string;
+  title: string;
+  zone?: string | null;
+};
+
+// Sem property (a landing da Leça do Balio chama sem passar nada), o backend
+// cai no comportamento fixo de sempre — ver app/api/lead/route.ts.
+export function useLeadForm(property?: LeadFormProperty) {
   const [status, setStatus] = useState<LeadFormStatus>("idle");
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
@@ -54,13 +62,18 @@ export function useLeadForm() {
       name: String(formData.get("name") ?? ""),
       phone,
       message: String(formData.get("message") ?? ""),
+      ...(property && {
+        propertyReference: property.reference,
+        propertyTitle: property.title,
+        zone: property.zone ?? undefined,
+      }),
     };
 
     try {
       const res = await submitWithRetry(payload, 1);
       if (!res.ok) throw new Error("request failed");
       setStatus("success");
-      window.fbq?.("track", "Lead", { content_name: "Moradia Leça do Balio" });
+      window.fbq?.("track", "Lead", { content_name: property?.title ?? "Moradia Leça do Balio" });
     } catch {
       setStatus("error");
     }

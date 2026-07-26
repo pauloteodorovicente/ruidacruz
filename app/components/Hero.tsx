@@ -76,15 +76,20 @@ export function Hero() {
           />
         )}
 
-        <Image
-          src="/images/leca-do-balio/01-hero-fachada.jpg"
-          alt={t.hero.location}
-          fill
-          priority
-          fetchPriority="high"
-          sizes="100vw"
-          className={`object-cover transition-opacity duration-1000 ${!autoplayVideo || videoEnded ? "opacity-100" : "opacity-0"}`}
-        />
+        {/* Wrapper com position explícita — next/image com fill só reconhece
+            absolute/fixed/relative no pai direto, "sticky" (a section) não conta,
+            mesmo criando um bloco de referência válido na prática. */}
+        <div className="absolute inset-0">
+          <Image
+            src="/images/leca-do-balio/01-hero-fachada.jpg"
+            alt={t.hero.location}
+            fill
+            priority
+            fetchPriority="high"
+            sizes="100vw"
+            className={`object-cover transition-opacity duration-1000 ${!autoplayVideo || videoEnded ? "opacity-100" : "opacity-0"}`}
+          />
+        </div>
 
         {/* Legibilidade do texto sobre o vídeo */}
         <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-black/30" />
