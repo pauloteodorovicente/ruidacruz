@@ -79,7 +79,21 @@ export function PropertyForm({ property }: { property?: Property }) {
             <input type="checkbox" name="featured" defaultChecked={property?.featured} />
             <span className="text-sm">Destaque na home</span>
           </label>
+          <label className="flex items-center gap-2 self-end pb-2.5">
+            <input type="checkbox" name="published" defaultChecked={property?.published ?? false} />
+            <span className="text-sm">Publicado (visível no site)</span>
+          </label>
         </div>
+        {property && (
+          <a
+            href={`/imoveis/${property.reference}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="self-start text-xs tracking-[0.08em] uppercase text-accent hover:text-accent-strong transition-colors"
+          >
+            Pré-visualizar →
+          </a>
+        )}
       </fieldset>
 
       <fieldset className="flex flex-col gap-4">

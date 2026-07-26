@@ -1,7 +1,7 @@
 import { redirect } from "next/navigation";
 import Link from "next/link";
 import { isAdminAuthenticated } from "@/lib/admin-auth";
-import { getProperties } from "@/lib/properties";
+import { getAllPropertiesForAdmin } from "@/lib/admin-properties";
 import { LogoutButton } from "./LogoutButton";
 
 const STATUS_LABEL: Record<string, string> = {
@@ -14,7 +14,7 @@ const STATUS_LABEL: Record<string, string> = {
 export default async function AdminPage() {
   if (!(await isAdminAuthenticated())) redirect("/admin/login");
 
-  const properties = await getProperties();
+  const properties = await getAllPropertiesForAdmin();
 
   return (
     <main className="min-h-screen bg-background px-6 py-10 md:px-12">
@@ -55,6 +55,16 @@ export default async function AdminPage() {
                       Destaque
                     </span>
                   )}
+                  <span
+                    className="text-[11px] tracking-[0.08em] uppercase px-2 py-0.5"
+                    style={
+                      property.published
+                        ? { color: "#3d6b4a", borderColor: "#3d6b4a", border: "1px solid" }
+                        : { color: "#a3623a", borderColor: "#a3623a", border: "1px solid" }
+                    }
+                  >
+                    {property.published ? "Publicado" : "Rascunho"}
+                  </span>
                 </div>
               </Link>
             ))}

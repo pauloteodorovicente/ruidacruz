@@ -1,5 +1,7 @@
 import { notFound } from "next/navigation";
 import { getPropertyByReference, getPropertyPhotos } from "@/lib/properties";
+import { getPropertyByReferenceForAdmin } from "@/lib/admin-properties";
+import { isAdminAuthenticated } from "@/lib/admin-auth";
 import { LanguageProvider } from "@/lib/language-context";
 import { Header } from "@/app/components/Header";
 import { Footer } from "@/app/components/Footer";
@@ -43,7 +45,12 @@ export default async function ImovelPage({
   params: Promise<{ referencia: string }>;
 }) {
   const { referencia } = await params;
-  const property = await getPropertyByReference(referencia);
+  const isAdmin = await isAdminAuthenticated();
+  // Admin vê rascunhos (modo de pré-visualização); visitante público só vê o
+  // que passar pela RLS (published = true), que já trata o "não encontrado".
+  const property = isAdmin
+    ? await getPropertyByReferenceForAdmin(referencia)
+    : await getPropertyByReference(referencia);
   if (!property) notFound();
 
   const photos = await getPropertyPhotos(property.id);
@@ -51,6 +58,11 @@ export default async function ImovelPage({
 
   return (
     <LanguageProvider>
+      {isAdmin && !property.published && (
+        <div className="bg-accent px-6 py-2 text-center text-xs font-body tracking-[0.08em] uppercase text-background">
+          Pré-visualização — este imóvel ainda não está publicado
+        </div>
+      )}
       <Header />
       <main className="flex-1">
         <PropertyHero property={property} coverImage={coverImage} />

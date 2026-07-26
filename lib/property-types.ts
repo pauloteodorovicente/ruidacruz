@@ -17,6 +17,7 @@ export type Property = {
   typology: string | null;
   status: PropertyStatus;
   featured: boolean;
+  published: boolean;
   zone: string | null;
   municipality: string | null;
   map_url: string | null;
