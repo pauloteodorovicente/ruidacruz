@@ -1,5 +1,7 @@
 import { notFound } from "next/navigation";
+import type { Metadata } from "next";
 import { getPropertyByReference, getPropertyPhotos, getPropertyFloorplans } from "@/lib/properties";
+import { localeAlternates } from "@/lib/locale-alternates";
 import { getPropertyByReferenceForAdmin } from "@/lib/admin-properties";
 import { isAdminAuthenticated } from "@/lib/admin-auth";
 import { SiteHeader } from "@/app/components/site/SiteHeader";
@@ -37,12 +39,62 @@ function sectionsForMode(property: Property, photos: PropertyPhoto[], floorplans
   }
 }
 
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string; referencia: string }>;
+}): Promise<Metadata> {
+  const { referencia } = await params;
+  const property = await getPropertyByReference(referencia);
+  if (!property) return {};
+
+  return {
+    title: `${property.title} | Rui Da Cruz`,
+    description: property.description ?? undefined,
+    alternates: { languages: localeAlternates(`/imoveis/${referencia}`) },
+  };
+}
+
+// RealEstateListing por imóvel (JSON-LD) — mesmo schema da Leça do Balio
+// (app/leca-do-balio/page.tsx), mas montado a partir dos dados reais no
+// Supabase em vez de fixo, já que agora vale pra qualquer imóvel publicado.
+function propertyJsonLd(property: Property, coverImage: string, locale: string) {
+  const prefix = locale === "pt-PT" ? "" : `/${locale}`;
+  return {
+    "@context": "https://schema.org",
+    "@type": "RealEstateListing",
+    name: property.title,
+    description: property.description ?? undefined,
+    url: `https://ruidacruzconsultor.com${prefix}/imoveis/${property.reference}`,
+    image: coverImage.startsWith("http") ? coverImage : `https://ruidacruzconsultor.com${coverImage}`,
+    address: {
+      "@type": "PostalAddress",
+      addressLocality: property.municipality ?? property.zone ?? undefined,
+      addressCountry: "PT",
+    },
+    offers: property.price_on_application
+      ? undefined
+      : { "@type": "Offer", price: property.price ?? undefined, priceCurrency: "EUR" },
+    floorSize: property.construction_area_sqm
+      ? { "@type": "QuantitativeValue", value: property.construction_area_sqm, unitCode: "MTK" }
+      : undefined,
+    lotSize: property.land_area_sqm
+      ? { "@type": "QuantitativeValue", value: property.land_area_sqm, unitCode: "MTK" }
+      : undefined,
+    broker: {
+      "@type": "RealEstateAgent",
+      name: "Rui Da Cruz",
+      telephone: "+351939081583",
+    },
+  };
+}
+
 export default async function ImovelPage({
   params,
 }: {
   params: Promise<{ locale: string; referencia: string }>;
 }) {
-  const { referencia } = await params;
+  const { locale, referencia } = await params;
   const isAdmin = await isAdminAuthenticated();
   // Admin vê rascunhos (modo de pré-visualização); visitante público só vê o
   // que passar pela RLS (published = true), que já trata o "não encontrado".
@@ -57,6 +109,10 @@ export default async function ImovelPage({
 
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(propertyJsonLd(property, coverImage, locale)) }}
+      />
       {isAdmin && !property.published && (
         <div className="bg-accent px-6 py-2 text-center text-xs font-body tracking-[0.08em] uppercase text-background">
           Pré-visualização — este imóvel ainda não está publicado
