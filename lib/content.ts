@@ -125,6 +125,25 @@ export const content = {
         ctaPrimary: "Ver Coleção Curada",
         ctaSecondary: "Falar com Rui",
       },
+      credibility: {
+        items: [
+          { value: "7 Anos", label: "de atuação no mercado imobiliário de Lisboa e Porto" },
+          { value: "RE/MAX Collection", label: "certificação de agente para o segmento de luxo" },
+          { value: "Portfólio Selecionado", label: "imóveis de alto padrão em Lisboa, Cascais e Porto" },
+        ],
+      },
+      collection: {
+        eyebrow: "Coleção Curada",
+        title: "Uma seleção, não uma lista",
+        priceOnApplication: "Preço Sob Consulta",
+        viewProperty: "Ver Imóvel",
+      },
+      about: {
+        eyebrow: "O Consultor",
+        title: "Rui Da Cruz",
+        text: "Consultor imobiliário certificado RE/MAX Collection, com atuação focada em Parque das Nações e nas zonas premium de Lisboa, Cascais e Porto. Uma abordagem pessoal e discreta, dedicada a cada cliente do início ao fecho do negócio.",
+        cta: "Conhecer a História",
+      },
     },
   },
   en: {
@@ -249,6 +268,25 @@ export const content = {
           "A curated collection of properties in Lisbon, Cascais and Porto — each hand-picked, never simply listed.",
         ctaPrimary: "View Curated Collection",
         ctaSecondary: "Talk to Rui",
+      },
+      credibility: {
+        items: [
+          { value: "7 Years", label: "active in the Lisbon and Porto real estate market" },
+          { value: "RE/MAX Collection", label: "certified luxury segment agent" },
+          { value: "Curated Portfolio", label: "premium properties in Lisbon, Cascais and Porto" },
+        ],
+      },
+      collection: {
+        eyebrow: "Curated Collection",
+        title: "A selection, not a listing",
+        priceOnApplication: "Price on Application",
+        viewProperty: "View Property",
+      },
+      about: {
+        eyebrow: "The Consultant",
+        title: "Rui Da Cruz",
+        text: "RE/MAX Collection certified real estate consultant, focused on Parque das Nações and the premium areas of Lisbon, Cascais and Porto. A personal, discreet approach, dedicated to each client from start to close.",
+        cta: "Learn the Story",
       },
     },
   },
