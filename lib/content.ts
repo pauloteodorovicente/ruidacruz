@@ -145,6 +145,32 @@ export const content = {
         cta: "Conhecer a História",
       },
     },
+    // Fase 7 — /sobre e /contacto (rascunho: biografia real ainda pendente com o Rui).
+    sobre: {
+      meta: {
+        title: "Sobre Rui Da Cruz | Consultor Imobiliário — RE/MAX Collection",
+        description:
+          "Consultor imobiliário certificado RE/MAX Collection, com atuação em Parque das Nações, Lisboa, Cascais e Porto.",
+      },
+      eyebrow: "O Consultor",
+      title: "Rui Da Cruz",
+      credentials: ["RE/MAX Collection", "AMI 7772", "7 Anos de Atuação"],
+      paragraphs: [
+        "Rui Da Cruz é consultor imobiliário certificado RE/MAX Collection, com atuação focada em Parque das Nações e nas zonas premium de Lisboa, Cascais e Porto.",
+        "A sua abordagem é pessoal e discreta — dedicada a cada cliente do início ao fecho do negócio, com especial atenção a quem procura imóveis de características únicas.",
+      ],
+      pending: "Biografia completa em preparação.",
+    },
+    contacto: {
+      meta: {
+        title: "Contacto | Rui Da Cruz — Consultor Imobiliário",
+        description: "Fale diretamente com Rui Da Cruz — resposta em poucas horas.",
+      },
+      eyebrow: "Contacto",
+      title: "Fale Diretamente Comigo",
+      subtitle: "Para qualquer questão imobiliária — resposta em poucas horas.",
+      submit: "Enviar Mensagem",
+    },
     // Fase 5 — rótulos genéricos do template de imóvel dinâmico (não mudam por imóvel).
     property: {
       location: "Localização",
@@ -314,6 +340,31 @@ export const content = {
         text: "RE/MAX Collection certified real estate consultant, focused on Parque das Nações and the premium areas of Lisbon, Cascais and Porto. A personal, discreet approach, dedicated to each client from start to close.",
         cta: "Learn the Story",
       },
+    },
+    sobre: {
+      meta: {
+        title: "About Rui Da Cruz | Real Estate Consultant — RE/MAX Collection",
+        description:
+          "RE/MAX Collection certified real estate consultant, active in Parque das Nações, Lisbon, Cascais and Porto.",
+      },
+      eyebrow: "The Consultant",
+      title: "Rui Da Cruz",
+      credentials: ["RE/MAX Collection", "AMI 7772", "7 Years Active"],
+      paragraphs: [
+        "Rui Da Cruz is a RE/MAX Collection certified real estate consultant, focused on Parque das Nações and the premium areas of Lisbon, Cascais and Porto.",
+        "His approach is personal and discreet — dedicated to each client from start to close, with particular attention to those seeking properties with unique characteristics.",
+      ],
+      pending: "Full biography in preparation.",
+    },
+    contacto: {
+      meta: {
+        title: "Contact | Rui Da Cruz — Real Estate Consultant",
+        description: "Get in touch directly with Rui Da Cruz — response within hours.",
+      },
+      eyebrow: "Contact",
+      title: "Talk Directly to Me",
+      subtitle: "For any real estate question — response within hours.",
+      submit: "Send Message",
     },
     property: {
       location: "Location",
