@@ -19,12 +19,12 @@ export default async function AdminPage() {
   return (
     <main className="min-h-screen bg-background px-6 py-10 md:px-12">
       <div className="mx-auto max-w-4xl">
-        <div className="flex items-center justify-between mb-10">
+        <div className="flex flex-wrap items-center justify-between gap-y-3 mb-10">
           <div>
             <p className="text-xs tracking-[0.25em] uppercase text-accent mb-1">Painel Administrativo</p>
             <h1 className="font-display text-2xl">Imóveis</h1>
           </div>
-          <div className="flex items-center gap-6">
+          <div className="flex flex-wrap items-center gap-x-6 gap-y-2">
             <Link href="/admin/imoveis/novo" className="text-xs tracking-[0.08em] uppercase text-accent hover:text-accent-strong transition-colors">
               + Novo Imóvel
             </Link>

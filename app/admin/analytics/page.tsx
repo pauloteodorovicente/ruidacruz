@@ -36,7 +36,7 @@ export default async function AnalyticsPage() {
   return (
     <main className="min-h-screen bg-background px-6 py-10 md:px-12">
       <div className="mx-auto max-w-4xl flex flex-col gap-14">
-        <div className="flex items-center justify-between">
+        <div className="flex flex-wrap items-center justify-between gap-y-3">
           <div>
             <p className="text-xs tracking-[0.25em] uppercase text-accent mb-1">Painel Administrativo</p>
             <h1 className="font-display text-2xl">Analytics</h1>
