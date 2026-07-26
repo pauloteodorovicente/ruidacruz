@@ -1,7 +1,7 @@
 import { redirect } from "next/navigation";
 import Link from "next/link";
 import { isAdminAuthenticated } from "@/lib/admin-auth";
-import { getLeadStats, getWhatsAppClickCount } from "@/lib/admin-analytics";
+import { getLeadStats, getWhatsAppClickCount, getEngagementStats } from "@/lib/admin-analytics";
 
 function StatCard({ label, value, hint }: { label: string; value: string | number; hint?: string }) {
   return (
@@ -25,7 +25,11 @@ function NotCollectingYet({ what, howTo }: { what: string; howTo: string }) {
 export default async function AnalyticsPage() {
   if (!(await isAdminAuthenticated())) redirect("/admin/login");
 
-  const [leadStats, whatsapp] = await Promise.all([getLeadStats(), getWhatsAppClickCount()]);
+  const [leadStats, whatsapp, engagement] = await Promise.all([
+    getLeadStats(),
+    getWhatsAppClickCount(),
+    getEngagementStats(),
+  ]);
   const conversionRate =
     leadStats.total > 0 ? Math.round((leadStats.successCount / leadStats.total) * 100) : null;
 
@@ -52,9 +56,14 @@ export default async function AnalyticsPage() {
 
         <section className="flex flex-col gap-4">
           <h2 className="font-display text-lg text-accent">Engajamento</h2>
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
+            <StatCard label="Abriram a Galeria" value={engagement.galleryViews.total} hint={`${engagement.galleryViews.last7Days} nos últimos 7 dias`} />
+            <StatCard label="Abriram Plantas" value={engagement.floorplanViews.total} hint={`${engagement.floorplanViews.last7Days} nos últimos 7 dias`} />
+            <StatCard label="Clicaram em Ver no Mapa" value={engagement.mapViews.total} hint={`${engagement.mapViews.last7Days} nos últimos 7 dias`} />
+          </div>
           <NotCollectingYet
-            what="reprodução de vídeo, fotos vistas na galeria ou cliques em 'Ver Plantas'/'Ver no mapa'"
-            howTo="Dá pra registrar cada um desses cliques (o mecanismo já existe, usado agora só pro WhatsApp) — falta ligar nos outros botões, um output futuro."
+            what="reprodução de vídeo ainda"
+            howTo="O vídeo do hero começa sozinho pra todo mundo (autoplay), então 'reproduziu' não diria muito sobre engajamento real — não vale a pena rastrear isso por ora."
           />
         </section>
 

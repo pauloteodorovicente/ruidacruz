@@ -44,9 +44,9 @@ export async function getLeadStats(): Promise<LeadStats> {
   };
 }
 
-export async function getWhatsAppClickCount(): Promise<{ total: number; last7Days: number }> {
+async function getEventCount(type: string): Promise<{ total: number; last7Days: number }> {
   const supabase = createAdminClient();
-  const { data, error } = await supabase.from("events").select("created_at").eq("type", "whatsapp_click");
+  const { data, error } = await supabase.from("events").select("created_at").eq("type", type);
 
   if (error) throw error;
   const rows = data ?? [];
@@ -55,4 +55,23 @@ export async function getWhatsAppClickCount(): Promise<{ total: number; last7Day
     total: rows.length,
     last7Days: rows.filter((r) => new Date(r.created_at).getTime() >= sevenDaysAgo).length,
   };
+}
+
+export async function getWhatsAppClickCount(): Promise<{ total: number; last7Days: number }> {
+  return getEventCount("whatsapp_click");
+}
+
+export type EngagementStats = {
+  floorplanViews: { total: number; last7Days: number };
+  mapViews: { total: number; last7Days: number };
+  galleryViews: { total: number; last7Days: number };
+};
+
+export async function getEngagementStats(): Promise<EngagementStats> {
+  const [floorplanViews, mapViews, galleryViews] = await Promise.all([
+    getEventCount("floorplan_view"),
+    getEventCount("map_view"),
+    getEventCount("gallery_view"),
+  ]);
+  return { floorplanViews, mapViews, galleryViews };
 }

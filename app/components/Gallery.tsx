@@ -7,6 +7,7 @@ import { galleryImages } from "@/lib/content";
 import { Lightbox, lightboxItemCount } from "./Lightbox";
 import { Reveal } from "./Reveal";
 import { useCustomCursor } from "@/lib/use-custom-cursor";
+import { trackEvent } from "@/lib/track-event";
 
 export function Gallery() {
   const { t, locale } = useLanguage();
@@ -19,6 +20,7 @@ export function Gallery() {
   const [featuredIndex, setFeaturedIndex] = useState(0);
 
   function openAt(idx: number) {
+    trackEvent("gallery_view", "122481641-38");
     // +1 porque o vídeo ocupa a posição 0 na galeria completa do Lightbox
     setLightboxIndex(idx + 1);
     setLightboxOpen(true);
@@ -127,6 +129,7 @@ export function Gallery() {
 
         <button
           onClick={() => {
+            trackEvent("gallery_view", "122481641-38");
             setLightboxIndex(0);
             setLightboxOpen(true);
           }}

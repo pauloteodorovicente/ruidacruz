@@ -2,6 +2,7 @@
 
 import { useLanguage } from "@/lib/language-context";
 import { Reveal } from "./Reveal";
+import { trackEvent } from "@/lib/track-event";
 
 // Coordenadas exatas que o Rui indicou (Quinta do Chantre), em formato de
 // busca simples — não "place", para não abrir a ficha completa do Google
@@ -24,6 +25,7 @@ export function Location() {
           href={MAP_URL}
           target="_blank"
           rel="noopener noreferrer"
+          onClick={() => trackEvent("map_view", "122481641-38")}
           className="inline-block text-sm tracking-[0.05em] uppercase text-accent border-b border-accent pb-0.5 hover:text-accent-strong transition-colors focus-visible:outline-2 focus-visible:outline-accent focus-visible:outline-offset-4"
         >
           {l.mapLink} →

@@ -4,6 +4,7 @@ import { useState } from "react";
 import Image from "next/image";
 import { useLanguage } from "@/lib/language-context";
 import { Reveal } from "./Reveal";
+import { trackEvent } from "@/lib/track-event";
 
 const floors = [
   { id: "rc", src: "/images/leca-do-balio/planta/res-do-chao.jpg", label: { pt: "Rés-do-Chão", en: "Ground Floor" } },
@@ -31,7 +32,10 @@ export function FloorPlan() {
           <p className="font-display text-xl md:text-2xl">{copy.title}</p>
         </div>
         <button
-          onClick={() => setOpen(true)}
+          onClick={() => {
+            trackEvent("floorplan_view", "122481641-38");
+            setOpen(true);
+          }}
           className="inline-flex items-center gap-2 border border-border px-6 py-3 text-sm tracking-[0.08em] uppercase text-foreground transition-all hover:border-accent hover:text-accent hover:-translate-y-0.5 focus-visible:outline-2 focus-visible:outline-accent focus-visible:outline-offset-2"
         >
           {copy.cta} →

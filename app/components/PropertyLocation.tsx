@@ -2,6 +2,7 @@
 
 import { useLanguage } from "@/lib/language-context";
 import { Reveal } from "./Reveal";
+import { trackEvent } from "@/lib/track-event";
 import type { Property } from "@/lib/properties";
 
 export function PropertyLocation({ property }: { property: Property }) {
@@ -21,6 +22,7 @@ export function PropertyLocation({ property }: { property: Property }) {
           href={property.map_url}
           target="_blank"
           rel="noopener noreferrer"
+          onClick={() => trackEvent("map_view", property.reference)}
           className="inline-block text-sm tracking-[0.05em] uppercase text-accent border-b border-accent pb-0.5 hover:text-accent-strong transition-colors focus-visible:outline-2 focus-visible:outline-accent focus-visible:outline-offset-4"
         >
           {p.mapLink} →
