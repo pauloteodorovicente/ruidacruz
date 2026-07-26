@@ -1,13 +1,19 @@
 import { notFound } from "next/navigation";
-import { getPropertyByReference } from "@/lib/properties";
+import { getPropertyByReference, getPropertyPhotos } from "@/lib/properties";
 import { LanguageProvider } from "@/lib/language-context";
 import { Header } from "@/app/components/Header";
 import { Footer } from "@/app/components/Footer";
 import { WhatsAppFloating } from "@/app/components/WhatsAppFloating";
+import { PropertyHero } from "@/app/components/PropertyHero";
+import { PropertyDetails } from "@/app/components/PropertyDetails";
+import { PropertyHighlights } from "@/app/components/PropertyHighlights";
+import { PropertyGallery } from "@/app/components/PropertyGallery";
+import { PropertyLocation } from "@/app/components/PropertyLocation";
+import { LeadForm } from "@/app/components/LeadForm";
 
-// Fase 5, primeiro output: só a rota + o dado do Supabase chegando.
-// Cada seção (Hero, Galeria, Planta, Localização...) vira dinâmica aqui
-// uma de cada vez, nos próximos outputs — ver Checklist de Construção.
+// Fase 5: template genérico de imóvel. Ainda faltam (próximos outputs): os
+// 3 modos de layout, planta, e a galeria com lightbox completo (essa versão
+// é só um grid) — ver Checklist de Construção.
 export default async function ImovelPage({
   params,
 }: {
@@ -17,16 +23,19 @@ export default async function ImovelPage({
   const property = await getPropertyByReference(referencia);
   if (!property) notFound();
 
+  const photos = await getPropertyPhotos(property.id);
+  const coverImage = photos[0]?.storage_path ?? "/images/leca-do-balio/01-hero-fachada.jpg";
+
   return (
     <LanguageProvider>
       <Header />
-      <main className="flex-1 bg-background px-6 pt-28 pb-20 md:px-12 md:pt-36">
-        <div className="mx-auto max-w-3xl">
-          <p className="text-xs tracking-[0.25em] uppercase text-accent mb-2">{property.zone}</p>
-          <h1 className="font-display text-3xl md:text-4xl mb-4">{property.title}</h1>
-          <p className="text-foreground-muted leading-relaxed">{property.description}</p>
-          <p className="mt-6 text-sm text-foreground-muted opacity-70">Ref. {property.reference}</p>
-        </div>
+      <main className="flex-1">
+        <PropertyHero property={property} coverImage={coverImage} />
+        <PropertyDetails property={property} />
+        <PropertyHighlights property={property} />
+        <PropertyGallery photos={photos} alt={property.title} />
+        <PropertyLocation property={property} />
+        <LeadForm />
       </main>
       <Footer />
       <WhatsAppFloating />
