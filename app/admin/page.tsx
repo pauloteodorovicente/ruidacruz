@@ -1,4 +1,5 @@
 import { redirect } from "next/navigation";
+import Link from "next/link";
 import { isAdminAuthenticated } from "@/lib/admin-auth";
 import { getProperties } from "@/lib/properties";
 import { LogoutButton } from "./LogoutButton";
@@ -23,7 +24,12 @@ export default async function AdminPage() {
             <p className="text-xs tracking-[0.25em] uppercase text-accent mb-1">Painel Administrativo</p>
             <h1 className="font-display text-2xl">Imóveis</h1>
           </div>
-          <LogoutButton />
+          <div className="flex items-center gap-6">
+            <Link href="/admin/imoveis/novo" className="text-xs tracking-[0.08em] uppercase text-accent hover:text-accent-strong transition-colors">
+              + Novo Imóvel
+            </Link>
+            <LogoutButton />
+          </div>
         </div>
 
         {properties.length === 0 ? (
@@ -31,9 +37,10 @@ export default async function AdminPage() {
         ) : (
           <div className="border border-border">
             {properties.map((property) => (
-              <div
+              <Link
                 key={property.id}
-                className="flex flex-wrap items-center justify-between gap-3 border-b border-border px-5 py-4 last:border-b-0"
+                href={`/admin/imoveis/${property.reference}/editar`}
+                className="flex flex-wrap items-center justify-between gap-3 border-b border-border px-5 py-4 last:border-b-0 transition-colors hover:bg-background-raised"
               >
                 <div>
                   <p className="font-display text-base">{property.title}</p>
@@ -49,12 +56,10 @@ export default async function AdminPage() {
                     </span>
                   )}
                 </div>
-              </div>
+              </Link>
             ))}
           </div>
         )}
-
-        {/* Próximo output (Fase 6): formulário de criar/editar imóvel — ver Checklist de Construção. */}
       </div>
     </main>
   );
