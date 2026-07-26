@@ -5,12 +5,25 @@ import { useLanguage } from "@/lib/language-context";
 export function WhatsAppFloating() {
   const { t } = useLanguage();
 
+  function trackClick() {
+    // "Conversão paralela" (Fase 6) — muitos leads reais vão direto pelo
+    // WhatsApp sem passar pelo formulário; sem isso o dashboard subestimaria
+    // a conversão real. Não bloqueia a navegação se falhar.
+    fetch("/api/track", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ type: "whatsapp_click" }),
+      keepalive: true,
+    }).catch(() => {});
+  }
+
   return (
     <a
       href={`https://wa.me/351939081583?text=${encodeURIComponent(t.whatsappMessage)}`}
       target="_blank"
       rel="noopener noreferrer"
       aria-label={t.nav.whatsapp}
+      onClick={trackClick}
       className="fixed bottom-6 right-6 z-40 flex h-12 w-12 items-center justify-center rounded-full bg-[#25D366] shadow-lg hover:scale-105 transition-transform"
     >
       <svg viewBox="0 0 24 24" fill="white" className="h-6 w-6">

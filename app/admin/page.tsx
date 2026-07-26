@@ -31,6 +31,9 @@ export default async function AdminPage() {
             <Link href="/admin/depoimentos" className="text-xs tracking-[0.08em] uppercase text-foreground-muted hover:text-accent transition-colors">
               Depoimentos
             </Link>
+            <Link href="/admin/analytics" className="text-xs tracking-[0.08em] uppercase text-foreground-muted hover:text-accent transition-colors">
+              Analytics
+            </Link>
             <LogoutButton />
           </div>
         </div>
