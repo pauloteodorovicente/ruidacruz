@@ -1,0 +1,144 @@
+{
+  "siteNav": {
+    "sobre": "Acerca de",
+    "contacto": "Contacto"
+  },
+  "siteFooter": {
+    "whatsapp": "+351 939 081 583",
+    "ami": "AMI 7772 · Prestígio Global – Sociedad de Intermediación Inmobiliaria, S.A.",
+    "rights": "Representación exclusiva a cargo de Rui Da Cruz, RE/MAX Vantagem Platina."
+  },
+  "siteWhatsapp": {
+    "message": "Hola, Rui, me gustaría saber más sobre tus inmuebles.",
+    "ariaLabel": "WhatsApp Directo"
+  },
+  "leadForm": {
+    "name": "Nombre",
+    "countryCode": "Código de país",
+    "phoneInvalid": "Número incompleto para el país seleccionado.",
+    "phone": "Teléfono / WhatsApp",
+    "message": "Mensaje (opcional)",
+    "consent": "Acepto que se traten mis datos con fines de contacto comercial.",
+    "submitting": "Enviando…",
+    "success": "Recibido. Rui Da Cruz se pondrá en contacto contigo en breve.",
+    "error": "No se ha podido enviar. Inténtalo de nuevo o ponte en contacto con nosotros a través de WhatsApp.",
+    "defaultEyebrow": "Contacto",
+    "defaultTitle": "Esta propiedad merece ser descubierta en persona",
+    "defaultSubtitle": "Solicita una visita privada. Te responderemos en unas horas.",
+    "defaultSubmit": "Solicitar una visita privada"
+  },
+  "languageSwitcher": {
+    "label": "Idioma"
+  },
+  "home": {
+    "meta": {
+      "title": "Rui Da Cruz | Asesoría inmobiliaria premium — Lisboa y Oporto",
+      "description": "Rui Da Cruz representa una selecta colección de propiedades en Lisboa, Cascais y Oporto, todas ellas elegidas cuidadosamente, nunca simplemente incluidas en una lista."
+    },
+    "hero": {
+      "eyebrow": "Asesoramiento inmobiliario premium",
+      "title": "Inmuebles seleccionados para quienes buscan lo extraordinario",
+      "subtitle": "Una selecta colección de propiedades en Lisboa, Cascais y Oporto —cada una de ellas cuidadosamente seleccionada, nunca simplemente incluida en una lista—.",
+      "ctaPrimary": "Ver colección seleccionada",
+      "ctaSecondary": "Hablar con Rui"
+    },
+    "credibility": {
+      "items": [
+        {
+          "value": "7 años",
+          "label": "con presencia en el mercado inmobiliario de Lisboa y Oporto"
+        },
+        {
+          "value": "RE/MAX Collection",
+          "label": "certificación de agente para el segmento de lujo"
+        },
+        {
+          "value": "Portafolio seleccionado",
+          "label": "Inmuebles de lujo en Lisboa, Cascais y Oporto"
+        }
+      ]
+    },
+    "collection": {
+      "eyebrow": "Colección seleccionada",
+      "title": "Una selección, no una lista",
+      "priceOnApplication": "Precio a consultar",
+      "viewProperty": "Ver inmueble"
+    },
+    "about": {
+      "eyebrow": "El consultor",
+      "title": "Rui Da Cruz",
+      "text": "Asesor inmobiliario certificado por RE/MAX Collection, especializado en Parque das Nações y en las zonas de lujo de Lisboa, Cascais y Oporto. Un trato personalizado y discreto, dedicado a cada cliente desde el inicio hasta el cierre de la operación.",
+      "cta": "Conocer la historia"
+    }
+  },
+  "sobre": {
+    "meta": {
+      "title": "Acerca de Rui Da Cruz | Asesor inmobiliario — RE/MAX Collection",
+      "description": "Asesor inmobiliario certificado por RE/MAX Collection, que opera en Parque das Nações, Lisboa, Cascais y Oporto."
+    },
+    "eyebrow": "El consultor",
+    "title": "Rui Da Cruz",
+    "credentials": [
+      "RE/MAX Collection",
+      "AMI 7772",
+      "7 años de trayectoria"
+    ],
+    "paragraphs": [
+      "Rui Da Cruz es un asesor inmobiliario certificado por RE/MAX Collection, cuya actividad se centra en Parque das Nações y en las zonas de lujo de Lisboa, Cascais y Oporto.",
+      "Su enfoque es personal y discreto: se dedica a cada cliente desde el principio hasta el cierre de la operación, prestando especial atención a quienes buscan inmuebles con características únicas."
+    ],
+    "pending": "Biografía completa en preparación."
+  },
+  "contacto": {
+    "meta": {
+      "title": "Contacto | Rui Da Cruz — Asesor inmobiliario",
+      "description": "Habla directamente con Rui Da Cruz: te responderá en unas horas."
+    },
+    "eyebrow": "Contacto",
+    "title": "Habla directamente conmigo",
+    "subtitle": "Para cualquier consulta inmobiliaria: te responderemos en unas horas.",
+    "submit": "Enviar mensaje"
+  },
+  "testimonials": {
+    "eyebrow": "Representaciones anteriores",
+    "title": "La confianza de quienes ya han sido representados",
+    "rating": "4,9 · 34 valoraciones en Google"
+  },
+  "property": {
+    "location": "Ubicación",
+    "mapLink": "Ver en el mapa",
+    "gallery": "Galería",
+    "galleryViewCursor": "Ver",
+    "details": "En detalle",
+    "ctaPrimary": "Solicitar una visita privada",
+    "ctaWhatsapp": "Hablar por WhatsApp",
+    "priceOnApplication": "Precio a consultar",
+    "reference": "Ref.",
+    "energyCertificate": "Certificado energético",
+    "agentName": "Rui Da Cruz",
+    "agentTitle": "Asesor inmobiliario · RE/MAX Vantagem Platina · Certificado RE/MAX Collection",
+    "whatsappMessage": "Hola, Rui, estoy interesado en la vivienda {title} (Ref. {reference}). Me gustaría concertar una visita.",
+    "specs": {
+      "typology": "Tipología",
+      "land": "Terreno",
+      "construction": "Construcción",
+      "parking": "Garaje"
+    },
+    "propertyTypeTags": {
+      "moradia": "Vivienda",
+      "apartamento": "Piso",
+      "terreno": "Terreno",
+      "outro": "Inmueble"
+    },
+    "floorPlan": {
+      "eyebrow": "Planta",
+      "title": "Planos del inmueble",
+      "close": "Cerrar",
+      "cta": "Ver Planos ({count, plural, one {# Planta} other {# Plantas}})"
+    },
+    "architectCredit": {
+      "architecture": "Arquitectura",
+      "landscape": "Paisajismo"
+    }
+  }
+}

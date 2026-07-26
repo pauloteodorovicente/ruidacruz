@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useLanguage } from "@/lib/language-context";
+import { useTranslations } from "next-intl";
 import { Reveal } from "./Reveal";
 import { useCustomCursor } from "@/lib/use-custom-cursor";
 import type { PropertyPhoto } from "@/lib/properties";
@@ -10,8 +10,7 @@ import type { PropertyPhoto } from "@/lib/properties";
 // customizado da Leça do Balio, mas sem lightbox/vídeo ainda (isso fica
 // pra um próximo output, junto com a generalização dos 3 modos de layout).
 export function PropertyGallery({ photos, alt }: { photos: PropertyPhoto[]; alt: string }) {
-  const { t, locale } = useLanguage();
-  const p = t.property;
+  const p = useTranslations("property");
   const { areaRef, cursorRef, hovering, setHovering, handleMouseMove } = useCustomCursor<HTMLDivElement>();
 
   if (photos.length === 0) return null;
@@ -20,7 +19,7 @@ export function PropertyGallery({ photos, alt }: { photos: PropertyPhoto[]; alt:
     <section className="bg-background px-6 py-14 md:px-12 md:py-20">
       <div className="mx-auto max-w-6xl">
         <Reveal className="block">
-          <p className="text-xs tracking-[0.25em] uppercase text-accent mb-10">{p.gallery}</p>
+          <p className="text-xs tracking-[0.25em] uppercase text-accent mb-10">{p("gallery")}</p>
         </Reveal>
         <div
           ref={areaRef}
@@ -49,7 +48,7 @@ export function PropertyGallery({ photos, alt }: { photos: PropertyPhoto[]; alt:
               hovering ? "opacity-100" : "opacity-0"
             }`}
           >
-            {locale === "pt" ? "Ver" : "View"}
+            {p("galleryViewCursor")}
           </div>
         </div>
       </div>

@@ -1,0 +1,131 @@
+{
+  "siteNav": {
+    "sobre": "About",
+    "contacto": "Contact"
+  },
+  "siteFooter": {
+    "whatsapp": "+351 939 081 583",
+    "ami": "AMI 7772 · Prestígio Global – Sociedade de Mediação Imobiliária, S.A.",
+    "rights": "Exclusively represented by Rui Da Cruz, RE/MAX Vantagem Platina."
+  },
+  "siteWhatsapp": {
+    "message": "Hi Rui, I'd like to learn more about your properties.",
+    "ariaLabel": "WhatsApp Direct"
+  },
+  "leadForm": {
+    "name": "Name",
+    "countryCode": "Country code",
+    "phoneInvalid": "Incomplete number for the selected country.",
+    "phone": "Phone / WhatsApp",
+    "message": "Message (optional)",
+    "consent": "I agree to the processing of my data for commercial contact purposes.",
+    "submitting": "Sending…",
+    "success": "Received. Rui Da Cruz will be in touch shortly.",
+    "error": "Could not send. Please try again or reach out via WhatsApp.",
+    "defaultEyebrow": "Contact",
+    "defaultTitle": "This property deserves to be experienced in person",
+    "defaultSubtitle": "Request a private viewing. Response within hours.",
+    "defaultSubmit": "Request a Private Viewing"
+  },
+  "languageSwitcher": {
+    "label": "Language"
+  },
+  "home": {
+    "meta": {
+      "title": "Rui Da Cruz | Premium Real Estate Consultancy — Lisbon & Porto",
+      "description": "Rui Da Cruz represents a curated collection of properties in Lisbon, Cascais and Porto — each hand-picked, never simply listed."
+    },
+    "hero": {
+      "eyebrow": "Premium Real Estate Consultancy",
+      "title": "Properties selected for those who demand the extraordinary",
+      "subtitle": "A curated collection of properties in Lisbon, Cascais and Porto — each hand-picked, never simply listed.",
+      "ctaPrimary": "View Curated Collection",
+      "ctaSecondary": "Talk to Rui"
+    },
+    "credibility": {
+      "items": [
+        { "value": "7 Years", "label": "active in the Lisbon and Porto real estate market" },
+        { "value": "RE/MAX Collection", "label": "certified luxury segment agent" },
+        { "value": "Curated Portfolio", "label": "premium properties in Lisbon, Cascais and Porto" }
+      ]
+    },
+    "collection": {
+      "eyebrow": "Curated Collection",
+      "title": "A selection, not a listing",
+      "priceOnApplication": "Price on Application",
+      "viewProperty": "View Property"
+    },
+    "about": {
+      "eyebrow": "The Consultant",
+      "title": "Rui Da Cruz",
+      "text": "RE/MAX Collection certified real estate consultant, focused on Parque das Nações and the premium areas of Lisbon, Cascais and Porto. A personal, discreet approach, dedicated to each client from start to close.",
+      "cta": "Learn the Story"
+    }
+  },
+  "sobre": {
+    "meta": {
+      "title": "About Rui Da Cruz | Real Estate Consultant — RE/MAX Collection",
+      "description": "RE/MAX Collection certified real estate consultant, active in Parque das Nações, Lisbon, Cascais and Porto."
+    },
+    "eyebrow": "The Consultant",
+    "title": "Rui Da Cruz",
+    "credentials": ["RE/MAX Collection", "AMI 7772", "7 Years Active"],
+    "paragraphs": [
+      "Rui Da Cruz is a RE/MAX Collection certified real estate consultant, focused on Parque das Nações and the premium areas of Lisbon, Cascais and Porto.",
+      "His approach is personal and discreet — dedicated to each client from start to close, with particular attention to those seeking properties with unique characteristics."
+    ],
+    "pending": "Full biography in preparation."
+  },
+  "contacto": {
+    "meta": {
+      "title": "Contact | Rui Da Cruz — Real Estate Consultant",
+      "description": "Get in touch directly with Rui Da Cruz — response within hours."
+    },
+    "eyebrow": "Contact",
+    "title": "Talk Directly to Me",
+    "subtitle": "For any real estate question — response within hours.",
+    "submit": "Send Message"
+  },
+  "testimonials": {
+    "eyebrow": "Past Representations",
+    "title": "The trust of those already represented",
+    "rating": "4.9 · 34 reviews on Google"
+  },
+  "property": {
+    "location": "Location",
+    "mapLink": "View on map",
+    "gallery": "Gallery",
+    "galleryViewCursor": "View",
+    "details": "In Detail",
+    "ctaPrimary": "Request a Private Viewing",
+    "ctaWhatsapp": "Talk via WhatsApp",
+    "priceOnApplication": "Price on Application",
+    "reference": "Ref.",
+    "energyCertificate": "Energy Certificate",
+    "agentName": "Rui Da Cruz",
+    "agentTitle": "Real Estate Consultant · RE/MAX Vantagem Platina · RE/MAX Collection Certified",
+    "whatsappMessage": "Hi Rui, I'm interested in {title} (Ref. {reference}). I'd like to schedule a viewing.",
+    "specs": {
+      "typology": "Bedrooms",
+      "land": "Plot",
+      "construction": "Built Area",
+      "parking": "Garage"
+    },
+    "propertyTypeTags": {
+      "moradia": "House",
+      "apartamento": "Apartment",
+      "terreno": "Land",
+      "outro": "Property"
+    },
+    "floorPlan": {
+      "eyebrow": "Floor Plan",
+      "title": "Property Floor Plans",
+      "close": "Close",
+      "cta": "View Plans ({count, plural, one {# Floor} other {# Floors}})"
+    },
+    "architectCredit": {
+      "architecture": "Architecture",
+      "landscape": "Landscape"
+    }
+  }
+}

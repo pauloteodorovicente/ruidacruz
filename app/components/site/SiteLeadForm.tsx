@@ -1,19 +1,25 @@
 "use client";
 
-import { useLanguage } from "@/lib/language-context";
+import { useLocale, useTranslations } from "next-intl";
 import { useLeadForm, type LeadFormProperty } from "@/lib/use-lead-form";
-import { PhoneField } from "./PhoneField";
-import { Reveal } from "./Reveal";
+import { PhoneField } from "@/app/components/PhoneField";
+import { Reveal } from "@/app/components/Reveal";
 
 type Heading = { eyebrow: string; title: string; subtitle: string; submitLabel?: string };
 
-// heading opcional: sem ele usa o texto de sempre (voltado a "esta
-// propriedade"); /contacto passa um texto genérico, já que não é sobre
-// nenhum imóvel específico.
-export function LeadForm({ property, heading }: { property?: LeadFormProperty; heading?: Heading }) {
-  const { t, locale } = useLanguage();
-  const f = t.form;
-  const h = heading ?? f;
+// Equivalente ao LeadForm.tsx original, mas para a árvore [locale] — mesmo
+// motivo de não compartilhar componente que o SiteHeader/SiteFooter (ver
+// nota em proxy.ts). heading opcional funciona igual: sem ele usa o
+// texto padrão ("esta propriedade"); /contacto passa um texto genérico.
+export function SiteLeadForm({ property, heading }: { property?: LeadFormProperty; heading?: Heading }) {
+  const t = useTranslations("leadForm");
+  const locale = useLocale();
+  const h = heading ?? {
+    eyebrow: t("defaultEyebrow"),
+    title: t("defaultTitle"),
+    subtitle: t("defaultSubtitle"),
+    submitLabel: t("defaultSubmit"),
+  };
   const { status, handleSubmit } = useLeadForm(property);
 
   return (
@@ -30,40 +36,36 @@ export function LeadForm({ property, heading }: { property?: LeadFormProperty; h
                 <path d="M5 13l4 4L19 7" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
             </span>
-            <p className="font-display text-xl text-[#ce946e]">{f.success}</p>
+            <p className="font-display text-xl text-[#ce946e]">{t("success")}</p>
           </div>
         ) : (
           <form onSubmit={handleSubmit} className="flex flex-col gap-4 text-left">
             <input
               name="name"
               required
-              placeholder={f.name}
+              placeholder={t("name")}
               className="bg-transparent border border-white/20 px-4 py-3 text-sm placeholder:text-white/40 focus:border-[#ce946e] outline-none transition-colors"
             />
-            <PhoneField
-              locale={locale === "pt" ? "pt-PT" : "en"}
-              countryAriaLabel={f.countryCode}
-              invalidMessage={f.phoneInvalid}
-            />
+            <PhoneField locale={locale} countryAriaLabel={t("countryCode")} invalidMessage={t("phoneInvalid")} />
             <textarea
               name="message"
               rows={3}
-              placeholder={f.message}
+              placeholder={t("message")}
               className="bg-transparent border border-white/20 px-4 py-3 text-sm placeholder:text-white/40 focus:border-[#ce946e] outline-none transition-colors resize-none"
             />
             <label className="flex items-start gap-2 text-[11px] text-white/50 leading-relaxed mt-1">
               <input type="checkbox" name="consent" required className="mt-0.5" />
-              {f.consent}
+              {t("consent")}
             </label>
             <button
               type="submit"
               disabled={status === "submitting"}
               className="mt-2 py-3.5 bg-[#ce946e] text-[#040815] font-body text-sm tracking-[0.05em] uppercase transition-all hover:bg-[#e0ab86] hover:-translate-y-0.5 focus-visible:outline-2 focus-visible:outline-[#ce946e] focus-visible:outline-offset-2 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-y-0"
             >
-              {status === "submitting" ? f.submitting : (heading?.submitLabel ?? f.submit)}
+              {status === "submitting" ? t("submitting") : (h.submitLabel ?? t("defaultSubmit"))}
             </button>
             {status === "error" && (
-              <p className="text-sm text-red-400 text-center">{f.error}</p>
+              <p className="text-sm text-red-400 text-center">{t("error")}</p>
             )}
           </form>
         )}

@@ -1,7 +1,8 @@
 "use client";
 
 import Image from "next/image";
-import { useLanguage } from "@/lib/language-context";
+import NextLink from "next/link";
+import { useLocale, useTranslations } from "next-intl";
 import { Reveal } from "./Reveal";
 import type { Property } from "@/lib/properties";
 
@@ -18,21 +19,21 @@ const COVER_IMAGE_BY_REFERENCE: Record<string, string> = {
 };
 
 export function CuratedCollection({ properties }: { properties: Property[] }) {
-  const { t, locale } = useLanguage();
-  const c = t.home.collection;
+  const locale = useLocale();
+  const c = useTranslations("home.collection");
 
   return (
     <section id="colecao" className="bg-background px-6 py-14 md:px-12 md:py-20">
       <div className="mx-auto max-w-6xl">
         <Reveal className="block">
-          <p className="text-xs tracking-[0.25em] uppercase text-accent mb-2">{c.eyebrow}</p>
-          <h2 className="font-display text-3xl md:text-4xl mb-10">{c.title}</h2>
+          <p className="text-xs tracking-[0.25em] uppercase text-accent mb-2">{c("eyebrow")}</p>
+          <h2 className="font-display text-3xl md:text-4xl mb-10">{c("title")}</h2>
         </Reveal>
 
         <div className="grid grid-cols-1 gap-8 md:grid-cols-3 md:gap-6">
           {properties.map((property) => (
             <Reveal key={property.id} className="block">
-              <a href="/leca-do-balio" className="group block">
+              <NextLink href="/leca-do-balio" className="group block">
                 <div className="relative aspect-[4/3] overflow-hidden">
                   <Image
                     src={COVER_IMAGE_BY_REFERENCE[property.reference] ?? "/images/leca-do-balio/01-hero-fachada.jpg"}
@@ -47,15 +48,15 @@ export function CuratedCollection({ properties }: { properties: Property[] }) {
                   <p className="font-display text-lg mt-1">{property.title}</p>
                   <p className="mt-1 text-sm text-accent">
                     {property.price_on_application
-                      ? c.priceOnApplication
-                      : property.price?.toLocaleString(locale === "pt" ? "pt-PT" : "en-US", {
+                      ? c("priceOnApplication")
+                      : property.price?.toLocaleString(locale, {
                           style: "currency",
                           currency: "EUR",
                           maximumFractionDigits: 0,
                         })}
                   </p>
                 </div>
-              </a>
+              </NextLink>
             </Reveal>
           ))}
         </div>

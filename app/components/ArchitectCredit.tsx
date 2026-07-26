@@ -1,6 +1,6 @@
 "use client";
 
-import { useLanguage } from "@/lib/language-context";
+import { useTranslations } from "next-intl";
 import { Reveal } from "./Reveal";
 import type { Property } from "@/lib/properties";
 
@@ -8,11 +8,11 @@ import type { Property } from "@/lib/properties";
 // a quem assinou o projeto, do jeito que a Leça do Balio já fazia no texto
 // corrido (agora como um bloco próprio, reutilizável por qualquer imóvel).
 export function ArchitectCredit({ property }: { property: Property }) {
-  const { locale } = useLanguage();
+  const t = useTranslations("property.architectCredit");
   if (!property.architect && !property.landscaper) return null;
 
-  const label = locale === "pt" ? "Arquitetura" : "Architecture";
-  const landscapeLabel = locale === "pt" ? "Paisagismo" : "Landscape";
+  const label = t("architecture");
+  const landscapeLabel = t("landscape");
 
   return (
     <section className="bg-background px-6 py-10 md:px-12 border-b border-border">

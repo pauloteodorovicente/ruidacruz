@@ -1,19 +1,18 @@
 "use client";
 
-import { useLanguage } from "@/lib/language-context";
+import { useTranslations } from "next-intl";
 import { Reveal } from "./Reveal";
 import type { Property } from "@/lib/properties";
 
 export function PropertyHighlights({ property }: { property: Property }) {
-  const { t } = useLanguage();
-  const p = t.property;
+  const p = useTranslations("property");
 
   if (property.highlights.length === 0) return null;
 
   return (
     <section className="bg-background-raised px-6 py-14 md:px-12 md:py-20 border-y border-border">
       <Reveal className="mx-auto max-w-4xl block">
-        <p className="text-xs tracking-[0.25em] uppercase text-accent mb-8">{p.details}</p>
+        <p className="text-xs tracking-[0.25em] uppercase text-accent mb-8">{p("details")}</p>
         <ul className="grid grid-cols-1 sm:grid-cols-2 gap-x-12 gap-y-4">
           {property.highlights.map((item) => (
             <li

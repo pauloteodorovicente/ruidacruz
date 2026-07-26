@@ -2,10 +2,9 @@ import { notFound } from "next/navigation";
 import { getPropertyByReference, getPropertyPhotos, getPropertyFloorplans } from "@/lib/properties";
 import { getPropertyByReferenceForAdmin } from "@/lib/admin-properties";
 import { isAdminAuthenticated } from "@/lib/admin-auth";
-import { LanguageProvider } from "@/lib/language-context";
-import { Header } from "@/app/components/Header";
-import { Footer } from "@/app/components/Footer";
-import { WhatsAppFloating } from "@/app/components/WhatsAppFloating";
+import { SiteHeader } from "@/app/components/site/SiteHeader";
+import { SiteFooter } from "@/app/components/site/SiteFooter";
+import { SiteWhatsAppFloating } from "@/app/components/site/SiteWhatsAppFloating";
 import { PropertyHero } from "@/app/components/PropertyHero";
 import { PropertyDetails } from "@/app/components/PropertyDetails";
 import { PropertyHighlights } from "@/app/components/PropertyHighlights";
@@ -13,7 +12,7 @@ import { PropertyGallery } from "@/app/components/PropertyGallery";
 import { PropertyFloorPlan } from "@/app/components/PropertyFloorPlan";
 import { PropertyLocation } from "@/app/components/PropertyLocation";
 import { ArchitectCredit } from "@/app/components/ArchitectCredit";
-import { LeadForm } from "@/app/components/LeadForm";
+import { SiteLeadForm } from "@/app/components/site/SiteLeadForm";
 import type { Property, PropertyPhoto, PropertyFloorplan } from "@/lib/properties";
 import type { ReactNode } from "react";
 
@@ -38,12 +37,10 @@ function sectionsForMode(property: Property, photos: PropertyPhoto[], floorplans
   }
 }
 
-// Fase 5: template genérico de imóvel. Ainda falta a galeria com lightbox
-// completo (essa versão é só um grid) — ver Checklist de Construção.
 export default async function ImovelPage({
   params,
 }: {
-  params: Promise<{ referencia: string }>;
+  params: Promise<{ locale: string; referencia: string }>;
 }) {
   const { referencia } = await params;
   const isAdmin = await isAdminAuthenticated();
@@ -59,22 +56,22 @@ export default async function ImovelPage({
   const coverImage = photos[0]?.storage_path ?? "/images/leca-do-balio/01-hero-fachada.jpg";
 
   return (
-    <LanguageProvider>
+    <>
       {isAdmin && !property.published && (
         <div className="bg-accent px-6 py-2 text-center text-xs font-body tracking-[0.08em] uppercase text-background">
           Pré-visualização — este imóvel ainda não está publicado
         </div>
       )}
-      <Header />
+      <SiteHeader />
       <main className="flex-1">
         <PropertyHero property={property} coverImage={coverImage} />
         {sectionsForMode(property, photos, floorplans)}
-        <LeadForm
+        <SiteLeadForm
           property={{ reference: property.reference, title: property.title, zone: property.zone }}
         />
       </main>
-      <Footer />
-      <WhatsAppFloating />
-    </LanguageProvider>
+      <SiteFooter />
+      <SiteWhatsAppFloating />
+    </>
   );
 }

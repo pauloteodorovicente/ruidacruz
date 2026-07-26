@@ -1,38 +1,35 @@
 "use client";
 
 import Image from "next/image";
-import { useLanguage } from "@/lib/language-context";
+import { useLocale, useTranslations } from "next-intl";
 import { Reveal } from "./Reveal";
 import { RevealText } from "./RevealText";
 import type { Property } from "@/lib/properties";
 
 export function PropertyDetails({ property }: { property: Property }) {
-  const { t, locale } = useLanguage();
-  const p = t.property;
+  const locale = useLocale();
+  const p = useTranslations("property");
 
-  const tags = [p.propertyTypeTags[property.property_type], "RE/MAX Collection"];
+  const tags = [p(`propertyTypeTags.${property.property_type}`), "RE/MAX Collection"];
   if (property.typology) tags.unshift(property.typology);
 
-  const numberFormat = new Intl.NumberFormat(locale === "pt" ? "pt-PT" : "en-US");
+  const numberFormat = new Intl.NumberFormat(locale);
   const specs: Array<{ label: string; value: string }> = [
-    property.typology ? { label: p.specs.typology as string, value: property.typology } : null,
+    property.typology ? { label: p("specs.typology"), value: property.typology } : null,
     property.land_area_sqm
-      ? { label: p.specs.land as string, value: `${numberFormat.format(property.land_area_sqm)} m²` }
+      ? { label: p("specs.land"), value: `${numberFormat.format(property.land_area_sqm)} m²` }
       : null,
     property.construction_area_sqm
-      ? { label: p.specs.construction as string, value: `${numberFormat.format(property.construction_area_sqm)} m²` }
+      ? { label: p("specs.construction"), value: `${numberFormat.format(property.construction_area_sqm)} m²` }
       : null,
-    property.parking ? { label: p.specs.parking as string, value: property.parking } : null,
+    property.parking ? { label: p("specs.parking"), value: property.parking } : null,
   ].filter((s): s is { label: string; value: string } => s !== null);
 
   function scrollToForm() {
     document.getElementById("contacto")?.scrollIntoView({ behavior: "smooth" });
   }
 
-  const whatsappMessage =
-    locale === "pt"
-      ? `Olá Rui, tenho interesse no imóvel ${property.title} (Ref. ${property.reference}). Gostaria de agendar uma visita.`
-      : `Hi Rui, I'm interested in ${property.title} (Ref. ${property.reference}). I'd like to schedule a viewing.`;
+  const whatsappMessage = p("whatsappMessage", { title: property.title, reference: property.reference });
 
   return (
     <section className="relative bg-background px-6 py-14 md:px-12 md:py-20">
@@ -58,8 +55,8 @@ export function PropertyDetails({ property }: { property: Property }) {
           <div className="md:sticky md:top-8 bg-background-raised border border-border border-t-2 border-t-accent p-8 shadow-[0_20px_50px_-20px_rgba(0,0,0,0.25)]">
             <p className="font-display text-3xl mb-6">
               {property.price_on_application
-                ? p.priceOnApplication
-                : property.price?.toLocaleString(locale === "pt" ? "pt-PT" : "en-US", {
+                ? p("priceOnApplication")
+                : property.price?.toLocaleString(locale, {
                     style: "currency",
                     currency: "EUR",
                     maximumFractionDigits: 0,
@@ -77,20 +74,20 @@ export function PropertyDetails({ property }: { property: Property }) {
             )}
             {property.energy_certificate && (
               <p className="text-[11px] tracking-[0.1em] uppercase text-foreground-muted mb-4">
-                {p.energyCertificate}: <span className="font-display text-foreground">{property.energy_certificate}</span>
+                {p("energyCertificate")}: <span className="font-display text-foreground">{property.energy_certificate}</span>
               </p>
             )}
             <p className="text-[10px] tracking-[0.06em] text-foreground-muted/60 mb-8">
-              {p.reference} {property.reference}
+              {p("reference")} {property.reference}
             </p>
 
             <div className="flex items-center gap-3 mb-6 pb-6 border-t border-border pt-6">
               <div className="relative h-11 w-11 shrink-0 overflow-hidden rounded-full">
-                <Image src="/images/rui/rui-cruz.jpg" alt={p.agentName} fill sizes="44px" className="object-cover" />
+                <Image src="/images/rui/rui-cruz.jpg" alt={p("agentName")} fill sizes="44px" className="object-cover" />
               </div>
               <div>
-                <p className="font-display text-sm leading-tight">{p.agentName}</p>
-                <p className="text-[11px] text-foreground-muted leading-tight">{p.agentTitle}</p>
+                <p className="font-display text-sm leading-tight">{p("agentName")}</p>
+                <p className="text-[11px] text-foreground-muted leading-tight">{p("agentTitle")}</p>
               </div>
             </div>
 
@@ -99,7 +96,7 @@ export function PropertyDetails({ property }: { property: Property }) {
                 onClick={scrollToForm}
                 className="w-full py-3.5 bg-accent text-background font-body text-sm tracking-[0.05em] uppercase transition-all hover:bg-accent-strong hover:-translate-y-0.5 hover:shadow-lg focus-visible:outline-2 focus-visible:outline-accent focus-visible:outline-offset-2"
               >
-                {p.ctaPrimary}
+                {p("ctaPrimary")}
               </button>
               <a
                 href={`https://wa.me/351939081583?text=${encodeURIComponent(whatsappMessage)}`}
@@ -107,7 +104,7 @@ export function PropertyDetails({ property }: { property: Property }) {
                 rel="noopener noreferrer"
                 className="w-full py-3.5 border border-border text-center font-body text-sm tracking-[0.05em] uppercase transition-all hover:border-accent hover:text-accent hover:-translate-y-0.5 focus-visible:outline-2 focus-visible:outline-accent focus-visible:outline-offset-2"
               >
-                {p.ctaWhatsapp}
+                {p("ctaWhatsapp")}
               </a>
             </div>
           </div>

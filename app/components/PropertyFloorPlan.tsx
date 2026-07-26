@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import { useLanguage } from "@/lib/language-context";
+import { useTranslations } from "next-intl";
 import { Reveal } from "./Reveal";
 import { trackEvent } from "@/lib/track-event";
 import type { PropertyFloorplan } from "@/lib/property-types";
@@ -17,7 +17,7 @@ export function PropertyFloorPlan({
   floorplans: PropertyFloorplan[];
   propertyReference: string;
 }) {
-  const { locale } = useLanguage();
+  const t = useTranslations("property.floorPlan");
   const [activeId, setActiveId] = useState(floorplans[0]?.id);
   const [open, setOpen] = useState(false);
   const current = floorplans.find((f) => f.id === activeId);
@@ -25,12 +25,9 @@ export function PropertyFloorPlan({
   if (floorplans.length === 0 || !current) return null;
 
   const copy = {
-    eyebrow: locale === "pt" ? "Planta" : "Floor Plan",
-    title: locale === "pt" ? "Plantas do Imóvel" : "Property Floor Plans",
-    cta:
-      locale === "pt"
-        ? `Ver Plantas (${floorplans.length} Piso${floorplans.length > 1 ? "s" : ""})`
-        : `View Plans (${floorplans.length} Floor${floorplans.length > 1 ? "s" : ""})`,
+    eyebrow: t("eyebrow"),
+    title: t("title"),
+    cta: t("cta", { count: floorplans.length }),
   };
 
   return (
@@ -55,7 +52,7 @@ export function PropertyFloorPlan({
         <div className="fixed inset-0 z-50 bg-black/95 flex flex-col items-center justify-center p-6 md:p-12" onClick={() => setOpen(false)}>
           <button
             onClick={() => setOpen(false)}
-            aria-label="Fechar"
+            aria-label={t("close")}
             className="absolute top-4 right-4 z-10 flex h-11 w-11 items-center justify-center text-white/70 hover:text-white text-3xl leading-none"
           >
             ×

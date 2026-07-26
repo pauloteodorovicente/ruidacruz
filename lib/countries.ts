@@ -11,9 +11,11 @@ export type CountryOption = {
 
 // Todos os países/regiões que a libphonenumber conhece (~245) — os mesmos
 // dados que o Google usa. Nome do país localizado via Intl.DisplayNames
-// (nativo do navegador, sem precisar traduzir 245 nomes à mão).
-export function getCountryOptions(locale: "pt" | "en"): CountryOption[] {
-  const displayNames = new Intl.DisplayNames([locale === "pt" ? "pt-PT" : "en"], { type: "region" });
+// (nativo do navegador, sem precisar traduzir 245 nomes à mão). locale é
+// qualquer tag BCP-47 válida ("pt-PT", "en", "es"...) — os chamadores
+// convertem o próprio locale interno pra essa forma antes de chamar.
+export function getCountryOptions(locale: string): CountryOption[] {
+  const displayNames = new Intl.DisplayNames([locale], { type: "region" });
 
   return getCountries()
     .map((iso) => {

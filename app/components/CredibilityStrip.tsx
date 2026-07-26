@@ -1,14 +1,14 @@
 "use client";
 
-import { useLanguage } from "@/lib/language-context";
+import { useTranslations } from "next-intl";
 import { Reveal } from "./Reveal";
 
 // Números genéricos/qualitativos por aval do Paulo (2026-07-26) — só "7 Anos"
 // é um dado real confirmado; os outros dois evitam inventar volume/contagem
 // até os números reais chegarem (ver Checklist Mestre).
 export function CredibilityStrip() {
-  const { t } = useLanguage();
-  const items = t.home.credibility.items;
+  const t = useTranslations("home.credibility");
+  const items = t.raw("items") as { value: string; label: string }[];
 
   return (
     <section className="border-y border-border bg-background-raised px-6 py-10 md:px-12">

@@ -3,7 +3,6 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { AsYouType, isPossiblePhoneNumber, type CountryCode as PNCountryCode } from "libphonenumber-js";
 import { getCountryOptions, defaultCountryIso, type CountryOption } from "@/lib/countries";
-import { useLanguage } from "@/lib/language-context";
 
 const DIACRITICS = /[̀-ͯ]/g;
 
@@ -15,12 +14,12 @@ function normalize(s: string) {
 const MAX_DIGITS = 15;
 
 type PhoneFieldProps = {
+  locale: string;
   countryAriaLabel: string;
   invalidMessage: string;
 };
 
-export function PhoneField({ countryAriaLabel, invalidMessage }: PhoneFieldProps) {
-  const { locale } = useLanguage();
+export function PhoneField({ locale, countryAriaLabel, invalidMessage }: PhoneFieldProps) {
   const countries = useMemo(() => getCountryOptions(locale), [locale]);
   const [selectedIso, setSelectedIso] = useState<PNCountryCode>(defaultCountryIso);
   const selected = countries.find((c) => c.iso === selectedIso) ?? countries[0];
