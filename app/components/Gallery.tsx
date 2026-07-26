@@ -1,30 +1,22 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useState } from "react";
 import Image from "next/image";
 import { useLanguage } from "@/lib/language-context";
 import { galleryImages } from "@/lib/content";
 import { Lightbox, lightboxItemCount } from "./Lightbox";
 import { Reveal } from "./Reveal";
+import { useCustomCursor } from "@/lib/use-custom-cursor";
 
 export function Gallery() {
   const { t, locale } = useLanguage();
   const g = t.gallery;
-  const gridRef = useRef<HTMLDivElement>(null);
-  const cursorRef = useRef<HTMLDivElement>(null);
-  const [hovering, setHovering] = useState(false);
+  const { areaRef: gridRef, cursorRef, hovering, setHovering, handleMouseMove } =
+    useCustomCursor<HTMLDivElement>();
   const [overArrow, setOverArrow] = useState(false);
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [lightboxIndex, setLightboxIndex] = useState(0);
   const [featuredIndex, setFeaturedIndex] = useState(0);
-
-  function handleMouseMove(e: React.MouseEvent<HTMLDivElement>) {
-    const grid = gridRef.current;
-    const cursor = cursorRef.current;
-    if (!grid || !cursor) return;
-    const rect = grid.getBoundingClientRect();
-    cursor.style.transform = `translate(${e.clientX - rect.left}px, ${e.clientY - rect.top}px) translate(-50%, -50%)`;
-  }
 
   function openAt(idx: number) {
     // +1 porque o vídeo ocupa a posição 0 na galeria completa do Lightbox

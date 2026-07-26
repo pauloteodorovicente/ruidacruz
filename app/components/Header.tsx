@@ -18,7 +18,12 @@ export function Header() {
     function update() {
       ticking = false;
       const wrapper = document.querySelector<HTMLElement>("[data-hero-wrapper]");
-      if (!wrapper) return;
+      if (!wrapper) {
+        // Páginas sem hero (ex. /sobre, /contacto): sem isso o header ficava
+        // branco pra sempre, ilegível sobre um fundo claro.
+        setOverHero(false);
+        return;
+      }
       const pinRange = wrapper.offsetHeight - window.innerHeight;
       const scrolledPastHero = pinRange > 0 ? window.scrollY >= pinRange : window.scrollY > 0;
       setOverHero(!scrolledPastHero);

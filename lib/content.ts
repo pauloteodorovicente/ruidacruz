@@ -110,6 +110,22 @@ export const content = {
     },
     whatsappMessage:
       "Olá Rui, tenho interesse na Moradia em Leça do Balio (1.950.000 €). Gostaria de agendar uma visita.",
+    // Fase 4 — copy da home institucional (rascunho, ainda não validado com o Rui).
+    home: {
+      meta: {
+        title: "Rui Da Cruz | Consultoria Imobiliária Premium — Lisboa e Porto",
+        description:
+          "Rui Da Cruz representa uma coleção reduzida de propriedades em Lisboa, Cascais e no Porto — cada uma escolhida a dedo, nunca apenas listada.",
+      },
+      hero: {
+        eyebrow: "Consultoria Imobiliária Premium",
+        title: "Imóveis selecionados para quem exige o extraordinário",
+        subtitle:
+          "Uma coleção reduzida de propriedades em Lisboa, Cascais e no Porto — cada uma escolhida a dedo, nunca apenas listada.",
+        ctaPrimary: "Ver Coleção Curada",
+        ctaSecondary: "Falar com Rui",
+      },
+    },
   },
   en: {
     meta: {
@@ -220,6 +236,21 @@ export const content = {
     },
     whatsappMessage:
       "Hi Rui, I'm interested in the Leça do Balio residence (€1,950,000). I'd like to schedule a viewing.",
+    home: {
+      meta: {
+        title: "Rui Da Cruz | Premium Real Estate Consultancy — Lisbon & Porto",
+        description:
+          "Rui Da Cruz represents a curated collection of properties in Lisbon, Cascais and Porto — each hand-picked, never simply listed.",
+      },
+      hero: {
+        eyebrow: "Premium Real Estate Consultancy",
+        title: "Properties selected for those who demand the extraordinary",
+        subtitle:
+          "A curated collection of properties in Lisbon, Cascais and Porto — each hand-picked, never simply listed.",
+        ctaPrimary: "View Curated Collection",
+        ctaSecondary: "Talk to Rui",
+      },
+    },
   },
 } as const;
 
