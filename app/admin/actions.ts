@@ -2,9 +2,11 @@
 
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
+import { after } from "next/server";
 import { isAdminAuthenticated } from "@/lib/admin-auth";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { recommendLayoutMode } from "@/lib/property-types";
+import { translatePropertyToAllLocales } from "@/lib/translate-property";
 
 function str(formData: FormData, key: string): string {
   return String(formData.get(key) ?? "").trim();
@@ -60,11 +62,24 @@ export async function saveProperty(formData: FormData) {
   }
 
   const supabase = createAdminClient();
-  const { error } = id
-    ? await supabase.from("properties").update(record).eq("id", id)
-    : await supabase.from("properties").insert(record);
+  const { data: saved, error } = id
+    ? await supabase.from("properties").update(record).eq("id", id).select("id").single()
+    : await supabase.from("properties").insert(record).select("id").single();
 
   if (error) throw new Error(error.message);
+
+  // Traduzir pros outros 6 idiomas só quando publicado (rascunho não é visto
+  // por ninguém ainda) — roda depois da resposta (after), nunca bloqueia o
+  // fluxo de publicar: se o DeepL demorar ou falhar, publicar já terminou.
+  if (record.published) {
+    after(() =>
+      translatePropertyToAllLocales(saved.id, {
+        title: record.title,
+        description: record.description,
+        highlights: record.highlights,
+      }),
+    );
+  }
 
   revalidatePath("/admin");
   revalidatePath("/");

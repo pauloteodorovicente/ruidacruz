@@ -72,3 +72,17 @@ export function recommendLayoutMode(property: Pick<Property, "property_type" | "
   if (property.architect) return "arquitetura";
   return "paisagem_terreno";
 }
+
+// Sobrepõe a tradução (título/descrição/destaques) no idioma sendo exibido
+// por cima do imóvel-fonte (sempre pt-PT, ver Rui writes only in PT-PT na
+// memória do projeto). Sem tradução ainda (locale-fonte, ou tradução falhou/
+// está pendente), mostra o texto original — nunca uma seção vazia.
+export function localizeProperty(property: Property, translation: PropertyTranslation | null): Property {
+  if (!translation) return property;
+  return {
+    ...property,
+    title: translation.title || property.title,
+    description: translation.description ?? property.description,
+    highlights: translation.highlights.length > 0 ? translation.highlights : property.highlights,
+  };
+}

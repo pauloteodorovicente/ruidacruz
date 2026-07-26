@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
-import { getPropertyByReference, getPropertyPhotos, getPropertyFloorplans } from "@/lib/properties";
+import { getPropertyByReference, getPropertyPhotos, getPropertyFloorplans, getPropertyTranslation } from "@/lib/properties";
+import { localizeProperty } from "@/lib/property-types";
 import { localeAlternates } from "@/lib/locale-alternates";
 import { getPropertyByReferenceForAdmin } from "@/lib/admin-properties";
 import { isAdminAuthenticated } from "@/lib/admin-auth";
@@ -15,7 +16,7 @@ import { PropertyFloorPlan } from "@/app/components/PropertyFloorPlan";
 import { PropertyLocation } from "@/app/components/PropertyLocation";
 import { ArchitectCredit } from "@/app/components/ArchitectCredit";
 import { SiteLeadForm } from "@/app/components/site/SiteLeadForm";
-import type { Property, PropertyPhoto, PropertyFloorplan } from "@/lib/properties";
+import type { Property, PropertyPhoto, PropertyFloorplan, Locale } from "@/lib/properties";
 import type { ReactNode } from "react";
 
 // Os 3 modos de layout reordenam/adicionam seções pra dar destaque ao que
@@ -44,9 +45,13 @@ export async function generateMetadata({
 }: {
   params: Promise<{ locale: string; referencia: string }>;
 }): Promise<Metadata> {
-  const { referencia } = await params;
-  const property = await getPropertyByReference(referencia);
-  if (!property) return {};
+  const { locale, referencia } = await params;
+  const rawProperty = await getPropertyByReference(referencia);
+  if (!rawProperty) return {};
+
+  const translation =
+    locale === rawProperty.source_locale ? null : await getPropertyTranslation(rawProperty.id, locale as Locale);
+  const property = localizeProperty(rawProperty, translation);
 
   return {
     title: `${property.title} | Rui Da Cruz`,
@@ -98,10 +103,18 @@ export default async function ImovelPage({
   const isAdmin = await isAdminAuthenticated();
   // Admin vê rascunhos (modo de pré-visualização); visitante público só vê o
   // que passar pela RLS (published = true), que já trata o "não encontrado".
-  const property = isAdmin
+  const rawProperty = isAdmin
     ? await getPropertyByReferenceForAdmin(referencia)
     : await getPropertyByReference(referencia);
-  if (!property) notFound();
+  if (!rawProperty) notFound();
+
+  // Título/descrição/destaques no idioma sendo visto — pt-PT (fonte) mostra
+  // sempre o original; os outros 6 mostram a tradução se já existir (gerada
+  // via DeepL na publicação, ver lib/translate-property.ts), ou o original
+  // como fallback enquanto não existir/estiver pendente.
+  const translation =
+    locale === rawProperty.source_locale ? null : await getPropertyTranslation(rawProperty.id, locale as Locale);
+  const property = localizeProperty(rawProperty, translation);
 
   const photos = await getPropertyPhotos(property.id);
   const floorplans = await getPropertyFloorplans(property.id);
