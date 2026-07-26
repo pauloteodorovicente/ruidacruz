@@ -9,11 +9,34 @@ import { PropertyDetails } from "@/app/components/PropertyDetails";
 import { PropertyHighlights } from "@/app/components/PropertyHighlights";
 import { PropertyGallery } from "@/app/components/PropertyGallery";
 import { PropertyLocation } from "@/app/components/PropertyLocation";
+import { ArchitectCredit } from "@/app/components/ArchitectCredit";
 import { LeadForm } from "@/app/components/LeadForm";
+import type { Property, PropertyPhoto } from "@/lib/properties";
+import type { ReactNode } from "react";
 
-// Fase 5: template genérico de imóvel. Ainda faltam (próximos outputs): os
-// 3 modos de layout, planta, e a galeria com lightbox completo (essa versão
-// é só um grid) — ver Checklist de Construção.
+// Os 3 modos de layout reordenam/adicionam seções pra dar destaque ao que
+// mais importa naquele tipo de imóvel — Arquitetura destaca quem assinou o
+// projeto, Paisagem/Terreno e Urbano adiantam a Localização, só que com
+// enquadramentos diferentes (jardim/terreno vs. vizinhança/cidade).
+function sectionsForMode(property: Property, photos: PropertyPhoto[]): ReactNode[] {
+  const details = <PropertyDetails property={property} key="details" />;
+  const highlights = <PropertyHighlights property={property} key="highlights" />;
+  const gallery = <PropertyGallery photos={photos} alt={property.title} key="gallery" />;
+  const location = <PropertyLocation property={property} key="location" />;
+
+  switch (property.layout_mode) {
+    case "arquitetura":
+      return [details, <ArchitectCredit property={property} key="architect" />, highlights, gallery, location];
+    case "paisagem_terreno":
+      return [details, highlights, location, gallery];
+    case "urbano":
+      return [details, location, highlights, gallery];
+  }
+}
+
+// Fase 5: template genérico de imóvel. Ainda faltam (próximos outputs):
+// planta, e a galeria com lightbox completo (essa versão é só um grid) —
+// ver Checklist de Construção.
 export default async function ImovelPage({
   params,
 }: {
@@ -31,10 +54,7 @@ export default async function ImovelPage({
       <Header />
       <main className="flex-1">
         <PropertyHero property={property} coverImage={coverImage} />
-        <PropertyDetails property={property} />
-        <PropertyHighlights property={property} />
-        <PropertyGallery photos={photos} alt={property.title} />
-        <PropertyLocation property={property} />
+        {sectionsForMode(property, photos)}
         <LeadForm
           property={{ reference: property.reference, title: property.title, zone: property.zone }}
         />
