@@ -10,6 +10,7 @@ import { WhatsAppFloating } from "@/app/components/WhatsAppFloating";
 import { Footer } from "@/app/components/Footer";
 import { MetaPixel } from "@/app/components/MetaPixel";
 import { getProperties } from "@/lib/properties";
+import { getTestimonials } from "@/lib/testimonials";
 
 export const metadata: Metadata = {
   title: "Rui Da Cruz | Consultoria Imobiliária Premium — Lisboa e Porto",
@@ -19,6 +20,7 @@ export const metadata: Metadata = {
 
 export default async function HomePage() {
   const properties = await getProperties();
+  const testimonials = await getTestimonials();
 
   return (
     <LanguageProvider>
@@ -29,7 +31,7 @@ export default async function HomePage() {
         <CredibilityStrip />
         <CuratedCollection properties={properties} />
         <AboutRui />
-        <Testimonials />
+        <Testimonials testimonials={testimonials} />
       </main>
       <Footer />
       <WhatsAppFloating />

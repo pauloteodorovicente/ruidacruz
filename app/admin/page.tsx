@@ -28,6 +28,9 @@ export default async function AdminPage() {
             <Link href="/admin/imoveis/novo" className="text-xs tracking-[0.08em] uppercase text-accent hover:text-accent-strong transition-colors">
               + Novo Imóvel
             </Link>
+            <Link href="/admin/depoimentos" className="text-xs tracking-[0.08em] uppercase text-foreground-muted hover:text-accent transition-colors">
+              Depoimentos
+            </Link>
             <LogoutButton />
           </div>
         </div>
