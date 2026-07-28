@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import { localeAlternates } from "@/lib/locale-alternates";
 import { SiteHeader } from "@/app/components/site/SiteHeader";
-import { HomeHero } from "@/app/components/HomeHero";
+import { DynamicHero } from "@/app/components/site/DynamicHero";
 import { CredibilityStrip } from "@/app/components/CredibilityStrip";
 import { CuratedCollection } from "@/app/components/CuratedCollection";
 import { AboutRui } from "@/app/components/AboutRui";
@@ -12,6 +12,7 @@ import { SiteFooter } from "@/app/components/site/SiteFooter";
 import { MetaPixel } from "@/app/components/MetaPixel";
 import { getProperties } from "@/lib/properties";
 import { getTestimonials } from "@/lib/testimonials";
+import { getHomeHero } from "@/lib/home-hero";
 
 export async function generateMetadata({
   params,
@@ -30,13 +31,14 @@ export async function generateMetadata({
 export default async function HomePage() {
   const properties = await getProperties();
   const testimonials = await getTestimonials();
+  const hero = await getHomeHero();
 
   return (
     <>
       <MetaPixel />
       <SiteHeader />
       <main className="flex-1">
-        <HomeHero />
+        <DynamicHero hero={hero} />
         <CredibilityStrip />
         <CuratedCollection properties={properties} />
         <AboutRui />
