@@ -27,7 +27,7 @@ export default function SobrePage() {
       <SiteHeader />
       <main className="flex-1 pt-32 pb-20 px-6 md:px-12">
         <div className="mx-auto max-w-3xl">
-          <div className="relative aspect-[4/3] w-full max-w-xs mx-auto mb-10 overflow-hidden">
+          <div className="relative aspect-[3/4] w-full max-w-xs mx-auto mb-10 overflow-hidden">
             <Image src="/images/rui/hero-portrait.jpg" alt="Rui Da Cruz" fill sizes="320px" className="object-cover" />
           </div>
           <SobreContent />
