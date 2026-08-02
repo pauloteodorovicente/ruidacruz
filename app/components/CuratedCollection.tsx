@@ -18,9 +18,23 @@ const COVER_IMAGE_BY_REFERENCE: Record<string, string> = {
   "122481641-38": "/images/leca-do-balio/01-hero-fachada.jpg",
 };
 
+// Verdelago é uma landing de campanha própria (/verdelago), fora da tabela
+// properties do Supabase — por isso entra aqui como um card fixo, no mesmo
+// padrão do card da Leça do Balio, em vez de vir do loop de properties.
+const VERDELAGO_CARD: Record<string, { zone: string; title: string; price: string }> = {
+  "pt-PT": { zone: "Altura, Algarve", title: "Verdelago Resort", price: "Desde 880.000 €" },
+  "pt-BR": { zone: "Altura, Algarve", title: "Verdelago Resort", price: "A partir de € 880.000" },
+  en: { zone: "Altura, Algarve", title: "Verdelago Resort", price: "From €880,000" },
+  es: { zone: "Altura, Algarve", title: "Verdelago Resort", price: "Desde 880.000 €" },
+  fr: { zone: "Altura, Algarve", title: "Verdelago Resort", price: "À partir de 880 000 €" },
+  it: { zone: "Altura, Algarve", title: "Verdelago Resort", price: "Da 880.000 €" },
+  de: { zone: "Altura, Algarve", title: "Verdelago Resort", price: "Ab 880.000 €" },
+};
+
 export function CuratedCollection({ properties }: { properties: Property[] }) {
   const locale = useLocale();
   const c = useTranslations("home.collection");
+  const verdelago = VERDELAGO_CARD[locale] ?? VERDELAGO_CARD["pt-PT"];
 
   return (
     <section id="colecao" className="bg-background px-6 py-14 md:px-12 md:py-20">
@@ -59,6 +73,25 @@ export function CuratedCollection({ properties }: { properties: Property[] }) {
               </NextLink>
             </Reveal>
           ))}
+
+          <Reveal className="block">
+            <NextLink href="/verdelago" className="group block">
+              <div className="relative aspect-[4/3] overflow-hidden">
+                <Image
+                  src="/images/verdelago/01-hero-humanizada.jpg"
+                  alt={verdelago.title}
+                  fill
+                  sizes="(max-width: 768px) 100vw, 33vw"
+                  className="object-cover object-[center_22%] transition-transform duration-500 group-hover:scale-[1.03]"
+                />
+              </div>
+              <div className="mt-4">
+                <p className="text-xs tracking-[0.15em] uppercase text-foreground-muted">{verdelago.zone}</p>
+                <p className="font-display text-lg mt-1">{verdelago.title}</p>
+                <p className="mt-1 text-sm text-accent">{verdelago.price}</p>
+              </div>
+            </NextLink>
+          </Reveal>
         </div>
       </div>
     </section>

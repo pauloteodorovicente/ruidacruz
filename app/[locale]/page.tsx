@@ -9,7 +9,6 @@ import { AboutRui } from "@/app/components/AboutRui";
 import { SiteTestimonials } from "@/app/components/site/SiteTestimonials";
 import { SiteWhatsAppFloating } from "@/app/components/site/SiteWhatsAppFloating";
 import { SiteFooter } from "@/app/components/site/SiteFooter";
-import { MetaPixel } from "@/app/components/MetaPixel";
 import { getProperties } from "@/lib/properties";
 import { getTestimonials } from "@/lib/testimonials";
 import { getHomeHero } from "@/lib/home-hero";
@@ -35,7 +34,6 @@ export default async function HomePage() {
 
   return (
     <>
-      <MetaPixel />
       <SiteHeader />
       <main className="flex-1">
         <DynamicHero hero={hero} />

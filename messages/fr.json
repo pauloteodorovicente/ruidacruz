@@ -32,49 +32,49 @@
   },
   "home": {
     "meta": {
-      "title": "Rui Da Cruz | Conseil immobilier haut de gamme — Lisbonne et Porto",
-      "description": "Rui Da Cruz propose une sélection restreinte de biens immobiliers à Lisbonne, Cascais et au Porto — chacun d’entre eux ayant été trié sur le volet, et non pas simplement répertorié."
+      "title": "Rui Da Cruz | Conseil immobilier haut de gamme — Lisbonne, Porto et l'Algarve",
+      "description": "Rui Da Cruz propose un portefeuille restreint de biens immobiliers à Lisbonne, Cascais, Porto et dans l'Algarve, triés sur le volet par le conseiller."
     },
     "hero": {
       "eyebrow": "Conseil immobilier haut de gamme",
       "title": "Des biens immobiliers triés sur le volet pour ceux qui recherchent l'exceptionnel",
-      "subtitle": "Une sélection restreinte de biens immobiliers à Lisbonne, Cascais et Porto — chacun choisi avec soin, jamais simplement répertorié.",
-      "ctaPrimary": "Voir la collection sélectionnée",
+      "subtitle": "Un portefeuille restreint de biens immobiliers à Lisbonne, Cascais, Porto et dans l'Algarve — triés sur le volet par Rui Da Cruz.",
+      "ctaPrimary": "Portfolio",
       "ctaSecondary": "Parler à Rui"
     },
     "credibility": {
       "items": [
         {
           "value": "7 ans",
-          "label": "présent sur le marché immobilier de Lisbonne et de Porto"
+          "label": "présent sur le marché immobilier de Lisbonne, Porto et de l'Algarve"
         },
         {
           "value": "RE/MAX Collection",
           "label": "certification d'agent pour le segment du luxe"
         },
         {
-          "value": "Sélection de travaux",
-          "label": "propriétés haut de gamme à Lisbonne, Cascais et Porto"
+          "value": "Portefeuille Sélectionné",
+          "label": "propriétés haut de gamme à Lisbonne, Cascais, Porto et dans l'Algarve"
         }
       ]
     },
     "collection": {
-      "eyebrow": "Sélection",
-      "title": "Une sélection, pas une liste",
+      "eyebrow": "Portefeuille",
+      "title": "Chaque bien, un choix délibéré.",
       "priceOnApplication": "Prix sur demande",
       "viewProperty": "Voir le bien immobilier"
     },
     "about": {
       "eyebrow": "Le consultant",
       "title": "Rui Da Cruz",
-      "text": "Conseiller immobilier certifié RE/MAX Collection, spécialisé dans le quartier de Parque das Nações et les quartiers haut de gamme de Lisbonne, Cascais et Porto. Une approche personnalisée et discrète, dédiée à chaque client du début à la conclusion de la transaction.",
+      "text": "Conseiller immobilier certifié RE/MAX Collection, spécialisé dans le quartier de Parque das Nações et les quartiers haut de gamme de Lisbonne, Cascais, Porto et de l'Algarve. Une approche personnalisée et discrète, dédiée à chaque client du début à la conclusion de la transaction.",
       "cta": "Découvrir l'histoire"
     }
   },
   "sobre": {
     "meta": {
       "title": "À propos de Rui Da Cruz | Conseiller immobilier — RE/MAX Collection",
-      "description": "Conseiller immobilier certifié RE/MAX Collection, intervenant à Parque das Nações, Lisbonne, Cascais et Porto."
+      "description": "Conseiller immobilier certifié RE/MAX Collection, intervenant à Parque das Nações, Lisbonne, Cascais, Porto et dans l'Algarve."
     },
     "eyebrow": "Le consultant",
     "title": "Rui Da Cruz",
@@ -84,10 +84,9 @@
       "7 ans d'activité"
     ],
     "paragraphs": [
-      "Rui Da Cruz est un conseiller immobilier certifié RE/MAX Collection, spécialisé dans le quartier de Parque das Nações et les quartiers haut de gamme de Lisbonne, Cascais et Porto.",
+      "Rui Da Cruz est un conseiller immobilier certifié RE/MAX Collection, spécialisé dans le quartier de Parque das Nações et les quartiers haut de gamme de Lisbonne, Cascais, Porto et de l'Algarve.",
       "Son approche est personnalisée et discrète : elle s'investit pleinement auprès de chaque client, du début à la conclusion de la transaction, en accordant une attention particulière à ceux qui recherchent des biens immobiliers aux caractéristiques uniques."
-    ],
-    "pending": "Biographie complète en cours de rédaction."
+    ]
   },
   "contacto": {
     "meta": {

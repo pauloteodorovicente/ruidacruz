@@ -1,27 +1,27 @@
 "use client";
 
-import { useLanguage } from "@/lib/language-context";
+import { useVerdelagoLanguage } from "@/lib/verdelago-language-context";
 import { useLeadForm, type LeadFormProperty } from "@/lib/use-lead-form";
-import { PhoneField } from "./PhoneField";
-import { Reveal } from "./Reveal";
+import { PhoneField } from "../PhoneField";
+import { Reveal } from "../Reveal";
 
-type Heading = { eyebrow: string; title: string; subtitle: string; submitLabel?: string };
+const VERDELAGO_PROPERTY: LeadFormProperty = {
+  reference: "verdelago",
+  title: "Verdelago Resort",
+  zone: "Altura, Algarve",
+};
 
-// heading opcional: sem ele usa o texto de sempre (voltado a "esta
-// propriedade"); /contacto passa um texto genérico, já que não é sobre
-// nenhum imóvel específico.
-export function LeadForm({ property, heading }: { property?: LeadFormProperty; heading?: Heading }) {
-  const { t, locale } = useLanguage();
+export function VerdelagoLeadForm() {
+  const { t, locale } = useVerdelagoLanguage();
   const f = t.form;
-  const h = heading ?? f;
-  const { status, handleSubmit } = useLeadForm(property);
+  const { status, handleSubmit } = useLeadForm(VERDELAGO_PROPERTY);
 
   return (
     <section id="contacto" className="bg-[#040815] text-[#f5f3ef] px-6 pt-16 pb-28 md:px-12 md:py-24">
       <Reveal className="mx-auto max-w-xl text-center block">
-        <p className="text-xs tracking-[0.25em] uppercase text-[#ce946e] mb-3">{h.eyebrow}</p>
-        <h2 className="font-display text-3xl md:text-4xl mb-3">{h.title}</h2>
-        <p className="text-sm text-white/60 mb-10">{h.subtitle}</p>
+        <p className="text-xs tracking-[0.25em] uppercase text-[#ce946e] mb-3">{f.eyebrow}</p>
+        <h2 className="font-display text-3xl md:text-4xl mb-3">{f.title}</h2>
+        <p className="text-sm text-white/60 mb-10">{f.subtitle}</p>
 
         {status === "success" ? (
           <div className="flex flex-col items-center gap-4 py-8">
@@ -60,11 +60,9 @@ export function LeadForm({ property, heading }: { property?: LeadFormProperty; h
               disabled={status === "submitting"}
               className="mt-2 py-3.5 bg-[#ce946e] text-[#040815] font-body text-sm tracking-[0.05em] uppercase transition-all hover:bg-[#e0ab86] hover:-translate-y-0.5 focus-visible:outline-2 focus-visible:outline-[#ce946e] focus-visible:outline-offset-2 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-y-0"
             >
-              {status === "submitting" ? f.submitting : (heading?.submitLabel ?? f.submit)}
+              {status === "submitting" ? f.submitting : f.submit}
             </button>
-            {status === "error" && (
-              <p className="text-sm text-red-400 text-center">{f.error}</p>
-            )}
+            {status === "error" && <p className="text-sm text-red-400 text-center">{f.error}</p>}
           </form>
         )}
       </Reveal>

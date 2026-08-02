@@ -2,17 +2,14 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { useLanguage } from "@/lib/language-context";
-import { ThemeToggle } from "./ThemeToggle";
-import { LanguageFlagMenu } from "./LanguageFlagMenu";
+import { useVerdelagoLanguage } from "@/lib/verdelago-language-context";
+import { ThemeToggle } from "../ThemeToggle";
+import { LanguageFlagMenu } from "../LanguageFlagMenu";
 
-export function Header() {
-  const { locale, setLocale, t } = useLanguage();
+export function VerdelagoHeader() {
+  const { locale, setLocale, t } = useVerdelagoLanguage();
   const [overHero, setOverHero] = useState(true);
 
-  // Enquanto a hero está "presa" no topo (vídeo sempre escuro), o header fica
-  // branco. Depois que solta, passa a usar a cor do tema (clara ou escura)
-  // para continuar visível sobre o fundo da secção seguinte.
   useEffect(() => {
     let ticking = false;
 
@@ -20,8 +17,6 @@ export function Header() {
       ticking = false;
       const wrapper = document.querySelector<HTMLElement>("[data-hero-wrapper]");
       if (!wrapper) {
-        // Páginas sem hero (ex. /sobre, /contacto): sem isso o header ficava
-        // branco pra sempre, ilegível sobre um fundo claro.
         setOverHero(false);
         return;
       }

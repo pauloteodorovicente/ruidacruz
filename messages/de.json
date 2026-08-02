@@ -32,21 +32,21 @@
   },
   "home": {
     "meta": {
-      "title": "Rui Da Cruz | Premium-Immobilienberatung – Lissabon und Porto",
-      "description": "Rui Da Cruz vertritt eine kleine Auswahl an Immobilien in Lissabon, Cascais und Porto – jede einzelne davon wurde sorgfältig ausgewählt und wird niemals einfach nur aufgelistet."
+      "title": "Rui Da Cruz | Premium-Immobilienberatung – Lissabon, Porto und die Algarve",
+      "description": "Rui Da Cruz vertritt ein kleines Portfolio an Immobilien in Lissabon, Cascais, Porto und der Algarve, persönlich ausgewählt vom Berater."
     },
     "hero": {
       "eyebrow": "Premium-Immobilienberatung",
       "title": "Ausgewählte Immobilien für alle, die das Außergewöhnliche suchen",
-      "subtitle": "Eine exklusive Auswahl an Immobilien in Lissabon, Cascais und Porto – jede einzelne sorgfältig ausgewählt, niemals nur aufgelistet.",
-      "ctaPrimary": "Zur kuratierten Sammlung",
+      "subtitle": "Ein kleines Portfolio an Immobilien in Lissabon, Cascais, Porto und der Algarve – persönlich ausgewählt von Rui Da Cruz.",
+      "ctaPrimary": "Portfolio",
       "ctaSecondary": "Mit Rui sprechen"
     },
     "credibility": {
       "items": [
         {
           "value": "7 Jahre",
-          "label": "die auf dem Immobilienmarkt in Lissabon und Porto tätig sind"
+          "label": "die auf dem Immobilienmarkt in Lissabon, Porto und der Algarve tätig sind"
         },
         {
           "value": "RE/MAX Collection",
@@ -54,27 +54,27 @@
         },
         {
           "value": "Ausgewähltes Portfolio",
-          "label": "Luxusimmobilien in Lissabon, Cascais und Porto"
+          "label": "Luxusimmobilien in Lissabon, Cascais, Porto und der Algarve"
         }
       ]
     },
     "collection": {
-      "eyebrow": "Kuratierte Sammlung",
-      "title": "Eine Auswahl, keine Liste",
+      "eyebrow": "Portfolio",
+      "title": "Jede Immobilie, eine bewusste Entscheidung.",
       "priceOnApplication": "Preis auf Anfrage",
       "viewProperty": "Immobilie ansehen"
     },
     "about": {
       "eyebrow": "Der Berater",
       "title": "Rui Da Cruz",
-      "text": "Zertifizierter Immobilienberater bei RE/MAX Collection mit Schwerpunkt auf Parque das Nações und den Premium-Lagen von Lissabon, Cascais und Porto. Ein persönlicher und diskreter Ansatz, bei dem jeder Kunde vom Beginn bis zum Abschluss des Geschäfts im Mittelpunkt steht.",
+      "text": "Zertifizierter Immobilienberater bei RE/MAX Collection mit Schwerpunkt auf Parque das Nações und den Premium-Lagen von Lissabon, Cascais, Porto und der Algarve. Ein persönlicher und diskreter Ansatz, bei dem jeder Kunde vom Beginn bis zum Abschluss des Geschäfts im Mittelpunkt steht.",
       "cta": "Die Geschichte kennenlernen"
     }
   },
   "sobre": {
     "meta": {
       "title": "Über Rui Da Cruz | Immobilienberater — RE/MAX Collection",
-      "description": "Zertifizierter Immobilienberater bei RE/MAX Collection, tätig in Parque das Nações, Lissabon, Cascais und Porto."
+      "description": "Zertifizierter Immobilienberater bei RE/MAX Collection, tätig in Parque das Nações, Lissabon, Cascais, Porto und der Algarve."
     },
     "eyebrow": "Der Berater",
     "title": "Rui Da Cruz",
@@ -84,10 +84,9 @@
       "7 Jahre Tätigkeit"
     ],
     "paragraphs": [
-      "Rui Da Cruz ist zertifizierter Immobilienberater bei RE/MAX Collection und konzentriert sich in seiner Tätigkeit auf Parque das Nações sowie die Premium-Lagen in Lissabon, Cascais und Porto.",
+      "Rui Da Cruz ist zertifizierter Immobilienberater bei RE/MAX Collection und konzentriert sich in seiner Tätigkeit auf Parque das Nações sowie die Premium-Lagen in Lissabon, Cascais, Porto und der Algarve.",
       "Sein Ansatz ist persönlich und diskret – er widmet sich jedem Kunden vom Beginn bis zum Abschluss des Geschäfts und legt dabei besonderen Wert auf diejenigen, die nach Immobilien mit einzigartigen Merkmalen suchen."
-    ],
-    "pending": "Die vollständige Biografie ist in Vorbereitung."
+    ]
   },
   "contacto": {
     "meta": {

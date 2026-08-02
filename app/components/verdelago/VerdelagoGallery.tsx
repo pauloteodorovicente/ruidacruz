@@ -2,15 +2,14 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import { useLanguage } from "@/lib/language-context";
-import { galleryImages } from "@/lib/content";
-import { Lightbox, lightboxItemCount } from "./Lightbox";
-import { Reveal } from "./Reveal";
+import { useVerdelagoLanguage } from "@/lib/verdelago-language-context";
+import { galleryImages } from "@/lib/verdelago-content";
+import { VerdelagoLightbox } from "./VerdelagoLightbox";
+import { Reveal } from "../Reveal";
 import { useCustomCursor } from "@/lib/use-custom-cursor";
-import { trackEvent } from "@/lib/track-event";
 
-export function Gallery() {
-  const { t, locale } = useLanguage();
+export function VerdelagoGallery() {
+  const { t, locale } = useVerdelagoLanguage();
   const g = t.gallery;
   const { areaRef: gridRef, cursorRef, hovering, setHovering, handleMouseMove } =
     useCustomCursor<HTMLDivElement>();
@@ -20,9 +19,7 @@ export function Gallery() {
   const [featuredIndex, setFeaturedIndex] = useState(0);
 
   function openAt(idx: number) {
-    trackEvent("gallery_view", "122481641-38");
-    // +1 porque o vídeo ocupa a posição 0 na galeria completa do Lightbox
-    setLightboxIndex(idx + 1);
+    setLightboxIndex(idx);
     setLightboxOpen(true);
   }
 
@@ -46,9 +43,6 @@ export function Gallery() {
           {galleryImages.map((img, idx) => {
             const isFeatured = idx === 0;
             const displayImg = isFeatured ? galleryImages[featuredIndex] : img;
-            // As últimas 3 fotos ficam escondidas só no mobile (grid 2 colunas
-            // não fecha certo com 11 itens após a foto principal); no desktop
-            // (grid 3 colunas) o total de 12 continua a fechar perfeitamente.
             const hideOnMobile = idx >= galleryImages.length - 3;
             return (
               <div
@@ -116,7 +110,6 @@ export function Gallery() {
             );
           })}
 
-          {/* Cursor customizado — elemento de assinatura, só em telas com mouse (md+) */}
           <div
             ref={cursorRef}
             className={`pointer-events-none absolute top-0 left-0 z-20 hidden h-16 w-16 items-center justify-center rounded-full border border-white/70 bg-black/30 backdrop-blur-sm text-[11px] tracking-[0.1em] uppercase text-white transition-opacity duration-200 md:flex ${
@@ -129,7 +122,6 @@ export function Gallery() {
 
         <button
           onClick={() => {
-            trackEvent("gallery_view", "122481641-38");
             setLightboxIndex(0);
             setLightboxOpen(true);
           }}
@@ -137,11 +129,11 @@ export function Gallery() {
         >
           <span>{g.viewFullGallery}</span>
           <span className="text-foreground-muted normal-case tracking-normal text-xs">
-            ({lightboxItemCount - 1} {g.photosAndVideo})
+            ({galleryImages.length} {g.photos})
           </span>
         </button>
 
-        <Lightbox
+        <VerdelagoLightbox
           open={lightboxOpen}
           index={lightboxIndex}
           onIndexChange={setLightboxIndex}

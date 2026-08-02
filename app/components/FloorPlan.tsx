@@ -7,9 +7,27 @@ import { Reveal } from "./Reveal";
 import { trackEvent } from "@/lib/track-event";
 
 const floors = [
-  { id: "rc", src: "/images/leca-do-balio/planta/res-do-chao.jpg", label: { pt: "Rés-do-Chão", en: "Ground Floor" } },
-  { id: "piso1", src: "/images/leca-do-balio/planta/piso1-andar.jpg", label: { pt: "1º Andar", en: "1st Floor" } },
+  {
+    id: "rc",
+    src: "/images/leca-do-balio/planta/res-do-chao.jpg",
+    label: { "pt-PT": "Rés-do-Chão", "pt-BR": "Térreo", en: "Ground Floor", es: "Planta Baja", fr: "Rez-de-chaussée", it: "Piano Terra", de: "Erdgeschoss" },
+  },
+  {
+    id: "piso1",
+    src: "/images/leca-do-balio/planta/piso1-andar.jpg",
+    label: { "pt-PT": "1º Andar", "pt-BR": "1º Andar", en: "1st Floor", es: "1ª Planta", fr: "1er Étage", it: "1° Piano", de: "1. Etage" },
+  },
 ] as const;
+
+const COPY = {
+  "pt-PT": { eyebrow: "Planta", title: "Plantas do Imóvel", cta: "Ver Plantas (2 Pisos)" },
+  "pt-BR": { eyebrow: "Planta", title: "Plantas do Imóvel", cta: "Ver Plantas (2 Andares)" },
+  en: { eyebrow: "Floor Plan", title: "Property Floor Plans", cta: "View Plans (2 Floors)" },
+  es: { eyebrow: "Plano", title: "Planos de la Propiedad", cta: "Ver Planos (2 Plantas)" },
+  fr: { eyebrow: "Plan", title: "Plans de la Propriété", cta: "Voir les Plans (2 Étages)" },
+  it: { eyebrow: "Planimetria", title: "Planimetrie della Proprietà", cta: "Vedi Planimetrie (2 Piani)" },
+  de: { eyebrow: "Grundriss", title: "Grundrisse der Immobilie", cta: "Grundrisse ansehen (2 Etagen)" },
+} as const;
 
 export function FloorPlan() {
   const { locale } = useLanguage();
@@ -17,12 +35,7 @@ export function FloorPlan() {
   const [open, setOpen] = useState(false);
   const current = floors.find((f) => f.id === active)!;
 
-  const copy = {
-    eyebrow: locale === "pt" ? "Planta" : "Floor Plan",
-    title: locale === "pt" ? "Plantas do Imóvel" : "Property Floor Plans",
-    cta: locale === "pt" ? "Ver Plantas (2 Pisos)" : "View Plans (2 Floors)",
-    credit: "Manuel Ventura Arquitecto",
-  };
+  const copy = { ...COPY[locale], credit: "Manuel Ventura Arquitecto" };
 
   return (
     <section className="bg-background-raised px-6 py-10 md:px-12 md:py-14 border-y border-border">

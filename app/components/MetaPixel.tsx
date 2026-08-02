@@ -1,8 +1,17 @@
+"use client";
+
 import Script from "next/script";
+import { usePathname } from "next/navigation";
 
 const PIXEL_ID = "2026495607919533";
 
 export function MetaPixel() {
+  const pathname = usePathname();
+  // Instalado uma única vez no layout raiz (cobre todas as rotas
+  // automaticamente) — exceto /admin, que não é tráfego real e não deve
+  // poluir os dados do Pixel.
+  if (pathname?.startsWith("/admin")) return null;
+
   return (
     <>
       <Script id="meta-pixel" strategy="afterInteractive">

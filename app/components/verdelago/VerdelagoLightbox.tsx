@@ -2,16 +2,8 @@
 
 import { useEffect, useCallback, useRef } from "react";
 import Image from "next/image";
-import { galleryImages } from "@/lib/content";
-import { fullGalleryImages } from "@/lib/full-gallery";
-import { useLanguage } from "@/lib/language-context";
-
-const YT_VIDEO_ID = "1n12iQxzJj0";
-const YT_THUMB = `https://i.ytimg.com/vi/${YT_VIDEO_ID}/hqdefault.jpg`;
-
-type Item = { type: "video" } | { type: "image"; src: string; alt: string };
-
-export const lightboxItemCount = 1 + galleryImages.length + fullGalleryImages.length;
+import { galleryImages } from "@/lib/verdelago-content";
+import { useVerdelagoLanguage } from "@/lib/verdelago-language-context";
 
 type LightboxProps = {
   open: boolean;
@@ -20,17 +12,13 @@ type LightboxProps = {
   onClose: () => void;
 };
 
-export function Lightbox({ open, index, onIndexChange, onClose }: LightboxProps) {
-  const { locale, t } = useLanguage();
+export function VerdelagoLightbox({ open, index, onIndexChange, onClose }: LightboxProps) {
+  const { locale, t } = useVerdelagoLanguage();
   const lb = t.lightbox;
   const thumbRefs = useRef<(HTMLButtonElement | null)[]>([]);
   const stripRef = useRef<HTMLDivElement>(null);
 
-  const items: Item[] = [
-    { type: "video" },
-    ...galleryImages.map((img) => ({ type: "image" as const, src: img.src, alt: img.alt[locale] })),
-    ...fullGalleryImages.map((src) => ({ type: "image" as const, src, alt: t.breadcrumb })),
-  ];
+  const items = galleryImages;
 
   const next = useCallback(() => onIndexChange((index + 1) % items.length), [index, items.length, onIndexChange]);
   const prev = useCallback(
@@ -101,42 +89,23 @@ export function Lightbox({ open, index, onIndexChange, onClose }: LightboxProps)
         </button>
 
         <div className="relative w-full h-full max-w-5xl mx-auto flex items-center justify-center">
-          {current.type === "video" ? (
-            <div className="w-full aspect-video max-h-full">
-              <iframe
-                className="w-full h-full"
-                src={`https://www.youtube.com/embed/${YT_VIDEO_ID}?rel=0&modestbranding=1`}
-                title={`${t.breadcrumb} — ${lb.video}`}
-                allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
-              />
-            </div>
-          ) : (
-            <div className="relative w-full h-full">
-              <Image
-                src={current.src}
-                alt={current.alt}
-                fill
-                sizes="100vw"
-                quality={90}
-                className="object-contain"
-              />
-            </div>
-          )}
+          <div className="relative w-full h-full">
+            <Image src={current.src} alt={current.alt[locale]} fill sizes="100vw" quality={90} className="object-contain" />
+          </div>
         </div>
       </div>
 
       <div className="relative shrink-0 border-t border-white/10 bg-black/60 px-12 py-3">
         <button
           onClick={() => pageStrip(-1)}
-          aria-label={lb.olderThumbs}
+          aria-label="Ver miniaturas anteriores"
           className="absolute left-1 top-1/2 -translate-y-1/2 z-10 flex h-10 w-10 items-center justify-center rounded-full bg-black/50 text-white/70 hover:text-white hover:bg-black/70 transition-colors text-lg"
         >
           ‹
         </button>
         <button
           onClick={() => pageStrip(1)}
-          aria-label={lb.moreThumbs}
+          aria-label="Ver mais miniaturas"
           className="absolute right-1 top-1/2 -translate-y-1/2 z-10 flex h-10 w-10 items-center justify-center rounded-full bg-black/50 text-white/70 hover:text-white hover:bg-black/70 transition-colors text-lg"
         >
           ›
@@ -156,14 +125,7 @@ export function Lightbox({ open, index, onIndexChange, onClose }: LightboxProps)
                 i === index ? "ring-2 ring-accent opacity-100" : "opacity-50 hover:opacity-80"
               }`}
             >
-              {item.type === "video" ? (
-                <>
-                  <Image src={YT_THUMB} alt={lb.video} fill sizes="64px" className="object-cover" />
-                  <span className="absolute inset-0 flex items-center justify-center bg-black/30 text-white text-lg">▶</span>
-                </>
-              ) : (
-                <Image src={item.src} alt="" fill sizes="64px" className="object-cover" />
-              )}
+              <Image src={item.src} alt="" fill sizes="64px" className="object-cover" />
             </button>
           ))}
         </div>

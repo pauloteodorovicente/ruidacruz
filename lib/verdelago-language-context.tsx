@@ -1,21 +1,18 @@
 "use client";
 
 import { createContext, useContext, useEffect, useState, type ReactNode } from "react";
-import { content, type Locale } from "./content";
+import { content, type Locale } from "./verdelago-content";
 
-type LanguageContextValue = {
+type VerdelagoLanguageContextValue = {
   locale: Locale;
   setLocale: (locale: Locale) => void;
   t: (typeof content)[Locale];
 };
 
-const LanguageContext = createContext<LanguageContextValue | null>(null);
+const VerdelagoLanguageContext = createContext<VerdelagoLanguageContextValue | null>(null);
 
 const LOCALES: Locale[] = ["pt-PT", "pt-BR", "en", "es", "fr", "it", "de"];
 
-// Detecta o idioma do navegador entre os 7 suportados — sem correspondência
-// exata, cai no inglês (não assume português por padrão para visitantes
-// internacionais, que são o público principal desta landing de campanha).
 function detectLocale(): Locale {
   const browserLang = navigator.language?.toLowerCase() ?? "";
   if (browserLang.startsWith("pt-br")) return "pt-BR";
@@ -24,7 +21,7 @@ function detectLocale(): Locale {
   return match ?? "en";
 }
 
-export function LanguageProvider({ children }: { children: ReactNode }) {
+export function VerdelagoLanguageProvider({ children }: { children: ReactNode }) {
   const [locale, setLocaleState] = useState<Locale>("pt-PT");
 
   useEffect(() => {
@@ -42,14 +39,14 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
   }
 
   return (
-    <LanguageContext.Provider value={{ locale, setLocale, t: content[locale] }}>
+    <VerdelagoLanguageContext.Provider value={{ locale, setLocale, t: content[locale] }}>
       {children}
-    </LanguageContext.Provider>
+    </VerdelagoLanguageContext.Provider>
   );
 }
 
-export function useLanguage() {
-  const ctx = useContext(LanguageContext);
-  if (!ctx) throw new Error("useLanguage must be used within LanguageProvider");
+export function useVerdelagoLanguage() {
+  const ctx = useContext(VerdelagoLanguageContext);
+  if (!ctx) throw new Error("useVerdelagoLanguage must be used within VerdelagoLanguageProvider");
   return ctx;
 }

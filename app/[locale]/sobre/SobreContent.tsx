@@ -25,7 +25,6 @@ export function SobreContent() {
             {p}
           </p>
         ))}
-        <p className="text-xs text-foreground-muted/60 italic mt-4">{s("pending")}</p>
       </div>
     </Reveal>
   );

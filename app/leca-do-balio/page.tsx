@@ -11,7 +11,6 @@ import { Testimonials } from "@/app/components/Testimonials";
 import { LeadForm } from "@/app/components/LeadForm";
 import { WhatsAppFloating } from "@/app/components/WhatsAppFloating";
 import { Footer } from "@/app/components/Footer";
-import { MetaPixel } from "@/app/components/MetaPixel";
 
 const jsonLd = {
   "@context": "https://schema.org",
@@ -53,7 +52,6 @@ const jsonLd = {
 export default function LecaDoBalioPage() {
   return (
     <LanguageProvider>
-      <MetaPixel />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}

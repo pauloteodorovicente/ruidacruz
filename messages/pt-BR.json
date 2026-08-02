@@ -32,21 +32,21 @@
   },
   "home": {
     "meta": {
-      "title": "Rui Da Cruz | Consultoria Imobiliária Premium — Lisboa e Porto",
-      "description": "Rui Da Cruz representa uma coleção reduzida de propriedades em Lisboa, Cascais e no Porto — cada uma escolhida a dedo, nunca apenas listada."
+      "title": "Rui Da Cruz | Consultoria Imobiliária Premium — Lisboa, Porto e Algarve",
+      "description": "Rui Da Cruz representa um portfólio reduzido de propriedades em Lisboa, Cascais, Porto e no Algarve, escolhidas a dedo pelo consultor."
     },
     "hero": {
       "eyebrow": "Consultoria Imobiliária Premium",
       "title": "Imóveis selecionados para quem exige o extraordinário",
-      "subtitle": "Uma coleção reduzida de propriedades em Lisboa, Cascais e no Porto — cada uma escolhida a dedo, nunca apenas listada.",
-      "ctaPrimary": "Ver Coleção Curada",
+      "subtitle": "Um portfólio reduzido de propriedades em Lisboa, Cascais, Porto e no Algarve — escolhidas a dedo por Rui Da Cruz.",
+      "ctaPrimary": "Portfólio",
       "ctaSecondary": "Falar com Rui"
     },
     "credibility": {
       "items": [
         {
           "value": "7 Anos",
-          "label": "de atuação no mercado imobiliário de Lisboa e Porto"
+          "label": "de atuação no mercado imobiliário de Lisboa, Porto e Algarve"
         },
         {
           "value": "RE/MAX Collection",
@@ -54,27 +54,27 @@
         },
         {
           "value": "Portfólio Selecionado",
-          "label": "imóveis de alto padrão em Lisboa, Cascais e Porto"
+          "label": "imóveis de alto padrão em Lisboa, Cascais, Porto e Algarve"
         }
       ]
     },
     "collection": {
-      "eyebrow": "Coleção Curada",
-      "title": "Uma seleção, não uma lista",
+      "eyebrow": "Portfólio",
+      "title": "Cada imóvel, uma escolha deliberada.",
       "priceOnApplication": "Preço Sob Consulta",
       "viewProperty": "Ver Imóvel"
     },
     "about": {
       "eyebrow": "O Consultor",
       "title": "Rui Da Cruz",
-      "text": "Consultor imobiliário certificado RE/MAX Collection, com atuação focada em Parque das Nações e nas zonas premium de Lisboa, Cascais e Porto. Uma abordagem pessoal e discreta, dedicada a cada cliente do início ao fecho do negócio.",
+      "text": "Consultor imobiliário certificado RE/MAX Collection, com atuação focada em Parque das Nações e nas zonas premium de Lisboa, Cascais, Porto e Algarve. Uma abordagem pessoal e discreta, dedicada a cada cliente do início ao fecho do negócio.",
       "cta": "Conhecer a História"
     }
   },
   "sobre": {
     "meta": {
       "title": "Sobre Rui Da Cruz | Consultor Imobiliário — RE/MAX Collection",
-      "description": "Consultor imobiliário certificado RE/MAX Collection, com atuação em Parque das Nações, Lisboa, Cascais e Porto."
+      "description": "Consultor imobiliário certificado RE/MAX Collection, com atuação em Parque das Nações, Lisboa, Cascais, Porto e Algarve."
     },
     "eyebrow": "O Consultor",
     "title": "Rui Da Cruz",
@@ -84,10 +84,9 @@
       "7 Anos de Atuação"
     ],
     "paragraphs": [
-      "Rui Da Cruz é consultor imobiliário certificado RE/MAX Collection, com atuação focada em Parque das Nações e nas zonas premium de Lisboa, Cascais e Porto.",
+      "Rui Da Cruz é consultor imobiliário certificado RE/MAX Collection, com atuação focada em Parque das Nações e nas zonas premium de Lisboa, Cascais, Porto e Algarve.",
       "A sua abordagem é pessoal e discreta — dedicada a cada cliente do início ao fecho do negócio, com especial atenção a quem procura imóveis de características únicas."
-    ],
-    "pending": "Biografia completa em preparação."
+    ]
   },
   "contacto": {
     "meta": {

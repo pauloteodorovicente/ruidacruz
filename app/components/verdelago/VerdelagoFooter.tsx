@@ -1,10 +1,10 @@
 "use client";
 
 import Link from "next/link";
-import { useLanguage } from "@/lib/language-context";
+import { useVerdelagoLanguage } from "@/lib/verdelago-language-context";
 
-export function Footer() {
-  const { t } = useLanguage();
+export function VerdelagoFooter() {
+  const { t } = useVerdelagoLanguage();
   const f = t.footer;
 
   return (

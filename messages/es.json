@@ -32,21 +32,21 @@
   },
   "home": {
     "meta": {
-      "title": "Rui Da Cruz | Asesoría inmobiliaria premium — Lisboa y Oporto",
-      "description": "Rui Da Cruz representa una selecta colección de propiedades en Lisboa, Cascais y Oporto, todas ellas elegidas cuidadosamente, nunca simplemente incluidas en una lista."
+      "title": "Rui Da Cruz | Asesoría inmobiliaria premium — Lisboa, Oporto y el Algarve",
+      "description": "Rui Da Cruz representa un portafolio reducido de propiedades en Lisboa, Cascais, Oporto y el Algarve, seleccionadas personalmente por el asesor."
     },
     "hero": {
       "eyebrow": "Asesoramiento inmobiliario premium",
       "title": "Inmuebles seleccionados para quienes buscan lo extraordinario",
-      "subtitle": "Una selecta colección de propiedades en Lisboa, Cascais y Oporto —cada una de ellas cuidadosamente seleccionada, nunca simplemente incluida en una lista—.",
-      "ctaPrimary": "Ver colección seleccionada",
+      "subtitle": "Un portafolio reducido de propiedades en Lisboa, Cascais, Oporto y el Algarve — seleccionadas personalmente por Rui Da Cruz.",
+      "ctaPrimary": "Portafolio",
       "ctaSecondary": "Hablar con Rui"
     },
     "credibility": {
       "items": [
         {
           "value": "7 años",
-          "label": "con presencia en el mercado inmobiliario de Lisboa y Oporto"
+          "label": "con presencia en el mercado inmobiliario de Lisboa, Oporto y el Algarve"
         },
         {
           "value": "RE/MAX Collection",
@@ -54,27 +54,27 @@
         },
         {
           "value": "Portafolio seleccionado",
-          "label": "Inmuebles de lujo en Lisboa, Cascais y Oporto"
+          "label": "Inmuebles de lujo en Lisboa, Cascais, Oporto y el Algarve"
         }
       ]
     },
     "collection": {
-      "eyebrow": "Colección seleccionada",
-      "title": "Una selección, no una lista",
+      "eyebrow": "Portafolio",
+      "title": "Cada inmueble, una elección deliberada.",
       "priceOnApplication": "Precio a consultar",
       "viewProperty": "Ver inmueble"
     },
     "about": {
       "eyebrow": "El consultor",
       "title": "Rui Da Cruz",
-      "text": "Asesor inmobiliario certificado por RE/MAX Collection, especializado en Parque das Nações y en las zonas de lujo de Lisboa, Cascais y Oporto. Un trato personalizado y discreto, dedicado a cada cliente desde el inicio hasta el cierre de la operación.",
+      "text": "Asesor inmobiliario certificado por RE/MAX Collection, especializado en Parque das Nações y en las zonas de lujo de Lisboa, Cascais, Oporto y el Algarve. Un trato personalizado y discreto, dedicado a cada cliente desde el inicio hasta el cierre de la operación.",
       "cta": "Conocer la historia"
     }
   },
   "sobre": {
     "meta": {
       "title": "Acerca de Rui Da Cruz | Asesor inmobiliario — RE/MAX Collection",
-      "description": "Asesor inmobiliario certificado por RE/MAX Collection, que opera en Parque das Nações, Lisboa, Cascais y Oporto."
+      "description": "Asesor inmobiliario certificado por RE/MAX Collection, que opera en Parque das Nações, Lisboa, Cascais, Oporto y el Algarve."
     },
     "eyebrow": "El consultor",
     "title": "Rui Da Cruz",
@@ -84,10 +84,9 @@
       "7 años de trayectoria"
     ],
     "paragraphs": [
-      "Rui Da Cruz es un asesor inmobiliario certificado por RE/MAX Collection, cuya actividad se centra en Parque das Nações y en las zonas de lujo de Lisboa, Cascais y Oporto.",
+      "Rui Da Cruz es un asesor inmobiliario certificado por RE/MAX Collection, cuya actividad se centra en Parque das Nações y en las zonas de lujo de Lisboa, Cascais, Oporto y el Algarve.",
       "Su enfoque es personal y discreto: se dedica a cada cliente desde el principio hasta el cierre de la operación, prestando especial atención a quienes buscan inmuebles con características únicas."
-    ],
-    "pending": "Biografía completa en preparación."
+    ]
   },
   "contacto": {
     "meta": {
