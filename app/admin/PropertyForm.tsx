@@ -3,6 +3,7 @@
 import { useMemo, useState } from "react";
 import { saveProperty } from "./actions";
 import { recommendLayoutMode, type Property } from "@/lib/property-types";
+import { Select } from "@/app/components/Select";
 
 const LAYOUT_LABEL: Record<string, string> = {
   arquitetura: "Arquitetura",
@@ -52,28 +53,32 @@ export function PropertyForm({ property }: { property?: Property }) {
             <input name="title" defaultValue={property?.title} required className={inputClass} />
           </Field>
           <Field label="Tipo">
-            <select
+            <Select
               name="property_type"
               value={propertyType}
-              onChange={(e) => setPropertyType(e.target.value as typeof propertyType)}
-              className={inputClass}
-            >
-              <option value="moradia">Moradia</option>
-              <option value="apartamento">Apartamento</option>
-              <option value="terreno">Terreno</option>
-              <option value="outro">Outro</option>
-            </select>
+              onChange={(v) => setPropertyType(v as typeof propertyType)}
+              options={[
+                { value: "moradia", label: "Moradia" },
+                { value: "apartamento", label: "Apartamento" },
+                { value: "terreno", label: "Terreno" },
+                { value: "outro", label: "Outro" },
+              ]}
+            />
           </Field>
           <Field label="Tipologia">
             <input name="typology" defaultValue={property?.typology ?? ""} placeholder="T5" className={inputClass} />
           </Field>
           <Field label="Status">
-            <select name="status" defaultValue={property?.status ?? "disponivel"} className={inputClass}>
-              <option value="disponivel">Disponível</option>
-              <option value="reservado">Reservado</option>
-              <option value="vendido">Vendido</option>
-              <option value="off_market">Off-Market</option>
-            </select>
+            <Select
+              name="status"
+              defaultValue={property?.status ?? "disponivel"}
+              options={[
+                { value: "disponivel", label: "Disponível" },
+                { value: "reservado", label: "Reservado" },
+                { value: "vendido", label: "Vendido" },
+                { value: "off_market", label: "Off-Market" },
+              ]}
+            />
           </Field>
           <label className="flex items-center gap-2 self-end pb-2.5">
             <input type="checkbox" name="featured" defaultChecked={property?.featured} />
@@ -152,12 +157,15 @@ export function PropertyForm({ property }: { property?: Property }) {
             <input type="number" name="construction_year" defaultValue={property?.construction_year ?? ""} className={inputClass} />
           </Field>
           <Field label="Certificado energético">
-            <select name="energy_certificate" defaultValue={property?.energy_certificate ?? ""} className={inputClass}>
-              <option value="">— Ainda não disponível —</option>
-              {["A+", "A", "B", "B-", "C", "D", "E", "F"].map((c) => (
-                <option key={c} value={c}>{c}</option>
-              ))}
-            </select>
+            <Select
+              name="energy_certificate"
+              defaultValue={property?.energy_certificate ?? ""}
+              placeholder="— Ainda não disponível —"
+              options={[
+                { value: "", label: "— Ainda não disponível —" },
+                ...["A+", "A", "B", "B-", "C", "D", "E", "F"].map((c) => ({ value: c, label: c })),
+              ]}
+            />
           </Field>
         </div>
       </fieldset>
@@ -188,18 +196,15 @@ export function PropertyForm({ property }: { property?: Property }) {
       <fieldset className="flex flex-col gap-4">
         <h2 className="font-display text-lg text-accent">Configuração</h2>
         <Field label={`Tema/layout — recomendado: ${LAYOUT_LABEL[recommended]}`}>
-          <select
+          <Select
             name="layout_mode"
             value={effectiveLayoutMode}
-            onChange={(e) => setLayoutMode(e.target.value)}
-            className={inputClass}
-          >
-            {Object.entries(LAYOUT_LABEL).map(([value, label]) => (
-              <option key={value} value={value}>
-                {label}{value === recommended ? " (recomendado)" : ""}
-              </option>
-            ))}
-          </select>
+            onChange={setLayoutMode}
+            options={Object.entries(LAYOUT_LABEL).map(([value, label]) => ({
+              value,
+              label: `${label}${value === recommended ? " (recomendado)" : ""}`,
+            }))}
+          />
         </Field>
       </fieldset>
 

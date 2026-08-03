@@ -11,30 +11,18 @@ import type { Property } from "@/lib/properties";
 // Component, sem duplicar a busca de dados aqui.
 //
 // TODO (Fase 5/6): imagem hoje é um mapeamento manual por referência — vira
-// property_photos do Storage quando o upload no painel existir. TODO (Fase 5):
-// o link aponta pra /leca-do-balio hardcoded até a rota /imoveis/[referencia]
-// existir.
+// property_photos do Storage quando o upload no painel existir.
 const COVER_IMAGE_BY_REFERENCE: Record<string, string> = {
   "122481641-38": "/images/leca-do-balio/01-hero-fachada.jpg",
+  verdelago: "/images/verdelago/01-hero-humanizada.jpg",
 };
-
-// Verdelago é uma landing de campanha própria (/verdelago), fora da tabela
-// properties do Supabase — por isso entra aqui como um card fixo, no mesmo
-// padrão do card da Leça do Balio, em vez de vir do loop de properties.
-const VERDELAGO_CARD: Record<string, { zone: string; title: string; price: string }> = {
-  "pt-PT": { zone: "Altura, Algarve", title: "Verdelago Resort", price: "Desde 880.000 €" },
-  "pt-BR": { zone: "Altura, Algarve", title: "Verdelago Resort", price: "A partir de € 880.000" },
-  en: { zone: "Altura, Algarve", title: "Verdelago Resort", price: "From €880,000" },
-  es: { zone: "Altura, Algarve", title: "Verdelago Resort", price: "Desde 880.000 €" },
-  fr: { zone: "Altura, Algarve", title: "Verdelago Resort", price: "À partir de 880 000 €" },
-  it: { zone: "Altura, Algarve", title: "Verdelago Resort", price: "Da 880.000 €" },
-  de: { zone: "Altura, Algarve", title: "Verdelago Resort", price: "Ab 880.000 €" },
+const COVER_IMAGE_POSITION: Record<string, string> = {
+  verdelago: "object-[center_22%]",
 };
 
 export function CuratedCollection({ properties }: { properties: Property[] }) {
   const locale = useLocale();
   const c = useTranslations("home.collection");
-  const verdelago = VERDELAGO_CARD[locale] ?? VERDELAGO_CARD["pt-PT"];
 
   return (
     <section id="colecao" className="bg-background px-6 py-14 md:px-12 md:py-20">
@@ -45,53 +33,44 @@ export function CuratedCollection({ properties }: { properties: Property[] }) {
         </Reveal>
 
         <div className="grid grid-cols-1 gap-8 md:grid-cols-3 md:gap-6">
-          {properties.map((property) => (
-            <Reveal key={property.id} className="block">
-              <NextLink href="/leca-do-balio" className="group block">
-                <div className="relative aspect-[4/3] overflow-hidden">
-                  <Image
-                    src={COVER_IMAGE_BY_REFERENCE[property.reference] ?? "/images/leca-do-balio/01-hero-fachada.jpg"}
-                    alt={property.title}
-                    fill
-                    sizes="(max-width: 768px) 100vw, 33vw"
-                    className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
-                  />
-                </div>
-                <div className="mt-4">
-                  <p className="text-xs tracking-[0.15em] uppercase text-foreground-muted">{property.zone}</p>
-                  <p className="font-display text-lg mt-1">{property.title}</p>
-                  <p className="mt-1 text-sm text-accent">
-                    {property.price_on_application
-                      ? c("priceOnApplication")
-                      : property.price?.toLocaleString(locale, {
-                          style: "currency",
-                          currency: "EUR",
-                          maximumFractionDigits: 0,
-                        })}
-                  </p>
-                </div>
-              </NextLink>
-            </Reveal>
-          ))}
-
-          <Reveal className="block">
-            <NextLink href="/verdelago" className="group block">
-              <div className="relative aspect-[4/3] overflow-hidden">
-                <Image
-                  src="/images/verdelago/01-hero-humanizada.jpg"
-                  alt={verdelago.title}
-                  fill
-                  sizes="(max-width: 768px) 100vw, 33vw"
-                  className="object-cover object-[center_22%] transition-transform duration-500 group-hover:scale-[1.03]"
-                />
-              </div>
-              <div className="mt-4">
-                <p className="text-xs tracking-[0.15em] uppercase text-foreground-muted">{verdelago.zone}</p>
-                <p className="font-display text-lg mt-1">{verdelago.title}</p>
-                <p className="mt-1 text-sm text-accent">{verdelago.price}</p>
-              </div>
-            </NextLink>
-          </Reveal>
+          {properties.map((property) => {
+            // Landings de campanha (Leça, Verdelago) têm rota própria fora do
+            // template genérico de imóvel; o resto usa a ficha /imoveis/[ref].
+            const href = property.is_campaign_page && property.campaign_path
+              ? property.campaign_path
+              : `/imoveis/${property.reference}`;
+            return (
+              <Reveal key={property.id} className="block">
+                <NextLink
+                  href={href}
+                  className="group block overflow-hidden rounded-lg border border-border bg-background-raised shadow-[0_8px_30px_-12px_rgba(0,0,0,0.25)] transition-all duration-500 hover:-translate-y-1.5 hover:shadow-[0_24px_48px_-16px_rgba(0,0,0,0.35)]"
+                >
+                  <div className="relative aspect-[4/3] overflow-hidden">
+                    <Image
+                      src={COVER_IMAGE_BY_REFERENCE[property.reference] ?? "/images/leca-do-balio/01-hero-fachada.jpg"}
+                      alt={property.title}
+                      fill
+                      sizes="(max-width: 768px) 100vw, 33vw"
+                      className={`object-cover transition-transform duration-700 group-hover:scale-[1.05] ${COVER_IMAGE_POSITION[property.reference] ?? ""}`}
+                    />
+                  </div>
+                  <div className="p-5">
+                    <p className="text-xs tracking-[0.15em] uppercase text-foreground-muted">{property.zone}</p>
+                    <p className="font-display text-lg mt-1">{property.title}</p>
+                    <p className="mt-1 text-sm text-accent">
+                      {property.price_on_application
+                        ? c("priceOnApplication")
+                        : property.price?.toLocaleString(locale, {
+                            style: "currency",
+                            currency: "EUR",
+                            maximumFractionDigits: 0,
+                          })}
+                    </p>
+                  </div>
+                </NextLink>
+              </Reveal>
+            );
+          })}
         </div>
       </div>
     </section>

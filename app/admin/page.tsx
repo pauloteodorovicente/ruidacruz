@@ -3,6 +3,8 @@ import Link from "next/link";
 import { isAdminAuthenticated } from "@/lib/admin-auth";
 import { getAllPropertiesForAdmin } from "@/lib/admin-properties";
 import { LogoutButton } from "./LogoutButton";
+import { AdminBrand } from "./AdminBrand";
+import { ThemeToggle } from "@/app/components/ThemeToggle";
 
 const STATUS_LABEL: Record<string, string> = {
   disponivel: "Disponível",
@@ -21,7 +23,7 @@ export default async function AdminPage() {
       <div className="mx-auto max-w-4xl">
         <div className="flex flex-wrap items-center justify-between gap-y-3 mb-10">
           <div>
-            <p className="text-xs tracking-[0.25em] uppercase text-accent mb-1">Painel Administrativo</p>
+            <AdminBrand />
             <h1 className="font-display text-2xl">Imóveis</h1>
           </div>
           <div className="flex flex-wrap items-center gap-x-6 gap-y-2">
@@ -37,6 +39,7 @@ export default async function AdminPage() {
             <Link href="/admin/analytics" className="text-xs tracking-[0.08em] uppercase text-foreground-muted hover:text-accent transition-colors">
               Analytics
             </Link>
+            <ThemeToggle />
             <LogoutButton />
           </div>
         </div>
@@ -58,6 +61,11 @@ export default async function AdminPage() {
                   </p>
                 </div>
                 <div className="flex items-center gap-4 text-sm">
+                  {property.is_campaign_page && (
+                    <span className="text-[11px] tracking-[0.08em] uppercase text-foreground-muted border border-border px-2 py-0.5">
+                      Landing própria
+                    </span>
+                  )}
                   <span className="text-foreground-muted">{STATUS_LABEL[property.status] ?? property.status}</span>
                   {property.featured && (
                     <span className="text-[11px] tracking-[0.08em] uppercase text-accent border border-accent px-2 py-0.5">

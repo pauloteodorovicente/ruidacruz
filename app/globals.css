@@ -51,11 +51,13 @@ html::-webkit-scrollbar {
   display: none; /* Chrome, Safari, Edge Chromium */
 }
 
+/* Fundo/texto do body vêm das classes bg-background/text-foreground no
+   <body> (app/layout.tsx) — não daqui. Uma regra "body {...}" fora de
+   qualquer @layer tem prioridade MAIOR que qualquer utilitário do Tailwind
+   (que vive em @layer utilities), então travava o body na cor inicial e
+   nunca reagia à troca de tema, mesmo com --c-bg atualizando certinho. */
 body {
-  background-color: var(--c-bg);
-  color: var(--c-fg);
   font-family: var(--c-font-body), system-ui, sans-serif;
-  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 h1, h2, h3, .font-display {

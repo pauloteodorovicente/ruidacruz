@@ -38,7 +38,9 @@ export function LanguageSwitcher({ overHero }: { overHero?: boolean }) {
 
   function select(code: AppLocale) {
     setOpen(false);
-    router.replace(pathname, { locale: code });
+    // scroll:false — trocar de idioma não deve mover o usuário nem um
+    // milímetro na página, só re-renderiza o texto no lugar.
+    router.replace(pathname, { locale: code, scroll: false });
   }
 
   return (

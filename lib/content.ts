@@ -19,7 +19,7 @@ export const content = {
       location: "Leça do Balio, Matosinhos",
     },
     identification: {
-      tags: ["Moradia T5", "Loteamento Fechado", "Arquitetura de Autor", "RE/MAX Collection"],
+      tags: ["Moradia T5", "Loteamento Fechado", "Arquitetura de Autor", "Piscina Interior Aquecida"],
       title: "Uma propriedade rara, onde a privacidade encontra a excelência",
       lede: "Vinte residências, um único endereço junto à Quinta do Chantre — a poucos minutos do Porto.",
       price: "1.950.000 €",
@@ -138,7 +138,7 @@ export const content = {
       location: "Leça do Balio, Matosinhos",
     },
     identification: {
-      tags: ["Casa T5", "Loteamento Fechado", "Arquitetura Autoral", "RE/MAX Collection"],
+      tags: ["Casa T5", "Loteamento Fechado", "Arquitetura Autoral", "Piscina Interna Aquecida"],
       title: "Uma propriedade rara, onde a privacidade encontra a excelência",
       lede: "Vinte residências, um único endereço junto à Quinta do Chantre — a poucos minutos do Porto.",
       price: "€ 1.950.000",
@@ -257,7 +257,7 @@ export const content = {
       location: "Leça do Balio, Matosinhos",
     },
     identification: {
-      tags: ["5-Bedroom Residence", "Gated Enclave", "Architect-Designed", "RE/MAX Collection"],
+      tags: ["5-Bedroom Residence", "Gated Enclave", "Architect-Designed", "Indoor Heated Pool"],
       title: "A rare property, where privacy meets excellence",
       lede: "Twenty residences, one singular address beside Quinta do Chantre — minutes from Porto.",
       price: "€1,950,000",
@@ -376,7 +376,7 @@ export const content = {
       location: "Leça do Balio, Matosinhos",
     },
     identification: {
-      tags: ["Residencia T5", "Urbanización Cerrada", "Arquitectura de Autor", "RE/MAX Collection"],
+      tags: ["Residencia T5", "Urbanización Cerrada", "Arquitectura de Autor", "Piscina Interior Climatizada"],
       title: "Una propiedad excepcional, donde la privacidad se encuentra con la excelencia",
       lede: "Veinte residencias, una única dirección junto a Quinta do Chantre — a minutos de Oporto.",
       price: "1.950.000 €",
@@ -495,7 +495,7 @@ export const content = {
       location: "Leça do Balio, Matosinhos",
     },
     identification: {
-      tags: ["Résidence 5 chambres", "Domaine Fermé", "Architecture d'Auteur", "RE/MAX Collection"],
+      tags: ["Résidence 5 chambres", "Domaine Fermé", "Architecture d'Auteur", "Piscine Intérieure Chauffée"],
       title: "Une propriété rare, où l'intimité rencontre l'excellence",
       lede: "Vingt résidences, une seule adresse au bord de Quinta do Chantre — à quelques minutes de Porto.",
       price: "1 950 000 €",
@@ -614,7 +614,7 @@ export const content = {
       location: "Leça do Balio, Matosinhos",
     },
     identification: {
-      tags: ["Residenza T5", "Residence Privato", "Architettura d'Autore", "RE/MAX Collection"],
+      tags: ["Residenza T5", "Residence Privato", "Architettura d'Autore", "Piscina Interna Riscaldata"],
       title: "Una proprietà rara, dove la privacy incontra l'eccellenza",
       lede: "Venti residenze, un unico indirizzo accanto a Quinta do Chantre — a pochi minuti da Porto.",
       price: "1.950.000 €",
@@ -733,7 +733,7 @@ export const content = {
       location: "Leça do Balio, Matosinhos",
     },
     identification: {
-      tags: ["5-Zimmer-Residenz", "Geschlossene Wohnanlage", "Architektonisch gestaltet", "RE/MAX Collection"],
+      tags: ["5-Zimmer-Residenz", "Geschlossene Wohnanlage", "Architektonisch gestaltet", "Beheizter Innenpool"],
       title: "Eine seltene Immobilie, in der Privatsphäre auf Exzellenz trifft",
       lede: "Zwanzig Residenzen, eine einzige Adresse neben der Quinta do Chantre — wenige Minuten von Porto entfernt.",
       price: "1.950.000 €",

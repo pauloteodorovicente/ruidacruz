@@ -1,3 +1,5 @@
+import { notFound } from "next/navigation";
+import { getPropertyByReference } from "@/lib/properties";
 import { LanguageProvider } from "@/lib/language-context";
 import { Header } from "@/app/components/Header";
 import { Hero } from "@/app/components/Hero";
@@ -49,7 +51,12 @@ const jsonLd = {
   },
 };
 
-export default function LecaDoBalioPage() {
+export default async function LecaDoBalioPage() {
+  // Controle de publicação vem do registo em properties (ref 122481641-38) —
+  // despublicar no admin tira a página do ar sem precisar de deploy.
+  const property = await getPropertyByReference("122481641-38");
+  if (!property?.published) notFound();
+
   return (
     <LanguageProvider>
       <script

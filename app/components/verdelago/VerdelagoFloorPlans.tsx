@@ -1,10 +1,10 @@
 "use client";
 
 import { useState } from "react";
-import Image from "next/image";
 import { useVerdelagoLanguage } from "@/lib/verdelago-language-context";
 import { floorplans } from "@/lib/verdelago-content";
 import { Reveal } from "../Reveal";
+import { ZoomableImage } from "../ZoomableImage";
 
 export function VerdelagoFloorPlans() {
   const { t } = useVerdelagoLanguage();
@@ -56,7 +56,7 @@ export function VerdelagoFloorPlans() {
           </div>
 
           <div className="relative w-full flex-1 bg-[#f4f2ee] min-h-0" onClick={(e) => e.stopPropagation()}>
-            <Image src={current.src} alt={`${p.title} — ${current.label}`} fill sizes="100vw" className="object-contain" />
+            <ZoomableImage key={current.id} src={current.src} alt={`${p.title} — ${current.label}`} />
           </div>
           <p className="mt-3 text-[11px] text-white/40 z-10">{p.credit}</p>
         </div>

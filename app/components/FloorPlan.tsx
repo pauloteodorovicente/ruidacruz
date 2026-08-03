@@ -1,9 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import Image from "next/image";
 import { useLanguage } from "@/lib/language-context";
 import { Reveal } from "./Reveal";
+import { ZoomableImage } from "./ZoomableImage";
 import { trackEvent } from "@/lib/track-event";
 
 const floors = [
@@ -91,13 +91,7 @@ export function FloorPlan() {
             className="relative w-full flex-1 bg-[#f4f2ee] min-h-0"
             onClick={(e) => e.stopPropagation()}
           >
-            <Image
-              src={current.src}
-              alt={`${copy.title} — ${current.label[locale]}`}
-              fill
-              sizes="100vw"
-              className="object-contain"
-            />
+            <ZoomableImage key={current.id} src={current.src} alt={`${copy.title} — ${current.label[locale]}`} />
           </div>
           <p className="mt-3 text-[11px] text-white/40 z-10">{copy.credit}</p>
         </div>

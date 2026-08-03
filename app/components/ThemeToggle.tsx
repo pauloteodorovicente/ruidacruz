@@ -15,6 +15,17 @@ export function ThemeToggle() {
     document.documentElement.setAttribute("data-theme", next);
     localStorage.setItem("theme", next);
     setTheme(next);
+    // Aplica direto no body via inline style, além da classe utilitária: em
+    // alguns navegadores o background-color do <body> (via var() herdada de
+    // um atributo no <html>) não invalida corretamente numa troca em tempo
+    // de execução — o valor computado fica "preso" no tema inicial mesmo
+    // com a custom property e outros elementos atualizando certinho. Style
+    // inline garante o repaint sem depender dessa invalidação. getComputedStyle
+    // força um recálculo síncrono, então já lê o valor novo sem precisar
+    // esperar um frame.
+    const styles = getComputedStyle(document.documentElement);
+    document.body.style.backgroundColor = styles.getPropertyValue("--c-bg").trim();
+    document.body.style.color = styles.getPropertyValue("--c-fg").trim();
   }
 
   return (

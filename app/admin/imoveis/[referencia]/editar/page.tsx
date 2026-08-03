@@ -1,10 +1,14 @@
 import { redirect, notFound } from "next/navigation";
+import Link from "next/link";
 import { isAdminAuthenticated } from "@/lib/admin-auth";
 import { getPropertyByReferenceForAdmin } from "@/lib/admin-properties";
 import { getPropertyPhotos, getPropertyFloorplans } from "@/lib/properties";
 import { PropertyForm } from "../../../PropertyForm";
 import { PhotoManager } from "../../../PhotoManager";
 import { FloorplanManager } from "../../../FloorplanManager";
+import { CampaignPageForm } from "../../../CampaignPageForm";
+import { AdminBrand } from "../../../AdminBrand";
+import { ThemeToggle } from "@/app/components/ThemeToggle";
 
 export default async function EditPropertyPage({
   params,
@@ -20,6 +24,34 @@ export default async function EditPropertyPage({
   const property = await getPropertyByReferenceForAdmin(referencia);
   if (!property) notFound();
 
+  const header = (
+    <div className="flex flex-wrap items-center justify-between gap-y-3">
+      <div>
+        <AdminBrand />
+        <h1 className="font-display text-2xl">Editar — {property.title}</h1>
+      </div>
+      <div className="flex items-center gap-6">
+        <Link href="/admin" className="text-xs tracking-[0.08em] uppercase text-foreground-muted hover:text-accent transition-colors">
+          ← Imóveis
+        </Link>
+        <ThemeToggle />
+      </div>
+    </div>
+  );
+
+  // Leça do Balio e Verdelago são landings de campanha com layout/texto
+  // fixos no código — não passam pelo formulário genérico de imóvel.
+  if (property.is_campaign_page) {
+    return (
+      <main className="min-h-screen bg-background px-6 py-10 md:px-12">
+        <div className="mx-auto max-w-2xl flex flex-col gap-10">
+          {header}
+          <CampaignPageForm property={property} />
+        </div>
+      </main>
+    );
+  }
+
   const [photos, floorplans] = await Promise.all([
     getPropertyPhotos(property.id),
     getPropertyFloorplans(property.id),
@@ -28,10 +60,7 @@ export default async function EditPropertyPage({
   return (
     <main className="min-h-screen bg-background px-6 py-10 md:px-12">
       <div className="mx-auto max-w-2xl flex flex-col gap-10">
-        <div>
-          <p className="text-xs tracking-[0.25em] uppercase text-accent mb-1">Painel Administrativo</p>
-          <h1 className="font-display text-2xl">Editar — {property.title}</h1>
-        </div>
+        {header}
         <PhotoManager propertyId={property.id} propertyReference={property.reference} photos={photos} />
         <FloorplanManager propertyId={property.id} propertyReference={property.reference} floorplans={floorplans} />
         <PropertyForm property={property} />

@@ -3,6 +3,8 @@ import Link from "next/link";
 import { isAdminAuthenticated } from "@/lib/admin-auth";
 import { getAllTestimonialsForAdmin } from "@/lib/admin-testimonials";
 import { deleteTestimonial } from "../testimonial-actions";
+import { AdminBrand } from "../AdminBrand";
+import { ThemeToggle } from "@/app/components/ThemeToggle";
 
 export default async function TestimonialsAdminPage() {
   if (!(await isAdminAuthenticated())) redirect("/admin/login");
@@ -14,7 +16,7 @@ export default async function TestimonialsAdminPage() {
       <div className="mx-auto max-w-3xl">
         <div className="flex flex-wrap items-center justify-between gap-y-3 mb-10">
           <div>
-            <p className="text-xs tracking-[0.25em] uppercase text-accent mb-1">Painel Administrativo</p>
+            <AdminBrand />
             <h1 className="font-display text-2xl">Depoimentos</h1>
           </div>
           <div className="flex flex-wrap items-center gap-x-6 gap-y-2">
@@ -24,6 +26,7 @@ export default async function TestimonialsAdminPage() {
             <Link href="/admin" className="text-xs tracking-[0.08em] uppercase text-foreground-muted hover:text-accent transition-colors">
               ← Imóveis
             </Link>
+            <ThemeToggle />
           </div>
         </div>
 

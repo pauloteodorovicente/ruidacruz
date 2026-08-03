@@ -35,6 +35,12 @@ export type Property = {
   layout_mode: LayoutMode;
   layout_mode_overridden: boolean;
   source_locale: string;
+  // Landings de campanha (Leça do Balio, Verdelago): conteúdo rico vive no
+  // código (lib/content.ts / lib/verdelago-content.ts), não neste registo —
+  // ele existe só pra aparecer no admin e ter published controlando se a
+  // página em campaign_path fica no ar.
+  is_campaign_page: boolean;
+  campaign_path: string | null;
   created_at: string;
   updated_at: string;
 };

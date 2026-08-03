@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import { notFound } from "next/navigation";
+import { getPropertyByReference } from "@/lib/properties";
 import { VerdelagoLanguageProvider } from "@/lib/verdelago-language-context";
 import { VerdelagoHeader } from "@/app/components/verdelago/VerdelagoHeader";
 import { VerdelagoHero } from "@/app/components/verdelago/VerdelagoHero";
@@ -53,7 +55,12 @@ const jsonLd = {
   },
 };
 
-export default function VerdelagoPage() {
+export default async function VerdelagoPage() {
+  // Controle de publicação vem do registo em properties (ref "verdelago") —
+  // despublicar no admin tira a página do ar sem precisar de deploy.
+  const property = await getPropertyByReference("verdelago");
+  if (!property?.published) notFound();
+
   return (
     <VerdelagoLanguageProvider>
       <script

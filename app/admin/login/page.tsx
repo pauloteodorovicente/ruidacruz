@@ -2,6 +2,7 @@
 
 import { useState, type FormEvent } from "react";
 import { useRouter } from "next/navigation";
+import { ThemeToggle } from "@/app/components/ThemeToggle";
 
 export default function AdminLoginPage() {
   const router = useRouter();
@@ -28,7 +29,10 @@ export default function AdminLoginPage() {
   }
 
   return (
-    <main className="flex min-h-screen items-center justify-center bg-background px-6">
+    <main className="relative flex min-h-screen items-center justify-center bg-background px-6">
+      <div className="absolute top-6 right-6">
+        <ThemeToggle />
+      </div>
       <form onSubmit={handleSubmit} className="w-full max-w-sm">
         <p className="text-xs tracking-[0.25em] uppercase text-accent mb-2 text-center">Painel Administrativo</p>
         <h1 className="font-display text-2xl mb-8 text-center">Rui Da Cruz</h1>
