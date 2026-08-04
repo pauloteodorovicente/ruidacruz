@@ -86,33 +86,3 @@ export async function saveProperty(formData: FormData) {
   revalidatePath(`/imoveis/${record.reference}`);
   redirect("/admin");
 }
-
-// Landings de campanha (Leça do Balio, Verdelago): conteúdo rico vive no
-// código, não neste registo — só título/zona/preço (usados no card da Home)
-// e published (controla se a página fica no ar) são editáveis aqui.
-export async function saveCampaignPage(formData: FormData) {
-  if (!(await isAdminAuthenticated())) redirect("/admin/login");
-
-  const id = str(formData, "id");
-  const campaignPath = str(formData, "campaign_path");
-  if (!id || !campaignPath) throw new Error("Registo de campanha inválido.");
-
-  const record = {
-    title: str(formData, "title"),
-    zone: str(formData, "zone") || null,
-    price: numOrNull(formData, "price"),
-    price_on_application: formData.get("price_on_application") === "on",
-    published: formData.get("published") === "on",
-  };
-
-  if (!record.title) throw new Error("Título é obrigatório.");
-
-  const supabase = createAdminClient();
-  const { error } = await supabase.from("properties").update(record).eq("id", id);
-  if (error) throw new Error(error.message);
-
-  revalidatePath("/admin");
-  revalidatePath("/");
-  revalidatePath(campaignPath);
-  redirect("/admin");
-}

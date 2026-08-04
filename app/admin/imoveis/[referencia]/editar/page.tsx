@@ -6,7 +6,6 @@ import { getPropertyPhotos, getPropertyFloorplans } from "@/lib/properties";
 import { PropertyForm } from "../../../PropertyForm";
 import { PhotoManager } from "../../../PhotoManager";
 import { FloorplanManager } from "../../../FloorplanManager";
-import { CampaignPageForm } from "../../../CampaignPageForm";
 import { AdminBrand } from "../../../AdminBrand";
 import { ThemeToggle } from "@/app/components/ThemeToggle";
 
@@ -38,19 +37,6 @@ export default async function EditPropertyPage({
       </div>
     </div>
   );
-
-  // Leça do Balio e Verdelago são landings de campanha com layout/texto
-  // fixos no código — não passam pelo formulário genérico de imóvel.
-  if (property.is_campaign_page) {
-    return (
-      <main className="min-h-screen bg-background px-6 py-10 md:px-12">
-        <div className="mx-auto max-w-2xl flex flex-col gap-10">
-          {header}
-          <CampaignPageForm property={property} />
-        </div>
-      </main>
-    );
-  }
 
   const [photos, floorplans] = await Promise.all([
     getPropertyPhotos(property.id),

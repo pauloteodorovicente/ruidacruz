@@ -61,11 +61,6 @@ export default async function AdminPage() {
                   </p>
                 </div>
                 <div className="flex items-center gap-4 text-sm">
-                  {property.is_campaign_page && (
-                    <span className="text-[11px] tracking-[0.08em] uppercase text-foreground-muted border border-border px-2 py-0.5">
-                      Landing própria
-                    </span>
-                  )}
                   <span className="text-foreground-muted">{STATUS_LABEL[property.status] ?? property.status}</span>
                   {property.featured && (
                     <span className="text-[11px] tracking-[0.08em] uppercase text-accent border border-accent px-2 py-0.5">
