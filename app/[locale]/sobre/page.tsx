@@ -14,10 +14,18 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "sobre.meta" });
+  const title = t("title");
+  const description = t("description");
   return {
-    title: t("title"),
-    description: t("description"),
+    title,
+    description,
     alternates: { languages: localeAlternates("/sobre") },
+    openGraph: {
+      title,
+      description,
+      images: ["/images/rui/hero-portrait.jpg"],
+      type: "website",
+    },
   };
 }
 

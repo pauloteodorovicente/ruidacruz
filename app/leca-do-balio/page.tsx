@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getPropertyByReference } from "@/lib/properties";
 import { LanguageProvider } from "@/lib/language-context";
@@ -13,6 +14,20 @@ import { Testimonials } from "@/app/components/Testimonials";
 import { LeadForm } from "@/app/components/LeadForm";
 import { WhatsAppFloating } from "@/app/components/WhatsAppFloating";
 import { Footer } from "@/app/components/Footer";
+
+export const metadata: Metadata = {
+  title: "Moradia T5 Leça do Balio | Uma Propriedade Rara — Rui Da Cruz",
+  description:
+    "Moradia T5 de arquitetura de autor num loteamento fechado de vinte residências em Leça do Balio, Matosinhos. 2.545 m² de terreno, piscina interior aquecida, a minutos do Porto.",
+  openGraph: {
+    title: "Moradia Leça do Balio | Uma Propriedade Rara",
+    description:
+      "Loteamento fechado de vinte residências, 2.545 m² de terreno, piscina aquecida. A minutos do Porto.",
+    images: ["/images/leca-do-balio/01-hero-fachada.jpg"],
+    locale: "pt_PT",
+    type: "website",
+  },
+};
 
 const jsonLd = {
   "@context": "https://schema.org",

@@ -52,11 +52,21 @@ export async function generateMetadata({
   const translation =
     locale === rawProperty.source_locale ? null : await getPropertyTranslation(rawProperty.id, locale as Locale);
   const property = localizeProperty(rawProperty, translation);
+  const photos = await getPropertyPhotos(property.id);
+  const coverImage = photos[0]?.storage_path ?? "/images/rui/hero-portrait.jpg";
 
+  const title = `${property.title} | Rui Da Cruz`;
+  const description = property.description ?? undefined;
   return {
-    title: `${property.title} | Rui Da Cruz`,
-    description: property.description ?? undefined,
+    title,
+    description,
     alternates: { languages: localeAlternates(`/imoveis/${referencia}`) },
+    openGraph: {
+      title,
+      description,
+      images: [coverImage],
+      type: "website",
+    },
   };
 }
 

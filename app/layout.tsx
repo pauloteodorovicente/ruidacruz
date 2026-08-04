@@ -15,16 +15,20 @@ const dmSans = DM_Sans({
   weight: ["300", "400", "500"],
 });
 
+// Fallback só — qualquer rota com generateMetadata/metadata próprio (Home,
+// Sobre, Contacto, fichas de imóvel, Leça, Verdelago) sobrescreve isto.
+// Não deixar isto com cara de imóvel específico de novo: como só
+// title/description eram sobrescritos e openGraph não, toda página que não
+// definia seu próprio openGraph "herdava" o da Leça — inclusive a Home —
+// e isso é exatamente o que aparecia na prévia de link do WhatsApp.
 export const metadata: Metadata = {
   metadataBase: new URL("https://ruidacruzconsultor.com"),
-  title: "Moradia Leça do Balio | Rui Da Cruz",
-  description:
-    "Uma propriedade rara onde a privacidade encontra a excelência — Leça do Balio, Matosinhos.",
+  title: "Rui Da Cruz | Consultoria Imobiliária Premium",
+  description: "Consultoria imobiliária premium com Rui Da Cruz, RE/MAX Collection.",
   openGraph: {
-    title: "Moradia Leça do Balio | Uma Propriedade Rara",
-    description:
-      "Loteamento fechado de vinte residências, 2.545 m² de terreno, piscina aquecida. A minutos do Porto.",
-    images: ["/images/leca-do-balio/01-hero-fachada.jpg"],
+    title: "Rui Da Cruz | Consultoria Imobiliária Premium",
+    description: "Consultoria imobiliária premium com Rui Da Cruz, RE/MAX Collection.",
+    images: ["/images/rui/hero-portrait.jpg"],
     locale: "pt_PT",
     type: "website",
   },
