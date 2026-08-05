@@ -4,6 +4,7 @@ import { isAdminAuthenticated } from "@/lib/admin-auth";
 import { getHomeHero } from "@/lib/home-hero";
 import { getAllPropertyPhotosForGallery } from "@/lib/admin-gallery";
 import { HeroEditor } from "./HeroEditor";
+import { saveHomeHero } from "../hero-actions";
 import { AdminBrand } from "../AdminBrand";
 import { ThemeToggle } from "@/app/components/ThemeToggle";
 
@@ -32,7 +33,7 @@ export default async function HeroAdminPage() {
           enviando do computador, ou colando um link direto. Arraste na prévia pra reposicionar, use o zoom, e arraste os
           quadros pra reordenar o mosaico.
         </p>
-        <HeroEditor initial={hero} galleryPhotos={galleryPhotos} />
+        <HeroEditor initial={hero} galleryPhotos={galleryPhotos} onSave={saveHomeHero} />
       </div>
     </main>
   );

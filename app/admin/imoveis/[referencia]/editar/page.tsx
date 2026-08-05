@@ -30,6 +30,12 @@ export default async function EditPropertyPage({
         <h1 className="font-display text-2xl">Editar — {property.title}</h1>
       </div>
       <div className="flex items-center gap-6">
+        <Link
+          href={`/admin/imoveis/${property.reference}/hero`}
+          className="text-xs tracking-[0.08em] uppercase text-foreground-muted hover:text-accent transition-colors"
+        >
+          Hero
+        </Link>
         <Link href="/admin" className="text-xs tracking-[0.08em] uppercase text-foreground-muted hover:text-accent transition-colors">
           ← Imóveis
         </Link>

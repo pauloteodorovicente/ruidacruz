@@ -3,7 +3,6 @@
 import { useState, useTransition } from "react";
 import { itemCountForLayout, type HeroItem, type HeroLayout, type HeroMediaType, type HomeHero } from "@/lib/home-hero-types";
 import type { GalleryPhoto } from "@/lib/admin-gallery";
-import { saveHomeHero } from "../hero-actions";
 import { MediaPickerModal } from "./MediaPickerModal";
 import { PositionZoomEditor } from "./PositionZoomEditor";
 
@@ -19,7 +18,17 @@ function emptyItem(kind: "image" | "video", src: string): HeroItem {
   return { src, kind, position_x: 50, position_y: 50, zoom: 1 };
 }
 
-export function HeroEditor({ initial, galleryPhotos }: { initial: HomeHero | null; galleryPhotos: GalleryPhoto[] }) {
+// onSave: quem usa o editor decide onde salvar (Home = singleton, imóvel =
+// por property_id) — o editor em si não sabe de onde vem nem pra onde vai.
+export function HeroEditor({
+  initial,
+  galleryPhotos,
+  onSave,
+}: {
+  initial: HomeHero | null;
+  galleryPhotos: GalleryPhoto[];
+  onSave: (mediaType: HeroMediaType, layout: HeroLayout, items: HeroItem[]) => Promise<void>;
+}) {
   const [mediaType, setMediaType] = useState<HeroMediaType>(initial?.media_type ?? "video");
   const [layout, setLayout] = useState<HeroLayout>(initial?.layout ?? "single");
   const [items, setItems] = useState<HeroItem[]>(initial?.items ?? []);
@@ -82,7 +91,7 @@ export function HeroEditor({ initial, galleryPhotos }: { initial: HomeHero | nul
     setError(null);
     startTransition(async () => {
       try {
-        await saveHomeHero(mediaType, layout, items);
+        await onSave(mediaType, layout, items);
         setSaved(true);
       } catch (e) {
         setError(e instanceof Error ? e.message : "Falha ao salvar.");

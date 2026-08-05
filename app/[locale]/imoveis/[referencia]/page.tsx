@@ -1,14 +1,17 @@
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
+import { getTranslations } from "next-intl/server";
 import { getPropertyByReference, getPropertyPhotos, getPropertyFloorplans, getPropertyTranslation } from "@/lib/properties";
 import { localizeProperty } from "@/lib/property-types";
 import { localeAlternates } from "@/lib/locale-alternates";
 import { getPropertyByReferenceForAdmin } from "@/lib/admin-properties";
 import { isAdminAuthenticated } from "@/lib/admin-auth";
+import { getPropertyHero } from "@/lib/property-hero";
 import { SiteHeader } from "@/app/components/site/SiteHeader";
 import { SiteFooter } from "@/app/components/site/SiteFooter";
 import { SiteWhatsAppFloating } from "@/app/components/site/SiteWhatsAppFloating";
 import { PropertyHero } from "@/app/components/PropertyHero";
+import { PropertyDynamicHero } from "@/app/components/site/PropertyDynamicHero";
 import { PropertyDetails } from "@/app/components/PropertyDetails";
 import { PropertyHighlights } from "@/app/components/PropertyHighlights";
 import { PropertyGallery } from "@/app/components/PropertyGallery";
@@ -126,9 +129,14 @@ export default async function ImovelPage({
     locale === rawProperty.source_locale ? null : await getPropertyTranslation(rawProperty.id, locale as Locale);
   const property = localizeProperty(rawProperty, translation);
 
-  const photos = await getPropertyPhotos(property.id);
-  const floorplans = await getPropertyFloorplans(property.id);
+  const [photos, floorplans, propertyHero] = await Promise.all([
+    getPropertyPhotos(property.id),
+    getPropertyFloorplans(property.id),
+    getPropertyHero(property.id),
+  ]);
   const coverImage = photos[0]?.storage_path ?? "/images/leca-do-balio/01-hero-fachada.jpg";
+  const p = await getTranslations({ locale, namespace: "property" });
+  const heroEyebrow = property.zone ?? p(`propertyTypeTags.${property.property_type}`);
 
   return (
     <>
@@ -143,7 +151,11 @@ export default async function ImovelPage({
       )}
       <SiteHeader />
       <main className="flex-1">
-        <PropertyHero property={property} coverImage={coverImage} />
+        {propertyHero && propertyHero.items.length > 0 ? (
+          <PropertyDynamicHero hero={propertyHero} eyebrow={heroEyebrow} title={property.title} />
+        ) : (
+          <PropertyHero property={property} coverImage={coverImage} />
+        )}
         {sectionsForMode(property, photos, floorplans)}
         <SiteLeadForm
           property={{ reference: property.reference, title: property.title, zone: property.zone }}
