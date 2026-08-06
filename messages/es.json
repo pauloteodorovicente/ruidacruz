@@ -62,7 +62,16 @@
       "eyebrow": "Portafolio",
       "title": "Cada inmueble, una elección deliberada.",
       "priceOnApplication": "Precio a consultar",
-      "viewProperty": "Ver inmueble"
+      "viewProperty": "Ver inmueble",
+      "viewAll": "Ver Portafolio Completo"
+    },
+    "portfolioPage": {
+      "meta": {
+        "title": "Portafolio Completo | Rui Da Cruz",
+        "description": "Todos los inmuebles representados por Rui Da Cruz — Lisboa, Cascais, Oporto y el Algarve."
+      },
+      "title": "Portafolio Completo",
+      "subtitle": "Todos los inmuebles actualmente representados, en un solo lugar."
     },
     "about": {
       "eyebrow": "El consultor",

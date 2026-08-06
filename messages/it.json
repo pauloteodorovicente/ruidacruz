@@ -62,7 +62,16 @@
       "eyebrow": "Portfolio",
       "title": "Ogni immobile, una scelta ponderata.",
       "priceOnApplication": "Prezzo su richiesta",
-      "viewProperty": "Visualizza l'immobile"
+      "viewProperty": "Visualizza l'immobile",
+      "viewAll": "Vedi il Portfolio Completo"
+    },
+    "portfolioPage": {
+      "meta": {
+        "title": "Portfolio Completo | Rui Da Cruz",
+        "description": "Tutti gli immobili rappresentati da Rui Da Cruz — Lisbona, Cascais, Porto e Algarve."
+      },
+      "title": "Portfolio Completo",
+      "subtitle": "Tutti gli immobili attualmente rappresentati, in un unico posto."
     },
     "about": {
       "eyebrow": "Il consulente",
