@@ -6,8 +6,6 @@ import { getPropertyPhotos, getPropertyFloorplans } from "@/lib/properties";
 import { PropertyForm } from "../../../PropertyForm";
 import { PhotoManager } from "../../../PhotoManager";
 import { FloorplanManager } from "../../../FloorplanManager";
-import { AdminBrand } from "../../../AdminBrand";
-import { ThemeToggle } from "@/app/components/ThemeToggle";
 
 export default async function EditPropertyPage({
   params,
@@ -25,22 +23,13 @@ export default async function EditPropertyPage({
 
   const header = (
     <div className="flex flex-wrap items-center justify-between gap-y-3">
-      <div>
-        <AdminBrand />
-        <h1 className="font-display text-2xl">Editar — {property.title}</h1>
-      </div>
-      <div className="flex items-center gap-6">
-        <Link
-          href={`/admin/imoveis/${property.reference}/hero`}
-          className="text-xs tracking-[0.08em] uppercase text-foreground-muted hover:text-accent transition-colors"
-        >
-          Hero
-        </Link>
-        <Link href="/admin" className="text-xs tracking-[0.08em] uppercase text-foreground-muted hover:text-accent transition-colors">
-          ← Imóveis
-        </Link>
-        <ThemeToggle />
-      </div>
+      <h1 className="font-display text-2xl">Editar — {property.title}</h1>
+      <Link
+        href={`/admin/imoveis/${property.reference}/hero`}
+        className="text-xs tracking-[0.08em] uppercase text-foreground-muted hover:text-accent transition-colors"
+      >
+        Hero deste imóvel
+      </Link>
     </div>
   );
 

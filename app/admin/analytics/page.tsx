@@ -1,9 +1,6 @@
 import { redirect } from "next/navigation";
-import Link from "next/link";
 import { isAdminAuthenticated } from "@/lib/admin-auth";
 import { getLeadStats, getWhatsAppClickCount, getEngagementStats } from "@/lib/admin-analytics";
-import { AdminBrand } from "../AdminBrand";
-import { ThemeToggle } from "@/app/components/ThemeToggle";
 
 function StatCard({ label, value, hint }: { label: string; value: string | number; hint?: string }) {
   return (
@@ -38,18 +35,7 @@ export default async function AnalyticsPage() {
   return (
     <main className="min-h-screen bg-background px-6 py-10 md:px-12">
       <div className="mx-auto max-w-4xl flex flex-col gap-14">
-        <div className="flex flex-wrap items-center justify-between gap-y-3">
-          <div>
-            <AdminBrand />
-            <h1 className="font-display text-2xl">Analytics</h1>
-          </div>
-          <div className="flex items-center gap-6">
-            <Link href="/admin" className="text-xs tracking-[0.08em] uppercase text-foreground-muted hover:text-accent transition-colors">
-              ← Imóveis
-            </Link>
-            <ThemeToggle />
-          </div>
-        </div>
+        <h1 className="font-display text-2xl">Analytics</h1>
 
         <section className="flex flex-col gap-4">
           <h2 className="font-display text-lg text-accent">Tráfego</h2>

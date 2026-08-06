@@ -6,8 +6,6 @@ import { getPropertyHero } from "@/lib/property-hero";
 import { getAllPropertyPhotosForGallery } from "@/lib/admin-gallery";
 import { HeroEditor } from "../../../hero/HeroEditor";
 import { savePropertyHero } from "../hero-actions";
-import { AdminBrand } from "../../../AdminBrand";
-import { ThemeToggle } from "@/app/components/ThemeToggle";
 
 export default async function PropertyHeroAdminPage({
   params,
@@ -29,19 +27,13 @@ export default async function PropertyHeroAdminPage({
     <main className="min-h-screen bg-background px-6 py-10 md:px-12">
       <div className="mx-auto max-w-3xl">
         <div className="flex flex-wrap items-center justify-between gap-y-3 mb-3">
-          <div>
-            <AdminBrand />
-            <h1 className="font-display text-2xl">Hero — {property.title}</h1>
-          </div>
-          <div className="flex items-center gap-6">
-            <Link
-              href={`/admin/imoveis/${property.reference}/editar`}
-              className="text-xs tracking-[0.08em] uppercase text-foreground-muted hover:text-accent transition-colors"
-            >
-              ← Voltar
-            </Link>
-            <ThemeToggle />
-          </div>
+          <h1 className="font-display text-2xl">Hero — {property.title}</h1>
+          <Link
+            href={`/admin/imoveis/${property.reference}/editar`}
+            className="text-xs tracking-[0.08em] uppercase text-foreground-muted hover:text-accent transition-colors"
+          >
+            ← Voltar
+          </Link>
         </div>
         <p className="text-sm text-foreground-muted mb-10 max-w-lg">
           Sem nada configurado aqui, a página deste imóvel continua usando a primeira foto enviada como hero simples.

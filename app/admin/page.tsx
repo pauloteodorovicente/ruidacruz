@@ -2,10 +2,7 @@ import { redirect } from "next/navigation";
 import Link from "next/link";
 import { isAdminAuthenticated } from "@/lib/admin-auth";
 import { getAllPropertiesForAdmin } from "@/lib/admin-properties";
-import { LogoutButton } from "./LogoutButton";
-import { AdminBrand } from "./AdminBrand";
 import { PublishToggleBadge } from "./PublishToggleBadge";
-import { ThemeToggle } from "@/app/components/ThemeToggle";
 
 const STATUS_LABEL: Record<string, string> = {
   disponivel: "Disponível",
@@ -22,36 +19,7 @@ export default async function AdminPage() {
   return (
     <main className="min-h-screen bg-background px-6 py-10 md:px-12">
       <div className="mx-auto max-w-4xl">
-        <div className="flex flex-wrap items-center justify-between gap-y-3 mb-10">
-          <div>
-            <AdminBrand />
-            <h1 className="font-display text-2xl">Imóveis</h1>
-          </div>
-          <div className="flex flex-wrap items-center gap-x-6 gap-y-2">
-            <Link href="/admin/imoveis/novo" className="text-xs tracking-[0.08em] uppercase text-accent hover:text-accent-strong transition-colors">
-              + Novo Imóvel
-            </Link>
-            <Link href="/admin/hero" className="text-xs tracking-[0.08em] uppercase text-foreground-muted hover:text-accent transition-colors">
-              Hero da Home
-            </Link>
-            <Link href="/admin/depoimentos" className="text-xs tracking-[0.08em] uppercase text-foreground-muted hover:text-accent transition-colors">
-              Depoimentos
-            </Link>
-            <Link href="/admin/analytics" className="text-xs tracking-[0.08em] uppercase text-foreground-muted hover:text-accent transition-colors">
-              Analytics
-            </Link>
-            <Link
-              href="/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-xs tracking-[0.08em] uppercase text-foreground-muted hover:text-accent transition-colors"
-            >
-              Ver Site ↗
-            </Link>
-            <ThemeToggle />
-            <LogoutButton />
-          </div>
-        </div>
+        <h1 className="font-display text-2xl mb-10">Imóveis</h1>
 
         {properties.length === 0 ? (
           <p className="text-foreground-muted">Nenhum imóvel cadastrado ainda.</p>
