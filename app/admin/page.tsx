@@ -4,6 +4,7 @@ import { isAdminAuthenticated } from "@/lib/admin-auth";
 import { getAllPropertiesForAdmin } from "@/lib/admin-properties";
 import { LogoutButton } from "./LogoutButton";
 import { AdminBrand } from "./AdminBrand";
+import { PublishToggleBadge } from "./PublishToggleBadge";
 import { ThemeToggle } from "@/app/components/ThemeToggle";
 
 const STATUS_LABEL: Record<string, string> = {
@@ -39,6 +40,14 @@ export default async function AdminPage() {
             <Link href="/admin/analytics" className="text-xs tracking-[0.08em] uppercase text-foreground-muted hover:text-accent transition-colors">
               Analytics
             </Link>
+            <Link
+              href="/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-xs tracking-[0.08em] uppercase text-foreground-muted hover:text-accent transition-colors"
+            >
+              Ver Site ↗
+            </Link>
             <ThemeToggle />
             <LogoutButton />
           </div>
@@ -49,17 +58,16 @@ export default async function AdminPage() {
         ) : (
           <div className="border border-border">
             {properties.map((property) => (
-              <Link
+              <div
                 key={property.id}
-                href={`/admin/imoveis/${property.reference}/editar`}
                 className="flex flex-wrap items-center justify-between gap-3 border-b border-border px-5 py-4 last:border-b-0 transition-colors hover:bg-background-raised"
               >
-                <div>
+                <Link href={`/admin/imoveis/${property.reference}/editar`} className="flex-1 min-w-0">
                   <p className="font-display text-base">{property.title}</p>
                   <p className="text-xs text-foreground-muted mt-0.5">
                     {property.reference} · {property.zone}
                   </p>
-                </div>
+                </Link>
                 <div className="flex items-center gap-4 text-sm">
                   <span className="text-foreground-muted">{STATUS_LABEL[property.status] ?? property.status}</span>
                   {property.featured && (
@@ -67,18 +75,14 @@ export default async function AdminPage() {
                       Destaque
                     </span>
                   )}
-                  <span
-                    className="text-[11px] tracking-[0.08em] uppercase px-2 py-0.5"
-                    style={
-                      property.published
-                        ? { color: "#3d6b4a", borderColor: "#3d6b4a", border: "1px solid" }
-                        : { color: "#a3623a", borderColor: "#a3623a", border: "1px solid" }
-                    }
-                  >
-                    {property.published ? "Publicado" : "Rascunho"}
-                  </span>
+                  <PublishToggleBadge
+                    propertyId={property.id}
+                    reference={property.reference}
+                    campaignPath={property.is_campaign_page ? property.campaign_path : null}
+                    initialPublished={property.published}
+                  />
                 </div>
-              </Link>
+              </div>
             ))}
           </div>
         )}
