@@ -20,17 +20,27 @@ const COVER_IMAGE_POSITION: Record<string, string> = {
   verdelago: "object-[center_22%]",
 };
 
-export function CuratedCollection({ properties }: { properties: Property[] }) {
+export function CuratedCollection({
+  properties,
+  viewAllHref,
+  hideHeading,
+}: {
+  properties: Property[];
+  viewAllHref?: string;
+  hideHeading?: boolean;
+}) {
   const locale = useLocale();
   const c = useTranslations("home.collection");
 
   return (
     <section id="colecao" className="bg-background px-6 py-14 md:px-12 md:py-20">
       <div className="mx-auto max-w-6xl">
-        <Reveal className="block">
-          <p className="text-xs tracking-[0.25em] uppercase text-accent mb-2">{c("eyebrow")}</p>
-          <h2 className="font-display text-3xl md:text-4xl mb-10">{c("title")}</h2>
-        </Reveal>
+        {!hideHeading && (
+          <Reveal className="block">
+            <p className="text-xs tracking-[0.25em] uppercase text-accent mb-2">{c("eyebrow")}</p>
+            <h2 className="font-display text-3xl md:text-4xl mb-10">{c("title")}</h2>
+          </Reveal>
+        )}
 
         <div className="grid grid-cols-1 gap-8 md:grid-cols-3 md:gap-6">
           {properties.map((property) => {
@@ -72,6 +82,17 @@ export function CuratedCollection({ properties }: { properties: Property[] }) {
             );
           })}
         </div>
+
+        {viewAllHref && (
+          <Reveal className="block mt-12 text-center">
+            <NextLink
+              href={viewAllHref}
+              className="inline-block text-xs tracking-[0.15em] uppercase text-accent border-b border-accent/40 pb-1 transition-colors hover:text-accent-strong hover:border-accent-strong"
+            >
+              {c("viewAll")}
+            </NextLink>
+          </Reveal>
+        )}
       </div>
     </section>
   );

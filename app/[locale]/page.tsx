@@ -40,13 +40,20 @@ export default async function HomePage() {
   const testimonials = await getTestimonials();
   const hero = await getHomeHero();
 
+  // Home mostra só a coleção curada (imóveis marcados como Destaque no
+  // Admin); o portfólio completo fica na página /portfolio. Se nenhum imóvel
+  // estiver marcado como destaque ainda, mostra todos para a secção nunca
+  // ficar vazia.
+  const featured = properties.filter((property) => property.featured);
+  const curated = featured.length > 0 ? featured : properties;
+
   return (
     <>
       <SiteHeader />
       <main className="flex-1">
         <DynamicHero hero={hero} />
         <CredibilityStrip />
-        <CuratedCollection properties={properties} />
+        <CuratedCollection properties={curated} viewAllHref="/portfolio" />
         <AboutRui />
         <SiteTestimonials testimonials={testimonials} />
       </main>
