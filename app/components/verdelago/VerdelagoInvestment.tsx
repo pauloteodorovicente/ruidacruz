@@ -2,8 +2,7 @@
 
 import { Reveal } from "../Reveal";
 
-// Componente de avaliação (preview) — texto só em PT-PT por ora, ainda não
-// aprovado pro Verdelago real. Conteúdo vem do documento comercial oficial.
+// Texto só em PT-PT por ora. Conteúdo vem do documento comercial oficial.
 export function VerdelagoInvestment() {
   return (
     <section className="bg-background px-6 py-14 md:px-12 md:py-20">

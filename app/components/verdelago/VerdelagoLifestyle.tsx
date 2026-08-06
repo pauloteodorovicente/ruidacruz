@@ -11,7 +11,7 @@ const MOMENTS = [
   "Desporto ao ar livre, todo o ano",
 ];
 
-// Componente de avaliação (preview) — texto só em PT-PT por ora.
+// Texto só em PT-PT por ora (mesmo padrão das outras seções do Verdelago).
 export function VerdelagoLifestyle() {
   return (
     <section className="bg-background-raised px-6 py-14 md:px-12 md:py-20 border-y border-border">

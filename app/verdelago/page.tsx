@@ -7,9 +7,13 @@ import { VerdelagoHero } from "@/app/components/verdelago/VerdelagoHero";
 import { VerdelagoOverview } from "@/app/components/verdelago/VerdelagoOverview";
 import { VerdelagoNarrative } from "@/app/components/verdelago/VerdelagoNarrative";
 import { VerdelagoAmenities } from "@/app/components/verdelago/VerdelagoAmenities";
+import { VerdelagoLifestyle } from "@/app/components/verdelago/VerdelagoLifestyle";
 import { VerdelagoGallery } from "@/app/components/verdelago/VerdelagoGallery";
 import { VerdelagoFloorPlans } from "@/app/components/verdelago/VerdelagoFloorPlans";
+import { VerdelagoInvestment } from "@/app/components/verdelago/VerdelagoInvestment";
+import { VerdelagoCertification } from "@/app/components/verdelago/VerdelagoCertification";
 import { VerdelagoLocation } from "@/app/components/verdelago/VerdelagoLocation";
+import { VerdelagoRelated } from "@/app/components/verdelago/VerdelagoRelated";
 import { VerdelagoLeadForm } from "@/app/components/verdelago/VerdelagoLeadForm";
 import { VerdelagoWhatsApp } from "@/app/components/verdelago/VerdelagoWhatsApp";
 import { VerdelagoFooter } from "@/app/components/verdelago/VerdelagoFooter";
@@ -73,9 +77,13 @@ export default async function VerdelagoPage() {
         <VerdelagoOverview />
         <VerdelagoNarrative />
         <VerdelagoAmenities />
+        <VerdelagoLifestyle />
         <VerdelagoGallery />
         <VerdelagoFloorPlans />
+        <VerdelagoInvestment />
+        <VerdelagoCertification />
         <VerdelagoLocation />
+        <VerdelagoRelated />
         <VerdelagoLeadForm />
       </main>
       <VerdelagoWhatsApp />

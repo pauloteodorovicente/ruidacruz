@@ -4,9 +4,9 @@ import Image from "next/image";
 import Link from "next/link";
 import { Reveal } from "../Reveal";
 
-// Componente de avaliação (preview) — lista fixa por ora (só a Leça do Balio
-// existe como outro imóvel real hoje). Em produção, viraria uma consulta aos
-// imóveis publicados, excluindo o atual.
+// Lista fixa por ora (só a Leça do Balio existe como outro imóvel real
+// hoje). Quando o roster crescer, vira uma consulta aos imóveis publicados,
+// excluindo o atual.
 export function VerdelagoRelated() {
   return (
     <section className="bg-background-raised px-6 py-14 md:px-12 md:py-20 border-t border-border">

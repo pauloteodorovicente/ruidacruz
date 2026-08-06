@@ -2,7 +2,7 @@
 
 import { Reveal } from "../Reveal";
 
-// Componente de avaliação (preview) — texto só em PT-PT por ora.
+// Texto só em PT-PT por ora.
 export function VerdelagoCertification() {
   return (
     <section className="bg-background px-6 py-10 md:px-12 md:py-14">
