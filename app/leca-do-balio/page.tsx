@@ -7,10 +7,12 @@ import { Hero } from "@/app/components/Hero";
 import { PropertyIdentification } from "@/app/components/PropertyIdentification";
 import { Narrative } from "@/app/components/Narrative";
 import { Features } from "@/app/components/Features";
+import { Lifestyle } from "@/app/components/Lifestyle";
 import { Gallery } from "@/app/components/Gallery";
 import { FloorPlan } from "@/app/components/FloorPlan";
 import { Location } from "@/app/components/Location";
 import { Testimonials } from "@/app/components/Testimonials";
+import { Related } from "@/app/components/Related";
 import { LeadForm } from "@/app/components/LeadForm";
 import { WhatsAppFloating } from "@/app/components/WhatsAppFloating";
 import { Footer } from "@/app/components/Footer";
@@ -84,10 +86,12 @@ export default async function LecaDoBalioPage() {
         <PropertyIdentification />
         <Narrative />
         <Features />
+        <Lifestyle />
         <Gallery />
         <FloorPlan />
         <Location />
         <Testimonials />
+        <Related />
         <LeadForm />
       </main>
       <Footer />

@@ -96,6 +96,24 @@ export const content = {
         },
       ],
     },
+    lifestyle: {
+      eyebrow: "Viver em Leça do Balio",
+      title: "Onde a vida acontece em ritmo próprio",
+      intro:
+        "Mais do que uma casa, esta propriedade propõe um modo de viver — entre o jardim, a piscina interior e o silêncio do enclave, a alguns minutos do Porto.",
+      moments: [
+        "Manhãs junto ao lago ornamental, antes da cidade acordar",
+        "Piscina interior aquecida, em qualquer estação do ano",
+        "Ginásio privativo, sem sair de casa",
+        "Jantares na sala multiusos, com o jardim como pano de fundo",
+        "O Porto a poucos minutos, quando a cidade chama",
+        "Privacidade absoluta, atrás dos muros de um loteamento de vinte casas",
+      ],
+    },
+    related: {
+      eyebrow: "Também Disponível",
+      title: "Outras Representações de Rui Da Cruz",
+    },
     form: {
       eyebrow: "Contacto",
       title: "Esta propriedade merece ser experienciada em pessoa",
@@ -214,6 +232,24 @@ export const content = {
           author: "Eduardo Lacerda",
         },
       ],
+    },
+    lifestyle: {
+      eyebrow: "Viver em Leça do Balio",
+      title: "Onde a vida acontece em ritmo próprio",
+      intro:
+        "Mais do que uma casa, esta propriedade propõe um modo de viver — entre o jardim, a piscina interna e o silêncio do condomínio, a alguns minutos do Porto.",
+      moments: [
+        "Manhãs junto ao lago ornamental, antes da cidade acordar",
+        "Piscina interna aquecida, em qualquer estação do ano",
+        "Academia privativa, sem sair de casa",
+        "Jantares na sala multiuso, com o jardim como pano de fundo",
+        "O Porto a poucos minutos, quando a cidade chama",
+        "Privacidade absoluta, atrás dos muros de um loteamento de vinte casas",
+      ],
+    },
+    related: {
+      eyebrow: "Também Disponível",
+      title: "Outras Representações de Rui Da Cruz",
     },
     form: {
       eyebrow: "Contato",
@@ -334,6 +370,24 @@ export const content = {
         },
       ],
     },
+    lifestyle: {
+      eyebrow: "Living in Leça do Balio",
+      title: "Where life unfolds at its own pace",
+      intro:
+        "More than just a house, this property offers a way of life — set among the garden, the indoor pool and the quiet of the enclave, minutes from Porto.",
+      moments: [
+        "Mornings by the ornamental lake, before the city wakes",
+        "Heated indoor pool, in every season",
+        "A private gym, without leaving home",
+        "Dinners in the multi-purpose room, the garden as backdrop",
+        "Porto minutes away, whenever the city calls",
+        "Complete privacy, behind the walls of a twenty-home enclave",
+      ],
+    },
+    related: {
+      eyebrow: "Also Available",
+      title: "Other Representations by Rui Da Cruz",
+    },
     form: {
       eyebrow: "Contact",
       title: "This property deserves to be experienced in person",
@@ -452,6 +506,24 @@ export const content = {
           author: "Eduardo Lacerda",
         },
       ],
+    },
+    lifestyle: {
+      eyebrow: "Vivir en Leça do Balio",
+      title: "Donde la vida transcurre a su propio ritmo",
+      intro:
+        "Más que una casa, esta propiedad ofrece un estilo de vida — entre el jardín, la piscina interior climatizada y la tranquilidad del enclave, a pocos minutos de Oporto.",
+      moments: [
+        "Mañanas junto al lago ornamental, antes de que la ciudad despierte",
+        "Piscina interior climatizada, en cualquier época del año",
+        "Gimnasio privado, sin salir de casa",
+        "Cenas en la sala multiusos, con el jardín como telón de fondo",
+        "Oporto a pocos minutos, cuando la ciudad llama",
+        "Privacidad absoluta, tras los muros de una urbanización de veinte viviendas",
+      ],
+    },
+    related: {
+      eyebrow: "También Disponible",
+      title: "Otras Representaciones de Rui Da Cruz",
     },
     form: {
       eyebrow: "Contacto",
@@ -572,6 +644,24 @@ export const content = {
         },
       ],
     },
+    lifestyle: {
+      eyebrow: "Vivre à Leça do Balio",
+      title: "Là où la vie suit son propre rythme",
+      intro:
+        "Plus qu'une maison, cette propriété offre un art de vivre — entre le jardin, la piscine intérieure et le calme de ce domaine, à quelques minutes de Porto.",
+      moments: [
+        "Les matins au bord du lac d'agrément, avant que la ville ne se réveille",
+        "Piscine intérieure chauffée, en toute saison",
+        "Une salle de sport privée, sans sortir de chez soi",
+        "Dîners dans la salle polyvalente, avec le jardin en toile de fond",
+        "Porto à quelques minutes, quand la ville vous appelle",
+        "Intimité totale, à l'abri des murs d'un domaine de vingt maisons",
+      ],
+    },
+    related: {
+      eyebrow: "Également Disponible",
+      title: "Autres Représentations de Rui Da Cruz",
+    },
     form: {
       eyebrow: "Contact",
       title: "Cette propriété mérite d'être découverte en personne",
@@ -691,6 +781,24 @@ export const content = {
         },
       ],
     },
+    lifestyle: {
+      eyebrow: "Vivere a Leça do Balio",
+      title: "Dove la vita scorre al proprio ritmo",
+      intro:
+        "Più che una casa, questa proprietà offre uno stile di vita — tra il giardino, la piscina interna riscaldata e la tranquillità del residence, a pochi minuti da Porto.",
+      moments: [
+        "Mattine in riva al lago ornamentale, prima che la città si svegli",
+        "Piscina interna riscaldata, in ogni stagione",
+        "Palestra privata, senza uscire di casa",
+        "Cene nella sala polivalente, con il giardino sullo sfondo",
+        "Porto a pochi minuti, quando la città chiama",
+        "Privacy assoluta, dietro le mura di un residence di venti case",
+      ],
+    },
+    related: {
+      eyebrow: "Disponibile Anche",
+      title: "Altre Rappresentanze di Rui Da Cruz",
+    },
     form: {
       eyebrow: "Contatti",
       title: "Questa proprietà merita di essere vissuta di persona",
@@ -809,6 +917,24 @@ export const content = {
           author: "Eduardo Lacerda",
         },
       ],
+    },
+    lifestyle: {
+      eyebrow: "Leben in Leça do Balio",
+      title: "Wo das Leben seinen eigenen Rhythmus hat",
+      intro:
+        "Diese Immobilie ist mehr als ein Haus — sie bietet eine eigene Lebensart, zwischen Garten, Innenpool und der Ruhe der Anlage, wenige Minuten von Porto entfernt.",
+      moments: [
+        "Morgenstunden am Ziersee, bevor die Stadt erwacht",
+        "Beheizter Innenpool, zu jeder Jahreszeit",
+        "Privates Fitnessstudio, ohne das Haus zu verlassen",
+        "Abendessen im Mehrzweckraum, mit dem Garten als Kulisse",
+        "Porto nur wenige Minuten entfernt, wenn die Stadt ruft",
+        "Absolute Privatsphäre hinter den Mauern einer Anlage mit zwanzig Häusern",
+      ],
+    },
+    related: {
+      eyebrow: "Ebenfalls Verfügbar",
+      title: "Weitere Vertretungen von Rui Da Cruz",
     },
     form: {
       eyebrow: "Kontakt",
