@@ -38,7 +38,7 @@
     "hero": {
       "eyebrow": "Consulenza immobiliare premium",
       "title": "Immobili selezionati per chi cerca l'eccezionale",
-      "subtitle": "Un portfolio ristretto di immobili a Lisbona, Cascais, Porto e nell'Algarve — scelti personalmente da Rui Da Cruz.",
+      "subtitle": "Una vera collezione di immobili nella Grande Lisbona, Grande Porto e Algarve, ciascuno scelto con cura, mai semplicemente elencato.",
       "ctaPrimary": "Portfolio",
       "ctaSecondary": "Parlare con Rui"
     },
@@ -53,8 +53,8 @@
           "label": "certificazione di agente per il segmento del lusso"
         },
         {
-          "value": "Portafoglio selezionato",
-          "label": "immobili di lusso a Lisbona, Cascais, Porto e Algarve"
+          "value": "+200",
+          "label": "immobili venduti"
         }
       ]
     },
@@ -76,7 +76,7 @@
     "about": {
       "eyebrow": "Il consulente",
       "title": "Rui Da Cruz",
-      "text": "Consulente immobiliare certificato RE/MAX Collection, specializzato in Parque das Nações e nelle zone di pregio di Lisbona, Cascais, Porto e dell'Algarve. Un approccio personale e discreto, dedicato a ogni cliente dall’inizio alla conclusione della transazione.",
+      "text": "Consulente certificato RE/MAX Collection, specializzato nel Parque das Nações e nelle zone di pregio di Lisbona, Cascais, Porto e Algarve. Approccio personale e discreto. Biografia completa in preparazione.",
       "cta": "Conoscere la storia"
     }
   },
