@@ -19,7 +19,7 @@ export const content = {
       location: "Leça do Balio, Matosinhos",
     },
     identification: {
-      tags: ["Moradia T5", "Loteamento Fechado", "Arquitetura de Autor", "Piscina Interior Aquecida"],
+      tags: ["Moradia T5", "Arquitetura de Autor", "Piscina Interior Aquecida"],
       title: "Uma propriedade rara, onde a privacidade encontra a excelência",
       lede: "Vinte residências, um único endereço junto à Quinta do Chantre — a poucos minutos do Porto.",
       price: "1.950.000 €",
@@ -39,6 +39,7 @@ export const content = {
       eyebrow: "A Propriedade",
       paragraphs: [
         "Inserida na zona de proteção da Quinta do Chantre — património arquitetónico classificado — esta moradia integra um loteamento privado e reservado, composto por apenas vinte residências de grande dimensão. Aqui, a privacidade não é um privilégio. É uma condição intrínseca do lugar.",
+        "Inserido num loteamento constituído por 20 lotes de moradias unifamiliares, dos quais 18 já se encontram edificados e habitados, refletindo a consolidação, a tranquilidade e a qualidade residencial da envolvente.",
         "Implantada num lote de 2.545 m², rodeada por jardins maduros, um lago ornamental e uma piscina interior aquecida, a propriedade foi concebida para quem valoriza espaço, discrição e qualidade de vida sem abdicar da proximidade à cidade.",
         "Assinada pelo arquiteto Manuel Ventura, com paisagismo da arquiteta Marta Cudell, a casa revela uma arquitetura intemporal: volumes amplos, luz natural em todas as divisões e uma ligação permanente ao exterior. Os amplos vãos envidraçados convidam o jardim para dentro de casa, criando ambientes serenos em qualquer estação do ano.",
         "O programa interior foi pensado para uma vida em pleno: um ginásio de 30 m², sala multimédia e sala multiusos, distribuídos pelo rés-do-chão, complementam os cinco quartos e a ampla sala comum do piso superior — espaços com propósito definido, não apenas metragem.",
@@ -156,7 +157,7 @@ export const content = {
       location: "Leça do Balio, Matosinhos",
     },
     identification: {
-      tags: ["Casa T5", "Loteamento Fechado", "Arquitetura Autoral", "Piscina Interna Aquecida"],
+      tags: ["Casa T5", "Arquitetura Autoral", "Piscina Interna Aquecida"],
       title: "Uma propriedade rara, onde a privacidade encontra a excelência",
       lede: "Vinte residências, um único endereço junto à Quinta do Chantre — a poucos minutos do Porto.",
       price: "€ 1.950.000",
@@ -176,6 +177,7 @@ export const content = {
       eyebrow: "A Propriedade",
       paragraphs: [
         "Localizada na zona de proteção da Quinta do Chantre — patrimônio arquitetônico tombado — esta casa integra um loteamento privado e reservado, com apenas vinte residências de grande porte. Aqui, a privacidade não é um privilégio. É uma condição intrínseca do lugar.",
+        "Inserida em um loteamento constituído por 20 lotes de casas unifamiliares, dos quais 18 já estão edificados e habitados, refletindo a consolidação, a tranquilidade e a qualidade residencial do entorno.",
         "Construída em um terreno de 2.545 m², cercada por jardins maduros, um lago ornamental e uma piscina interna aquecida, a propriedade foi pensada para quem valoriza espaço, discrição e qualidade de vida sem abrir mão da proximidade com a cidade.",
         "Assinada pelo arquiteto Manuel Ventura, com paisagismo da arquiteta Marta Cudell, a casa revela uma arquitetura atemporal: volumes amplos, luz natural em todos os ambientes e uma conexão permanente com o exterior. Os grandes vãos envidraçados trazem o jardim para dentro de casa, criando ambientes serenos em qualquer estação do ano.",
         "O programa interno foi pensado para uma vida plena: uma academia de 30 m², sala multimídia e sala multiuso, distribuídas no térreo, complementam os cinco quartos e a ampla sala de estar do andar superior — espaços com propósito definido, não apenas metragem.",
@@ -293,7 +295,7 @@ export const content = {
       location: "Leça do Balio, Matosinhos",
     },
     identification: {
-      tags: ["5-Bedroom Residence", "Gated Enclave", "Architect-Designed", "Indoor Heated Pool"],
+      tags: ["5-Bedroom Residence", "Architect-Designed", "Indoor Heated Pool"],
       title: "A rare property, where privacy meets excellence",
       lede: "Twenty residences, one singular address beside Quinta do Chantre — minutes from Porto.",
       price: "€1,950,000",
@@ -313,6 +315,7 @@ export const content = {
       eyebrow: "The Property",
       paragraphs: [
         "This home was built for those who demand the extraordinary — a haven of absolute privacy, set within the protected grounds of Quinta do Chantre, one of the region's classified architectural landmarks. A private, gated enclave of only twenty residences, where privacy is not a privilege. It is the nature of the place.",
+        "Set within a development of 20 single-family home lots, 18 of which are already built and occupied — a reflection of the neighborhood's established character, tranquility, and residential quality.",
         "Set on a 2,545 sqm plot, embraced by mature gardens, an ornamental lake and an indoor heated pool, the deck and the water create a seamless transition between interior elegance and nature — a space designed to be enjoyed in every season.",
         "Designed by architect Manuel Ventura, with landscape design by Marta Cudell, the architecture reveals itself through breathtaking high ceilings and vast glass walls that flood every room with natural light. Spaces conceived for true entertaining, where craftsmanship rivals the great addresses of Europe.",
         "The interior program was conceived for a life lived fully: a 30 sqm gym, a media room and a multi-purpose room on the ground floor complement the five bedrooms and the generous living room upstairs — spaces with defined purpose, not just square meters.",
@@ -430,7 +433,7 @@ export const content = {
       location: "Leça do Balio, Matosinhos",
     },
     identification: {
-      tags: ["Residencia T5", "Urbanización Cerrada", "Arquitectura de Autor", "Piscina Interior Climatizada"],
+      tags: ["Residencia T5", "Arquitectura de Autor", "Piscina Interior Climatizada"],
       title: "Una propiedad excepcional, donde la privacidad se encuentra con la excelencia",
       lede: "Veinte residencias, una única dirección junto a Quinta do Chantre — a minutos de Oporto.",
       price: "1.950.000 €",
@@ -450,6 +453,7 @@ export const content = {
       eyebrow: "La Propiedad",
       paragraphs: [
         "Situada en la zona de protección de Quinta do Chantre — patrimonio arquitectónico clasificado — esta residencia forma parte de una urbanización privada y reservada, compuesta por solo veinte viviendas de gran tamaño. Aquí, la privacidad no es un privilegio. Es una condición intrínseca del lugar.",
+        "Situado en una urbanización compuesta por 20 parcelas destinadas a viviendas unifamiliares, de las cuales 18 ya están construidas y habitadas, lo que refleja la consolidación, la tranquilidad y la calidad residencial del entorno.",
         "Construida en una parcela de 2.545 m², rodeada de jardines maduros, un lago ornamental y una piscina interior climatizada, la propiedad fue concebida para quienes valoran el espacio, la discreción y la calidad de vida sin renunciar a la cercanía de la ciudad.",
         "Firmada por el arquitecto Manuel Ventura, con paisajismo de la arquitecta Marta Cudell, la casa revela una arquitectura atemporal: volúmenes amplios, luz natural en todas las estancias y una conexión permanente con el exterior. Los amplios ventanales invitan al jardín al interior de la casa, creando ambientes serenos en cualquier estación del año.",
         "El programa interior fue pensado para vivir plenamente: un gimnasio de 30 m², una sala multimedia y una sala multiusos en la planta baja complementan los cinco dormitorios y el amplio salón de la planta superior — espacios con un propósito definido, no solo metros cuadrados.",
@@ -567,7 +571,7 @@ export const content = {
       location: "Leça do Balio, Matosinhos",
     },
     identification: {
-      tags: ["Résidence 5 chambres", "Domaine Fermé", "Architecture d'Auteur", "Piscine Intérieure Chauffée"],
+      tags: ["Résidence 5 chambres", "Architecture d'Auteur", "Piscine Intérieure Chauffée"],
       title: "Une propriété rare, où l'intimité rencontre l'excellence",
       lede: "Vingt résidences, une seule adresse au bord de Quinta do Chantre — à quelques minutes de Porto.",
       price: "1 950 000 €",
@@ -587,6 +591,7 @@ export const content = {
       eyebrow: "La Propriété",
       paragraphs: [
         "Située dans la zone protégée de Quinta do Chantre — patrimoine architectural classé — cette résidence fait partie d'un domaine privé et préservé, composé de seulement vingt maisons de grand standing. Ici, l'intimité n'est pas un privilège. C'est une caractéristique intrinsèque du lieu.",
+        "Situé au sein d'un lotissement composé de 20 parcelles destinées à des maisons individuelles, dont 18 sont déjà construites et habitées, ce qui témoigne de la consolidation, de la tranquillité et de la qualité de vie du quartier.",
         "Implantée sur un terrain de 2 545 m², entourée de jardins matures, d'un lac ornemental et d'une piscine intérieure chauffée, la propriété a été conçue pour ceux qui privilégient l'espace, la discrétion et la qualité de vie sans renoncer à la proximité de la ville.",
         "Signée par l'architecte Manuel Ventura, avec un paysagisme de l'architecte Marta Cudell, la maison révèle une architecture intemporelle : volumes généreux, lumière naturelle dans toutes les pièces et un lien permanent avec l'extérieur. Les larges baies vitrées invitent le jardin à l'intérieur, créant des ambiances sereines en toute saison.",
         "Le programme intérieur a été pensé pour une vie pleinement vécue : une salle de sport de 30 m², une salle multimédia et une salle polyvalente au rez-de-chaussée complètent les cinq chambres et le vaste séjour à l'étage — des espaces au propos défini, pas seulement des mètres carrés.",
@@ -704,7 +709,7 @@ export const content = {
       location: "Leça do Balio, Matosinhos",
     },
     identification: {
-      tags: ["Residenza T5", "Residence Privato", "Architettura d'Autore", "Piscina Interna Riscaldata"],
+      tags: ["Residenza T5", "Architettura d'Autore", "Piscina Interna Riscaldata"],
       title: "Una proprietà rara, dove la privacy incontra l'eccellenza",
       lede: "Venti residenze, un unico indirizzo accanto a Quinta do Chantre — a pochi minuti da Porto.",
       price: "1.950.000 €",
@@ -724,6 +729,7 @@ export const content = {
       eyebrow: "La Proprietà",
       paragraphs: [
         "Situata nella zona protetta di Quinta do Chantre — patrimonio architettonico vincolato — questa residenza fa parte di un residence privato e riservato, composto da sole venti abitazioni di grandi dimensioni. Qui la privacy non è un privilegio. È una condizione intrinseca del luogo.",
+        "Situato in un complesso residenziale composto da 20 lotti destinati a villette unifamiliari, di cui 18 già costruiti e abitati, a testimonianza della stabilità, della tranquillità e della qualità residenziale dell'area circostante.",
         "Costruita su un terreno di 2.545 m², circondata da giardini maturi, un lago ornamentale e una piscina interna riscaldata, la proprietà è stata concepita per chi apprezza lo spazio, la riservatezza e la qualità della vita senza rinunciare alla vicinanza alla città.",
         "Firmata dall'architetto Manuel Ventura, con il paesaggismo dell'architetta Marta Cudell, la casa rivela un'architettura senza tempo: volumi ampi, luce naturale in ogni ambiente e un legame costante con l'esterno. Le grandi vetrate portano il giardino dentro casa, creando atmosfere serene in ogni stagione.",
         "Il programma interno è stato pensato per una vita vissuta appieno: una palestra di 30 m², una sala multimediale e una sala polivalente al piano terra completano le cinque camere da letto e l'ampio soggiorno al piano superiore — spazi con uno scopo definito, non solo metri quadrati.",
@@ -841,7 +847,7 @@ export const content = {
       location: "Leça do Balio, Matosinhos",
     },
     identification: {
-      tags: ["5-Zimmer-Residenz", "Geschlossene Wohnanlage", "Architektonisch gestaltet", "Beheizter Innenpool"],
+      tags: ["5-Zimmer-Residenz", "Architektonisch gestaltet", "Beheizter Innenpool"],
       title: "Eine seltene Immobilie, in der Privatsphäre auf Exzellenz trifft",
       lede: "Zwanzig Residenzen, eine einzige Adresse neben der Quinta do Chantre — wenige Minuten von Porto entfernt.",
       price: "1.950.000 €",
@@ -861,6 +867,7 @@ export const content = {
       eyebrow: "Die Immobilie",
       paragraphs: [
         "Gelegen im geschützten Bereich der Quinta do Chantre — einem denkmalgeschützten architektonischen Erbe — gehört dieses Haus zu einer privaten, geschützten Wohnanlage mit nur zwanzig großzügigen Residenzen. Hier ist Privatsphäre kein Privileg. Sie ist eine dem Ort innewohnende Eigenschaft.",
+        "Das Grundstück befindet sich in einer Wohnsiedlung mit 20 Einfamilienhausgrundstücken, von denen 18 bereits bebaut und bewohnt sind, was die Etabliertheit, die Ruhe und die Wohnqualität der Umgebung widerspiegelt.",
         "Das Grundstück von 2.545 m², umgeben von altem Baumbestand, einem Ziersee und einem beheizten Innenpool, wurde für Menschen konzipiert, die Raum, Diskretion und Lebensqualität schätzen, ohne auf die Nähe zur Stadt zu verzichten.",
         "Entworfen vom Architekten Manuel Ventura, mit Landschaftsgestaltung der Architektin Marta Cudell, zeigt das Haus eine zeitlose Architektur: großzügige Volumen, natürliches Licht in allen Räumen und eine dauerhafte Verbindung zum Außenbereich. Die großen Glasfronten holen den Garten ins Haus und schaffen zu jeder Jahreszeit ruhige Räume.",
         "Das Innenraumkonzept wurde für ein erfülltes Leben entworfen: ein 30 m² großes Fitnessstudio, ein Medienraum und ein Mehrzweckraum im Erdgeschoss ergänzen die fünf Schlafzimmer und das großzügige Wohnzimmer im Obergeschoss — Räume mit klarem Zweck, nicht nur Quadratmetern.",
