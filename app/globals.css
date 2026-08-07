@@ -29,6 +29,21 @@
   --c-border: rgba(12, 18, 32, 0.1);
 }
 
+/* Cor de destaque por landing — aplicada via data-property-accent no wrapper
+   da página (ver app/portimao-praia-da-rocha/page.tsx). Paleta provisória —
+   quando o seletor de cor por imóvel virar sistema de verdade no Admin, isso
+   deixa de ser hardcoded. */
+[data-theme="dark"] [data-property-accent="marinho"] {
+  --c-accent: #5b7a9e;
+  --c-accent-strong: #7a97b8;
+  --c-accent-dark: #3f5773;
+}
+[data-theme="light"] [data-property-accent="marinho"] {
+  --c-accent: #2c4870;
+  --c-accent-strong: #3d5c8a;
+  --c-accent-dark: #1e3350;
+}
+
 @theme inline {
   --color-background: var(--c-bg);
   --color-background-raised: var(--c-bg-raised);
