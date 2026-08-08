@@ -15,6 +15,7 @@ import type { Property } from "@/lib/properties";
 const COVER_IMAGE_BY_REFERENCE: Record<string, string> = {
   "122481641-38": "/images/leca-do-balio/01-hero-fachada.jpg",
   verdelago: "/images/verdelago/01-hero-humanizada.jpg",
+  "portimao-praia-da-rocha": "/images/portimao-praia-rocha/Apart T1 Praia_Rocha_4.jpeg",
 };
 const COVER_IMAGE_POSITION: Record<string, string> = {
   verdelago: "object-[center_22%]",
