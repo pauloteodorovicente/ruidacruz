@@ -138,6 +138,11 @@
       "terreno": "Terreno",
       "outro": "Immobile"
     },
+    "businessTypeTags": {
+      "venda": "In Vendita",
+      "arrendamento": "In Affitto"
+    },
+    "perMonth": "/mese",
     "floorPlan": {
       "eyebrow": "Pianta",
       "title": "Planimetrie dell'immobile",

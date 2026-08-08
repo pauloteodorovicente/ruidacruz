@@ -125,6 +125,11 @@
       "terreno": "Land",
       "outro": "Property"
     },
+    "businessTypeTags": {
+      "venda": "For Sale",
+      "arrendamento": "For Rent"
+    },
+    "perMonth": "/month",
     "floorPlan": {
       "eyebrow": "Floor Plan",
       "title": "Property Floor Plans",

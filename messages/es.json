@@ -138,6 +138,11 @@
       "terreno": "Terreno",
       "outro": "Inmueble"
     },
+    "businessTypeTags": {
+      "venda": "En Venta",
+      "arrendamento": "En Alquiler"
+    },
+    "perMonth": "/mes",
     "floorPlan": {
       "eyebrow": "Planta",
       "title": "Planos del inmueble",

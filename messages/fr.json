@@ -138,6 +138,11 @@
       "terreno": "Terrain",
       "outro": "Bien immobilier"
     },
+    "businessTypeTags": {
+      "venda": "À Vendre",
+      "arrendamento": "À Louer"
+    },
+    "perMonth": "/mois",
     "floorPlan": {
       "eyebrow": "Plan",
       "title": "Plans du bien immobilier",

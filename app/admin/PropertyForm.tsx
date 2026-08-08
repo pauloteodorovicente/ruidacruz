@@ -29,6 +29,7 @@ function Field({ label, children }: { label: string; children: React.ReactNode }
 // digitados, mas o campo fica sempre editável — o Rui pode sobrescrever.
 export function PropertyForm({ property }: { property?: Property }) {
   const [propertyType, setPropertyType] = useState(property?.property_type ?? "moradia");
+  const [businessType, setBusinessType] = useState(property?.business_type ?? "venda");
   const [architect, setArchitect] = useState(property?.architect ?? "");
   const [layoutMode, setLayoutMode] = useState(property?.layout_mode ?? "");
   const [priceOnApplication, setPriceOnApplication] = useState(property?.price_on_application ?? false);
@@ -67,6 +68,17 @@ export function PropertyForm({ property }: { property?: Property }) {
           </Field>
           <Field label="Tipologia">
             <input name="typology" defaultValue={property?.typology ?? ""} placeholder="T5" className={inputClass} />
+          </Field>
+          <Field label="Negócio">
+            <Select
+              name="business_type"
+              value={businessType}
+              onChange={(v) => setBusinessType(v as typeof businessType)}
+              options={[
+                { value: "venda", label: "Venda" },
+                { value: "arrendamento", label: "Arrendamento" },
+              ]}
+            />
           </Field>
           <Field label="Status">
             <Select
@@ -130,7 +142,7 @@ export function PropertyForm({ property }: { property?: Property }) {
             />
             <span className="text-sm">Preço Sob Consulta</span>
           </label>
-          <Field label="Preço (€)">
+          <Field label={businessType === "arrendamento" ? "Renda mensal (€)" : "Preço (€)"}>
             <input
               type="number"
               name="price"

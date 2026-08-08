@@ -38,6 +38,11 @@ export default async function AdminPage() {
                 </Link>
                 <div className="flex items-center gap-4 text-sm">
                   <span className="text-foreground-muted">{STATUS_LABEL[property.status] ?? property.status}</span>
+                  {property.business_type === "arrendamento" && (
+                    <span className="text-[11px] tracking-[0.08em] uppercase text-foreground-muted border border-border px-2 py-0.5">
+                      Arrendamento
+                    </span>
+                  )}
                   {property.featured && (
                     <span className="text-[11px] tracking-[0.08em] uppercase text-accent border border-accent px-2 py-0.5">
                       Destaque

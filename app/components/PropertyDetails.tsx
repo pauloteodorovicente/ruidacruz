@@ -53,6 +53,9 @@ export function PropertyDetails({ property }: { property: Property }) {
 
         <Reveal className="md:col-span-2 block">
           <div className="md:sticky md:top-8 bg-background-raised border border-border border-t-2 border-t-accent p-8 shadow-[0_20px_50px_-20px_rgba(0,0,0,0.25)]">
+            <span className="inline-block text-[11px] tracking-[0.12em] uppercase px-3 py-1 mb-4 border border-accent/40 text-accent">
+              {p(`businessTypeTags.${property.business_type}`)}
+            </span>
             <p className="font-display text-3xl mb-6">
               {property.price_on_application
                 ? p("priceOnApplication")
@@ -61,6 +64,9 @@ export function PropertyDetails({ property }: { property: Property }) {
                     currency: "EUR",
                     maximumFractionDigits: 0,
                   })}
+              {!property.price_on_application && property.business_type === "arrendamento" && (
+                <span className="text-base text-foreground-muted">{p("perMonth")}</span>
+              )}
             </p>
             {specs.length > 0 && (
               <dl className="grid grid-cols-2 gap-y-4 mb-4">

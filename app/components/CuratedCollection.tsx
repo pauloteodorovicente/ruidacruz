@@ -32,6 +32,7 @@ export function CuratedCollection({
 }) {
   const locale = useLocale();
   const c = useTranslations("home.collection");
+  const p = useTranslations("property");
 
   return (
     <section id="colecao" className="bg-background px-6 py-14 md:px-12 md:py-20">
@@ -66,7 +67,12 @@ export function CuratedCollection({
                     />
                   </div>
                   <div className="p-5">
-                    <p className="text-xs tracking-[0.15em] uppercase text-foreground-muted">{property.zone}</p>
+                    <div className="flex items-center justify-between gap-2">
+                      <p className="text-xs tracking-[0.15em] uppercase text-foreground-muted">{property.zone}</p>
+                      <span className="shrink-0 text-[10px] tracking-[0.1em] uppercase px-2 py-0.5 border border-accent/40 text-accent">
+                        {p(`businessTypeTags.${property.business_type}`)}
+                      </span>
+                    </div>
                     <p className="font-display text-lg mt-1">{property.title}</p>
                     <p className="mt-1 text-sm text-accent">
                       {property.price_on_application
@@ -76,6 +82,9 @@ export function CuratedCollection({
                             currency: "EUR",
                             maximumFractionDigits: 0,
                           })}
+                      {!property.price_on_application && property.business_type === "arrendamento" && (
+                        <span className="text-foreground-muted">{p("perMonth")}</span>
+                      )}
                     </p>
                   </div>
                 </NextLink>

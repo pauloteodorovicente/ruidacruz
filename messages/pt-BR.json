@@ -138,6 +138,11 @@
       "terreno": "Terreno",
       "outro": "Imóvel"
     },
+    "businessTypeTags": {
+      "venda": "Para Venda",
+      "arrendamento": "Para Alugar"
+    },
+    "perMonth": "/mês",
     "floorPlan": {
       "eyebrow": "Planta",
       "title": "Plantas do Imóvel",

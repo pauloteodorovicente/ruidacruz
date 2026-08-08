@@ -138,6 +138,11 @@
       "terreno": "Grundstück",
       "outro": "Immobilie"
     },
+    "businessTypeTags": {
+      "venda": "Zu Verkaufen",
+      "arrendamento": "Zu Vermieten"
+    },
+    "perMonth": "/Monat",
     "floorPlan": {
       "eyebrow": "Grundriss",
       "title": "Grundrisse der Immobilie",

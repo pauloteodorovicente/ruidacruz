@@ -5,6 +5,7 @@
 
 export type PropertyType = "moradia" | "apartamento" | "terreno" | "outro";
 export type PropertyStatus = "disponivel" | "reservado" | "vendido" | "off_market";
+export type BusinessType = "venda" | "arrendamento";
 export type EnergyCertificate = "A+" | "A" | "B" | "B-" | "C" | "D" | "E" | "F";
 export type LayoutMode = "arquitetura" | "paisagem_terreno" | "urbano";
 export type Locale = "pt-PT" | "pt-BR" | "en" | "es" | "fr" | "it" | "de";
@@ -16,6 +17,7 @@ export type Property = {
   property_type: PropertyType;
   typology: string | null;
   status: PropertyStatus;
+  business_type: BusinessType;
   featured: boolean;
   published: boolean;
   zone: string | null;
