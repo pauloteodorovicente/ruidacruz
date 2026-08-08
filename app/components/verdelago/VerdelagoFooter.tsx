@@ -18,7 +18,7 @@ export function VerdelagoFooter() {
           {t.nav.contacto}
         </Link>
       </div>
-      <Image src="/images/rui/assinatura.png" alt="" width={72} height={63} className="mx-auto mb-3 h-10 w-auto opacity-90" />
+      <Image src="/images/rui/assinatura.png" alt="" width={63} height={72} className="mx-auto mb-3 h-10 w-auto opacity-90" />
       <p>{f.rights}</p>
       <p className="mt-1">{f.ami}</p>
       <p className="mt-1">{f.whatsapp}</p>
