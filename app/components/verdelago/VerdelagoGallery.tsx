@@ -8,8 +8,6 @@ import { VerdelagoLightbox } from "./VerdelagoLightbox";
 import { Reveal } from "../Reveal";
 import { useCustomCursor } from "@/lib/use-custom-cursor";
 
-const YOUTUBE_ID = "8VA_Y43QkKI";
-
 export function VerdelagoGallery() {
   const { t, locale } = useVerdelagoLanguage();
   const g = t.gallery;
@@ -19,7 +17,6 @@ export function VerdelagoGallery() {
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [lightboxIndex, setLightboxIndex] = useState(0);
   const [featuredIndex, setFeaturedIndex] = useState(0);
-  const [videoPlaying, setVideoPlaying] = useState(false);
 
   function openAt(idx: number) {
     setLightboxIndex(idx);
@@ -121,42 +118,6 @@ export function VerdelagoGallery() {
           >
             {g.viewCursor}
           </div>
-        </div>
-
-        <div className="relative mt-3 aspect-video overflow-hidden rounded-lg border border-border bg-black">
-          {videoPlaying ? (
-            <iframe
-              src={`https://www.youtube.com/embed/${YOUTUBE_ID}?autoplay=1`}
-              title="Vídeo do Verdelago Resort"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowFullScreen
-              className="absolute inset-0 h-full w-full"
-            />
-          ) : (
-            <button
-              type="button"
-              onClick={() => setVideoPlaying(true)}
-              className="group absolute inset-0 h-full w-full"
-              aria-label="Reproduzir vídeo do Verdelago"
-            >
-              <Image
-                src={`https://img.youtube.com/vi/${YOUTUBE_ID}/maxresdefault.jpg`}
-                alt="Vídeo do Verdelago Resort"
-                fill
-                sizes="(max-width: 768px) 100vw, 1024px"
-                className="object-cover transition-transform duration-700 group-hover:scale-[1.03]"
-                unoptimized
-              />
-              <div className="absolute inset-0 bg-black/25 transition-colors group-hover:bg-black/35" />
-              <span className="absolute inset-0 flex items-center justify-center">
-                <span className="flex h-16 w-16 items-center justify-center rounded-full bg-white/90 text-black shadow-lg transition-transform group-hover:scale-110">
-                  <svg viewBox="0 0 24 24" fill="currentColor" className="h-6 w-6 translate-x-0.5">
-                    <path d="M8 5v14l11-7z" />
-                  </svg>
-                </span>
-              </span>
-            </button>
-          )}
         </div>
 
         <button

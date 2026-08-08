@@ -2,15 +2,10 @@
 
 import { useEffect, useRef } from "react";
 import Image from "next/image";
-import { useVerdelagoLanguage } from "@/lib/verdelago-language-context";
+import { usePortimaoLanguage } from "@/lib/portimao-language-context";
 
-// Mesmo mecanismo de parallax do Hero da Leça (ver app/components/Hero.tsx)
-// — mas sem vídeo: o Verdelago só tem fotografia disponível (vídeo do
-// YouTube foi testado no Hero e na galeria em 07/08, mas o Paulo achou o
-// resultado ruim e pediu pra tirar por completo — não reintroduzir sem
-// pedido explícito).
-export function VerdelagoHero() {
-  const { t } = useVerdelagoLanguage();
+export function PortimaoHero() {
+  const { t } = usePortimaoLanguage();
   const wrapperRef = useRef<HTMLDivElement>(null);
   const textRef = useRef<HTMLDivElement>(null);
 
@@ -49,13 +44,13 @@ export function VerdelagoHero() {
       <section className="sticky top-0 h-[75vh] min-h-[520px] w-full overflow-hidden bg-black">
         <div className="absolute inset-0">
           <Image
-            src="/images/verdelago/01-hero-humanizada.jpg"
+            src="/images/portimao-praia-rocha/Apart T1 Praia_Rocha_4.jpeg"
             alt={t.hero.location}
             fill
             priority
             fetchPriority="high"
             sizes="100vw"
-            className="object-cover object-[center_22%]"
+            className="object-cover"
           />
         </div>
 

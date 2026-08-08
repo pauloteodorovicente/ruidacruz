@@ -1,22 +1,22 @@
 "use client";
 
-import { portimaoContent as c } from "@/lib/portimao-content";
+import { usePortimaoLanguage } from "@/lib/portimao-language-context";
 
-const WHATSAPP_HREF = `https://wa.me/351939081583?text=${encodeURIComponent(c.whatsappMessage)}`;
+export function PortimaoWhatsApp() {
+  const { t } = usePortimaoLanguage();
 
-export function PortimaoWhatsAppFloating() {
   function trackClick() {
     fetch("/api/track", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ type: "whatsapp_click" }),
+      body: JSON.stringify({ type: "whatsapp_click", propertyReference: "portimao-praia-da-rocha" }),
       keepalive: true,
     }).catch(() => {});
   }
 
   return (
     <a
-      href={WHATSAPP_HREF}
+      href={`https://wa.me/351939081583?text=${encodeURIComponent(t.whatsappMessage)}`}
       target="_blank"
       rel="noopener noreferrer"
       aria-label="WhatsApp Direto"
