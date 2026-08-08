@@ -82,9 +82,11 @@ export function CuratedCollection({
                             currency: "EUR",
                             maximumFractionDigits: 0,
                           })}
-                      {!property.price_on_application && property.business_type === "arrendamento" && (
-                        <span className="text-foreground-muted">{p("perMonth")}</span>
-                      )}
+                      {!property.price_on_application &&
+                        property.business_type === "arrendamento" &&
+                        !property.is_campaign_page && (
+                          <span className="text-foreground-muted">{p("perMonth")}</span>
+                        )}
                     </p>
                   </div>
                 </NextLink>
