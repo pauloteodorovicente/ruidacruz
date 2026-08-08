@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { usePortimaoLanguage } from "@/lib/portimao-language-context";
 
@@ -16,6 +17,7 @@ export function PortimaoFooter() {
           {t.nav.contacto}
         </Link>
       </div>
+      <Image src="/images/rui/assinatura.png" alt="" width={72} height={63} className="mx-auto mb-3 h-10 w-auto opacity-90" />
       <p>Representação exclusiva por Rui Da Cruz, RE/MAX Vantagem Platina.</p>
       <p className="mt-1">AMI 7772 · Prestígio Global – Sociedade de Mediação Imobiliária, S.A.</p>
       <p className="mt-1">+351 939 081 583</p>
