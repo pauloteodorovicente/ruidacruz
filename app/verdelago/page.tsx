@@ -4,13 +4,13 @@ import { getPropertyByReference } from "@/lib/properties";
 import { VerdelagoLanguageProvider } from "@/lib/verdelago-language-context";
 import { VerdelagoHeader } from "@/app/components/verdelago/VerdelagoHeader";
 import { VerdelagoHero } from "@/app/components/verdelago/VerdelagoHero";
-import { VerdelagoVideo } from "@/app/components/verdelago/VerdelagoVideo";
 import { VerdelagoOverview } from "@/app/components/verdelago/VerdelagoOverview";
 import { VerdelagoNarrative } from "@/app/components/verdelago/VerdelagoNarrative";
 import { VerdelagoAmenities } from "@/app/components/verdelago/VerdelagoAmenities";
 import { VerdelagoLifestyle } from "@/app/components/verdelago/VerdelagoLifestyle";
 import { VerdelagoGallery } from "@/app/components/verdelago/VerdelagoGallery";
 import { VerdelagoFloorPlans } from "@/app/components/verdelago/VerdelagoFloorPlans";
+import { VerdelagoUnidades } from "@/app/components/verdelago/VerdelagoUnidades";
 import { VerdelagoInvestment } from "@/app/components/verdelago/VerdelagoInvestment";
 import { VerdelagoCertification } from "@/app/components/verdelago/VerdelagoCertification";
 import { VerdelagoBrochure } from "@/app/components/verdelago/VerdelagoBrochure";
@@ -76,13 +76,13 @@ export default async function VerdelagoPage() {
       <VerdelagoHeader />
       <main className="flex-1">
         <VerdelagoHero />
-        <VerdelagoVideo />
         <VerdelagoOverview />
         <VerdelagoNarrative />
         <VerdelagoAmenities />
         <VerdelagoLifestyle />
         <VerdelagoGallery />
         <VerdelagoFloorPlans />
+        <VerdelagoUnidades />
         <VerdelagoInvestment />
         <VerdelagoCertification />
         <VerdelagoBrochure />
