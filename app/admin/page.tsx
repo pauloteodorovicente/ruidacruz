@@ -3,6 +3,7 @@ import Link from "next/link";
 import { isAdminAuthenticated } from "@/lib/admin-auth";
 import { getAllPropertiesForAdmin } from "@/lib/admin-properties";
 import { PublishToggleBadge } from "./PublishToggleBadge";
+import { FeaturedToggleBadge } from "./FeaturedToggleBadge";
 
 const STATUS_LABEL: Record<string, string> = {
   disponivel: "Disponível",
@@ -43,11 +44,12 @@ export default async function AdminPage() {
                       Arrendamento
                     </span>
                   )}
-                  {property.featured && (
-                    <span className="text-[11px] tracking-[0.08em] uppercase text-accent border border-accent px-2 py-0.5">
-                      Destaque
-                    </span>
-                  )}
+                  <FeaturedToggleBadge
+                    propertyId={property.id}
+                    reference={property.reference}
+                    campaignPath={property.is_campaign_page ? property.campaign_path : null}
+                    initialFeatured={property.featured}
+                  />
                   <PublishToggleBadge
                     propertyId={property.id}
                     reference={property.reference}

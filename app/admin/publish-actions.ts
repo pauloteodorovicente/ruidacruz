@@ -25,3 +25,25 @@ export async function togglePropertyPublished(
   revalidatePath("/");
   revalidatePath(campaignPath ?? `/imoveis/${reference}`);
 }
+
+export async function togglePropertyFeatured(
+  propertyId: string,
+  reference: string,
+  campaignPath: string | null,
+  nextFeatured: boolean
+) {
+  if (!(await isAdminAuthenticated())) redirect("/admin/login");
+
+  const supabase = createAdminClient();
+  const { error } = await supabase
+    .from("properties")
+    .update({ featured: nextFeatured })
+    .eq("id", propertyId);
+
+  if (error) throw new Error(error.message);
+
+  revalidatePath("/admin");
+  revalidatePath("/");
+  revalidatePath("/portfolio");
+  revalidatePath(campaignPath ?? `/imoveis/${reference}`);
+}
