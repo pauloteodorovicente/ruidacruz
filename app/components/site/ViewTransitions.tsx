@@ -31,9 +31,16 @@ export function ViewTransitions({ children }: { children: React.ReactNode }) {
       return;
     }
 
-    document.startViewTransition(() => {
+    const transition = document.startViewTransition(() => {
       flushSync(() => setDisplayChildren(children));
     });
+    // Navegar de novo antes da transição anterior terminar é normal (clique
+    // duplo, troca rápida de página) — o navegador "pula" a mais antiga, o
+    // que rejeita a promise .ready dela com InvalidStateError (.finished
+    // resolve normalmente mesmo assim). Sem isto aqui, sobra como unhandled
+    // rejection solto no console; peguei as duas por segurança.
+    transition.ready.catch(() => {});
+    transition.finished.catch(() => {});
   }, [pathname, children]);
 
   return displayChildren;
