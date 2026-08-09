@@ -1,7 +1,8 @@
 {
   "siteNav": {
     "sobre": "Informazioni su",
-    "contacto": "Contatti"
+    "contacto": "Contatti",
+    "guia": "Guida"
   },
   "siteFooter": {
     "whatsapp": "+351 939 081 583",
@@ -153,5 +154,29 @@
       "architecture": "Architettura",
       "landscape": "Architettura del paesaggio"
     }
+  },
+  "guiaCompradorEstrangeiro": {
+    "meta": {
+      "title": "Guida per l'acquirente straniero | Rui Da Cruz",
+      "description": "Guida generale alla procedura di acquisto di un immobile in Portogallo per gli acquirenti internazionali — NIF, procedura, tempistiche e costi."
+    },
+    "eyebrow": "Risorse",
+    "title": "Guida per l'acquirente straniero",
+    "intro": "L'acquisto di un immobile in Portogallo da parte di un non residente segue una procedura ben definita. Questa guida riassume le fasi principali, ma non sostituisce una consulenza legale o fiscale personalizzata.",
+    "sections": [
+      {
+        "title": "Residenza e codice fiscale",
+        "body": "Il primo passo concreto è ottenere il numero di identificazione fiscale (NIF) portoghese, necessario per aprire un conto corrente, stipulare contratti e pagare le imposte in Portogallo. A seconda della propria nazionalità e dei propri obiettivi, potrebbe anche essere opportuno valutare le opzioni di residenza disponibili: consigliamo di rivolgersi a un avvocato specializzato in diritto dell’immigrazione per capire quale sia la soluzione più adatta al proprio caso."
+      },
+      {
+        "title": "Processo di acquisto",
+        "body": "Una volta scelto l’immobile, la procedura segue normalmente queste fasi: due diligence sull’immobile (certificato di iscrizione al catasto e libretto catastale), firma del contratto preliminare di compravendita (CPCV) con versamento di una caparra, e infine l'atto pubblico davanti al notaio, seguito dalla registrazione definitiva della proprietà a suo nome."
+      },
+      {
+        "title": "Tempi e costi",
+        "body": "Il tempo che intercorre tra il CPCV e l'atto di compravendita varia — di solito da alcune settimane a pochi mesi, a seconda soprattutto del finanziamento. Oltre al prezzo di acquisto, occorre tenere conto di imposte e tasse (come l’IMT e l’imposta di bollo, oltre ad altri costi di registrazione e notarili): il vostro avvocato o commercialista in Portogallo potrà calcolare l’importo esatto nel vostro caso specifico."
+      }
+    ],
+    "disclaimer": "La presente guida ha carattere informativo e generale e non sostituisce una consulenza legale, fiscale o finanziaria personalizzata. Raccomandiamo sempre di consultare un avvocato o un commercialista abilitato in Portogallo prima di procedere con qualsiasi decisione."
   }
 }

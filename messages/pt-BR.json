@@ -1,7 +1,8 @@
 {
   "siteNav": {
     "sobre": "Sobre",
-    "contacto": "Contacto"
+    "contacto": "Contacto",
+    "guia": "Guia"
   },
   "siteFooter": {
     "whatsapp": "+351 939 081 583",
@@ -153,5 +154,29 @@
       "architecture": "Arquitetura",
       "landscape": "Paisagismo"
     }
+  },
+  "guiaCompradorEstrangeiro": {
+    "meta": {
+      "title": "Guia para Comprador Estrangeiro | Rui Da Cruz",
+      "description": "Um guia geral sobre o processo de compra de imóvel em Portugal para compradores internacionais — NIF, processo, prazos e custos."
+    },
+    "eyebrow": "Recursos",
+    "title": "Guia para Comprador Estrangeiro",
+    "intro": "Comprar um imóvel em Portugal como não residente segue um processo bem definido. Este guia resume as etapas principais — não substitui aconselhamento jurídico ou fiscal personalizado.",
+    "sections": [
+      {
+        "title": "Residência e NIF",
+        "body": "O primeiro passo prático é obter o Número de Identificação Fiscal (NIF) português, necessário para abrir conta bancária, assinar contratos e pagar impostos em Portugal. Consoante a sua nacionalidade e objetivos, pode também fazer sentido explorar as vias de residência disponíveis — recomendamos falar com um advogado especializado em imigração para perceber qual se aplica ao seu caso."
+      },
+      {
+        "title": "Processo de Compra",
+        "body": "Depois de escolher o imóvel, o processo segue normalmente estas etapas: due diligence sobre o imóvel (Certidão de Registo Predial e Caderneta Predial), assinatura do Contrato de Promessa de Compra e Venda (CPCV) com um sinal, e por fim a Escritura Pública perante notário, seguida do registo definitivo da propriedade em seu nome."
+      },
+      {
+        "title": "Prazos e Custos",
+        "body": "O tempo entre o CPCV e a escritura varia — normalmente algumas semanas a poucos meses, dependendo sobretudo de financiamento. Além do preço de compra, há impostos e taxas a considerar (como o IMT e o Imposto de Selo, entre outros custos de registo e notário) — o seu advogado ou contabilista em Portugal consegue calcular o valor exato para o seu caso."
+      }
+    ],
+    "disclaimer": "Este guia é informativo e de carácter geral — não substitui aconselhamento jurídico, fiscal ou financeiro personalizado. Recomendamos sempre consultar um advogado ou contabilista licenciado em Portugal antes de avançar com qualquer decisão."
   }
 }

@@ -1,7 +1,8 @@
 {
   "siteNav": {
     "sobre": "Acerca de",
-    "contacto": "Contacto"
+    "contacto": "Contacto",
+    "guia": "Guía"
   },
   "siteFooter": {
     "whatsapp": "+351 939 081 583",
@@ -153,5 +154,29 @@
       "architecture": "Arquitectura",
       "landscape": "Paisajismo"
     }
+  },
+  "guiaCompradorEstrangeiro": {
+    "meta": {
+      "title": "Guía para compradores extranjeros | Rui Da Cruz",
+      "description": "Guía general sobre el proceso de compra de inmuebles en Portugal para compradores internacionales: NIF, trámites, plazos y costes."
+    },
+    "eyebrow": "Recursos",
+    "title": "Guía para compradores extranjeros",
+    "intro": "La compra de una vivienda en Portugal como no residente sigue un proceso bien definido. Esta guía resume los pasos principales, pero no sustituye al asesoramiento jurídico o fiscal personalizado.",
+    "sections": [
+      {
+        "title": "Residencia y NIF",
+        "body": "El primer paso práctico es obtener el Número de Identificación Fiscal (NIF) portugués, necesario para abrir una cuenta bancaria, firmar contratos y pagar impuestos en Portugal. En función de su nacionalidad y sus objetivos, también puede ser conveniente explorar las vías de residencia disponibles; le recomendamos que consulte con un abogado especializado en inmigración para averiguar cuál se aplica a su caso."
+      },
+      {
+        "title": "Proceso de compra",
+        "body": "Una vez elegido el inmueble, el proceso suele seguir estos pasos: análisis de diligencia debida del inmueble (certificado del Registro de la Propiedad y libro de registro catastral), firma del contrato de promesa de compraventa (CPCV) con el pago de una señal, y, por último, la escritura pública ante notario, seguida de la inscripción definitiva de la propiedad a su nombre."
+      },
+      {
+        "title": "Plazos y costes",
+        "body": "El plazo entre el CPCV y la escritura varía —normalmente, desde unas semanas hasta unos pocos meses, dependiendo sobre todo de la financiación—. Además del precio de compra, hay que tener en cuenta los impuestos y las tasas (como el IMT y el impuesto de timbre, entre otros gastos de registro y notario); tu abogado o contable en Portugal podrá calcular el importe exacto en tu caso concreto."
+      }
+    ],
+    "disclaimer": "Esta guía tiene carácter informativo y general; no sustituye al asesoramiento jurídico, fiscal o financiero personalizado. Recomendamos consultar siempre a un abogado o a un contable colegiado en Portugal antes de tomar cualquier decisión."
   }
 }

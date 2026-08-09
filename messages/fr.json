@@ -1,7 +1,8 @@
 {
   "siteNav": {
     "sobre": "À propos",
-    "contacto": "Contact"
+    "contacto": "Contact",
+    "guia": "Guide"
   },
   "siteFooter": {
     "whatsapp": "+351 939 081 583",
@@ -153,5 +154,29 @@
       "architecture": "Architecture",
       "landscape": "Aménagement paysager"
     }
+  },
+  "guiaCompradorEstrangeiro": {
+    "meta": {
+      "title": "Guide à l'intention des acheteurs étrangers | Rui Da Cruz",
+      "description": "Guide général sur le processus d'achat d'un bien immobilier au Portugal destiné aux acheteurs internationaux — NIF, procédure, délais et coûts."
+    },
+    "eyebrow": "Ressources",
+    "title": "Guide à l'intention des acheteurs étrangers",
+    "intro": "L'achat d'un bien immobilier au Portugal en tant que non-résident suit une procédure bien définie. Ce guide résume les principales étapes — il ne remplace pas un conseil juridique ou fiscal personnalisé.",
+    "sections": [
+      {
+        "title": "Domicile et numéro d'identification fiscale",
+        "body": "La première démarche concrète consiste à obtenir le numéro d'identification fiscale (NIF) portugais, nécessaire pour ouvrir un compte bancaire, signer des contrats et payer ses impôts au Portugal. En fonction de votre nationalité et de vos objectifs, il peut également être judicieux d'étudier les différentes possibilités de résidence disponibles — nous vous recommandons de consulter un avocat spécialisé en droit de l'immigration afin de déterminer celle qui s'applique à votre situation."
+      },
+      {
+        "title": "Processus d'achat",
+        "body": "Une fois le bien immobilier choisi, la procédure suit généralement les étapes suivantes : vérification préalable du bien (certificat d'enregistrement foncier et livret cadastral), signature du contrat de promesse d'achat et de vente (CPCV) accompagné d'un acompte, et enfin l'acte notarié devant notaire, suivi de l'enregistrement définitif du bien immobilier à votre nom."
+      },
+      {
+        "title": "Délais et coûts",
+        "body": "Le délai entre le CPCV et l'acte de vente varie — généralement de quelques semaines à quelques mois, en fonction principalement du financement. Outre le prix d'achat, il faut tenir compte des impôts et des frais (tels que l'IMT et le droit de timbre, entre autres frais d'enregistrement et de notaire) — votre avocat ou votre comptable au Portugal pourra calculer le montant exact dans votre cas."
+      }
+    ],
+    "disclaimer": "Ce guide est fourni à titre informatif et de nature générale — il ne remplace pas un conseil juridique, fiscal ou financier personnalisé. Nous vous recommandons de toujours consulter un avocat ou un expert-comptable agréé au Portugal avant de prendre toute décision."
   }
 }

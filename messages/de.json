@@ -1,7 +1,8 @@
 {
   "siteNav": {
     "sobre": "Über",
-    "contacto": "Kontakt"
+    "contacto": "Kontakt",
+    "guia": "Leitfaden"
   },
   "siteFooter": {
     "whatsapp": "+351 939 081 583",
@@ -153,5 +154,29 @@
       "architecture": "Architektur",
       "landscape": "Garten- und Landschaftsgestaltung"
     }
+  },
+  "guiaCompradorEstrangeiro": {
+    "meta": {
+      "title": "Leitfaden für ausländische Käufer | Rui Da Cruz",
+      "description": "Ein allgemeiner Leitfaden zum Immobilienkauf in Portugal für internationale Käufer – NIF, Ablauf, Fristen und Kosten."
+    },
+    "eyebrow": "Ressourcen",
+    "title": "Leitfaden für ausländische Käufer",
+    "intro": "Der Kauf einer Immobilie in Portugal als Nichtansässiger erfolgt nach einem genau festgelegten Verfahren. Dieser Leitfaden fasst die wichtigsten Schritte zusammen – er ersetzt jedoch keine individuelle Rechts- oder Steuerberatung.",
+    "sections": [
+      {
+        "title": "Wohnsitz und Steuernummer",
+        "body": "Der erste praktische Schritt besteht darin, die portugiesische Steueridentifikationsnummer (NIF) zu beantragen, die für die Eröffnung eines Bankkontos, den Abschluss von Verträgen und die Zahlung von Steuern in Portugal erforderlich ist. Je nach Ihrer Staatsangehörigkeit und Ihren Zielen kann es auch sinnvoll sein, die verfügbaren Aufenthaltsmöglichkeiten zu prüfen – wir empfehlen Ihnen, sich an einen auf Einwanderungsrecht spezialisierten Anwalt zu wenden, um herauszufinden, welche Option in Ihrem Fall in Frage kommt."
+      },
+      {
+        "title": "Kaufprozess",
+        "body": "Nach der Auswahl der Immobilie verläuft der Prozess in der Regel in folgenden Schritten: Due-Diligence-Prüfung der Immobilie (Grundbuchauszug und Grundbuchheft), Unterzeichnung des Vorvertrags über den Kauf und Verkauf (CPCV) mit einer Anzahlung, und schließlich die notarielle Beurkundung, gefolgt von der endgültigen Eintragung der Immobilie auf Ihren Namen."
+      },
+      {
+        "title": "Fristen und Kosten",
+        "body": "Die Zeitspanne zwischen dem CPCV und der Beurkundung variiert – in der Regel beträgt sie einige Wochen bis wenige Monate, was vor allem von der Finanzierung abhängt. Neben dem Kaufpreis sind Steuern und Gebühren zu berücksichtigen (wie die IMT und die Stempelsteuer sowie weitere Register- und Notarkosten) – Ihr Anwalt oder Steuerberater in Portugal kann den genauen Betrag für Ihren Fall berechnen."
+      }
+    ],
+    "disclaimer": "Dieser Leitfaden dient lediglich der Information und hat allgemeinen Charakter – er ersetzt keine individuelle Rechts-, Steuer- oder Finanzberatung. Wir empfehlen Ihnen, stets einen in Portugal zugelassenen Rechtsanwalt oder Steuerberater zu konsultieren, bevor Sie eine Entscheidung treffen."
   }
 }
