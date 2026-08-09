@@ -43,7 +43,16 @@ export function PropertyNavArrows({
   function handlePointerDown(e: React.PointerEvent<HTMLAnchorElement>) {
     dragStartX.current = e.clientX;
     wasDragging.current = false;
-    e.currentTarget.setPointerCapture(e.pointerId);
+    // Alguns navegadores recusam capturar um ponteiro que não reconhecem
+    // como ativo (visto em teste automatizado com PointerEvent sintético;
+    // pode acontecer em casos reais também) — sem a captura, o arrasto
+    // ainda funciona enquanto o dedo/cursor ficar sobre a própria seta, só
+    // perde o "segue fora da caixinha", não vale travar a página por isso.
+    try {
+      e.currentTarget.setPointerCapture(e.pointerId);
+    } catch {
+      // captura indisponível — degrada graciosamente, ver comentário acima
+    }
   }
 
   function handlePointerMove(e: React.PointerEvent<HTMLAnchorElement>) {
