@@ -549,12 +549,3 @@ export const galleryImages = [
   { src: "/images/verdelago/11-sports.jpg", alt: { "pt-PT": "Campo de padel do resort", "pt-BR": "Quadra de padel do resort", en: "Resort padel court", es: "Pista de pádel del resort", fr: "Terrain de padel du resort", it: "Campo da padel del resort", de: "Padel-Platz des Resorts" } },
   { src: "/images/verdelago/12-food-beverage.jpg", alt: { "pt-PT": "Gastronomia de excelência", "pt-BR": "Gastronomia de excelência", en: "Fine dining", es: "Gastronomía de excelencia", fr: "Gastronomie raffinée", it: "Gastronomia raffinata", de: "Exzellente Gastronomie" } },
 ] as const;
-
-export const floorplans = [
-  { id: "t2a", src: "/images/verdelago/plantas/t2a.jpg", label: "T2A" },
-  { id: "t2b", src: "/images/verdelago/plantas/t2b.jpg", label: "T2B" },
-  { id: "t2c", src: "/images/verdelago/plantas/t2c.jpg", label: "T2C" },
-  { id: "t2d", src: "/images/verdelago/plantas/t2d.jpg", label: "T2D" },
-  { id: "t3b", src: "/images/verdelago/plantas/t3b.jpg", label: "T3B" },
-  { id: "t3c", src: "/images/verdelago/plantas/t3c.jpg", label: "T3C" },
-] as const;
