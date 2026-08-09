@@ -45,6 +45,7 @@ export type Property = {
   campaign_path: string | null;
   preview_token: string | null;
   preview_token_expires_at: string | null;
+  color_theme: string | null;
   created_at: string;
   updated_at: string;
 };
