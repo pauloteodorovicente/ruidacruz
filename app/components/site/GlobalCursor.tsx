@@ -23,7 +23,7 @@ export function GlobalCursor() {
     setEnabled(true);
 
     function handleMove(e: MouseEvent) {
-      const target = e.target as HTMLElement;
+      const target = e.target instanceof Element ? e.target : null;
       if (target && getComputedStyle(target).cursor === "none") {
         setVisible(false);
         return;
