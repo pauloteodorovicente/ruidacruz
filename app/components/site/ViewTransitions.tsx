@@ -1,0 +1,40 @@
+"use client";
+
+import { useEffect, useRef, useState } from "react";
+import { usePathname } from "next/navigation";
+import { flushSync } from "react-dom";
+
+// Cross-fade entre páginas (Home/Imóvel/Sobre/Contacto/Portfólio) via View
+// Transitions API nativa do navegador — sem biblioteca nova. Guarda o
+// conteúdo já renderizado num estado próprio; quando a rota muda de
+// verdade, troca esse estado por dentro de startViewTransition (com
+// flushSync, senão o React adia o commit e a transição já teria acabado
+// antes do DOM mudar). Se o navegador não suporta (Firefox/Safari ainda
+// não têm) ou o visitante pediu menos movimento, troca na hora, sem
+// transição — nunca trava a navegação por causa disso.
+export function ViewTransitions({ children }: { children: React.ReactNode }) {
+  const pathname = usePathname();
+  const [displayChildren, setDisplayChildren] = useState(children);
+  const prevPathname = useRef(pathname);
+
+  useEffect(() => {
+    if (prevPathname.current === pathname) {
+      setDisplayChildren(children);
+      return;
+    }
+    prevPathname.current = pathname;
+
+    const supportsViewTransition = typeof document.startViewTransition === "function";
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (!supportsViewTransition || reducedMotion) {
+      setDisplayChildren(children);
+      return;
+    }
+
+    document.startViewTransition(() => {
+      flushSync(() => setDisplayChildren(children));
+    });
+  }, [pathname, children]);
+
+  return displayChildren;
+}

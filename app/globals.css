@@ -104,6 +104,16 @@ html[data-theme="light"] [data-color-theme="creme"] {
   --c-accent-dark: #8a7550;
 }
 
+/* Cross-fade entre páginas (ver ViewTransitions.tsx) — só ajusta o ritmo
+   pro mesmo compasso pausado do resto do site; o cross-fade em si é o
+   comportamento padrão do navegador pra ::view-transition-old/new(root),
+   não precisa reimplementar nada aqui. */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 0.45s;
+  animation-timing-function: ease-out;
+}
+
 @theme inline {
   --color-background: var(--c-bg);
   --color-background-raised: var(--c-bg-raised);
