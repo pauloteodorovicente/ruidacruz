@@ -28,7 +28,7 @@ export const content: Record<
       eyebrow: string;
       title: string;
       intro: string;
-      fromLabel: string;
+      fromLabel: string;
       note: string;
     };
     brochure: {
