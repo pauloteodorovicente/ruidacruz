@@ -4,6 +4,7 @@ import Image from "next/image";
 import NextLink from "next/link";
 import { useLocale, useTranslations } from "next-intl";
 import { Reveal } from "./Reveal";
+import { FavoriteButton } from "./FavoriteButton";
 import type { Property } from "@/lib/properties";
 
 // Recebe as propriedades já buscadas no Supabase por um Server Component pai
@@ -66,6 +67,7 @@ export function CuratedCollection({
                       sizes="(max-width: 768px) 100vw, 33vw"
                       className={`object-cover transition-transform duration-700 group-hover:scale-[1.05] ${COVER_IMAGE_POSITION[property.reference] ?? ""}`}
                     />
+                    <FavoriteButton propertyId={property.id} className="absolute top-3 right-3 z-10" />
                   </div>
                   <div className="p-5">
                     <div className="flex items-center justify-between gap-2">
