@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
+import { getGhlSettings } from "@/lib/settings";
 
 const GHL_BASE = "https://services.leadconnectorhq.com";
 const GHL_VERSION = "2021-07-28";
@@ -58,12 +59,12 @@ async function fetchWithRetry(url: string, options: RequestInit, retries = 1): P
 }
 
 export async function POST(req: Request) {
-  const token = process.env.GHL_API_TOKEN;
-  const locationId = process.env.GHL_LOCATION_ID;
+  const ghl = await getGhlSettings();
 
-  if (!token || !locationId) {
+  if (!ghl) {
     return NextResponse.json({ error: "GHL not configured" }, { status: 500 });
   }
+  const { apiToken: token, locationId } = ghl;
 
   const body = await req.json().catch(() => null);
   const name = typeof body?.name === "string" ? body.name.trim() : "";
