@@ -1,4 +1,3 @@
-import { createClient } from "@/lib/supabase/server";
 import { createAdminClient } from "@/lib/supabase/admin";
 
 export type MetaPixelSettings = {
@@ -21,11 +20,26 @@ const DEFAULT_META_PIXEL: MetaPixelSettings = {
   autoInstallNewPages: true,
 };
 
+// Chamado a partir do layout raiz — usa fetch() puro (sem cookies()) de
+// propósito, pra não forçar renderização dinâmica em toda página do site só
+// por causa de uma leitura pública que muda raramente. Cache de 60s.
 export async function getMetaPixelSettings(): Promise<MetaPixelSettings> {
-  const supabase = await createClient();
-  const { data } = await supabase.from("settings").select("value").eq("key", "meta_pixel").maybeSingle();
-  if (!data?.value) return DEFAULT_META_PIXEL;
-  return { ...DEFAULT_META_PIXEL, ...(data.value as Partial<MetaPixelSettings>) };
+  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const anonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+  if (!url || !anonKey) return DEFAULT_META_PIXEL;
+
+  try {
+    const res = await fetch(`${url}/rest/v1/settings?select=value&key=eq.meta_pixel`, {
+      headers: { apikey: anonKey, Authorization: `Bearer ${anonKey}` },
+      next: { revalidate: 60 },
+    });
+    if (!res.ok) return DEFAULT_META_PIXEL;
+    const rows = (await res.json()) as { value: Partial<MetaPixelSettings> }[];
+    if (!rows[0]?.value) return DEFAULT_META_PIXEL;
+    return { ...DEFAULT_META_PIXEL, ...rows[0].value };
+  } catch {
+    return DEFAULT_META_PIXEL;
+  }
 }
 
 // Só em contexto de servidor confiável (Route Handlers) — nunca exposto ao
