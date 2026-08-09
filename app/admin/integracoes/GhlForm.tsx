@@ -2,6 +2,7 @@
 
 import { useState, useTransition } from "react";
 import { saveGhlSettings } from "../integrations-actions";
+import { PasswordField } from "@/app/components/PasswordField";
 import type { GhlSettings } from "@/lib/settings";
 
 const inputClass =
@@ -31,11 +32,10 @@ export function GhlForm({ initial }: { initial: GhlSettings | null }) {
 
       <label className="block">
         <span className={labelClass}>Token de API (Private Integration)</span>
-        <input
-          type="password"
+        <PasswordField
           className={inputClass}
           value={apiToken}
-          onChange={(e) => setApiToken(e.target.value)}
+          onChange={setApiToken}
           placeholder="pit-..."
           autoComplete="off"
         />
