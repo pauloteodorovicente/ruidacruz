@@ -4,7 +4,7 @@ import { getTranslations } from "next-intl/server";
 import { getPropertyByReference, getPropertyPhotos, getPropertyFloorplans, getPropertyTranslation } from "@/lib/properties";
 import { localizeProperty } from "@/lib/property-types";
 import { localeAlternates } from "@/lib/locale-alternates";
-import { getPropertyByReferenceForAdmin } from "@/lib/admin-properties";
+import { getPropertyByReferenceForAdmin, getPropertyByReferenceWithPreviewToken } from "@/lib/admin-properties";
 import { isAdminAuthenticated } from "@/lib/admin-auth";
 import { getPropertyHero } from "@/lib/property-hero";
 import { SiteHeader } from "@/app/components/site/SiteHeader";
@@ -110,16 +110,23 @@ function propertyJsonLd(property: Property, coverImage: string, locale: string) 
 
 export default async function ImovelPage({
   params,
+  searchParams,
 }: {
   params: Promise<{ locale: string; referencia: string }>;
+  searchParams: Promise<{ preview?: string }>;
 }) {
   const { locale, referencia } = await params;
+  const { preview } = await searchParams;
   const isAdmin = await isAdminAuthenticated();
-  // Admin vê rascunhos (modo de pré-visualização); visitante público só vê o
-  // que passar pela RLS (published = true), que já trata o "não encontrado".
+  // Admin vê rascunhos (modo de pré-visualização); um link com ?preview=TOKEN
+  // válido e ainda não expirado também vê, sem precisar logar; visitante
+  // público comum só vê o que passar pela RLS (published = true), que já
+  // trata o "não encontrado".
   const rawProperty = isAdmin
     ? await getPropertyByReferenceForAdmin(referencia)
-    : await getPropertyByReference(referencia);
+    : preview
+      ? await getPropertyByReferenceWithPreviewToken(referencia, preview)
+      : await getPropertyByReference(referencia);
   if (!rawProperty) notFound();
 
   // Título/descrição/destaques no idioma sendo visto — pt-PT (fonte) mostra
