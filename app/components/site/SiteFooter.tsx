@@ -17,6 +17,9 @@ export function SiteFooter() {
         <Link href="/contacto" className="hover:text-white/80 transition-colors">
           {nav("contacto")}
         </Link>
+        <Link href="/guia-comprador-estrangeiro" className="hover:text-white/80 transition-colors">
+          {nav("guia")}
+        </Link>
       </div>
       <Image src="/images/rui/assinatura.png" alt="" width={63} height={72} className="mx-auto mb-3 h-10 w-auto opacity-90" />
       <p>{f("rights")}</p>
