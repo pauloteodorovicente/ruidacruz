@@ -4,6 +4,7 @@ import { isAdminAuthenticated } from "@/lib/admin-auth";
 import { getAllPropertiesForAdmin } from "@/lib/admin-properties";
 import { PublishToggleBadge } from "./PublishToggleBadge";
 import { FeaturedToggleBadge } from "./FeaturedToggleBadge";
+import { DuplicateButton } from "./DuplicateButton";
 
 const STATUS_LABEL: Record<string, string> = {
   disponivel: "Disponível",
@@ -56,6 +57,7 @@ export default async function AdminPage() {
                     campaignPath={property.is_campaign_page ? property.campaign_path : null}
                     initialPublished={property.published}
                   />
+                  {!property.is_campaign_page && <DuplicateButton propertyId={property.id} />}
                 </div>
               </div>
             ))}

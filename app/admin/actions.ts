@@ -87,3 +87,44 @@ export async function saveProperty(formData: FormData) {
   revalidatePath(`/imoveis/${record.reference}`);
   redirect("/admin");
 }
+
+// Cópia rápida pra imóveis que compartilham estrutura/zona — nasce sempre em
+// rascunho, sem fotos/plantas (ficam pro imóvel original; evita duplicar
+// arquivos do Storage sem necessidade real). Referência nova, gerada aqui,
+// nunca reaproveitada.
+export async function duplicateProperty(id: string) {
+  if (!(await isAdminAuthenticated())) redirect("/admin/login");
+
+  const supabase = createAdminClient();
+  const { data: original, error: fetchError } = await supabase
+    .from("properties")
+    .select("*")
+    .eq("id", id)
+    .single();
+  if (fetchError) throw new Error(fetchError.message);
+
+  const { id: _id, created_at: _createdAt, updated_at: _updatedAt, reference, title, ...rest } = original;
+  void _id;
+  void _createdAt;
+  void _updatedAt;
+
+  let newReference = `${reference}-copia`;
+  const { data: clash } = await supabase.from("properties").select("id").eq("reference", newReference).maybeSingle();
+  if (clash) newReference = `${reference}-copia-${Date.now().toString(36)}`;
+
+  const { data: copy, error } = await supabase
+    .from("properties")
+    .insert({
+      ...rest,
+      reference: newReference,
+      title: `${title} (cópia)`,
+      published: false,
+      featured: false,
+    })
+    .select("reference")
+    .single();
+  if (error) throw new Error(error.message);
+
+  revalidatePath("/admin");
+  redirect(`/admin/imoveis/${copy.reference}/editar`);
+}
