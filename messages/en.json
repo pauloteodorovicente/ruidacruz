@@ -2,7 +2,8 @@
   "siteNav": {
     "sobre": "About",
     "contacto": "Contact",
-    "guia": "Guide"
+    "guia": "Guide",
+    "faq": "FAQ"
   },
   "siteFooter": {
     "whatsapp": "+351 939 081 583",
@@ -178,5 +179,40 @@
       }
     ],
     "disclaimer": "This guide is informational and general in nature — it does not replace personalised legal, tax or financial advice. We always recommend consulting a lawyer or accountant licensed in Portugal before proceeding with any decision."
+  },
+  "faq": {
+    "meta": {
+      "title": "Frequently Asked Questions | Rui Da Cruz",
+      "description": "Answers to the most common questions about buying or selling property with Rui Da Cruz, RE/MAX Collection."
+    },
+    "eyebrow": "Help",
+    "title": "Frequently Asked Questions",
+    "intro": "We've gathered the questions we get asked the most. If yours isn't here, get in touch directly.",
+    "items": [
+      {
+        "question": "Which areas does Rui work in?",
+        "answer": "The main focus is Parque das Nações, with a presence in Lisbon, Cascais, Porto and the Algarve too. Outside these areas, we look at it case by case."
+      },
+      {
+        "question": "Does Rui only work with sellers, or does he help buyers too?",
+        "answer": "Both — full support for sellers and for buyers alike, from first contact through to the deed."
+      },
+      {
+        "question": "How does a first meeting work?",
+        "answer": "No commitment required — usually a call or an in-person meeting, to understand what you're looking for (or the property you want to sell) and explain the next steps."
+      },
+      {
+        "question": "Does Rui work with foreign buyers / non-residents?",
+        "answer": "Yes. For anyone buying in Portugal from abroad, we've put together a dedicated guide covering the process, timelines and typical documents."
+      },
+      {
+        "question": "How long does the buying or selling process usually take?",
+        "answer": "It varies a lot depending on the property and financing involved — from the promissory contract to the deed usually takes a few weeks to a few months."
+      },
+      {
+        "question": "How can I schedule a viewing?",
+        "answer": "Directly through the contact form, via WhatsApp, or by booking a call — whichever is easiest for you."
+      }
+    ]
   }
 }

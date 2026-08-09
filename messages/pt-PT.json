@@ -2,7 +2,8 @@
   "siteNav": {
     "sobre": "Sobre",
     "contacto": "Contacto",
-    "guia": "Guia"
+    "guia": "Guia",
+    "faq": "FAQ"
   },
   "siteFooter": {
     "whatsapp": "+351 939 081 583",
@@ -178,5 +179,40 @@
       }
     ],
     "disclaimer": "Este guia é informativo e de carácter geral — não substitui aconselhamento jurídico, fiscal ou financeiro personalizado. Recomendamos sempre consultar um advogado ou contabilista licenciado em Portugal antes de avançar com qualquer decisão."
+  },
+  "faq": {
+    "meta": {
+      "title": "Perguntas Frequentes | Rui Da Cruz",
+      "description": "Respostas às perguntas mais comuns sobre comprar ou vender um imóvel com Rui Da Cruz, RE/MAX Collection."
+    },
+    "eyebrow": "Ajuda",
+    "title": "Perguntas Frequentes",
+    "intro": "Reunimos aqui as perguntas que mais recebemos. Se a sua não estiver aqui, fale diretamente comigo.",
+    "items": [
+      {
+        "question": "Em que zonas o Rui atua?",
+        "answer": "A atuação está focada no Parque das Nações, com presença também em Lisboa, Cascais, Porto e Algarve. Fora dessas zonas, avaliamos caso a caso."
+      },
+      {
+        "question": "O Rui trabalha só com vendedores, ou também ajuda compradores?",
+        "answer": "As duas coisas — acompanhamento completo tanto para quem quer vender como para quem procura comprar, do primeiro contacto até à escritura."
+      },
+      {
+        "question": "Como funciona uma primeira reunião?",
+        "answer": "Sem compromisso — normalmente por chamada ou presencialmente, para perceber o que procura (ou o imóvel que quer vender) e explicar os próximos passos."
+      },
+      {
+        "question": "O Rui atende compradores estrangeiros / não residentes?",
+        "answer": "Sim. Para quem está a comprar em Portugal vindo de fora, preparámos um guia próprio com o processo, prazos e documentos habituais."
+      },
+      {
+        "question": "Quanto tempo demora normalmente o processo de compra ou venda?",
+        "answer": "Varia bastante conforme o imóvel e o financiamento envolvido — da promessa de compra e venda até à escritura costuma levar de algumas semanas a poucos meses."
+      },
+      {
+        "question": "Como posso agendar uma visita a um imóvel?",
+        "answer": "Diretamente pelo formulário de contacto, por WhatsApp, ou marcando uma chamada — o que for mais prático para si."
+      }
+    ]
   }
 }
