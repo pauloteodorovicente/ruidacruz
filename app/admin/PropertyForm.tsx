@@ -4,6 +4,7 @@ import { useMemo, useState } from "react";
 import { saveProperty } from "./actions";
 import { recommendLayoutMode, type Property } from "@/lib/property-types";
 import { Select } from "@/app/components/Select";
+import { PreviewLinkButton } from "./PreviewLinkButton";
 
 const LAYOUT_LABEL: Record<string, string> = {
   arquitetura: "Arquitetura",
@@ -102,14 +103,19 @@ export function PropertyForm({ property }: { property?: Property }) {
           </label>
         </div>
         {property && (
-          <a
-            href={`/imoveis/${property.reference}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="self-start text-xs tracking-[0.08em] uppercase text-accent hover:text-accent-strong transition-colors"
-          >
-            Pré-visualizar →
-          </a>
+          <div className="flex flex-col gap-3">
+            <a
+              href={`/imoveis/${property.reference}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="self-start text-xs tracking-[0.08em] uppercase text-accent hover:text-accent-strong transition-colors"
+            >
+              Pré-visualizar →
+            </a>
+            {!property.is_campaign_page && (
+              <PreviewLinkButton propertyId={property.id} propertyReference={property.reference} />
+            )}
+          </div>
         )}
       </fieldset>
 
