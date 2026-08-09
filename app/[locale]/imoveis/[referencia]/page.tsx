@@ -21,6 +21,7 @@ import { PropertyLocation } from "@/app/components/PropertyLocation";
 import { ArchitectCredit } from "@/app/components/ArchitectCredit";
 import { SiteLeadForm } from "@/app/components/site/SiteLeadForm";
 import { PropertyNavArrows } from "@/app/components/PropertyNavArrows";
+import { BreadcrumbSchema } from "@/app/components/BreadcrumbSchema";
 import type { Property, PropertyPhoto, PropertyFloorplan, Locale } from "@/lib/properties";
 import type { ReactNode } from "react";
 
@@ -166,12 +167,21 @@ export default async function ImovelPage({
     : null;
   const nextProperty = hasNeighbors ? allProperties[(currentIndex + 1) % allProperties.length] : null;
   const heroEyebrow = property.zone ?? p(`propertyTypeTags.${property.property_type}`);
+  const portfolioLabel = await getTranslations({ locale, namespace: "home.portfolioPage" });
+  const prefix = locale === "pt-PT" ? "" : `/${locale}`;
 
   return (
     <>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(propertyJsonLd(property, coverImage, locale)) }}
+      />
+      <BreadcrumbSchema
+        items={[
+          { name: "Home", path: prefix || "/" },
+          { name: portfolioLabel("title"), path: `${prefix}/portfolio` },
+          { name: property.title, path: `${prefix}/imoveis/${property.reference}` },
+        ]}
       />
       {(isAdmin || preview) && !property.published && (
         <div className="bg-accent px-6 py-2 text-center text-xs font-body tracking-[0.08em] uppercase text-background">
