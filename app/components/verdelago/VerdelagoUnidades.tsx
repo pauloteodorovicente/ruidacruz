@@ -1,14 +1,21 @@
 "use client";
 
 import { Reveal } from "../Reveal";
-import { verdelagoPhases } from "@/lib/verdelago-units";
+
+export type VerdelagoUnitRow = { lote: string | null; fracao: string | null; tipologia: string; valor: number | null };
+export type VerdelagoPhaseGroup = { label: string; units: VerdelagoUnitRow[] };
 
 function formatPrice(valor: number | null) {
   if (valor === null) return "Brevemente";
   return valor.toLocaleString("pt-PT", { style: "currency", currency: "EUR", maximumFractionDigits: 0 });
 }
 
-export function VerdelagoUnidades() {
+// Recebe as fases já agrupadas por prop (vem do banco, via property_units +
+// property_typologies — ver app/verdelago/page.tsx) em vez de importar
+// lib/verdelago-units.ts, que era um arquivo de código fixo — agora editável
+// pelo admin (Fase 23). Mantém a mesma forma de dados de propósito, pra não
+// precisar mexer em mais nada aqui embaixo.
+export function VerdelagoUnidades({ verdelagoPhases }: { verdelagoPhases: VerdelagoPhaseGroup[] }) {
   return (
     <section className="bg-background-raised px-6 py-14 md:px-12 md:py-20 border-y border-border">
       <Reveal className="mx-auto max-w-4xl block">

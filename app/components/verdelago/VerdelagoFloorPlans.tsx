@@ -2,16 +2,22 @@
 
 import { useState } from "react";
 import { useVerdelagoLanguage } from "@/lib/verdelago-language-context";
-import { floorplans } from "@/lib/verdelago-content";
 import { Reveal } from "../Reveal";
 import { ZoomableImage } from "../ZoomableImage";
 
-export function VerdelagoFloorPlans() {
+export type VerdelagoFloorplanItem = { id: string; src: string; label: string };
+
+// Recebe as plantas já resolvidas por prop (property_typology_floorplans,
+// via app/verdelago/page.tsx) em vez de importar o array fixo de
+// lib/verdelago-content.ts — editável pelo admin agora (Fase 23).
+export function VerdelagoFloorPlans({ floorplans }: { floorplans: VerdelagoFloorplanItem[] }) {
   const { t } = useVerdelagoLanguage();
   const p = t.floorplans;
-  const [active, setActive] = useState<(typeof floorplans)[number]["id"]>(floorplans[0].id);
+  const [active, setActive] = useState<string | null>(floorplans[0]?.id ?? null);
   const [open, setOpen] = useState(false);
-  const current = floorplans.find((f) => f.id === active)!;
+
+  if (floorplans.length === 0) return null;
+  const current = floorplans.find((f) => f.id === active) ?? floorplans[0];
 
   return (
     <section className="bg-background-raised px-6 py-10 md:px-12 md:py-14 border-y border-border">
