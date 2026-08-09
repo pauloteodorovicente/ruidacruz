@@ -5,6 +5,7 @@ import { saveProperty } from "./actions";
 import { recommendLayoutMode, type Property } from "@/lib/property-types";
 import { Select } from "@/app/components/Select";
 import { PreviewLinkButton } from "./PreviewLinkButton";
+import { ColorThemePicker } from "./ColorThemePicker";
 
 const LAYOUT_LABEL: Record<string, string> = {
   arquitetura: "Arquitetura",
@@ -118,6 +119,19 @@ export function PropertyForm({ property }: { property?: Property }) {
           </div>
         )}
       </fieldset>
+
+      {!property?.is_campaign_page && (
+        <fieldset className="flex flex-col gap-4">
+          <h2 className="font-display text-lg text-accent">Aparência</h2>
+          <div>
+            <span className={labelClass}>Paleta de cor</span>
+            <p className="text-xs text-foreground-muted mb-2">
+              Muda a cor de destaque só nesta ficha de imóvel — o resto do site nunca muda.
+            </p>
+            <ColorThemePicker defaultValue={property?.color_theme} />
+          </div>
+        </fieldset>
+      )}
 
       <fieldset className="flex flex-col gap-4">
         <h2 className="font-display text-lg text-accent">Localização</h2>
