@@ -1,8 +1,9 @@
 import { redirect } from "next/navigation";
 import { isAdminAuthenticated } from "@/lib/admin-auth";
-import { getMetaPixelSettings, getGhlSettings } from "@/lib/settings";
+import { getMetaPixelSettings, getGhlSettings, getSchedulingSettings } from "@/lib/settings";
 import { MetaPixelForm } from "./MetaPixelForm";
 import { GhlForm } from "./GhlForm";
+import { SchedulingForm } from "./SchedulingForm";
 
 export const PIXEL_PAGE_OPTIONS = [
   { value: "/", label: "Home" },
@@ -19,7 +20,11 @@ export const PIXEL_PAGE_OPTIONS = [
 export default async function IntegracoesPage() {
   if (!(await isAdminAuthenticated())) redirect("/admin/login");
 
-  const [pixel, ghl] = await Promise.all([getMetaPixelSettings(), getGhlSettings()]);
+  const [pixel, ghl, scheduling] = await Promise.all([
+    getMetaPixelSettings(),
+    getGhlSettings(),
+    getSchedulingSettings(),
+  ]);
 
   return (
     <main className="min-h-screen bg-background px-6 py-10 md:px-12">
@@ -31,6 +36,7 @@ export default async function IntegracoesPage() {
         <div className="flex flex-col gap-10">
           <MetaPixelForm initial={pixel} pageOptions={PIXEL_PAGE_OPTIONS} />
           <GhlForm initial={ghl} />
+          <SchedulingForm initial={scheduling} />
         </div>
       </div>
     </main>

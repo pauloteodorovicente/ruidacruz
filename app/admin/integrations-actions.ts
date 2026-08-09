@@ -4,7 +4,7 @@ import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 import { isAdminAuthenticated } from "@/lib/admin-auth";
 import { createAdminClient } from "@/lib/supabase/admin";
-import type { MetaPixelSettings, GhlSettings } from "@/lib/settings";
+import type { MetaPixelSettings, GhlSettings, SchedulingSettings } from "@/lib/settings";
 
 async function upsertSetting(key: string, value: unknown) {
   const supabase = createAdminClient();
@@ -30,5 +30,15 @@ export async function saveGhlSettings(settings: GhlSettings) {
   await upsertSetting("ghl", settings);
 
   revalidatePath("/admin/integracoes");
+  redirect("/admin/integracoes");
+}
+
+export async function saveSchedulingSettings(settings: SchedulingSettings) {
+  if (!(await isAdminAuthenticated())) redirect("/admin/login");
+
+  await upsertSetting("scheduling", settings);
+
+  revalidatePath("/admin/integracoes");
+  revalidatePath("/", "layout");
   redirect("/admin/integracoes");
 }
