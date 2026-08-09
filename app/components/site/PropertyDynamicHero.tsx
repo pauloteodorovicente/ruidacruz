@@ -104,7 +104,7 @@ export function PropertyDynamicHero({
 
         {isSingleImage && (
           // eslint-disable-next-line @next/next/no-img-element
-          <img src={items[0].src} alt="" className="absolute inset-0 h-full w-full object-cover" style={itemStyle(items[0])} />
+          <img src={items[0].src} alt={title} className="absolute inset-0 h-full w-full object-cover" style={itemStyle(items[0])} />
         )}
 
         {isMosaic && (
@@ -120,7 +120,7 @@ export function PropertyDynamicHero({
               <img
                 key={i}
                 src={item.src}
-                alt=""
+                alt={title}
                 className="h-full w-full object-cover overflow-hidden"
                 style={{ gridArea: CELL_LETTERS[i], ...itemStyle(item) }}
               />
