@@ -2,8 +2,10 @@
 
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
+import { after } from "next/server";
 import { isAdminAuthenticated } from "@/lib/admin-auth";
 import { createAdminClient } from "@/lib/supabase/admin";
+import { translateTypologyToAllLocales } from "@/lib/translate-typology";
 
 const FLOORPLAN_BUCKET = "property-photos";
 
@@ -43,6 +45,7 @@ export async function saveTypology(formData: FormData) {
   };
   if (!record.name) throw new Error("Nome da tipologia é obrigatório.");
 
+  let typologyId = id;
   if (id) {
     const { error } = await supabase.from("property_typologies").update(record).eq("id", id);
     if (error) throw new Error(error.message);
@@ -54,9 +57,18 @@ export async function saveTypology(formData: FormData) {
       .order("position", { ascending: false })
       .limit(1);
     const position = (existing?.[0]?.position ?? -1) + 1;
-    const { error } = await supabase.from("property_typologies").insert({ ...record, position });
+    const { data: inserted, error } = await supabase
+      .from("property_typologies")
+      .insert({ ...record, position })
+      .select("id")
+      .single();
     if (error) throw new Error(error.message);
+    typologyId = inserted.id;
   }
+
+  // Roda depois da resposta (after) — nunca trava salvar a tipologia
+  // esperando o DeepL. Mesmo motivo/padrão de saveProperty.
+  after(() => translateTypologyToAllLocales(typologyId, { name: record.name, description: record.description }));
 
   revalidateProperty(propertyReference, campaignPath);
 }
