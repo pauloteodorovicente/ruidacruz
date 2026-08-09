@@ -46,3 +46,34 @@ export async function getPropertyByReferenceWithPreviewToken(reference: string, 
   if (new Date(data.preview_token_expires_at).getTime() < Date.now()) return null;
   return data;
 }
+
+export type OffMarketTeaser = {
+  id: string;
+  reference: string;
+  title: string;
+  zone: string | null;
+  municipality: string | null;
+  property_type: Property["property_type"];
+  typology: string | null;
+  business_type: Property["business_type"];
+};
+
+// A RLS já esconde imóveis off_market de qualquer leitura pública (ver
+// migration 0001_init.sql, policy properties_public_read) — o visitante que
+// cai numa dessas fichas hoje só vê 404, sem chance de pedir acesso. Esta
+// busca (service role, só campos seguros pra mostrar — nunca preço,
+// endereço exato, descrição completa) existe pra dar um teaser + formulário
+// de pedido em vez do 404 seco.
+export async function getOffMarketTeaser(reference: string): Promise<OffMarketTeaser | null> {
+  const supabase = createAdminClient();
+  const { data, error } = await supabase
+    .from("properties")
+    .select("id, reference, title, zone, municipality, property_type, typology, business_type")
+    .eq("reference", reference)
+    .eq("status", "off_market")
+    .eq("published", true)
+    .maybeSingle();
+
+  if (error) throw error;
+  return data;
+}
