@@ -33,7 +33,7 @@ export function CommandPalette() {
     if (open) {
       setQuery("");
       setActiveIndex(0);
-      requestAnimationFrame(() => inputRef.current?.focus());
+      inputRef.current?.focus();
     }
   }, [open]);
 
