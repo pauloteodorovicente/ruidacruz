@@ -14,32 +14,46 @@ export type GhlSettings = {
   locationId: string;
 };
 
+export type SchedulingSettings = {
+  link: string;
+};
+
 const DEFAULT_META_PIXEL: MetaPixelSettings = {
   pixelId: "2026495607919533",
   pages: [],
   autoInstallNewPages: true,
 };
 
-// Chamado a partir do layout raiz — usa fetch() puro (sem cookies()) de
-// propósito, pra não forçar renderização dinâmica em toda página do site só
-// por causa de uma leitura pública que muda raramente. Cache de 60s.
-export async function getMetaPixelSettings(): Promise<MetaPixelSettings> {
+const DEFAULT_SCHEDULING: SchedulingSettings = { link: "" };
+
+// Leitura pública genérica — fetch() puro (sem cookies()) de propósito, pra
+// não forçar renderização dinâmica em toda página que a chamar só por causa
+// de dado público que muda raramente. Cache de 60s.
+async function getPublicSetting<T>(key: string, fallback: T): Promise<T> {
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
   const anonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
-  if (!url || !anonKey) return DEFAULT_META_PIXEL;
+  if (!url || !anonKey) return fallback;
 
   try {
-    const res = await fetch(`${url}/rest/v1/settings?select=value&key=eq.meta_pixel`, {
+    const res = await fetch(`${url}/rest/v1/settings?select=value&key=eq.${key}`, {
       headers: { apikey: anonKey, Authorization: `Bearer ${anonKey}` },
       next: { revalidate: 60 },
     });
-    if (!res.ok) return DEFAULT_META_PIXEL;
-    const rows = (await res.json()) as { value: Partial<MetaPixelSettings> }[];
-    if (!rows[0]?.value) return DEFAULT_META_PIXEL;
-    return { ...DEFAULT_META_PIXEL, ...rows[0].value };
+    if (!res.ok) return fallback;
+    const rows = (await res.json()) as { value: Partial<T> }[];
+    if (!rows[0]?.value) return fallback;
+    return { ...fallback, ...rows[0].value };
   } catch {
-    return DEFAULT_META_PIXEL;
+    return fallback;
   }
+}
+
+export async function getMetaPixelSettings(): Promise<MetaPixelSettings> {
+  return getPublicSetting("meta_pixel", DEFAULT_META_PIXEL);
+}
+
+export async function getSchedulingSettings(): Promise<SchedulingSettings> {
+  return getPublicSetting("scheduling", DEFAULT_SCHEDULING);
 }
 
 // Só em contexto de servidor confiável (Route Handlers) — nunca exposto ao
