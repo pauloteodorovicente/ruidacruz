@@ -43,6 +43,8 @@ export type Property = {
   // página em campaign_path fica no ar.
   is_campaign_page: boolean;
   campaign_path: string | null;
+  preview_token: string | null;
+  preview_token_expires_at: string | null;
   created_at: string;
   updated_at: string;
 };
