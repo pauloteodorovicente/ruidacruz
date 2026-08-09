@@ -6,6 +6,7 @@ import { recommendLayoutMode, type Property } from "@/lib/property-types";
 import { Select } from "@/app/components/Select";
 import { PreviewLinkButton } from "./PreviewLinkButton";
 import { ColorThemePicker } from "./ColorThemePicker";
+import { AiDescriptionAssist } from "./AiDescriptionAssist";
 
 const LAYOUT_LABEL: Record<string, string> = {
   arquitetura: "Arquitetura",
@@ -207,6 +208,7 @@ export function PropertyForm({ property }: { property?: Property }) {
         <Field label="Descrição">
           <textarea name="description" defaultValue={property?.description ?? ""} rows={5} className={inputClass} />
         </Field>
+        <AiDescriptionAssist />
         <Field label={'"Em Detalhe" — uma linha por item'}>
           <textarea
             name="highlights"
