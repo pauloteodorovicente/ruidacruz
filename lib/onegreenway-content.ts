@@ -28,8 +28,7 @@ export const content: Record<
       eyebrow: string;
       title: string;
       intro: string;
-      fromLabel: string;
-      groups: { name: string; description: string; from: string }[];
+      fromLabel: string;
       note: string;
     };
     brochure: {
@@ -116,18 +115,6 @@ export const content: Record<
       "title": "Moradias e Apartamentos Disponíveis",
       "intro": "Duas coleções de residências, cada uma com a sua própria relação com o campo de golfe, os lagos e os jardins.",
       "fromLabel": "Desde",
-      "groups": [
-        {
-          "name": "Horizon Residences — Moradias",
-          "description": "Moradias V4, V5 e V6 de acesso privado, com garagem dupla e vista sobre o campo de golfe ou o lago.",
-          "from": "8.350.000 €"
-        },
-        {
-          "name": "Garden & Panorama Residences — Apartamentos",
-          "description": "Apartamentos T3, T4 e T5 em piso térreo ou 1.º andar, com terraço ou jardim privativo.",
-          "from": "4.200.000 €"
-        }
-      ],
       "note": "Valores de referência para as unidades atualmente disponíveis — consulte a tabela de preços atualizada ou fale connosco para confirmação em tempo real."
     },
     "brochure": {
@@ -213,18 +200,6 @@ export const content: Record<
       "title": "Moradias e Apartamentos Disponíveis",
       "intro": "Duas coleções de residências, cada uma com a sua própria relação com o campo de golfe, os lagos e os jardins.",
       "fromLabel": "Desde",
-      "groups": [
-        {
-          "name": "Horizon Residences — Moradias",
-          "description": "Moradias V4, V5 e V6 de acesso privado, com garagem dupla e vista sobre o campo de golfe ou o lago.",
-          "from": "8.350.000 €"
-        },
-        {
-          "name": "Garden & Panorama Residences — Apartamentos",
-          "description": "Apartamentos T3, T4 e T5 em piso térreo ou 1.º andar, com terraço ou jardim privativo.",
-          "from": "4.200.000 €"
-        }
-      ],
       "note": "Valores de referência para as unidades atualmente disponíveis — consulte a tabela de preços atualizada ou fale connosco para confirmação em tempo real."
     },
     "brochure": {
@@ -310,18 +285,6 @@ export const content: Record<
       "title": "Available Houses and Apartments",
       "intro": "Two collections of homes, each with its own connection to the golf course, the lakes, and the gardens.",
       "fromLabel": "From",
-      "groups": [
-        {
-          "name": "Horizon Residences — Townhouses",
-          "description": "Four-, five-, and six-bedroom homes with private access, a double garage, and views of the golf course or the lake.",
-          "from": "€8,350,000"
-        },
-        {
-          "name": "Garden & Panorama Residences — Apartments",
-          "description": "3-, 4-, and 5-bedroom apartments on the ground floor or first floor, with a terrace or private garden.",
-          "from": "€4,200,000"
-        }
-      ],
       "note": "Reference prices for currently available units—please see the updated price list or contact us for real-time confirmation."
     },
     "brochure": {
@@ -407,18 +370,6 @@ export const content: Record<
       "title": "Viviendas y apartamentos disponibles",
       "intro": "Dos colecciones de viviendas, cada una con su propia relación con el campo de golf, los lagos y los jardines.",
       "fromLabel": "Desde",
-      "groups": [
-        {
-          "name": "Horizon Residences — Viviendas unifamiliares",
-          "description": "Viviendas de 4, 5 y 6 habitaciones con acceso privado, garaje doble y vistas al campo de golf o al lago.",
-          "from": "8 350 000 €"
-        },
-        {
-          "name": "Garden & Panorama Residences — Apartamentos",
-          "description": "Apartamentos de 3, 4 y 5 habitaciones en planta baja o primera planta, con terraza o jardín privado.",
-          "from": "4 200 000 €"
-        }
-      ],
       "note": "Precios orientativos para las unidades disponibles actualmente: consulta la tabla de precios actualizada o ponte en contacto con nosotros para obtener una confirmación en tiempo real."
     },
     "brochure": {
@@ -504,18 +455,6 @@ export const content: Record<
       "title": "Maisons et appartements disponibles",
       "intro": "Deux ensembles résidentiels, chacun entretenant un rapport qui lui est propre avec le terrain de golf, les lacs et les jardins.",
       "fromLabel": "À partir de",
-      "groups": [
-        {
-          "name": "Horizon Residences — Maisons individuelles",
-          "description": "Maisons de 4, 5 et 6 pièces avec accès privé, garage double et vue sur le terrain de golf ou le lac.",
-          "from": "8 350 000 €"
-        },
-        {
-          "name": "Garden & Panorama Residences — Appartements",
-          "description": "Appartements T3, T4 et T5 situés au rez-de-chaussée ou au 1er étage, avec terrasse ou jardin privé.",
-          "from": "4 200 000 €"
-        }
-      ],
       "note": "Prix indicatifs pour les unités actuellement disponibles — consultez la grille tarifaire mise à jour ou contactez-nous pour obtenir une confirmation en temps réel."
     },
     "brochure": {
@@ -601,18 +540,6 @@ export const content: Record<
       "title": "Case e appartamenti disponibili",
       "intro": "Due complessi residenziali, ciascuno con un proprio rapporto con il campo da golf, i laghi e i giardini.",
       "fromLabel": "A partire da",
-      "groups": [
-        {
-          "name": "Horizon Residences — Villette",
-          "description": "Ville con 4, 5 e 6 camere da letto, con accesso privato, doppio posto auto e vista sul campo da golf o sul lago.",
-          "from": "8.350.000 €"
-        },
-        {
-          "name": "Garden & Panorama Residences — Appartamenti",
-          "description": "Appartamenti con 3, 4 e 5 camere da letto al piano terra o al primo piano, con terrazza o giardino privato.",
-          "from": "4.200.000 €"
-        }
-      ],
       "note": "Prezzi di riferimento per le unità attualmente disponibili — consultare il listino prezzi aggiornato o contattarci per una conferma in tempo reale."
     },
     "brochure": {
@@ -698,18 +625,6 @@ export const content: Record<
       "title": "Verfügbare Häuser und Wohnungen",
       "intro": "Zwei Wohnanlagen, von denen jede ihre eigene Verbindung zum Golfplatz, zu den Seen und zu den Gärten hat.",
       "fromLabel": "Ab",
-      "groups": [
-        {
-          "name": "Horizon Residences – Einfamilienhäuser",
-          "description": "Einfamilienhäuser mit 4, 5 oder 6 Zimmern und eigener Zufahrt, mit Doppelgarage und Blick auf den Golfplatz oder den See.",
-          "from": "8.350.000 €"
-        },
-        {
-          "name": "Garden & Panorama Residences – Wohnungen",
-          "description": "3-, 4- und 5-Zimmer-Wohnungen im Erdgeschoss oder im 1. Stock, mit eigener Terrasse oder eigenem Garten.",
-          "from": "4.200.000 €"
-        }
-      ],
       "note": "Richtpreise für die derzeit verfügbaren Einheiten – bitte sehen Sie in der aktuellen Preisliste nach oder wenden Sie sich an uns, um eine Echtzeit-Bestätigung zu erhalten."
     },
     "brochure": {
