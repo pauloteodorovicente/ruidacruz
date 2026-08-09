@@ -94,6 +94,10 @@ export function PropertyForm({ property }: { property?: Property }) {
                 { value: "off_market", label: "Off-Market" },
               ]}
             />
+            <p className="text-xs text-foreground-muted mt-1.5">
+              Off-Market: some da busca pública — quem tentar aceder ao link vê um teaser com pedido de acesso, não
+              a ficha completa. Libera manualmente gerando um link de pré-visualização e enviando direto.
+            </p>
           </Field>
           <label className="flex items-center gap-2 self-end pb-2.5">
             <input type="checkbox" name="featured" defaultChecked={property?.featured} />
