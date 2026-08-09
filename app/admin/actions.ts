@@ -57,6 +57,7 @@ export async function saveProperty(formData: FormData) {
     landscaper: str(formData, "landscaper") || null,
     layout_mode: layoutMode || recommended,
     layout_mode_overridden: layoutMode !== recommended,
+    color_theme: str(formData, "color_theme") || null,
   };
 
   if (!record.reference || !record.title) {
