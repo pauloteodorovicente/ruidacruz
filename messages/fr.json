@@ -2,7 +2,8 @@
   "siteNav": {
     "sobre": "À propos",
     "contacto": "Contact",
-    "guia": "Guide"
+    "guia": "Guide",
+    "faq": "FAQ"
   },
   "siteFooter": {
     "whatsapp": "+351 939 081 583",
@@ -178,5 +179,40 @@
       }
     ],
     "disclaimer": "Ce guide est fourni à titre informatif et de nature générale — il ne remplace pas un conseil juridique, fiscal ou financier personnalisé. Nous vous recommandons de toujours consulter un avocat ou un expert-comptable agréé au Portugal avant de prendre toute décision."
+  },
+  "faq": {
+    "meta": {
+      "title": "Foire aux questions | Rui Da Cruz",
+      "description": "Réponses aux questions les plus fréquentes concernant l'achat ou la vente d'un bien immobilier avec Rui Da Cruz, RE/MAX Collection."
+    },
+    "eyebrow": "Aide",
+    "title": "Foire aux questions",
+    "intro": "Nous avons rassemblé ici les questions qui nous sont le plus souvent posées. Si la vôtre ne figure pas dans cette liste, n'hésitez pas à me contacter directement.",
+    "items": [
+      {
+        "question": "Dans quelles zones Rui intervient-il ?",
+        "answer": "Notre activité se concentre sur le Parque das Nações, mais nous sommes également présents à Lisbonne, à Cascais, à Porto et en Algarve. En dehors de ces zones, nous évaluons chaque cas au cas par cas."
+      },
+      {
+        "question": "Rui travaille-t-il uniquement avec des vendeurs, ou aide-t-il également les acheteurs ?",
+        "answer": "Ces deux aspects : un accompagnement complet tant pour ceux qui souhaitent vendre que pour ceux qui cherchent à acheter, du premier contact jusqu'à la signature de l'acte de vente."
+      },
+      {
+        "question": "Comment se déroule une première réunion ?",
+        "answer": "Sans engagement — généralement par téléphone ou en personne, afin de cerner ce que vous recherchez (ou le bien immobilier que vous souhaitez vendre) et de vous expliquer les prochaines étapes."
+      },
+      {
+        "question": "Rui s'occupe-t-il des acheteurs étrangers / non-résidents ?",
+        "answer": "Oui. Pour les personnes qui souhaitent acheter au Portugal depuis l'étranger, nous avons préparé un guide spécifique présentant la procédure, les délais et les documents habituels."
+      },
+      {
+        "question": "Combien de temps dure généralement le processus d'achat ou de vente ?",
+        "answer": "Cela varie considérablement en fonction du bien immobilier et du financement concerné : entre la promesse d'achat et de vente et l'acte de vente, il faut généralement compter entre quelques semaines et quelques mois."
+      },
+      {
+        "question": "Comment puis-je prendre rendez-vous pour visiter un bien immobilier ?",
+        "answer": "Directement via le formulaire de contact, par WhatsApp ou en prenant rendez-vous pour un appel — selon ce qui vous convient le mieux."
+      }
+    ]
   }
 }

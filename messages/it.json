@@ -2,7 +2,8 @@
   "siteNav": {
     "sobre": "Informazioni su",
     "contacto": "Contatti",
-    "guia": "Guida"
+    "guia": "Guida",
+    "faq": "FAQ"
   },
   "siteFooter": {
     "whatsapp": "+351 939 081 583",
@@ -178,5 +179,40 @@
       }
     ],
     "disclaimer": "La presente guida ha carattere informativo e generale e non sostituisce una consulenza legale, fiscale o finanziaria personalizzata. Raccomandiamo sempre di consultare un avvocato o un commercialista abilitato in Portogallo prima di procedere con qualsiasi decisione."
+  },
+  "faq": {
+    "meta": {
+      "title": "Domande frequenti | Rui Da Cruz",
+      "description": "Risposte alle domande più frequenti sull'acquisto o la vendita di un immobile con Rui Da Cruz, RE/MAX Collection."
+    },
+    "eyebrow": "Aiuto",
+    "title": "Domande frequenti",
+    "intro": "Abbiamo raccolto qui le domande che ci vengono poste più spesso. Se la tua non è presente, contattami direttamente.",
+    "items": [
+      {
+        "question": "In quali zone opera Rui?",
+        "answer": "La nostra attività si concentra nel Parque das Nações, con una presenza anche a Lisbona, Cascais, Porto e nell’Algarve. Al di fuori di queste zone, valutiamo caso per caso."
+      },
+      {
+        "question": "Rui lavora solo con i venditori o assiste anche gli acquirenti?",
+        "answer": "Entrambe le cose: assistenza completa sia per chi vuole vendere sia per chi desidera acquistare, dal primo contatto fino all’atto di vendita."
+      },
+      {
+        "question": "Come si svolge un primo incontro?",
+        "answer": "Senza impegno — di solito tramite telefonata o di persona, per capire cosa sta cercando (o l'immobile che desidera vendere) e illustrarle i passi successivi."
+      },
+      {
+        "question": "Rui si occupa di acquirenti stranieri / non residenti?",
+        "answer": "Sì. Per chi effettua acquisti in Portogallo dall'estero, abbiamo preparato una guida specifica che illustra la procedura, i tempi e i documenti normalmente richiesti."
+      },
+      {
+        "question": "Quanto tempo richiede in genere il processo di acquisto o di vendita?",
+        "answer": "Il tempo necessario varia notevolmente a seconda dell'immobile e del tipo di finanziamento in questione: dal contratto preliminare di compravendita all'atto di vendita, di solito ci vogliono da alcune settimane a pochi mesi."
+      },
+      {
+        "question": "Come posso fissare un appuntamento per visitare un immobile?",
+        "answer": "Direttamente tramite il modulo di contatto, su WhatsApp o fissando una chiamata: scegli la soluzione più comoda per te."
+      }
+    ]
   }
 }

@@ -2,7 +2,8 @@
   "siteNav": {
     "sobre": "Über",
     "contacto": "Kontakt",
-    "guia": "Leitfaden"
+    "guia": "Leitfaden",
+    "faq": "FAQ"
   },
   "siteFooter": {
     "whatsapp": "+351 939 081 583",
@@ -178,5 +179,40 @@
       }
     ],
     "disclaimer": "Dieser Leitfaden dient lediglich der Information und hat allgemeinen Charakter – er ersetzt keine individuelle Rechts-, Steuer- oder Finanzberatung. Wir empfehlen Ihnen, stets einen in Portugal zugelassenen Rechtsanwalt oder Steuerberater zu konsultieren, bevor Sie eine Entscheidung treffen."
+  },
+  "faq": {
+    "meta": {
+      "title": "Häufig gestellte Fragen | Rui Da Cruz",
+      "description": "Antworten auf die häufigsten Fragen zum Kauf oder Verkauf einer Immobilie mit Rui Da Cruz, RE/MAX Collection."
+    },
+    "eyebrow": "Hilfe",
+    "title": "Häufig gestellte Fragen",
+    "intro": "Wir haben hier die Fragen zusammengestellt, die uns am häufigsten gestellt werden. Sollte Ihre Frage nicht dabei sein, wenden Sie sich bitte direkt an mich.",
+    "items": [
+      {
+        "question": "In welchen Gebieten ist Rui tätig?",
+        "answer": "Der Schwerpunkt unserer Tätigkeit liegt im Parque das Nações, wobei wir auch in Lissabon, Cascais, Porto und an der Algarve vertreten sind. Außerhalb dieser Gebiete prüfen wir jeden Fall einzeln."
+      },
+      {
+        "question": "Arbeitet Rui nur mit Verkäufern zusammen oder unterstützt er auch Käufer?",
+        "answer": "Beides – umfassende Betreuung sowohl für Verkäufer als auch für Käufer, vom ersten Kontakt bis zur Unterzeichnung des Kaufvertrags."
+      },
+      {
+        "question": "Wie läuft ein erstes Treffen ab?",
+        "answer": "Unverbindlich – in der Regel telefonisch oder persönlich, um zu erfahren, wonach Sie suchen (oder welche Immobilie Sie verkaufen möchten), und Ihnen die nächsten Schritte zu erläutern."
+      },
+      {
+        "question": "Bedient Rui auch ausländische / nicht ansässige Käufer?",
+        "answer": "Ja. Für alle, die aus dem Ausland in Portugal einkaufen möchten, haben wir einen eigenen Leitfaden mit Informationen zum Ablauf, zu den Fristen und den üblichen Unterlagen zusammengestellt."
+      },
+      {
+        "question": "Wie lange dauert der Kauf- oder Verkaufsprozess in der Regel?",
+        "answer": "Das hängt stark von der jeweiligen Immobilie und der jeweiligen Finanzierung ab – vom Kaufvorvertrag bis zur notariellen Beurkundung dauert es in der Regel einige Wochen bis zu einigen Monaten."
+      },
+      {
+        "question": "Wie kann ich einen Besichtigungstermin für eine Immobilie vereinbaren?",
+        "answer": "Direkt über das Kontaktformular, per WhatsApp oder durch Vereinbarung eines Telefonats – ganz wie es für Sie am bequemsten ist."
+      }
+    ]
   }
 }
