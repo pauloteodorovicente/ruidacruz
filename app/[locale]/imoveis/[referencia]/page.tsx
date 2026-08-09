@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
-import { getPropertyByReference, getPropertyPhotos, getPropertyFloorplans, getPropertyTranslation } from "@/lib/properties";
+import { getProperties, getPropertyByReference, getPropertyPhotos, getPropertyFloorplans, getPropertyTranslation } from "@/lib/properties";
 import { localizeProperty } from "@/lib/property-types";
 import { localeAlternates } from "@/lib/locale-alternates";
 import { getPropertyByReferenceForAdmin, getPropertyByReferenceWithPreviewToken } from "@/lib/admin-properties";
@@ -20,6 +20,7 @@ import { PropertyFloorPlan } from "@/app/components/PropertyFloorPlan";
 import { PropertyLocation } from "@/app/components/PropertyLocation";
 import { ArchitectCredit } from "@/app/components/ArchitectCredit";
 import { SiteLeadForm } from "@/app/components/site/SiteLeadForm";
+import { PropertyNavArrows } from "@/app/components/PropertyNavArrows";
 import type { Property, PropertyPhoto, PropertyFloorplan, Locale } from "@/lib/properties";
 import type { ReactNode } from "react";
 
@@ -108,6 +109,12 @@ function propertyJsonLd(property: Property, coverImage: string, locale: string) 
   };
 }
 
+function hrefForProperty(property: Property, locale: string): string {
+  if (property.is_campaign_page && property.campaign_path) return property.campaign_path;
+  const prefix = locale === "pt-PT" ? "" : `/${locale}`;
+  return `${prefix}/imoveis/${property.reference}`;
+}
+
 export default async function ImovelPage({
   params,
   searchParams,
@@ -137,13 +144,27 @@ export default async function ImovelPage({
     locale === rawProperty.source_locale ? null : await getPropertyTranslation(rawProperty.id, locale as Locale);
   const property = localizeProperty(rawProperty, translation);
 
-  const [photos, floorplans, propertyHero] = await Promise.all([
+  const [photos, floorplans, propertyHero, allProperties] = await Promise.all([
     getPropertyPhotos(property.id),
     getPropertyFloorplans(property.id),
     getPropertyHero(property.id),
+    getProperties(),
   ]);
   const coverImage = photos[0]?.storage_path ?? "/images/leca-do-balio/01-hero-fachada.jpg";
   const p = await getTranslations({ locale, namespace: "property" });
+
+  // Anterior/próximo "infinito" — nunca mostra fim de lista, dá a volta.
+  // Usa sempre a lista pública (mesma ordem do /portfolio), mesmo se quem
+  // está vendo é o admin ou entrou via link de pré-visualização — a
+  // navegação lateral é um recurso pro visitante comum, não uma ferramenta
+  // de admin. Some sozinha se o imóvel atual não estiver nessa lista
+  // (rascunho sendo pré-visualizado) ou se não houver outro pra navegar.
+  const currentIndex = allProperties.findIndex((item) => item.id === property.id);
+  const hasNeighbors = currentIndex !== -1 && allProperties.length >= 2;
+  const prevProperty = hasNeighbors
+    ? allProperties[(currentIndex - 1 + allProperties.length) % allProperties.length]
+    : null;
+  const nextProperty = hasNeighbors ? allProperties[(currentIndex + 1) % allProperties.length] : null;
   const heroEyebrow = property.zone ?? p(`propertyTypeTags.${property.property_type}`);
 
   return (
@@ -158,7 +179,15 @@ export default async function ImovelPage({
         </div>
       )}
       <SiteHeader />
-      <main className="flex-1">
+      <main className="flex-1" data-color-theme={property.color_theme || undefined}>
+        {prevProperty && nextProperty && (
+          <PropertyNavArrows
+            prevHref={hrefForProperty(prevProperty, locale)}
+            nextHref={hrefForProperty(nextProperty, locale)}
+            prevLabel={prevProperty.title}
+            nextLabel={nextProperty.title}
+          />
+        )}
         {propertyHero && propertyHero.items.length > 0 ? (
           <PropertyDynamicHero hero={propertyHero} eyebrow={heroEyebrow} title={property.title} propertyId={property.id} />
         ) : (
