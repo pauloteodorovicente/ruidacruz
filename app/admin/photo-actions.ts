@@ -58,6 +58,24 @@ export async function deletePhoto(photoId: string, propertyReference: string) {
   revalidatePath(`/imoveis/${propertyReference}`);
 }
 
+// Reordenação por arrastar-e-soltar — recebe a ordem final já calculada no
+// cliente e grava a posição de cada foto de uma vez, em vez do swap par-a-par
+// que as setinhas usam (não dá pra mover de qualquer posição pra qualquer
+// outra só trocando vizinhos).
+export async function reorderPhotos(propertyId: string, propertyReference: string, orderedPhotoIds: string[]) {
+  if (!(await isAdminAuthenticated())) redirect("/admin/login");
+
+  const supabase = createAdminClient();
+  await Promise.all(
+    orderedPhotoIds.map((photoId, position) =>
+      supabase.from("property_photos").update({ position }).eq("id", photoId).eq("property_id", propertyId)
+    )
+  );
+
+  revalidatePath(`/admin/imoveis/${propertyReference}/editar`);
+  revalidatePath(`/imoveis/${propertyReference}`);
+}
+
 export async function movePhoto(photoId: string, propertyId: string, propertyReference: string, direction: -1 | 1) {
   if (!(await isAdminAuthenticated())) redirect("/admin/login");
 
