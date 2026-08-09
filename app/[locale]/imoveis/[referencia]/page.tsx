@@ -152,7 +152,7 @@ export default async function ImovelPage({
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(propertyJsonLd(property, coverImage, locale)) }}
       />
-      {isAdmin && !property.published && (
+      {(isAdmin || preview) && !property.published && (
         <div className="bg-accent px-6 py-2 text-center text-xs font-body tracking-[0.08em] uppercase text-background">
           Pré-visualização — este imóvel ainda não está publicado
         </div>
@@ -160,7 +160,7 @@ export default async function ImovelPage({
       <SiteHeader />
       <main className="flex-1">
         {propertyHero && propertyHero.items.length > 0 ? (
-          <PropertyDynamicHero hero={propertyHero} eyebrow={heroEyebrow} title={property.title} />
+          <PropertyDynamicHero hero={propertyHero} eyebrow={heroEyebrow} title={property.title} propertyId={property.id} />
         ) : (
           <PropertyHero property={property} coverImage={coverImage} />
         )}
