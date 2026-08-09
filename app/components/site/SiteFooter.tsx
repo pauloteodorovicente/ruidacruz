@@ -29,7 +29,7 @@ export function SiteFooter() {
       <p>{f("rights")}</p>
       <p className="mt-1">{f("ami")}</p>
       <p className="mt-1">{f("whatsapp")}</p>
-      <p className="mt-1 text-white/35">
+      <p className="mt-1">
         {BUSINESS_INFO.streetAddress}, {BUSINESS_INFO.postalCode} {BUSINESS_INFO.addressLocality}
       </p>
     </footer>
