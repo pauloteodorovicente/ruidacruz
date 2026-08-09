@@ -1,7 +1,8 @@
 {
   "siteNav": {
     "sobre": "About",
-    "contacto": "Contact"
+    "contacto": "Contact",
+    "guia": "Guide"
   },
   "siteFooter": {
     "whatsapp": "+351 939 081 583",
@@ -44,9 +45,18 @@
     },
     "credibility": {
       "items": [
-        { "value": "7 Years", "label": "active in the Lisbon, Porto and Algarve real estate market" },
-        { "value": "RE/MAX Collection", "label": "certified luxury segment agent" },
-        { "value": "+200", "label": "properties transacted" }
+        {
+          "value": "7 Years",
+          "label": "active in the Lisbon, Porto and Algarve real estate market"
+        },
+        {
+          "value": "RE/MAX Collection",
+          "label": "certified luxury segment agent"
+        },
+        {
+          "value": "+200",
+          "label": "properties transacted"
+        }
       ]
     },
     "collection": {
@@ -78,7 +88,11 @@
     },
     "eyebrow": "The Consultant",
     "title": "Rui Da Cruz",
-    "credentials": ["RE/MAX Collection", "AMI 7772", "7 Years Active"],
+    "credentials": [
+      "RE/MAX Collection",
+      "AMI 7772",
+      "7 Years Active"
+    ],
     "paragraphs": [
       "Rui Da Cruz is a RE/MAX Collection certified real estate consultant, focused on Parque das Nações and the premium areas of Lisbon, Cascais, Porto and the Algarve.",
       "His approach is personal and discreet — dedicated to each client from start to close, with particular attention to those seeking properties with unique characteristics."
@@ -140,5 +154,29 @@
       "architecture": "Architecture",
       "landscape": "Landscape"
     }
+  },
+  "guiaCompradorEstrangeiro": {
+    "meta": {
+      "title": "Foreign Buyer's Guide | Rui Da Cruz",
+      "description": "A general guide to buying property in Portugal as an international buyer — NIF, the purchase process, timelines and costs."
+    },
+    "eyebrow": "Resources",
+    "title": "Foreign Buyer's Guide",
+    "intro": "Buying property in Portugal as a non-resident follows a well-defined process. This guide summarises the main steps — it does not replace personalised legal or tax advice.",
+    "sections": [
+      {
+        "title": "Residency and NIF",
+        "body": "The first practical step is obtaining a Portuguese Tax Identification Number (NIF), required to open a bank account, sign contracts and pay taxes in Portugal. Depending on your nationality and goals, it may also be worth exploring the residency routes available — we recommend speaking with an immigration lawyer to understand which applies to your situation."
+      },
+      {
+        "title": "The Purchase Process",
+        "body": "Once you have chosen a property, the process typically follows these steps: due diligence on the property (Land Registry Certificate and Tax Registration Document), signing the Promissory Purchase and Sale Contract (CPCV) with a deposit, and finally the Public Deed before a notary, followed by the final registration of the property in your name."
+      },
+      {
+        "title": "Timelines and Costs",
+        "body": "The time between the CPCV and the deed varies — usually a few weeks to a few months, mostly depending on financing. Beyond the purchase price, there are taxes and fees to consider (such as IMT and Stamp Duty, among other notary and registry costs) — your lawyer or accountant in Portugal can calculate the exact amount for your case."
+      }
+    ],
+    "disclaimer": "This guide is informational and general in nature — it does not replace personalised legal, tax or financial advice. We always recommend consulting a lawyer or accountant licensed in Portugal before proceeding with any decision."
   }
 }
