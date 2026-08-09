@@ -4,6 +4,7 @@ import { localeAlternates } from "@/lib/locale-alternates";
 import { SiteHeader } from "@/app/components/site/SiteHeader";
 import { CuratedCollection } from "@/app/components/CuratedCollection";
 import { SiteWhatsAppFloating } from "@/app/components/site/SiteWhatsAppFloating";
+import { ScheduleCallFloating } from "@/app/components/ScheduleCallFloating";
 import { SiteFooter } from "@/app/components/site/SiteFooter";
 import { getProperties } from "@/lib/properties";
 
@@ -50,6 +51,7 @@ export default async function PortfolioPage({
       </main>
       <SiteFooter />
       <SiteWhatsAppFloating />
+      <ScheduleCallFloating />
     </>
   );
 }

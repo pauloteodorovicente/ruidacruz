@@ -12,6 +12,7 @@ import { OneGreenwayTypologies } from "@/app/components/onegreenway/OneGreenwayT
 import { OneGreenwayBrochure } from "@/app/components/onegreenway/OneGreenwayBrochure";
 import { OneGreenwayLeadForm } from "@/app/components/onegreenway/OneGreenwayLeadForm";
 import { OneGreenwayWhatsApp } from "@/app/components/onegreenway/OneGreenwayWhatsApp";
+import { ScheduleCallFloating } from "@/app/components/ScheduleCallFloating";
 import { OneGreenwayFooter } from "@/app/components/onegreenway/OneGreenwayFooter";
 
 export const metadata: Metadata = {
@@ -75,6 +76,7 @@ export default async function OneGreenwayPage() {
         <OneGreenwayLeadForm />
       </main>
       <OneGreenwayWhatsApp />
+      <ScheduleCallFloating />
       <OneGreenwayFooter />
     </OneGreenwayLanguageProvider>
   );

@@ -11,6 +11,7 @@ import { PortimaoGallery } from "@/app/components/portimao/PortimaoGallery";
 import { PortimaoPricing } from "@/app/components/portimao/PortimaoPricing";
 import { PortimaoLeadForm } from "@/app/components/portimao/PortimaoLeadForm";
 import { PortimaoWhatsApp } from "@/app/components/portimao/PortimaoWhatsApp";
+import { ScheduleCallFloating } from "@/app/components/ScheduleCallFloating";
 import { PortimaoFooter } from "@/app/components/portimao/PortimaoFooter";
 
 export const metadata: Metadata = {
@@ -64,6 +65,7 @@ export default async function PortimaoPage() {
         <PortimaoLeadForm />
       </main>
       <PortimaoWhatsApp />
+      <ScheduleCallFloating />
       <PortimaoFooter />
     </PortimaoLanguageProvider>
   );

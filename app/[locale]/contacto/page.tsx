@@ -4,6 +4,7 @@ import { localeAlternates } from "@/lib/locale-alternates";
 import { SiteHeader } from "@/app/components/site/SiteHeader";
 import { SiteFooter } from "@/app/components/site/SiteFooter";
 import { SiteWhatsAppFloating } from "@/app/components/site/SiteWhatsAppFloating";
+import { ScheduleCallFloating } from "@/app/components/ScheduleCallFloating";
 import { ContactoLeadForm } from "./ContactoLeadForm";
 
 export async function generateMetadata({
@@ -40,6 +41,7 @@ export default function ContactoPage() {
       </main>
       <SiteFooter />
       <SiteWhatsAppFloating />
+      <ScheduleCallFloating />
     </>
   );
 }

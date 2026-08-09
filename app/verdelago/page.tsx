@@ -18,6 +18,7 @@ import { VerdelagoLocation } from "@/app/components/verdelago/VerdelagoLocation"
 import { VerdelagoRelated } from "@/app/components/verdelago/VerdelagoRelated";
 import { VerdelagoLeadForm } from "@/app/components/verdelago/VerdelagoLeadForm";
 import { VerdelagoWhatsApp } from "@/app/components/verdelago/VerdelagoWhatsApp";
+import { ScheduleCallFloating } from "@/app/components/ScheduleCallFloating";
 import { VerdelagoFooter } from "@/app/components/verdelago/VerdelagoFooter";
 
 export const metadata: Metadata = {
@@ -91,6 +92,7 @@ export default async function VerdelagoPage() {
         <VerdelagoLeadForm />
       </main>
       <VerdelagoWhatsApp />
+      <ScheduleCallFloating />
       <VerdelagoFooter />
     </VerdelagoLanguageProvider>
   );

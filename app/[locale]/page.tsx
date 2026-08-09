@@ -8,6 +8,7 @@ import { CuratedCollection } from "@/app/components/CuratedCollection";
 import { AboutRui } from "@/app/components/AboutRui";
 import { SiteTestimonials } from "@/app/components/site/SiteTestimonials";
 import { SiteWhatsAppFloating } from "@/app/components/site/SiteWhatsAppFloating";
+import { ScheduleCallFloating } from "@/app/components/ScheduleCallFloating";
 import { SiteFooter } from "@/app/components/site/SiteFooter";
 import { getProperties } from "@/lib/properties";
 import { getTestimonials } from "@/lib/testimonials";
@@ -59,6 +60,7 @@ export default async function HomePage() {
       </main>
       <SiteFooter />
       <SiteWhatsAppFloating />
+      <ScheduleCallFloating />
     </>
   );
 }

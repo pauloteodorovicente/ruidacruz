@@ -5,6 +5,7 @@ import { localeAlternates } from "@/lib/locale-alternates";
 import { SiteHeader } from "@/app/components/site/SiteHeader";
 import { SiteFooter } from "@/app/components/site/SiteFooter";
 import { SiteWhatsAppFloating } from "@/app/components/site/SiteWhatsAppFloating";
+import { ScheduleCallFloating } from "@/app/components/ScheduleCallFloating";
 import { SobreContent } from "./SobreContent";
 
 export async function generateMetadata({
@@ -43,6 +44,7 @@ export default function SobrePage() {
       </main>
       <SiteFooter />
       <SiteWhatsAppFloating />
+      <ScheduleCallFloating />
     </>
   );
 }

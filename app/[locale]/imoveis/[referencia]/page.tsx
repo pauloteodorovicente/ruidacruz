@@ -10,6 +10,7 @@ import { getPropertyHero } from "@/lib/property-hero";
 import { SiteHeader } from "@/app/components/site/SiteHeader";
 import { SiteFooter } from "@/app/components/site/SiteFooter";
 import { SiteWhatsAppFloating } from "@/app/components/site/SiteWhatsAppFloating";
+import { ScheduleCallFloating } from "@/app/components/ScheduleCallFloating";
 import { PropertyHero } from "@/app/components/PropertyHero";
 import { PropertyDynamicHero } from "@/app/components/site/PropertyDynamicHero";
 import { PropertyDetails } from "@/app/components/PropertyDetails";
@@ -163,6 +164,7 @@ export default async function ImovelPage({
       </main>
       <SiteFooter />
       <SiteWhatsAppFloating />
+      <ScheduleCallFloating />
     </>
   );
 }
