@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { createClient } from "@/lib/supabase/server";
+import { createAdminClient } from "@/lib/supabase/admin";
 import { getGhlSettings } from "@/lib/settings";
 
 const GHL_BASE = "https://services.leadconnectorhq.com";
@@ -17,7 +17,13 @@ async function recordLead(params: {
   errorMessage?: string;
 }) {
   try {
-    const supabase = await createClient();
+    // Service role, não o cliente público — achado nesta fase: um pedido de
+    // acesso a um imóvel Fora de Mercado nunca resolvia o property_id certo,
+    // porque a RLS bloqueia leitura pública desses (de propósito), e esse
+    // lookup usava o cliente público. A tag do GHL já saía certa (é a
+    // referência crua, não passa por RLS), só o vínculo interno que ficava
+    // "sem imóvel associado" no dashboard.
+    const supabase = createAdminClient();
     // Sem propertyReference é sempre a landing estática da Leça do Balio hoje
     // (único caso que não manda esse campo) — sem isso, todo o tráfego atual
     // apareceria como "sem imóvel associado" no dashboard.
