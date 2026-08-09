@@ -125,7 +125,7 @@ export function VerdelagoLightbox({ open, index, onIndexChange, onClose }: Light
                 i === index ? "ring-2 ring-accent opacity-100" : "opacity-50 hover:opacity-80"
               }`}
             >
-              <Image src={item.src} alt="" fill sizes="64px" className="object-cover" />
+              <Image src={item.src} alt={item.alt[locale]} fill sizes="64px" className="object-cover" />
             </button>
           ))}
         </div>
