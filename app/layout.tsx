@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Cormorant_Garamond, DM_Sans } from "next/font/google";
 import { MetaPixel } from "./components/MetaPixel";
+import { GlobalCursor } from "./components/site/GlobalCursor";
 import { getMetaPixelSettings } from "@/lib/settings";
 import "./globals.css";
 
@@ -66,6 +67,7 @@ export default async function RootLayout({
       </head>
       <body className="min-h-full flex flex-col bg-background text-foreground transition-colors duration-300">
         <MetaPixel settings={pixelSettings} />
+        <GlobalCursor />
         {children}
       </body>
     </html>
