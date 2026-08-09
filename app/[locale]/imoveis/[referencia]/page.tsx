@@ -4,7 +4,7 @@ import { getTranslations } from "next-intl/server";
 import { getProperties, getPropertyByReference, getPropertyPhotos, getPropertyFloorplans, getPropertyTranslation } from "@/lib/properties";
 import { localizeProperty } from "@/lib/property-types";
 import { localeAlternates } from "@/lib/locale-alternates";
-import { getPropertyByReferenceForAdmin, getPropertyByReferenceWithPreviewToken } from "@/lib/admin-properties";
+import { getPropertyByReferenceForAdmin, getPropertyByReferenceWithPreviewToken, getOffMarketTeaser } from "@/lib/admin-properties";
 import { isAdminAuthenticated } from "@/lib/admin-auth";
 import { getPropertyHero } from "@/lib/property-hero";
 import { SiteHeader } from "@/app/components/site/SiteHeader";
@@ -22,6 +22,7 @@ import { ArchitectCredit } from "@/app/components/ArchitectCredit";
 import { SiteLeadForm } from "@/app/components/site/SiteLeadForm";
 import { PropertyNavArrows } from "@/app/components/PropertyNavArrows";
 import { BreadcrumbSchema } from "@/app/components/BreadcrumbSchema";
+import { OffMarketTeaser } from "./OffMarketTeaser";
 import type { Property, PropertyPhoto, PropertyFloorplan, Locale } from "@/lib/properties";
 import type { ReactNode } from "react";
 
@@ -135,7 +136,17 @@ export default async function ImovelPage({
     : preview
       ? await getPropertyByReferenceWithPreviewToken(referencia, preview)
       : await getPropertyByReference(referencia);
-  if (!rawProperty) notFound();
+
+  // Sem resultado pelo caminho normal — antes de desistir (404), confere se
+  // é um imóvel Fora de Mercado publicado: a RLS já esconde esses da leitura
+  // pública de propósito (ver properties_public_read), então cair aqui é
+  // esperado pra eles, não um erro. Mostra um teaser + pedido de acesso em
+  // vez do 404 seco.
+  if (!rawProperty) {
+    const teaser = !isAdmin && !preview ? await getOffMarketTeaser(referencia) : null;
+    if (teaser) return <OffMarketTeaser teaser={teaser} locale={locale} />;
+    notFound();
+  }
 
   // Título/descrição/destaques no idioma sendo visto — pt-PT (fonte) mostra
   // sempre o original; os outros 6 mostram a tradução se já existir (gerada
