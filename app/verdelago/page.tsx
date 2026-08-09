@@ -1,7 +1,10 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getPropertyByReference } from "@/lib/properties";
+import { getPropertyTypologies, getPropertyUnits, getTypologyFloorplans } from "@/lib/property-typologies";
 import { VerdelagoLanguageProvider } from "@/lib/verdelago-language-context";
+import type { VerdelagoPhaseGroup, VerdelagoUnitRow } from "@/app/components/verdelago/VerdelagoUnidades";
+import type { VerdelagoFloorplanItem } from "@/app/components/verdelago/VerdelagoFloorPlans";
 import { VerdelagoHeader } from "@/app/components/verdelago/VerdelagoHeader";
 import { VerdelagoHero } from "@/app/components/verdelago/VerdelagoHero";
 import { VerdelagoOverview } from "@/app/components/verdelago/VerdelagoOverview";
@@ -68,6 +71,39 @@ export default async function VerdelagoPage() {
   const property = await getPropertyByReference("verdelago");
   if (!property?.published) notFound();
 
+  // Tipologias + unidades + plantas agora vêm do banco (editável no admin,
+  // Fase 23) em vez dos arquivos fixos lib/verdelago-units.ts e o export
+  // "floorplans" de lib/verdelago-content.ts.
+  const typologies = await getPropertyTypologies(property.id);
+  const [units, rawTypologyFloorplans] = await Promise.all([
+    getPropertyUnits(property.id),
+    getTypologyFloorplans(typologies.map((t) => t.id)),
+  ]);
+  const typologyNameById = new Map(typologies.map((t) => [t.id, t.name]));
+
+  const phaseOrder: string[] = [];
+  const phaseMap = new Map<string, VerdelagoUnitRow[]>();
+  for (const unit of units) {
+    const label = unit.phase_label ?? "Sem fase";
+    if (!phaseMap.has(label)) {
+      phaseMap.set(label, []);
+      phaseOrder.push(label);
+    }
+    phaseMap.get(label)!.push({
+      lote: unit.lot,
+      fracao: unit.fraction,
+      tipologia: (unit.typology_id && typologyNameById.get(unit.typology_id)) || "—",
+      valor: unit.price,
+    });
+  }
+  const verdelagoPhases: VerdelagoPhaseGroup[] = phaseOrder.map((label) => ({ label, units: phaseMap.get(label)! }));
+
+  const floorplanItems: VerdelagoFloorplanItem[] = rawTypologyFloorplans.map((f) => ({
+    id: f.id,
+    src: f.storage_path,
+    label: typologyNameById.get(f.typology_id) ?? "",
+  }));
+
   return (
     <VerdelagoLanguageProvider>
       <script
@@ -82,8 +118,8 @@ export default async function VerdelagoPage() {
         <VerdelagoAmenities />
         <VerdelagoLifestyle />
         <VerdelagoGallery />
-        <VerdelagoFloorPlans />
-        <VerdelagoUnidades />
+        <VerdelagoFloorPlans floorplans={floorplanItems} />
+        <VerdelagoUnidades verdelagoPhases={verdelagoPhases} />
         <VerdelagoInvestment />
         <VerdelagoCertification />
         <VerdelagoBrochure />
