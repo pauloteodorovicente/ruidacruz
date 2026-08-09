@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Cormorant_Garamond, DM_Sans } from "next/font/google";
 import { MetaPixel } from "./components/MetaPixel";
+import { getMetaPixelSettings } from "@/lib/settings";
 import "./globals.css";
 
 const cormorant = Cormorant_Garamond({
@@ -47,11 +48,13 @@ const themeInitScript = `
 })();
 `;
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const pixelSettings = await getMetaPixelSettings();
+
   return (
     <html
       lang="pt-PT"
@@ -62,7 +65,7 @@ export default function RootLayout({
         <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
       </head>
       <body className="min-h-full flex flex-col bg-background text-foreground transition-colors duration-300">
-        <MetaPixel />
+        <MetaPixel settings={pixelSettings} />
         {children}
       </body>
     </html>

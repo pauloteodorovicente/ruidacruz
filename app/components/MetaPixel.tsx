@@ -2,15 +2,27 @@
 
 import Script from "next/script";
 import { usePathname } from "next/navigation";
+import type { MetaPixelSettings } from "@/lib/settings";
 
-const PIXEL_ID = "2026495607919533";
+// Casa uma rota atual (ex. "/pt-PT/imoveis/122481641-38") com uma entrada da
+// lista configurada no admin (ex. "/imoveis") — ignora o prefixo de locale.
+function matchesPage(pathname: string, page: string): boolean {
+  const withoutLocale = pathname.replace(/^\/(pt-PT|pt-BR|en|es|fr|it|de)(?=\/|$)/, "") || "/";
+  if (page === "/") return withoutLocale === "/";
+  return withoutLocale === page || withoutLocale.startsWith(`${page}/`);
+}
 
-export function MetaPixel() {
+export function MetaPixel({ settings }: { settings: MetaPixelSettings }) {
   const pathname = usePathname();
-  // Instalado uma única vez no layout raiz (cobre todas as rotas
-  // automaticamente) — exceto /admin, que não é tráfego real e não deve
-  // poluir os dados do Pixel.
+  // /admin não é tráfego real e não deve poluir os dados do Pixel — exceção
+  // fixa, não configurável pelo painel.
   if (pathname?.startsWith("/admin")) return null;
+
+  const installHere = settings.autoInstallNewPages
+    ? true
+    : settings.pages.some((page) => matchesPage(pathname ?? "/", page));
+
+  if (!installHere) return null;
 
   return (
     <>
@@ -24,7 +36,7 @@ export function MetaPixel() {
           t.src=v;s=b.getElementsByTagName(e)[0];
           s.parentNode.insertBefore(t,s)}(window, document,'script',
           'https://connect.facebook.net/en_US/fbevents.js');
-          fbq('init', '${PIXEL_ID}');
+          fbq('init', '${settings.pixelId}');
           fbq('track', 'PageView');
         `}
       </Script>
@@ -33,7 +45,7 @@ export function MetaPixel() {
           height="1"
           width="1"
           style={{ display: "none" }}
-          src={`https://www.facebook.com/tr?id=${PIXEL_ID}&ev=PageView&noscript=1`}
+          src={`https://www.facebook.com/tr?id=${settings.pixelId}&ev=PageView&noscript=1`}
           alt=""
         />
       </noscript>
