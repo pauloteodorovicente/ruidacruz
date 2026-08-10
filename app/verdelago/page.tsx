@@ -5,6 +5,7 @@ import { getPropertyTypologies, getPropertyUnits, getTypologyFloorplans } from "
 import { VerdelagoLanguageProvider } from "@/lib/verdelago-language-context";
 import type { VerdelagoPhaseGroup, VerdelagoUnitRow } from "@/app/components/verdelago/VerdelagoUnidades";
 import type { VerdelagoFloorplanItem } from "@/app/components/verdelago/VerdelagoFloorPlans";
+import type { VerdelagoFeaturedUnit } from "@/app/components/verdelago/VerdelagoFeatured";
 import { VerdelagoHeader } from "@/app/components/verdelago/VerdelagoHeader";
 import { VerdelagoHero } from "@/app/components/verdelago/VerdelagoHero";
 import { VerdelagoOverview } from "@/app/components/verdelago/VerdelagoOverview";
@@ -13,6 +14,7 @@ import { VerdelagoAmenities } from "@/app/components/verdelago/VerdelagoAmenitie
 import { VerdelagoLifestyle } from "@/app/components/verdelago/VerdelagoLifestyle";
 import { VerdelagoGallery } from "@/app/components/verdelago/VerdelagoGallery";
 import { VerdelagoFloorPlans } from "@/app/components/verdelago/VerdelagoFloorPlans";
+import { VerdelagoFeatured } from "@/app/components/verdelago/VerdelagoFeatured";
 import { VerdelagoUnidades } from "@/app/components/verdelago/VerdelagoUnidades";
 import { VerdelagoInvestment } from "@/app/components/verdelago/VerdelagoInvestment";
 import { VerdelagoCertification } from "@/app/components/verdelago/VerdelagoCertification";
@@ -98,6 +100,16 @@ export default async function VerdelagoPage() {
   }
   const verdelagoPhases: VerdelagoPhaseGroup[] = phaseOrder.map((label) => ({ label, units: phaseMap.get(label)! }));
 
+  const featuredUnits: VerdelagoFeaturedUnit[] = units
+    .filter((unit) => unit.featured)
+    .map((unit) => ({
+      id: unit.id,
+      tipologia: (unit.typology_id && typologyNameById.get(unit.typology_id)) || "—",
+      lote: unit.lot,
+      fracao: unit.fraction,
+      valor: unit.price,
+    }));
+
   const floorplanItems: VerdelagoFloorplanItem[] = rawTypologyFloorplans.map((f) => ({
     id: f.id,
     src: f.storage_path,
@@ -119,6 +131,7 @@ export default async function VerdelagoPage() {
         <VerdelagoLifestyle />
         <VerdelagoGallery />
         <VerdelagoFloorPlans floorplans={floorplanItems} />
+        <VerdelagoFeatured units={featuredUnits} />
         <VerdelagoUnidades verdelagoPhases={verdelagoPhases} />
         <VerdelagoInvestment />
         <VerdelagoCertification />
