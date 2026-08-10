@@ -42,6 +42,8 @@ export const content: Record<
       availability: string;
       checkIn: string;
       checkOut: string;
+      periodLabel: string;
+      priceLabel: string;
       rows: { period: string; price: string }[];
       note: string;
     };
@@ -92,6 +94,8 @@ export const content: Record<
       availability: "Disponível em julho, agosto, setembro e outubro.",
       checkIn: "Check-in: sábado, a partir das 16h",
       checkOut: "Check-out: sábado, até às 11h",
+      periodLabel: "Período",
+      priceLabel: "Valor / semana",
       rows: [
         { period: "1.ª quinzena de junho", price: "700 €" },
         { period: "2.ª quinzena de junho", price: "750 €" },
@@ -150,6 +154,8 @@ export const content: Record<
       availability: "Disponível em julho, agosto, setembro e outubro.",
       checkIn: "Check-in: sábado, a partir das 16h",
       checkOut: "Check-out: sábado, até às 11h",
+      periodLabel: "Período",
+      priceLabel: "Valor / semana",
       rows: [
         { period: "1.ª quinzena de junho", price: "700 €" },
         { period: "2.ª quinzena de junho", price: "750 €" },
@@ -208,6 +214,8 @@ export const content: Record<
       availability: "Available in July, August, September, and October.",
       checkIn: "Check-in: Saturday, from 4pm",
       checkOut: "Check-out: Saturday, by 11am",
+      periodLabel: "Period",
+      priceLabel: "Price / week",
       rows: [
         { period: "First half of June", price: "€700" },
         { period: "Second half of June", price: "€750" },
@@ -266,6 +274,8 @@ export const content: Record<
       availability: "Disponible en julio, agosto, septiembre y octubre.",
       checkIn: "Entrada: sábado, a partir de las 16:00 h",
       checkOut: "Salida: sábado, hasta las 11:00 h",
+      periodLabel: "Periodo",
+      priceLabel: "Precio / semana",
       rows: [
         { period: "Primera quincena de junio", price: "700 €" },
         { period: "Segunda quincena de junio", price: "750 €" },
@@ -324,6 +334,8 @@ export const content: Record<
       availability: "Disponible en juillet, août, septembre et octobre.",
       checkIn: "Arrivée : samedi, à partir de 16 h",
       checkOut: "Départ : samedi, avant 11 h",
+      periodLabel: "Période",
+      priceLabel: "Prix / semaine",
       rows: [
         { period: "Première quinzaine de juin", price: "700 €" },
         { period: "Deuxième quinzaine de juin", price: "750 €" },
@@ -382,6 +394,8 @@ export const content: Record<
       availability: "Disponibile nei mesi di luglio, agosto, settembre e ottobre.",
       checkIn: "Check-in: sabato, a partire dalle ore 16:00",
       checkOut: "Check-out: sabato, entro le ore 11:00",
+      periodLabel: "Periodo",
+      priceLabel: "Prezzo / settimana",
       rows: [
         { period: "Prima metà di giugno", price: "700 €" },
         { period: "Seconda metà di giugno", price: "750 €" },
@@ -440,6 +454,8 @@ export const content: Record<
       availability: "Verfügbar im Juli, August, September und Oktober.",
       checkIn: "Check-in: Samstag, ab 16 Uhr",
       checkOut: "Abreise: Samstag, bis 11 Uhr",
+      periodLabel: "Zeitraum",
+      priceLabel: "Preis / Woche",
       rows: [
         { period: "erste Junihälfte", price: "700 €" },
         { period: "zweite Junihälfte", price: "750 €" },

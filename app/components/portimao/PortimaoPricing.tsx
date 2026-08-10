@@ -17,6 +17,10 @@ export function PortimaoPricing() {
         <p className="text-sm text-foreground-muted mb-8">{p.checkOut}</p>
 
         <div className="border border-border">
+          <div className="flex items-center justify-between px-5 py-2 border-b border-border text-[11px] uppercase tracking-[0.08em] text-foreground-muted/60">
+            <span>{p.periodLabel}</span>
+            <span>{p.priceLabel}</span>
+          </div>
           {p.rows.map((row) => (
             <div key={row.period} className="flex items-center justify-between px-5 py-3.5 border-b border-border last:border-b-0 text-sm">
               <span className="text-foreground-muted">{row.period}</span>
