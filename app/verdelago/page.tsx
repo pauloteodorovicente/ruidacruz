@@ -82,6 +82,13 @@ export default async function VerdelagoPage() {
     getTypologyFloorplans(typologies.map((t) => t.id)),
   ]);
   const typologyNameById = new Map(typologies.map((t) => [t.id, t.name]));
+  // Uma planta por tipologia (não por unidade — ainda não existe foto real
+  // de cada fração). Se uma tipologia tiver mais de uma planta cadastrada,
+  // usa a primeira.
+  const plantaSrcByTypologyId = new Map<string, string>();
+  for (const f of rawTypologyFloorplans) {
+    if (!plantaSrcByTypologyId.has(f.typology_id)) plantaSrcByTypologyId.set(f.typology_id, f.storage_path);
+  }
 
   const phaseOrder: string[] = [];
   const phaseMap = new Map<string, VerdelagoUnitRow[]>();
@@ -108,6 +115,7 @@ export default async function VerdelagoPage() {
       lote: unit.lot,
       fracao: unit.fraction,
       valor: unit.price,
+      plantaSrc: (unit.typology_id && plantaSrcByTypologyId.get(unit.typology_id)) || null,
     }));
 
   const floorplanItems: VerdelagoFloorplanItem[] = rawTypologyFloorplans.map((f) => ({
