@@ -151,6 +151,7 @@ export async function saveUnit(formData: FormData) {
     lot: str(formData, "lot") || null,
     fraction: str(formData, "fraction") || null,
     price: numOrNull(formData, "price"),
+    featured: formData.get("featured") === "on",
   };
 
   if (id) {

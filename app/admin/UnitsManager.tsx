@@ -25,7 +25,7 @@ function UnitRow({ unit, typologies, ctx }: { unit: PropertyUnit; typologies: Pr
   return (
     <form
       action={saveUnit}
-      className="grid grid-cols-[90px_80px_80px_110px_110px_auto] items-center gap-2 border-t border-border py-2"
+      className="grid grid-cols-[90px_80px_80px_110px_110px_60px_auto] items-center gap-2 border-t border-border py-2"
     >
       <input type="hidden" name="id" value={unit.id} />
       <HiddenCtxFields ctx={ctx} />
@@ -46,6 +46,13 @@ function UnitRow({ unit, typologies, ctx }: { unit: PropertyUnit; typologies: Pr
         defaultValue={unit.price ?? ""}
         placeholder="Preço (vazio = a confirmar)"
         className={cellInputClass}
+      />
+      <input
+        type="checkbox"
+        name="featured"
+        defaultChecked={unit.featured}
+        className="h-4 w-4 justify-self-center accent-accent"
+        title="Destacar esta unidade na página pública"
       />
       <div className="flex justify-end gap-3">
         <button type="submit" className="text-[10px] tracking-[0.06em] uppercase text-accent hover:text-accent-strong transition-colors">
@@ -83,15 +90,16 @@ export function UnitsManager({
 
       {units.length > 0 && (
         <div className="overflow-x-auto">
-          <div className="grid min-w-[640px] grid-cols-[90px_80px_80px_110px_110px_auto] gap-2 text-[10px] tracking-[0.06em] uppercase text-foreground-muted">
+          <div className="grid min-w-[700px] grid-cols-[90px_80px_80px_110px_110px_60px_auto] gap-2 text-[10px] tracking-[0.06em] uppercase text-foreground-muted">
             <span>Fase</span>
             <span>Lote</span>
             <span>Fração</span>
             <span>Tipologia</span>
             <span>Preço</span>
+            <span className="text-center">Destacar</span>
             <span />
           </div>
-          <div className="min-w-[640px]">
+          <div className="min-w-[700px]">
             {units.map((unit) => (
               <UnitRow key={unit.id} unit={unit} typologies={typologies} ctx={ctx} />
             ))}
@@ -101,7 +109,7 @@ export function UnitsManager({
 
       <form
         action={saveUnit}
-        className="grid grid-cols-[90px_80px_80px_110px_110px_auto] items-center gap-2 border border-dashed border-border p-3"
+        className="grid grid-cols-[90px_80px_80px_110px_110px_60px_auto] items-center gap-2 border border-dashed border-border p-3"
       >
         <HiddenCtxFields ctx={ctx} />
         <input name="phase_label" placeholder="Fase" className={cellInputClass} />
@@ -116,6 +124,7 @@ export function UnitsManager({
           ))}
         </select>
         <input name="price" type="number" placeholder="Preço" className={cellInputClass} />
+        <input type="checkbox" name="featured" className="h-4 w-4 justify-self-center accent-accent" title="Destacar esta unidade na página pública" />
         <div className="flex justify-end">
           <button type="submit" className="text-[10px] tracking-[0.06em] uppercase text-accent hover:text-accent-strong transition-colors">
             + Unidade

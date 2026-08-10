@@ -26,6 +26,7 @@ export type PropertyUnit = {
   fraction: string | null;
   price: number | null;
   position: number;
+  featured: boolean;
 };
 
 export type TypologyTranslation = {
