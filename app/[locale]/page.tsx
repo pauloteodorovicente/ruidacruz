@@ -13,6 +13,7 @@ import { SiteFooter } from "@/app/components/site/SiteFooter";
 import { getProperties } from "@/lib/properties";
 import { getTestimonials } from "@/lib/testimonials";
 import { getHomeHero } from "@/lib/home-hero";
+import { getHomeCollectionSettings } from "@/lib/settings";
 
 export async function generateMetadata({
   params,
@@ -40,6 +41,7 @@ export default async function HomePage() {
   const properties = await getProperties();
   const testimonials = await getTestimonials();
   const hero = await getHomeHero();
+  const homeCollection = await getHomeCollectionSettings();
 
   // Home mostra só a coleção curada (imóveis marcados como Destaque no
   // Admin); o portfólio completo fica na página /portfolio. Se nenhum imóvel
@@ -54,7 +56,7 @@ export default async function HomePage() {
       <main className="flex-1">
         <DynamicHero hero={hero} />
         <CredibilityStrip />
-        <CuratedCollection properties={curated} viewAllHref="/portfolio" />
+        <CuratedCollection properties={curated} viewAllHref="/portfolio" layout={homeCollection.layout} />
         <AboutRui />
         <SiteTestimonials testimonials={testimonials} />
       </main>

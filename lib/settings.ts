@@ -18,6 +18,10 @@ export type SchedulingSettings = {
   link: string;
 };
 
+export type HomeCollectionSettings = {
+  layout: "grid" | "carousel";
+};
+
 const DEFAULT_META_PIXEL: MetaPixelSettings = {
   pixelId: "2026495607919533",
   pages: [],
@@ -25,6 +29,7 @@ const DEFAULT_META_PIXEL: MetaPixelSettings = {
 };
 
 const DEFAULT_SCHEDULING: SchedulingSettings = { link: "" };
+const DEFAULT_HOME_COLLECTION: HomeCollectionSettings = { layout: "grid" };
 
 // Leitura pública genérica — fetch() puro (sem cookies()) de propósito, pra
 // não forçar renderização dinâmica em toda página que a chamar só por causa
@@ -54,6 +59,10 @@ export async function getMetaPixelSettings(): Promise<MetaPixelSettings> {
 
 export async function getSchedulingSettings(): Promise<SchedulingSettings> {
   return getPublicSetting("scheduling", DEFAULT_SCHEDULING);
+}
+
+export async function getHomeCollectionSettings(): Promise<HomeCollectionSettings> {
+  return getPublicSetting("home_collection", DEFAULT_HOME_COLLECTION);
 }
 
 // Só em contexto de servidor confiável (Route Handlers) — nunca exposto ao
