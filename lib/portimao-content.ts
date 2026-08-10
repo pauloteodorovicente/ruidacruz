@@ -1,6 +1,12 @@
 export type Locale = "pt-PT" | "pt-BR" | "en" | "es" | "fr" | "it" | "de";
 
 export const galleryPhotos = [
+  "Apart T1 Praia_Rocha_10.jpeg",
+  "Apart T1 Praia_Rocha_9.jpeg",
+  "Apart T1 Praia_Rocha_5.jpeg",
+  "Apart T1 Praia_Rocha_11.jpeg",
+  "Apart T1 Praia_Rocha_7.jpeg",
+  "Apart T1 Praia_Rocha_8.jpeg",
   "Apart T1 Praia_Rocha_4.jpeg",
   "Apart T1 Praia_Rocha_1.jpeg",
   "Apart T1 Praia_Rocha_2.jpeg",
