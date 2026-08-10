@@ -20,7 +20,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Apartamento T1 Praia da Rocha | Arrendamento de Férias",
     description: "Piscina, varanda e a poucos minutos da praia — arrendamento exclusivo por semana.",
-    images: ["/images/portimao-praia-rocha/Apart T1 Praia_Rocha_4.jpeg"],
+    images: ["/images/portimao-praia-rocha/Apart T1 Praia_Rocha_10.jpeg"],
     locale: "pt_PT",
     type: "website",
   },
@@ -34,7 +34,7 @@ const jsonLd = {
   description:
     "Apartamento T1 para arrendamento semanal, Edifício Alto da Foz, Praia da Rocha, Portimão.",
   url: "https://ruidacruzconsultor.com/portimao-praia-da-rocha",
-  image: "https://ruidacruzconsultor.com/images/portimao-praia-rocha/Apart T1 Praia_Rocha_4.jpeg",
+  image: "https://ruidacruzconsultor.com/images/portimao-praia-rocha/Apart T1 Praia_Rocha_10.jpeg",
   address: {
     "@type": "PostalAddress",
     streetAddress: "Estrada da Rocha — Edifício Alto da Foz, São Francisco 18",

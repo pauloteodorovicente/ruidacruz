@@ -44,7 +44,7 @@ export function PortimaoHero() {
       <section className="sticky top-0 h-[75vh] min-h-[520px] w-full overflow-hidden bg-black">
         <div className="absolute inset-0">
           <Image
-            src="/images/portimao-praia-rocha/Apart T1 Praia_Rocha_4.jpeg"
+            src="/images/portimao-praia-rocha/Apart T1 Praia_Rocha_10.jpeg"
             alt={t.hero.location}
             fill
             priority
