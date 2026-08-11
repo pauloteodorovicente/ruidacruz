@@ -5,13 +5,17 @@ import { useEffect, useRef, useState } from "react";
 // Ponto de destaque que segue o mouse pelo site inteiro — só liga em
 // mouse/trackpad de verdade (pointer: fine), nunca em toque, mesmo em telas
 // largas onde um tablet com teclado passaria pelo antigo filtro só de
-// largura. Cresce um pouco sobre links/botões, dá uma "assinatura" de
-// interação sutil sem substituir o cursor nativo (diferente do
-// useCustomCursor da galeria, que troca o cursor inteiro dentro da área de
-// hover — aqui é global, então trocar o cursor nativo seria arriscado
-// demais: qualquer travamento de JS deixaria o visitante sem cursor
-// nenhum). Some sozinho sobre qualquer elemento que já use cursor-none (as
-// próprias galerias), pra não sobrepor o cursor customizado delas.
+// largura. Cresce um pouco sobre links/botões.
+//
+// Pedido do Paulo (10/08): o cursor nativo do sistema (seta, mãozinha,
+// barra de texto) não deve aparecer nunca — só esse pontinho, exceto dentro
+// das galerias, onde o cursor customizado delas (useCustomCursor) assume.
+// O cursor nativo global é escondido via classe no <html> (ver globals.css,
+// regra ".cursor-none-global"), ligada só depois que este efeito confirma
+// pointer:fine — se o JS falhar antes disso, a classe nunca é aplicada e o
+// cursor nativo normal continua disponível (mesmo cuidado de antes).
+// Zonas de galeria são marcadas com [data-gallery-cursor], não mais pelo
+// valor computado de "cursor", pra não colidir com a classe global.
 export function GlobalCursor() {
   const dotRef = useRef<HTMLDivElement>(null);
   const [enabled, setEnabled] = useState(false);
@@ -21,10 +25,11 @@ export function GlobalCursor() {
   useEffect(() => {
     if (!window.matchMedia("(pointer: fine)").matches) return;
     setEnabled(true);
+    document.documentElement.classList.add("cursor-none-global");
 
     function handleMove(e: MouseEvent) {
       const target = e.target instanceof Element ? e.target : null;
-      if (target && getComputedStyle(target).cursor === "none") {
+      if (target?.closest("[data-gallery-cursor]")) {
         setVisible(false);
         return;
       }
@@ -42,6 +47,7 @@ export function GlobalCursor() {
     return () => {
       window.removeEventListener("mousemove", handleMove);
       document.documentElement.removeEventListener("mouseleave", handleLeave);
+      document.documentElement.classList.remove("cursor-none-global");
     };
   }, []);
 

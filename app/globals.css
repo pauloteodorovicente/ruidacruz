@@ -158,6 +158,27 @@ h1, h2, h3, .font-display {
   }
 }
 
+/* Esconde o cursor nativo (seta/mãozinha/barra de texto) sempre que o ponto
+   de destaque (GlobalCursor.tsx) está ativo — pedido do Paulo (10/08): só o
+   pontinho deve aparecer, nunca o cursor do sistema junto. Ligado via classe
+   no <html>, só depois que o próprio GlobalCursor confirma mouse/trackpad
+   de verdade (pointer: fine) — se o JS falhar antes disso, a classe nunca
+   entra e o cursor nativo normal continua disponível. Zonas de galeria
+   (marcadas [data-gallery-cursor]) ficam de fora, pro cursor customizado
+   delas (useCustomCursor) assumir sem conflito. Seletores com classe no
+   html têm mais especificidade que utilitários Tailwind de uma classe só
+   (cursor-zoom-in, cursor-grab etc.), então sempre vencem aqui. */
+html.cursor-none-global,
+html.cursor-none-global a,
+html.cursor-none-global button,
+html.cursor-none-global input,
+html.cursor-none-global textarea,
+html.cursor-none-global select,
+html.cursor-none-global label,
+html.cursor-none-global [role="button"] {
+  cursor: none;
+}
+
 /* Grão finíssimo em todo o site — evita a superfície "chapada" de uma cor
    sólida. Mesma opacidade nos dois temas: em overlay, um grão neutro lê
    naturalmente tanto no claro quanto no escuro, sem precisar de ajuste por
