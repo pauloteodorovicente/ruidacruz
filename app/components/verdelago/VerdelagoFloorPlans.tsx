@@ -41,7 +41,7 @@ export function VerdelagoFloorPlans({ floorplans }: { floorplans: VerdelagoFloor
         >
           <button
             onClick={() => setOpen(false)}
-            aria-label="Fechar"
+            aria-label={t.lightbox.close}
             className="absolute top-4 right-4 z-10 flex h-11 w-11 items-center justify-center text-white/70 hover:text-white text-3xl leading-none"
           >
             ×

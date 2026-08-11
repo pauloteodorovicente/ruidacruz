@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Image from "next/image";
+import { useVerdelagoLanguage } from "@/lib/verdelago-language-context";
 import { Reveal } from "../Reveal";
 import { ZoomableImage } from "../ZoomableImage";
 
@@ -14,11 +15,6 @@ export type VerdelagoFeaturedUnit = {
   plantaSrc: string | null;
 };
 
-function formatPrice(valor: number | null) {
-  if (valor === null) return "Brevemente";
-  return valor.toLocaleString("pt-PT", { style: "currency", currency: "EUR", maximumFractionDigits: 0 });
-}
-
 // Seleção curada manualmente pelo Rui/Paulo no admin (checkbox "Destacar" em
 // cada unidade, ver UnitsManager.tsx) — pedido dele por áudio (10/08): em vez
 // de só a tabela completa de 59 frações, mostrar logo 3-4 opções
@@ -30,19 +26,27 @@ function formatPrice(valor: number | null) {
 // ainda não construído) — clicável, abre ampliada com zoom/pan. Resolve o
 // "ficou vazio" apontado pelo Paulo (10/08): a planta é o que de fato
 // diferencia uma tipologia da outra, mais do que o nome/código sozinho.
+// Rótulos traduzidos nas 7 línguas (Paulo percebeu, 10/08, que essa seção
+// não trocava de idioma).
 export function VerdelagoFeatured({ units }: { units: VerdelagoFeaturedUnit[] }) {
+  const { t, locale } = useVerdelagoLanguage();
+  const f = t.featured;
+  const u = t.unidades;
   const [open, setOpen] = useState<VerdelagoFeaturedUnit | null>(null);
+
+  function formatPrice(valor: number | null) {
+    if (valor === null) return f.brevemente;
+    return valor.toLocaleString(locale, { style: "currency", currency: "EUR", maximumFractionDigits: 0 });
+  }
 
   if (units.length === 0) return null;
 
   return (
     <section className="px-6 py-14 md:px-12 md:py-20">
       <Reveal className="mx-auto max-w-4xl block">
-        <p className="text-xs tracking-[0.25em] uppercase text-accent mb-2">Opções em Destaque</p>
-        <h2 className="font-display text-3xl md:text-4xl mb-4">Algumas escolhas para começar</h2>
-        <p className="text-sm text-foreground-muted mb-10 max-w-xl">
-          Uma seleção rápida dentro das unidades disponíveis — a tabela completa está mais abaixo.
-        </p>
+        <p className="text-xs tracking-[0.25em] uppercase text-accent mb-2">{f.eyebrow}</p>
+        <h2 className="font-display text-3xl md:text-4xl mb-4">{f.title}</h2>
+        <p className="text-sm text-foreground-muted mb-10 max-w-xl">{f.description}</p>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {units.map((unit) => (
@@ -65,9 +69,9 @@ export function VerdelagoFeatured({ units }: { units: VerdelagoFeaturedUnit[] })
               <div className="p-5">
                 <p className="font-display text-lg mb-1">{unit.tipologia}</p>
                 <p className="text-xs text-foreground-muted mb-4">
-                  {unit.lote && `Lote ${unit.lote}`}
+                  {unit.lote && `${u.colLote} ${unit.lote}`}
                   {unit.lote && unit.fracao && " · "}
-                  {unit.fracao && `Fração ${unit.fracao}`}
+                  {unit.fracao && `${u.colFracao} ${unit.fracao}`}
                 </p>
                 <p className="font-display text-xl text-accent">{formatPrice(unit.valor)}</p>
               </div>
@@ -83,7 +87,7 @@ export function VerdelagoFeatured({ units }: { units: VerdelagoFeaturedUnit[] })
         >
           <button
             onClick={() => setOpen(null)}
-            aria-label="Fechar"
+            aria-label={t.lightbox.close}
             className="absolute top-4 right-4 z-10 flex h-11 w-11 items-center justify-center text-white/70 hover:text-white text-3xl leading-none"
           >
             ×

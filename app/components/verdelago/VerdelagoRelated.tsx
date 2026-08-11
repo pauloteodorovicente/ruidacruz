@@ -2,17 +2,22 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { useVerdelagoLanguage } from "@/lib/verdelago-language-context";
 import { Reveal } from "../Reveal";
 
 // Lista fixa por ora (só a Leça do Balio existe como outro imóvel real
 // hoje). Quando o roster crescer, vira uma consulta aos imóveis publicados,
-// excluindo o atual.
+// excluindo o atual. Zona/título do imóvel ficam em PT de propósito — nome
+// próprio do imóvel, não texto de interface (mesmo padrão do resto do site).
 export function VerdelagoRelated() {
+  const { t } = useVerdelagoLanguage();
+  const r = t.related;
+
   return (
     <section className="bg-background-raised px-6 py-14 md:px-12 md:py-20 border-t border-border">
       <Reveal className="mx-auto max-w-5xl block">
-        <p className="text-xs tracking-[0.25em] uppercase text-accent mb-2">Também Disponível</p>
-        <h2 className="font-display text-3xl md:text-4xl mb-10">Outras Representações de Rui Da Cruz</h2>
+        <p className="text-xs tracking-[0.25em] uppercase text-accent mb-2">{r.eyebrow}</p>
+        <h2 className="font-display text-3xl md:text-4xl mb-10">{r.title}</h2>
 
         <Link
           href="/leca-do-balio"
