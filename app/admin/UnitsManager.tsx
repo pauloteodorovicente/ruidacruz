@@ -2,10 +2,13 @@
 
 import { useTransition } from "react";
 import { saveUnit, deleteUnit } from "./typology-actions";
+import { Select } from "../components/Select";
 import type { PropertyTypology, PropertyUnit } from "@/lib/property-typologies";
 
 const cellInputClass =
   "w-full bg-transparent border border-border px-2 py-1.5 text-xs focus:border-accent outline-none transition-colors";
+const cellSelectClass =
+  "w-full flex items-center justify-between gap-1.5 bg-transparent border border-border px-2 py-1.5 text-xs text-left focus:border-accent outline-none transition-colors";
 
 type Ctx = { propertyId: string; propertyReference: string; campaignPath: string | null };
 
@@ -32,14 +35,13 @@ function UnitRow({ unit, typologies, ctx }: { unit: PropertyUnit; typologies: Pr
       <input name="phase_label" defaultValue={unit.phase_label ?? ""} placeholder="Fase" className={cellInputClass} />
       <input name="lot" defaultValue={unit.lot ?? ""} placeholder="Lote" className={cellInputClass} />
       <input name="fraction" defaultValue={unit.fraction ?? ""} placeholder="Fração" className={cellInputClass} />
-      <select name="typology_id" defaultValue={unit.typology_id ?? ""} className={cellInputClass}>
-        <option value="">— sem tipologia —</option>
-        {typologies.map((t) => (
-          <option key={t.id} value={t.id}>
-            {t.name}
-          </option>
-        ))}
-      </select>
+      <Select
+        name="typology_id"
+        defaultValue={unit.typology_id ?? ""}
+        placeholder="— sem tipologia —"
+        className={cellSelectClass}
+        options={[{ value: "", label: "— sem tipologia —" }, ...typologies.map((t) => ({ value: t.id, label: t.name }))]}
+      />
       <input
         name="price"
         type="number"
@@ -115,14 +117,13 @@ export function UnitsManager({
         <input name="phase_label" placeholder="Fase" className={cellInputClass} />
         <input name="lot" placeholder="Lote" className={cellInputClass} />
         <input name="fraction" placeholder="Fração" className={cellInputClass} />
-        <select name="typology_id" defaultValue="" className={cellInputClass}>
-          <option value="">— sem tipologia —</option>
-          {typologies.map((t) => (
-            <option key={t.id} value={t.id}>
-              {t.name}
-            </option>
-          ))}
-        </select>
+        <Select
+          name="typology_id"
+          defaultValue=""
+          placeholder="— sem tipologia —"
+          className={cellSelectClass}
+          options={[{ value: "", label: "— sem tipologia —" }, ...typologies.map((t) => ({ value: t.id, label: t.name }))]}
+        />
         <input name="price" type="number" placeholder="Preço" className={cellInputClass} />
         <input type="checkbox" name="featured" className="h-4 w-4 justify-self-center accent-accent" title="Destacar esta unidade na página pública" />
         <div className="flex justify-end">
