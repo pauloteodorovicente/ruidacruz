@@ -1,6 +1,7 @@
 {
   "siteNav": {
     "sobre": "About",
+    "vender": "Sell",
     "contacto": "Contact",
     "guia": "Guide",
     "faq": "FAQ"
@@ -108,6 +109,16 @@
     "title": "Talk Directly to Me",
     "subtitle": "For any real estate question — response within hours.",
     "submit": "Send Message"
+  },
+  "vender": {
+    "meta": {
+      "title": "Sell Your Property | Rui Da Cruz — Real Estate Consultant",
+      "description": "We help you present your property in the best possible way and maximize its selling potential."
+    },
+    "eyebrow": "Sell",
+    "title": "Thinking of Selling?",
+    "subtitle": "We help you present your property in the best possible way and maximize its selling potential.",
+    "submit": "Get in Touch"
   },
   "testimonials": {
     "eyebrow": "Past Representations",

@@ -3,7 +3,8 @@
     "sobre": "Über",
     "contacto": "Kontakt",
     "guia": "Leitfaden",
-    "faq": "FAQ"
+    "faq": "FAQ",
+    "vender": "Verkaufen"
   },
   "siteFooter": {
     "whatsapp": "+351 939 081 583",
@@ -214,5 +215,15 @@
         "answer": "Direkt über das Kontaktformular, per WhatsApp oder durch Vereinbarung eines Telefonats – ganz wie es für Sie am bequemsten ist."
       }
     ]
+  },
+  "vender": {
+    "meta": {
+      "title": "Ihre Immobilie verkaufen | Rui Da Cruz – Immobilienberater",
+      "description": "Wir helfen Ihnen dabei, Ihre Immobilie optimal zu präsentieren und ihr Verkaufspotenzial zu maximieren."
+    },
+    "eyebrow": "Verkaufen",
+    "title": "Denken Sie darüber nach, zu verkaufen?",
+    "subtitle": "Wir helfen Ihnen dabei, Ihre Immobilie optimal zu präsentieren und ihr Verkaufspotenzial zu maximieren.",
+    "submit": "Kontaktieren Sie uns"
   }
 }

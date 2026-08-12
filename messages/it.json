@@ -3,7 +3,8 @@
     "sobre": "Informazioni su",
     "contacto": "Contatti",
     "guia": "Guida",
-    "faq": "FAQ"
+    "faq": "FAQ",
+    "vender": "Vendere"
   },
   "siteFooter": {
     "whatsapp": "+351 939 081 583",
@@ -214,5 +215,15 @@
         "answer": "Direttamente tramite il modulo di contatto, su WhatsApp o fissando una chiamata: scegli la soluzione più comoda per te."
       }
     ]
+  },
+  "vender": {
+    "meta": {
+      "title": "Vendere il proprio immobile | Rui Da Cruz — Consulente immobiliare",
+      "description": "Ti aiutiamo a presentare il tuo immobile nel modo migliore e a massimizzarne il potenziale di vendita."
+    },
+    "eyebrow": "Vendere",
+    "title": "Sta pensando di vendere?",
+    "subtitle": "Ti aiutiamo a presentare il tuo immobile nel modo migliore e a massimizzarne il potenziale di vendita.",
+    "submit": "Contattaci"
   }
 }

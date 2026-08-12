@@ -3,7 +3,8 @@
     "sobre": "Acerca de",
     "contacto": "Contacto",
     "guia": "Guía",
-    "faq": "FAQ"
+    "faq": "FAQ",
+    "vender": "Vender"
   },
   "siteFooter": {
     "whatsapp": "+351 939 081 583",
@@ -214,5 +215,15 @@
         "answer": "Directamente a través del formulario de contacto, por WhatsApp o concertando una llamada: lo que te resulte más cómodo."
       }
     ]
+  },
+  "vender": {
+    "meta": {
+      "title": "Vender su inmueble | Rui Da Cruz — Asesor inmobiliario",
+      "description": "Le ayudamos a presentar su inmueble de la mejor manera posible y a maximizar su potencial de venta."
+    },
+    "eyebrow": "Vender",
+    "title": "¿Estás pensando en vender?",
+    "subtitle": "Le ayudamos a presentar su inmueble de la mejor manera posible y a maximizar su potencial de venta.",
+    "submit": "Contáctanos"
   }
 }
