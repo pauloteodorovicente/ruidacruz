@@ -22,6 +22,10 @@ export type HomeCollectionSettings = {
   layout: "grid" | "carousel";
 };
 
+export type SellerCtaSettings = {
+  enabled: boolean;
+};
+
 const DEFAULT_META_PIXEL: MetaPixelSettings = {
   pixelId: "2026495607919533",
   pages: [],
@@ -30,6 +34,9 @@ const DEFAULT_META_PIXEL: MetaPixelSettings = {
 
 const DEFAULT_SCHEDULING: SchedulingSettings = { link: "" };
 const DEFAULT_HOME_COLLECTION: HomeCollectionSettings = { layout: "grid" };
+// Ligado por padrão — pedido do Rui via WhatsApp (13/08), aparece assim que
+// a branch for aprovada, sem precisar de um passo extra no admin pra ativar.
+const DEFAULT_SELLER_CTA: SellerCtaSettings = { enabled: true };
 
 // Leitura pública genérica — fetch() puro (sem cookies()) de propósito, pra
 // não forçar renderização dinâmica em toda página que a chamar só por causa
@@ -63,6 +70,10 @@ export async function getSchedulingSettings(): Promise<SchedulingSettings> {
 
 export async function getHomeCollectionSettings(): Promise<HomeCollectionSettings> {
   return getPublicSetting("home_collection", DEFAULT_HOME_COLLECTION);
+}
+
+export async function getSellerCtaSettings(): Promise<SellerCtaSettings> {
+  return getPublicSetting("seller_cta", DEFAULT_SELLER_CTA);
 }
 
 // Só em contexto de servidor confiável (Route Handlers) — nunca exposto ao
