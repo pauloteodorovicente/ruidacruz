@@ -49,7 +49,8 @@ export async function OffMarketTeaser({ teaser, locale }: { teaser: OffMarketTea
         </div>
 
         <SiteLeadForm
-          property={{ reference: teaser.reference, title: teaser.title, zone: teaser.zone }}
+          // zone aqui é a "Zona GHL" (dropdown fechado), não a de exibição.
+          property={{ reference: teaser.reference, title: teaser.title, zone: teaser.ghl_zone }}
           heading={{
             eyebrow: "Fora de Mercado",
             title: "Pedir Acesso",

@@ -216,7 +216,9 @@ export default async function ImovelPage({
         )}
         {sectionsForMode(property, photos, floorplans)}
         <SiteLeadForm
-          property={{ reference: property.reference, title: property.title, zone: property.zone }}
+          // zone aqui é a "Zona GHL" (dropdown fechado), não a "Zona" de
+          // exibição da página — ver migração 0014_ghl_zone.sql.
+          property={{ reference: property.reference, title: property.title, zone: property.ghl_zone }}
         />
       </main>
       <SiteFooter />
