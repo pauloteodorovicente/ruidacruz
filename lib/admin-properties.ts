@@ -52,6 +52,7 @@ export type OffMarketTeaser = {
   reference: string;
   title: string;
   zone: string | null;
+  ghl_zone: string | null;
   municipality: string | null;
   property_type: Property["property_type"];
   typology: string | null;
@@ -68,7 +69,7 @@ export async function getOffMarketTeaser(reference: string): Promise<OffMarketTe
   const supabase = createAdminClient();
   const { data, error } = await supabase
     .from("properties")
-    .select("id, reference, title, zone, municipality, property_type, typology, business_type")
+    .select("id, reference, title, zone, ghl_zone, municipality, property_type, typology, business_type")
     .eq("reference", reference)
     .eq("status", "off_market")
     .eq("published", true)

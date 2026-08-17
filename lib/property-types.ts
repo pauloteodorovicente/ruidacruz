@@ -21,6 +21,10 @@ export type Property = {
   featured: boolean;
   published: boolean;
   zone: string | null;
+  // Zona restrita às opções fechadas do dropdown "Zonas" no GHL — separado
+  // de "zone" (texto livre, só pra exibição na página) de propósito, ver
+  // migração 0014_ghl_zone.sql.
+  ghl_zone: string | null;
   municipality: string | null;
   map_url: string | null;
   price: number | null;

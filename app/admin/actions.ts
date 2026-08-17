@@ -42,6 +42,7 @@ export async function saveProperty(formData: FormData) {
     featured: formData.get("featured") === "on",
     published: formData.get("published") === "on",
     zone: str(formData, "zone") || null,
+    ghl_zone: str(formData, "ghl_zone") || null,
     municipality: str(formData, "municipality") || null,
     map_url: str(formData, "map_url") || null,
     price: numOrNull(formData, "price"),
