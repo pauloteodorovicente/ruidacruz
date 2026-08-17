@@ -6,7 +6,9 @@ import { galleryImages } from "@/lib/content";
 import { fullGalleryImages } from "@/lib/full-gallery";
 import { useLanguage } from "@/lib/language-context";
 
-const YT_VIDEO_ID = "1n12iQxzJj0";
+// Movido pro canal do próprio Rui (13/08) — antes apontava pro canal
+// pessoal do Paulo, usado só como provisório até o Rui subir a cópia.
+const YT_VIDEO_ID = "OmUw8pi_bgM";
 const YT_THUMB = `https://i.ytimg.com/vi/${YT_VIDEO_ID}/hqdefault.jpg`;
 
 type Item = { type: "video" } | { type: "image"; src: string; alt: string };
