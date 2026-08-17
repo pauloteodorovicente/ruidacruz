@@ -90,7 +90,11 @@ export async function POST(req: Request) {
   const interestLabel = propertyReference
     ? `${propertyTitle || "Imóvel"} | ${propertyReference}`
     : "Moradia T5 | Leça do Balio | Matosinhos | 122481641-38";
-  const zoneValue = zone || "Grande Porto";
+  // "Grande Porto" só faz sentido como default pra Leça do Balio (Matosinhos
+  // é mesmo Grande Porto) — landings genéricas sem zona própria (Contacto,
+  // Vender) não podem herdar esse valor, senão a Zona do lead sai errada
+  // pra quem nem é da região do Porto. Vazio nesses casos, não um chute.
+  const zoneValue = zone || (propertyReference ? "" : "Grande Porto");
   const source = propertyTitle ? `Site - ${propertyTitle}` : "Site - Landing Leça do Balio";
 
   const [firstName, ...rest] = name.split(" ");
