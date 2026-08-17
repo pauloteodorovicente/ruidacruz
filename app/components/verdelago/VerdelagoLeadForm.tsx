@@ -5,10 +5,14 @@ import { useLeadForm, type LeadFormProperty } from "@/lib/use-lead-form";
 import { PhoneField } from "../PhoneField";
 import { Reveal } from "../Reveal";
 
+// zone precisa ser uma das opções fechadas do campo "Zonas" no GHL (dropdown,
+// não texto livre) — Verdelago fica no Algarve, que não tem zona própria na
+// lista, então usa o bucket regional "Sul". Valor errado antes ("Altura,
+// Algarve") não batia com nenhuma opção do dropdown.
 const VERDELAGO_PROPERTY: LeadFormProperty = {
   reference: "verdelago",
   title: "Verdelago Resort",
-  zone: "Altura, Algarve",
+  zone: "Sul",
 };
 
 export function VerdelagoLeadForm() {
