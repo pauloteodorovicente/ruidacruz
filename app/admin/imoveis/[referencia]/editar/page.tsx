@@ -3,9 +3,12 @@ import Link from "next/link";
 import { isAdminAuthenticated } from "@/lib/admin-auth";
 import { getPropertyByReferenceForAdmin } from "@/lib/admin-properties";
 import { getPropertyPhotos, getPropertyFloorplans } from "@/lib/properties";
+import { getPropertyTypologies, getTypologyFloorplans, getPropertyUnits } from "@/lib/property-typologies";
 import { PropertyForm } from "../../../PropertyForm";
 import { PhotoManager } from "../../../PhotoManager";
 import { FloorplanManager } from "../../../FloorplanManager";
+import { TypologyManager } from "../../../TypologyManager";
+import { UnitsManager } from "../../../UnitsManager";
 
 export default async function EditPropertyPage({
   params,
@@ -33,10 +36,13 @@ export default async function EditPropertyPage({
     </div>
   );
 
-  const [photos, floorplans] = await Promise.all([
+  const [photos, floorplans, typologies, units] = await Promise.all([
     getPropertyPhotos(property.id),
     getPropertyFloorplans(property.id),
+    getPropertyTypologies(property.id),
+    getPropertyUnits(property.id),
   ]);
+  const typologyFloorplans = await getTypologyFloorplans(typologies.map((t) => t.id));
 
   return (
     <main className="min-h-screen bg-background px-6 py-10 md:px-12">
@@ -44,6 +50,24 @@ export default async function EditPropertyPage({
         {header}
         <PhotoManager propertyId={property.id} propertyReference={property.reference} photos={photos} />
         <FloorplanManager propertyId={property.id} propertyReference={property.reference} floorplans={floorplans} />
+        {property.is_campaign_page && (
+          <>
+            <TypologyManager
+              propertyId={property.id}
+              propertyReference={property.reference}
+              campaignPath={property.campaign_path}
+              typologies={typologies}
+              floorplans={typologyFloorplans}
+            />
+            <UnitsManager
+              propertyId={property.id}
+              propertyReference={property.reference}
+              campaignPath={property.campaign_path}
+              units={units}
+              typologies={typologies}
+            />
+          </>
+        )}
         <PropertyForm property={property} />
       </div>
     </main>

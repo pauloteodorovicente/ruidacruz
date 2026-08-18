@@ -29,6 +29,91 @@
   --c-border: rgba(12, 18, 32, 0.1);
 }
 
+/* Paleta de cor por imóvel — sobrescreve só --c-accent(-strong/-dark) dentro
+   do <main> da ficha de um imóvel específico (data-color-theme vem de
+   property.color_theme, ver app/[locale]/imoveis/[referencia]/page.tsx).
+   Nunca toca em :root/[data-theme], então a Home e o resto do site jamais
+   mudam de cor — só o que estiver dentro dessa <main> lê o valor novo,
+   por cascata normal de CSS custom property. "Terracota" não tem regra
+   aqui de propósito: é matematicamente igual à cor padrão acima (ver
+   lib/property-colors.ts). Nomes/valores devem ficar sincronizados com
+   esse arquivo sempre que um dos dois mudar. */
+html[data-theme="dark"] [data-color-theme="musgo"] {
+  --c-accent: #8ea67c;
+  --c-accent-strong: #a8bd97;
+  --c-accent-dark: #6b8259;
+}
+html[data-theme="light"] [data-color-theme="musgo"] {
+  --c-accent: #5f7a4e;
+  --c-accent-strong: #79936a;
+  --c-accent-dark: #4a6139;
+}
+
+html[data-theme="dark"] [data-color-theme="marinho"] {
+  --c-accent: #7d97c4;
+  --c-accent-strong: #9ab0d6;
+  --c-accent-dark: #5c7aa8;
+}
+html[data-theme="light"] [data-color-theme="marinho"] {
+  --c-accent: #3f5c8a;
+  --c-accent-strong: #5878a8;
+  --c-accent-dark: #2f4a72;
+}
+
+html[data-theme="dark"] [data-color-theme="bordo"] {
+  --c-accent: #c07a86;
+  --c-accent-strong: #d494a0;
+  --c-accent-dark: #995a66;
+}
+html[data-theme="light"] [data-color-theme="bordo"] {
+  --c-accent: #8a3d4d;
+  --c-accent-strong: #a35768;
+  --c-accent-dark: #6e2c3a;
+}
+
+html[data-theme="dark"] [data-color-theme="grafite"] {
+  --c-accent: #a8a49c;
+  --c-accent-strong: #c0bcb2;
+  --c-accent-dark: #83807a;
+}
+html[data-theme="light"] [data-color-theme="grafite"] {
+  --c-accent: #5c5850;
+  --c-accent-strong: #78746a;
+  --c-accent-dark: #454138;
+}
+
+html[data-theme="dark"] [data-color-theme="champanhe"] {
+  --c-accent: #d4bd8e;
+  --c-accent-strong: #e2d0a8;
+  --c-accent-dark: #b39a68;
+}
+html[data-theme="light"] [data-color-theme="champanhe"] {
+  --c-accent: #a8894f;
+  --c-accent-strong: #c0a568;
+  --c-accent-dark: #8a6d38;
+}
+
+html[data-theme="dark"] [data-color-theme="creme"] {
+  --c-accent: #d8cbb5;
+  --c-accent-strong: #e6dcc9;
+  --c-accent-dark: #b8a988;
+}
+html[data-theme="light"] [data-color-theme="creme"] {
+  --c-accent: #a8926e;
+  --c-accent-strong: #c0ac89;
+  --c-accent-dark: #8a7550;
+}
+
+/* Cross-fade entre páginas (ver ViewTransitions.tsx) — só ajusta o ritmo
+   pro mesmo compasso pausado do resto do site; o cross-fade em si é o
+   comportamento padrão do navegador pra ::view-transition-old/new(root),
+   não precisa reimplementar nada aqui. */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 0.45s;
+  animation-timing-function: ease-out;
+}
+
 @theme inline {
   --color-background: var(--c-bg);
   --color-background-raised: var(--c-bg-raised);
@@ -71,4 +156,40 @@ h1, h2, h3, .font-display {
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
+}
+
+/* Esconde o cursor nativo (seta/mãozinha/barra de texto) sempre que o ponto
+   de destaque (GlobalCursor.tsx) está ativo — pedido do Paulo (10/08): só o
+   pontinho deve aparecer, nunca o cursor do sistema junto. Ligado via classe
+   no <html>, só depois que o próprio GlobalCursor confirma mouse/trackpad
+   de verdade (pointer: fine) — se o JS falhar antes disso, a classe nunca
+   entra e o cursor nativo normal continua disponível. Zonas de galeria
+   (marcadas [data-gallery-cursor]) ficam de fora, pro cursor customizado
+   delas (useCustomCursor) assumir sem conflito. Seletores com classe no
+   html têm mais especificidade que utilitários Tailwind de uma classe só
+   (cursor-zoom-in, cursor-grab etc.), então sempre vencem aqui. */
+html.cursor-none-global,
+html.cursor-none-global a,
+html.cursor-none-global button,
+html.cursor-none-global input,
+html.cursor-none-global textarea,
+html.cursor-none-global select,
+html.cursor-none-global label,
+html.cursor-none-global [role="button"] {
+  cursor: none;
+}
+
+/* Grão finíssimo em todo o site — evita a superfície "chapada" de uma cor
+   sólida. Mesma opacidade nos dois temas: em overlay, um grão neutro lê
+   naturalmente tanto no claro quanto no escuro, sem precisar de ajuste por
+   tema. Fixo e sem pointer-events — nunca intercepta clique. */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+  opacity: 0.035;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }

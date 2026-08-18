@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { FavoriteButton } from "@/app/components/FavoriteButton";
 import type { HeroItem, HeroLayout, PropertyHero } from "@/lib/property-hero-types";
 
 const GRID_AREAS: Record<Exclude<HeroLayout, "single">, string> = {
@@ -30,10 +31,12 @@ export function PropertyDynamicHero({
   hero,
   eyebrow,
   title,
+  propertyId,
 }: {
   hero: PropertyHero;
   eyebrow: string;
   title: string;
+  propertyId: string;
 }) {
   const wrapperRef = useRef<HTMLDivElement>(null);
   const textRef = useRef<HTMLDivElement>(null);
@@ -101,7 +104,7 @@ export function PropertyDynamicHero({
 
         {isSingleImage && (
           // eslint-disable-next-line @next/next/no-img-element
-          <img src={items[0].src} alt="" className="absolute inset-0 h-full w-full object-cover" style={itemStyle(items[0])} />
+          <img src={items[0].src} alt={title} className="absolute inset-0 h-full w-full object-cover" style={itemStyle(items[0])} />
         )}
 
         {isMosaic && (
@@ -117,7 +120,7 @@ export function PropertyDynamicHero({
               <img
                 key={i}
                 src={item.src}
-                alt=""
+                alt={title}
                 className="h-full w-full object-cover overflow-hidden"
                 style={{ gridArea: CELL_LETTERS[i], ...itemStyle(item) }}
               />
@@ -127,6 +130,7 @@ export function PropertyDynamicHero({
 
         <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-black/30" />
         <div className="absolute bottom-0 left-0 right-0 h-24 md:h-32 bg-gradient-to-t from-background to-transparent" />
+        <FavoriteButton propertyId={propertyId} className="absolute top-6 right-6 z-10 md:top-8 md:right-8" />
 
         {isVideo && (
           <button

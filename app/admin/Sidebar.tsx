@@ -10,6 +10,8 @@ const NAV_ITEMS = [
   { href: "/admin/hero", label: "Hero da Home" },
   { href: "/admin/depoimentos", label: "Depoimentos" },
   { href: "/admin/analytics", label: "Analytics" },
+  { href: "/admin/integracoes", label: "Integrações" },
+  { href: "/admin/atalhos", label: "Atalhos" },
 ];
 
 export function Sidebar() {

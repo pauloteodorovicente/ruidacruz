@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { useTranslations } from "next-intl";
+import { FavoriteButton } from "./FavoriteButton";
 import type { Property } from "@/lib/properties";
 
 // Hero simples do template genérico — sem o vídeo/parallax do Hero.tsx
@@ -23,6 +24,7 @@ export function PropertyHero({ property, coverImage }: { property: Property; cov
       />
       <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-black/30" />
       <div className="absolute bottom-0 left-0 right-0 h-24 md:h-32 bg-gradient-to-t from-background to-transparent" />
+      <FavoriteButton propertyId={property.id} className="absolute top-6 right-6 z-10 md:top-8 md:right-8" />
       <div className="absolute bottom-8 left-6 md:bottom-12 md:left-12 text-white z-10">
         <p className="font-body text-xs tracking-[0.25em] uppercase opacity-80 mb-2">
           {property.zone ?? p(`propertyTypeTags.${property.property_type}`)}

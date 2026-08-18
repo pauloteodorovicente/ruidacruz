@@ -4,12 +4,35 @@ import { useMemo, useState } from "react";
 import { saveProperty } from "./actions";
 import { recommendLayoutMode, type Property } from "@/lib/property-types";
 import { Select } from "@/app/components/Select";
+import { PreviewLinkButton } from "./PreviewLinkButton";
+import { ColorThemePicker } from "./ColorThemePicker";
+import { AiDescriptionAssist } from "./AiDescriptionAssist";
 
 const LAYOUT_LABEL: Record<string, string> = {
   arquitetura: "Arquitetura",
   paisagem_terreno: "Paisagem / Terreno",
   urbano: "Urbano",
 };
+
+// Espelha as opções já configuradas no campo customizado "Zonas" do GHL
+// (dropdown fechado, confirmado via API em 13/08) — mudar aqui não muda o
+// GHL, é só pra manter os dois em sincronia manualmente se a lista de lá
+// mudar.
+const GHL_ZONE_OPTIONS = [
+  "Centro Lisboa",
+  "Lisboa",
+  "Cascais",
+  "Oeiras e Carcavelos",
+  "Expo",
+  "Odivelas e Loures",
+  "Sintra",
+  "Mafra",
+  "Oeste",
+  "Centro",
+  "Norte",
+  "Sul",
+  "Grande Porto",
+];
 
 const inputClass =
   "w-full bg-transparent border border-border px-3 py-2.5 text-sm placeholder:text-foreground-muted focus:border-accent outline-none transition-colors";
@@ -91,6 +114,10 @@ export function PropertyForm({ property }: { property?: Property }) {
                 { value: "off_market", label: "Off-Market" },
               ]}
             />
+            <p className="text-xs text-foreground-muted mt-1.5">
+              Off-Market: some da busca pública — quem tentar aceder ao link vê um teaser com pedido de acesso, não
+              a ficha completa. Libera manualmente gerando um link de pré-visualização e enviando direto.
+            </p>
           </Field>
           <label className="flex items-center gap-2 self-end pb-2.5">
             <input type="checkbox" name="featured" defaultChecked={property?.featured} />
@@ -102,16 +129,34 @@ export function PropertyForm({ property }: { property?: Property }) {
           </label>
         </div>
         {property && (
-          <a
-            href={`/imoveis/${property.reference}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="self-start text-xs tracking-[0.08em] uppercase text-accent hover:text-accent-strong transition-colors"
-          >
-            Pré-visualizar →
-          </a>
+          <div className="flex flex-col gap-3">
+            <a
+              href={`/imoveis/${property.reference}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="self-start text-xs tracking-[0.08em] uppercase text-accent hover:text-accent-strong transition-colors"
+            >
+              Pré-visualizar →
+            </a>
+            {!property.is_campaign_page && (
+              <PreviewLinkButton propertyId={property.id} propertyReference={property.reference} />
+            )}
+          </div>
         )}
       </fieldset>
+
+      {!property?.is_campaign_page && (
+        <fieldset className="flex flex-col gap-4">
+          <h2 className="font-display text-lg text-accent">Aparência</h2>
+          <div>
+            <span className={labelClass}>Paleta de cor</span>
+            <p className="text-xs text-foreground-muted mb-2">
+              Muda a cor de destaque só nesta ficha de imóvel — o resto do site nunca muda.
+            </p>
+            <ColorThemePicker defaultValue={property?.color_theme} />
+          </div>
+        </fieldset>
+      )}
 
       <fieldset className="flex flex-col gap-4">
         <h2 className="font-display text-lg text-accent">Localização</h2>
@@ -122,6 +167,24 @@ export function PropertyForm({ property }: { property?: Property }) {
           <Field label="Concelho">
             <input name="municipality" defaultValue={property?.municipality ?? ""} className={inputClass} />
           </Field>
+          <div className="sm:col-span-2">
+            <Field label="Zona GHL">
+              <Select
+                name="ghl_zone"
+                defaultValue={property?.ghl_zone ?? ""}
+                placeholder="— nenhuma —"
+                options={[
+                  { value: "", label: "— nenhuma —" },
+                  ...GHL_ZONE_OPTIONS.map((z) => ({ value: z, label: z })),
+                ]}
+              />
+            </Field>
+            <p className="text-xs text-foreground-muted mt-1.5">
+              Enviada pro campo Zonas do GHL quando alguém pede contacto por este imóvel — precisa ser uma das
+              opções já configuradas lá (dropdown fechado). É diferente do campo &quot;Zona&quot; acima, que é só o
+              texto que aparece na página.
+            </p>
+          </div>
           <div className="sm:col-span-2">
             <Field label="Link do Google Maps">
               <input name="map_url" defaultValue={property?.map_url ?? ""} className={inputClass} />
@@ -187,6 +250,7 @@ export function PropertyForm({ property }: { property?: Property }) {
         <Field label="Descrição">
           <textarea name="description" defaultValue={property?.description ?? ""} rows={5} className={inputClass} />
         </Field>
+        <AiDescriptionAssist />
         <Field label={'"Em Detalhe" — uma linha por item'}>
           <textarea
             name="highlights"

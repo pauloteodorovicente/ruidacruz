@@ -1,7 +1,10 @@
 {
   "siteNav": {
     "sobre": "Informazioni su",
-    "contacto": "Contatti"
+    "contacto": "Contatti",
+    "guia": "Guida",
+    "faq": "FAQ",
+    "vender": "Vendere"
   },
   "siteFooter": {
     "whatsapp": "+351 939 081 583",
@@ -153,5 +156,74 @@
       "architecture": "Architettura",
       "landscape": "Architettura del paesaggio"
     }
+  },
+  "guiaCompradorEstrangeiro": {
+    "meta": {
+      "title": "Guida per l'acquirente straniero | Rui Da Cruz",
+      "description": "Guida generale alla procedura di acquisto di un immobile in Portogallo per gli acquirenti internazionali — NIF, procedura, tempistiche e costi."
+    },
+    "eyebrow": "Risorse",
+    "title": "Guida per l'acquirente straniero",
+    "intro": "L'acquisto di un immobile in Portogallo da parte di un non residente segue una procedura ben definita. Questa guida riassume le fasi principali, ma non sostituisce una consulenza legale o fiscale personalizzata.",
+    "sections": [
+      {
+        "title": "Residenza e codice fiscale",
+        "body": "Il primo passo concreto è ottenere il numero di identificazione fiscale (NIF) portoghese, necessario per aprire un conto corrente, stipulare contratti e pagare le imposte in Portogallo. A seconda della propria nazionalità e dei propri obiettivi, potrebbe anche essere opportuno valutare le opzioni di residenza disponibili: consigliamo di rivolgersi a un avvocato specializzato in diritto dell’immigrazione per capire quale sia la soluzione più adatta al proprio caso."
+      },
+      {
+        "title": "Processo di acquisto",
+        "body": "Una volta scelto l’immobile, la procedura segue normalmente queste fasi: due diligence sull’immobile (certificato di iscrizione al catasto e libretto catastale), firma del contratto preliminare di compravendita (CPCV) con versamento di una caparra, e infine l'atto pubblico davanti al notaio, seguito dalla registrazione definitiva della proprietà a suo nome."
+      },
+      {
+        "title": "Tempi e costi",
+        "body": "Il tempo che intercorre tra il CPCV e l'atto di compravendita varia — di solito da alcune settimane a pochi mesi, a seconda soprattutto del finanziamento. Oltre al prezzo di acquisto, occorre tenere conto di imposte e tasse (come l’IMT e l’imposta di bollo, oltre ad altri costi di registrazione e notarili): il vostro avvocato o commercialista in Portogallo potrà calcolare l’importo esatto nel vostro caso specifico."
+      }
+    ],
+    "disclaimer": "La presente guida ha carattere informativo e generale e non sostituisce una consulenza legale, fiscale o finanziaria personalizzata. Raccomandiamo sempre di consultare un avvocato o un commercialista abilitato in Portogallo prima di procedere con qualsiasi decisione."
+  },
+  "faq": {
+    "meta": {
+      "title": "Domande frequenti | Rui Da Cruz",
+      "description": "Risposte alle domande più frequenti sull'acquisto o la vendita di un immobile con Rui Da Cruz, RE/MAX Collection."
+    },
+    "eyebrow": "Aiuto",
+    "title": "Domande frequenti",
+    "intro": "Abbiamo raccolto qui le domande che ci vengono poste più spesso. Se la tua non è presente, contattami direttamente.",
+    "items": [
+      {
+        "question": "In quali zone opera Rui?",
+        "answer": "La nostra attività si concentra nel Parque das Nações, con una presenza anche a Lisbona, Cascais, Porto e nell’Algarve. Al di fuori di queste zone, valutiamo caso per caso."
+      },
+      {
+        "question": "Rui lavora solo con i venditori o assiste anche gli acquirenti?",
+        "answer": "Entrambe le cose: assistenza completa sia per chi vuole vendere sia per chi desidera acquistare, dal primo contatto fino all’atto di vendita."
+      },
+      {
+        "question": "Come si svolge un primo incontro?",
+        "answer": "Senza impegno — di solito tramite telefonata o di persona, per capire cosa sta cercando (o l'immobile che desidera vendere) e illustrarle i passi successivi."
+      },
+      {
+        "question": "Rui si occupa di acquirenti stranieri / non residenti?",
+        "answer": "Sì. Per chi effettua acquisti in Portogallo dall'estero, abbiamo preparato una guida specifica che illustra la procedura, i tempi e i documenti normalmente richiesti."
+      },
+      {
+        "question": "Quanto tempo richiede in genere il processo di acquisto o di vendita?",
+        "answer": "Il tempo necessario varia notevolmente a seconda dell'immobile e del tipo di finanziamento in questione: dal contratto preliminare di compravendita all'atto di vendita, di solito ci vogliono da alcune settimane a pochi mesi."
+      },
+      {
+        "question": "Come posso fissare un appuntamento per visitare un immobile?",
+        "answer": "Direttamente tramite il modulo di contatto, su WhatsApp o fissando una chiamata: scegli la soluzione più comoda per te."
+      }
+    ]
+  },
+  "vender": {
+    "meta": {
+      "title": "Vendere il proprio immobile | Rui Da Cruz — Consulente immobiliare",
+      "description": "Ti aiutiamo a presentare il tuo immobile nel modo migliore e a massimizzarne il potenziale di vendita."
+    },
+    "eyebrow": "Vendere",
+    "title": "Sta pensando di vendere?",
+    "subtitle": "Ti aiutiamo a presentare il tuo immobile nel modo migliore e a massimizzarne il potenziale di vendita.",
+    "submit": "Contattaci"
   }
 }

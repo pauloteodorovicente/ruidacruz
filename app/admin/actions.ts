@@ -1,5 +1,6 @@
 "use server";
 
+import { randomBytes } from "node:crypto";
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 import { after } from "next/server";
@@ -41,6 +42,7 @@ export async function saveProperty(formData: FormData) {
     featured: formData.get("featured") === "on",
     published: formData.get("published") === "on",
     zone: str(formData, "zone") || null,
+    ghl_zone: str(formData, "ghl_zone") || null,
     municipality: str(formData, "municipality") || null,
     map_url: str(formData, "map_url") || null,
     price: numOrNull(formData, "price"),
@@ -56,6 +58,7 @@ export async function saveProperty(formData: FormData) {
     landscaper: str(formData, "landscaper") || null,
     layout_mode: layoutMode || recommended,
     layout_mode_overridden: layoutMode !== recommended,
+    color_theme: str(formData, "color_theme") || null,
   };
 
   if (!record.reference || !record.title) {
@@ -86,4 +89,65 @@ export async function saveProperty(formData: FormData) {
   revalidatePath("/");
   revalidatePath(`/imoveis/${record.reference}`);
   redirect("/admin");
+}
+
+// Cópia rápida pra imóveis que compartilham estrutura/zona — nasce sempre em
+// rascunho, sem fotos/plantas (ficam pro imóvel original; evita duplicar
+// arquivos do Storage sem necessidade real). Referência nova, gerada aqui,
+// nunca reaproveitada.
+export async function duplicateProperty(id: string) {
+  if (!(await isAdminAuthenticated())) redirect("/admin/login");
+
+  const supabase = createAdminClient();
+  const { data: original, error: fetchError } = await supabase
+    .from("properties")
+    .select("*")
+    .eq("id", id)
+    .single();
+  if (fetchError) throw new Error(fetchError.message);
+
+  const { id: _id, created_at: _createdAt, updated_at: _updatedAt, reference, title, ...rest } = original;
+  void _id;
+  void _createdAt;
+  void _updatedAt;
+
+  let newReference = `${reference}-copia`;
+  const { data: clash } = await supabase.from("properties").select("id").eq("reference", newReference).maybeSingle();
+  if (clash) newReference = `${reference}-copia-${Date.now().toString(36)}`;
+
+  const { data: copy, error } = await supabase
+    .from("properties")
+    .insert({
+      ...rest,
+      reference: newReference,
+      title: `${title} (cópia)`,
+      published: false,
+      featured: false,
+    })
+    .select("reference")
+    .single();
+  if (error) throw new Error(error.message);
+
+  revalidatePath("/admin");
+  redirect(`/admin/imoveis/${copy.reference}/editar`);
+}
+
+// Gerar de novo invalida o link anterior (sobrescreve o token) — de propósito,
+// pra o Rui poder "revogar" um link antigo só gerando outro. Expira sozinho
+// checando a data na leitura (ver page.tsx do imóvel), sem precisar de cron.
+export async function generatePreviewLink(propertyId: string, propertyReference: string): Promise<string> {
+  if (!(await isAdminAuthenticated())) redirect("/admin/login");
+
+  const token = randomBytes(24).toString("base64url");
+  const expiresAt = new Date(Date.now() + 48 * 60 * 60 * 1000).toISOString();
+
+  const supabase = createAdminClient();
+  const { error } = await supabase
+    .from("properties")
+    .update({ preview_token: token, preview_token_expires_at: expiresAt })
+    .eq("id", propertyId);
+  if (error) throw new Error(error.message);
+
+  revalidatePath(`/admin/imoveis/${propertyReference}/editar`);
+  return token;
 }

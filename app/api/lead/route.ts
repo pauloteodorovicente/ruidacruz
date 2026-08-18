@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
-import { createClient } from "@/lib/supabase/server";
+import { createAdminClient } from "@/lib/supabase/admin";
+import { getGhlSettings } from "@/lib/settings";
 
 const GHL_BASE = "https://services.leadconnectorhq.com";
 const GHL_VERSION = "2021-07-28";
@@ -16,7 +17,13 @@ async function recordLead(params: {
   errorMessage?: string;
 }) {
   try {
-    const supabase = await createClient();
+    // Service role, não o cliente público — achado nesta fase: um pedido de
+    // acesso a um imóvel Fora de Mercado nunca resolvia o property_id certo,
+    // porque a RLS bloqueia leitura pública desses (de propósito), e esse
+    // lookup usava o cliente público. A tag do GHL já saía certa (é a
+    // referência crua, não passa por RLS), só o vínculo interno que ficava
+    // "sem imóvel associado" no dashboard.
+    const supabase = createAdminClient();
     // Sem propertyReference é sempre a landing estática da Leça do Balio hoje
     // (único caso que não manda esse campo) — sem isso, todo o tráfego atual
     // apareceria como "sem imóvel associado" no dashboard.
@@ -58,12 +65,12 @@ async function fetchWithRetry(url: string, options: RequestInit, retries = 1): P
 }
 
 export async function POST(req: Request) {
-  const token = process.env.GHL_API_TOKEN;
-  const locationId = process.env.GHL_LOCATION_ID;
+  const ghl = await getGhlSettings();
 
-  if (!token || !locationId) {
+  if (!ghl) {
     return NextResponse.json({ error: "GHL not configured" }, { status: 500 });
   }
+  const { apiToken: token, locationId } = ghl;
 
   const body = await req.json().catch(() => null);
   const name = typeof body?.name === "string" ? body.name.trim() : "";
@@ -83,7 +90,11 @@ export async function POST(req: Request) {
   const interestLabel = propertyReference
     ? `${propertyTitle || "Imóvel"} | ${propertyReference}`
     : "Moradia T5 | Leça do Balio | Matosinhos | 122481641-38";
-  const zoneValue = zone || "Grande Porto";
+  // "Grande Porto" só faz sentido como default pra Leça do Balio (Matosinhos
+  // é mesmo Grande Porto) — landings genéricas sem zona própria (Contacto,
+  // Vender) não podem herdar esse valor, senão a Zona do lead sai errada
+  // pra quem nem é da região do Porto. Vazio nesses casos, não um chute.
+  const zoneValue = zone || (propertyReference ? "" : "Grande Porto");
   const source = propertyTitle ? `Site - ${propertyTitle}` : "Site - Landing Leça do Balio";
 
   const [firstName, ...rest] = name.split(" ");

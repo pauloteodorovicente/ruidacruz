@@ -5,7 +5,9 @@ import { useLeadForm } from "@/lib/use-lead-form";
 import { PhoneField } from "../PhoneField";
 import { Reveal } from "../Reveal";
 
-const PROPERTY = { reference: "onegreenway", title: "One Green Way", zone: "Quinta do Lago" };
+// zone precisa bater com uma opção fechada do dropdown "Zonas" no GHL —
+// Algarve não tem zona própria na lista, usa o bucket regional "Sul".
+const PROPERTY = { reference: "onegreenway", title: "One Green Way", zone: "Sul" };
 
 export function OneGreenwayLeadForm() {
   const { locale, t } = useOneGreenwayLanguage();

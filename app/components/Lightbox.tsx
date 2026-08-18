@@ -164,7 +164,7 @@ export function Lightbox({ open, index, onIndexChange, onClose }: LightboxProps)
                   <span className="absolute inset-0 flex items-center justify-center bg-black/30 text-white text-lg">▶</span>
                 </>
               ) : (
-                <Image src={item.src} alt="" fill sizes="64px" className="object-cover" />
+                <Image src={item.src} alt={item.alt} fill sizes="64px" className="object-cover" />
               )}
             </button>
           ))}

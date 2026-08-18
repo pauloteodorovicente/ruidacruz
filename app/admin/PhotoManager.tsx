@@ -2,13 +2,13 @@
 
 import { useRef, useState, useTransition } from "react";
 import Image from "next/image";
-import { uploadPhotos, deletePhoto, movePhoto } from "./photo-actions";
+import { uploadPhotos, deletePhoto, movePhoto, reorderPhotos } from "./photo-actions";
 import type { PropertyPhoto } from "@/lib/property-types";
 
 export function PhotoManager({
   propertyId,
   propertyReference,
-  photos,
+  photos: photosProp,
 }: {
   propertyId: string;
   propertyReference: string;
@@ -17,6 +17,32 @@ export function PhotoManager({
   const [isPending, startTransition] = useTransition();
   const [error, setError] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  // Espelho local pra reordenar arrastando com resposta imediata na tela —
+  // sincroniza de novo sempre que o servidor manda uma lista nova (upload,
+  // remoção, ou o resultado já salvo do próprio arrastar). Ajuste durante o
+  // render (não num efeito) — é o jeito recomendado pra "resetar estado
+  // quando uma prop muda", sem o round-trip extra de um useEffect.
+  const [photos, setPhotos] = useState(photosProp);
+  const [syncedProp, setSyncedProp] = useState(photosProp);
+  if (photosProp !== syncedProp) {
+    setSyncedProp(photosProp);
+    setPhotos(photosProp);
+  }
+  const [dragFrom, setDragFrom] = useState<number | null>(null);
+
+  function handleDrop(toIndex: number) {
+    if (dragFrom === null || dragFrom === toIndex) {
+      setDragFrom(null);
+      return;
+    }
+    const next = [...photos];
+    const [moved] = next.splice(dragFrom, 1);
+    next.splice(toIndex, 0, moved);
+    setPhotos(next);
+    setDragFrom(null);
+    startTransition(() => reorderPhotos(propertyId, propertyReference, next.map((p) => p.id)));
+  }
 
   function handleUpload(formData: FormData) {
     setError(null);
@@ -33,11 +59,19 @@ export function PhotoManager({
   return (
     <fieldset className="flex flex-col gap-4">
       <h2 className="font-display text-lg text-accent">Fotos</h2>
+      {photos.length > 1 && <p className="text-xs text-foreground-muted -mt-2">Arraste pra reordenar</p>}
 
       {photos.length > 0 && (
         <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
           {photos.map((photo, idx) => (
-            <div key={photo.id} className="group relative aspect-square overflow-hidden border border-border">
+            <div
+              key={photo.id}
+              draggable
+              onDragStart={() => setDragFrom(idx)}
+              onDragOver={(e) => e.preventDefault()}
+              onDrop={() => handleDrop(idx)}
+              className="group relative aspect-square overflow-hidden border border-border cursor-grab active:cursor-grabbing"
+            >
               <Image src={photo.storage_path} alt="" fill sizes="200px" className="object-cover" />
               <div className="absolute inset-0 flex flex-col items-center justify-center gap-1 bg-black/60 opacity-0 transition-opacity group-hover:opacity-100">
                 <div className="flex gap-1">

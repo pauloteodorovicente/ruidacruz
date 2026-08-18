@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getPropertyByReference } from "@/lib/properties";
+import { getPropertyTypologies, getTypologyTranslations } from "@/lib/property-typologies";
 import { OneGreenwayLanguageProvider } from "@/lib/onegreenway-language-context";
+import type { OneGreenwayTypologyGroup } from "@/app/components/onegreenway/OneGreenwayTypologies";
 import { OneGreenwayHeader } from "@/app/components/onegreenway/OneGreenwayHeader";
 import { OneGreenwayHero } from "@/app/components/onegreenway/OneGreenwayHero";
 import { OneGreenwayIdentification } from "@/app/components/onegreenway/OneGreenwayIdentification";
@@ -12,6 +14,7 @@ import { OneGreenwayTypologies } from "@/app/components/onegreenway/OneGreenwayT
 import { OneGreenwayBrochure } from "@/app/components/onegreenway/OneGreenwayBrochure";
 import { OneGreenwayLeadForm } from "@/app/components/onegreenway/OneGreenwayLeadForm";
 import { OneGreenwayWhatsApp } from "@/app/components/onegreenway/OneGreenwayWhatsApp";
+import { ScheduleCallFloating } from "@/app/components/ScheduleCallFloating";
 import { OneGreenwayFooter } from "@/app/components/onegreenway/OneGreenwayFooter";
 
 export const metadata: Metadata = {
@@ -60,6 +63,30 @@ export default async function OneGreenwayPage() {
   const property = await getPropertyByReference("onegreenway");
   if (!property?.published) notFound();
 
+  // Tipologias + traduções agora vêm do banco (editável no admin, Fase 23)
+  // em vez do array fixo "typologies.groups" de lib/onegreenway-content.ts.
+  // Ao contrário do Verdelago (código técnico, não traduz), aqui o
+  // nome/descrição são texto de marketing de verdade — precisa das 7
+  // línguas; como esta página não tem locale na URL, monta o pacote
+  // completo aqui e deixa o componente cliente escolher (useOneGreenwayLanguage).
+  const typologies = await getPropertyTypologies(property.id);
+  const translations = await getTypologyTranslations(typologies.map((t) => t.id));
+  const ALL_LOCALES = ["pt-PT", "pt-BR", "en", "es", "fr", "it", "de"];
+  const typologyGroups: OneGreenwayTypologyGroup[] = typologies.map((typology) => {
+    const byLocale: Record<string, { name: string; description: string }> = {
+      "pt-PT": { name: typology.name, description: typology.description ?? "" },
+    };
+    for (const locale of ALL_LOCALES) {
+      if (locale === "pt-PT") continue;
+      const translation = translations.find((tr) => tr.typology_id === typology.id && tr.locale === locale);
+      byLocale[locale] = {
+        name: translation?.name || typology.name,
+        description: translation?.description || typology.description || "",
+      };
+    }
+    return { id: typology.id, priceFrom: typology.price_from, byLocale };
+  });
+
   return (
     <OneGreenwayLanguageProvider>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
@@ -70,11 +97,12 @@ export default async function OneGreenwayPage() {
         <OneGreenwayNarrative />
         <OneGreenwayAmenities />
         <OneGreenwayGallery />
-        <OneGreenwayTypologies />
+        <OneGreenwayTypologies groups={typologyGroups} />
         <OneGreenwayBrochure />
         <OneGreenwayLeadForm />
       </main>
       <OneGreenwayWhatsApp />
+      <ScheduleCallFloating />
       <OneGreenwayFooter />
     </OneGreenwayLanguageProvider>
   );

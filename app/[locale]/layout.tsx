@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { setRequestLocale } from "next-intl/server";
 import { routing } from "@/i18n/routing";
 import { HtmlLangSync } from "@/app/components/site/HtmlLangSync";
+import { ViewTransitions } from "@/app/components/site/ViewTransitions";
 
 // Só as páginas institucionais (Home, /sobre, /contacto, /imoveis/*) passam
 // por aqui — /leca-do-balio e /admin ficam fora da árvore [locale] de
@@ -26,7 +27,7 @@ export default async function LocaleLayout({
   return (
     <NextIntlClientProvider>
       <HtmlLangSync locale={locale} />
-      {children}
+      <ViewTransitions>{children}</ViewTransitions>
     </NextIntlClientProvider>
   );
 }

@@ -31,6 +31,7 @@ export function PropertyGallery({ photos, alt }: { photos: PropertyPhoto[]; alt:
               key={photo.id}
               onMouseEnter={() => setHovering(true)}
               onMouseLeave={() => setHovering(false)}
+              data-gallery-cursor
               className="relative aspect-square overflow-hidden md:cursor-none"
             >
               <Image

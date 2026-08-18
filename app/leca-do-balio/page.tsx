@@ -15,6 +15,7 @@ import { Testimonials } from "@/app/components/Testimonials";
 import { Related } from "@/app/components/Related";
 import { LeadForm } from "@/app/components/LeadForm";
 import { WhatsAppFloating } from "@/app/components/WhatsAppFloating";
+import { ScheduleCallFloating } from "@/app/components/ScheduleCallFloating";
 import { Footer } from "@/app/components/Footer";
 
 export const metadata: Metadata = {
@@ -96,6 +97,7 @@ export default async function LecaDoBalioPage() {
       </main>
       <Footer />
       <WhatsAppFloating />
+      <ScheduleCallFloating />
     </LanguageProvider>
   );
 }

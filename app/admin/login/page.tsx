@@ -3,6 +3,7 @@
 import { useState, type FormEvent } from "react";
 import { useRouter } from "next/navigation";
 import { ThemeToggle } from "@/app/components/ThemeToggle";
+import { PasswordField } from "@/app/components/PasswordField";
 
 export default function AdminLoginPage() {
   const router = useRouter();
@@ -36,14 +37,15 @@ export default function AdminLoginPage() {
       <form onSubmit={handleSubmit} className="w-full max-w-sm">
         <p className="text-xs tracking-[0.25em] uppercase text-accent mb-2 text-center">Painel Administrativo</p>
         <h1 className="font-display text-2xl mb-8 text-center">Rui Da Cruz</h1>
-        <input
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          placeholder="Senha"
-          autoFocus
-          className="w-full bg-transparent border border-border px-4 py-3 text-sm placeholder:text-foreground-muted focus:border-accent outline-none transition-colors mb-4"
-        />
+        <div className="mb-4">
+          <PasswordField
+            value={password}
+            onChange={setPassword}
+            placeholder="Senha"
+            autoFocus
+            className="w-full bg-transparent border border-border px-4 py-3 text-sm placeholder:text-foreground-muted focus:border-accent outline-none transition-colors"
+          />
+        </div>
         {error && <p className="text-sm text-center mb-4" style={{ color: "#a13f3f" }}>Senha incorreta.</p>}
         <button
           type="submit"

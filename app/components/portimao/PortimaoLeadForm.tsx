@@ -5,7 +5,9 @@ import { useLeadForm } from "@/lib/use-lead-form";
 import { PhoneField } from "../PhoneField";
 import { Reveal } from "../Reveal";
 
-const PROPERTY = { reference: "portimao-praia-da-rocha", title: "Apartamento T1 Praia da Rocha", zone: "Portimão" };
+// zone precisa bater com uma opção fechada do dropdown "Zonas" no GHL —
+// Algarve não tem zona própria na lista, usa o bucket regional "Sul".
+const PROPERTY = { reference: "portimao-praia-da-rocha", title: "Apartamento T1 Praia da Rocha", zone: "Sul" };
 
 export function PortimaoLeadForm() {
   const { locale, t } = usePortimaoLanguage();

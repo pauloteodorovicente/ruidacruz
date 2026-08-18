@@ -1,7 +1,11 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getPropertyByReference } from "@/lib/properties";
+import { getPropertyTypologies, getPropertyUnits, getTypologyFloorplans } from "@/lib/property-typologies";
 import { VerdelagoLanguageProvider } from "@/lib/verdelago-language-context";
+import type { VerdelagoPhaseGroup, VerdelagoUnitRow } from "@/app/components/verdelago/VerdelagoUnidades";
+import type { VerdelagoFloorplanItem } from "@/app/components/verdelago/VerdelagoFloorPlans";
+import type { VerdelagoFeaturedUnit } from "@/app/components/verdelago/VerdelagoFeatured";
 import { VerdelagoHeader } from "@/app/components/verdelago/VerdelagoHeader";
 import { VerdelagoHero } from "@/app/components/verdelago/VerdelagoHero";
 import { VerdelagoOverview } from "@/app/components/verdelago/VerdelagoOverview";
@@ -10,6 +14,7 @@ import { VerdelagoAmenities } from "@/app/components/verdelago/VerdelagoAmenitie
 import { VerdelagoLifestyle } from "@/app/components/verdelago/VerdelagoLifestyle";
 import { VerdelagoGallery } from "@/app/components/verdelago/VerdelagoGallery";
 import { VerdelagoFloorPlans } from "@/app/components/verdelago/VerdelagoFloorPlans";
+import { VerdelagoFeatured } from "@/app/components/verdelago/VerdelagoFeatured";
 import { VerdelagoUnidades } from "@/app/components/verdelago/VerdelagoUnidades";
 import { VerdelagoInvestment } from "@/app/components/verdelago/VerdelagoInvestment";
 import { VerdelagoCertification } from "@/app/components/verdelago/VerdelagoCertification";
@@ -18,6 +23,7 @@ import { VerdelagoLocation } from "@/app/components/verdelago/VerdelagoLocation"
 import { VerdelagoRelated } from "@/app/components/verdelago/VerdelagoRelated";
 import { VerdelagoLeadForm } from "@/app/components/verdelago/VerdelagoLeadForm";
 import { VerdelagoWhatsApp } from "@/app/components/verdelago/VerdelagoWhatsApp";
+import { ScheduleCallFloating } from "@/app/components/ScheduleCallFloating";
 import { VerdelagoFooter } from "@/app/components/verdelago/VerdelagoFooter";
 
 export const metadata: Metadata = {
@@ -67,6 +73,57 @@ export default async function VerdelagoPage() {
   const property = await getPropertyByReference("verdelago");
   if (!property?.published) notFound();
 
+  // Tipologias + unidades + plantas agora vêm do banco (editável no admin,
+  // Fase 23) em vez dos arquivos fixos lib/verdelago-units.ts e o export
+  // "floorplans" de lib/verdelago-content.ts.
+  const typologies = await getPropertyTypologies(property.id);
+  const [units, rawTypologyFloorplans] = await Promise.all([
+    getPropertyUnits(property.id),
+    getTypologyFloorplans(typologies.map((t) => t.id)),
+  ]);
+  const typologyNameById = new Map(typologies.map((t) => [t.id, t.name]));
+  // Uma planta por tipologia (não por unidade — ainda não existe foto real
+  // de cada fração). Se uma tipologia tiver mais de uma planta cadastrada,
+  // usa a primeira.
+  const plantaSrcByTypologyId = new Map<string, string>();
+  for (const f of rawTypologyFloorplans) {
+    if (!plantaSrcByTypologyId.has(f.typology_id)) plantaSrcByTypologyId.set(f.typology_id, f.storage_path);
+  }
+
+  const phaseOrder: string[] = [];
+  const phaseMap = new Map<string, VerdelagoUnitRow[]>();
+  for (const unit of units) {
+    const label = unit.phase_label ?? "Sem fase";
+    if (!phaseMap.has(label)) {
+      phaseMap.set(label, []);
+      phaseOrder.push(label);
+    }
+    phaseMap.get(label)!.push({
+      lote: unit.lot,
+      fracao: unit.fraction,
+      tipologia: (unit.typology_id && typologyNameById.get(unit.typology_id)) || "—",
+      valor: unit.price,
+    });
+  }
+  const verdelagoPhases: VerdelagoPhaseGroup[] = phaseOrder.map((label) => ({ label, units: phaseMap.get(label)! }));
+
+  const featuredUnits: VerdelagoFeaturedUnit[] = units
+    .filter((unit) => unit.featured)
+    .map((unit) => ({
+      id: unit.id,
+      tipologia: (unit.typology_id && typologyNameById.get(unit.typology_id)) || "—",
+      lote: unit.lot,
+      fracao: unit.fraction,
+      valor: unit.price,
+      plantaSrc: (unit.typology_id && plantaSrcByTypologyId.get(unit.typology_id)) || null,
+    }));
+
+  const floorplanItems: VerdelagoFloorplanItem[] = rawTypologyFloorplans.map((f) => ({
+    id: f.id,
+    src: f.storage_path,
+    label: typologyNameById.get(f.typology_id) ?? "",
+  }));
+
   return (
     <VerdelagoLanguageProvider>
       <script
@@ -81,8 +138,9 @@ export default async function VerdelagoPage() {
         <VerdelagoAmenities />
         <VerdelagoLifestyle />
         <VerdelagoGallery />
-        <VerdelagoFloorPlans />
-        <VerdelagoUnidades />
+        <VerdelagoFloorPlans floorplans={floorplanItems} />
+        <VerdelagoFeatured units={featuredUnits} />
+        <VerdelagoUnidades verdelagoPhases={verdelagoPhases} />
         <VerdelagoInvestment />
         <VerdelagoCertification />
         <VerdelagoBrochure />
@@ -91,6 +149,7 @@ export default async function VerdelagoPage() {
         <VerdelagoLeadForm />
       </main>
       <VerdelagoWhatsApp />
+      <ScheduleCallFloating />
       <VerdelagoFooter />
     </VerdelagoLanguageProvider>
   );

@@ -1,7 +1,10 @@
 {
   "siteNav": {
     "sobre": "About",
-    "contacto": "Contact"
+    "vender": "Sell",
+    "contacto": "Contact",
+    "guia": "Guide",
+    "faq": "FAQ"
   },
   "siteFooter": {
     "whatsapp": "+351 939 081 583",
@@ -44,9 +47,18 @@
     },
     "credibility": {
       "items": [
-        { "value": "7 Years", "label": "active in the Lisbon, Porto and Algarve real estate market" },
-        { "value": "RE/MAX Collection", "label": "certified luxury segment agent" },
-        { "value": "+200", "label": "properties transacted" }
+        {
+          "value": "7 Years",
+          "label": "active in the Lisbon, Porto and Algarve real estate market"
+        },
+        {
+          "value": "RE/MAX Collection",
+          "label": "certified luxury segment agent"
+        },
+        {
+          "value": "+200",
+          "label": "properties transacted"
+        }
       ]
     },
     "collection": {
@@ -78,7 +90,11 @@
     },
     "eyebrow": "The Consultant",
     "title": "Rui Da Cruz",
-    "credentials": ["RE/MAX Collection", "AMI 7772", "7 Years Active"],
+    "credentials": [
+      "RE/MAX Collection",
+      "AMI 7772",
+      "7 Years Active"
+    ],
     "paragraphs": [
       "Rui Da Cruz is a RE/MAX Collection certified real estate consultant, focused on Parque das Nações and the premium areas of Lisbon, Cascais, Porto and the Algarve.",
       "His approach is personal and discreet — dedicated to each client from start to close, with particular attention to those seeking properties with unique characteristics."
@@ -93,6 +109,16 @@
     "title": "Talk Directly to Me",
     "subtitle": "For any real estate question — response within hours.",
     "submit": "Send Message"
+  },
+  "vender": {
+    "meta": {
+      "title": "Sell Your Property | Rui Da Cruz — Real Estate Consultant",
+      "description": "We help you present your property in the best possible way and maximize its selling potential."
+    },
+    "eyebrow": "Sell",
+    "title": "Thinking of Selling?",
+    "subtitle": "We help you present your property in the best possible way and maximize its selling potential.",
+    "submit": "Get in Touch"
   },
   "testimonials": {
     "eyebrow": "Past Representations",
@@ -140,5 +166,64 @@
       "architecture": "Architecture",
       "landscape": "Landscape"
     }
+  },
+  "guiaCompradorEstrangeiro": {
+    "meta": {
+      "title": "Foreign Buyer's Guide | Rui Da Cruz",
+      "description": "A general guide to buying property in Portugal as an international buyer — NIF, the purchase process, timelines and costs."
+    },
+    "eyebrow": "Resources",
+    "title": "Foreign Buyer's Guide",
+    "intro": "Buying property in Portugal as a non-resident follows a well-defined process. This guide summarises the main steps — it does not replace personalised legal or tax advice.",
+    "sections": [
+      {
+        "title": "Residency and NIF",
+        "body": "The first practical step is obtaining a Portuguese Tax Identification Number (NIF), required to open a bank account, sign contracts and pay taxes in Portugal. Depending on your nationality and goals, it may also be worth exploring the residency routes available — we recommend speaking with an immigration lawyer to understand which applies to your situation."
+      },
+      {
+        "title": "The Purchase Process",
+        "body": "Once you have chosen a property, the process typically follows these steps: due diligence on the property (Land Registry Certificate and Tax Registration Document), signing the Promissory Purchase and Sale Contract (CPCV) with a deposit, and finally the Public Deed before a notary, followed by the final registration of the property in your name."
+      },
+      {
+        "title": "Timelines and Costs",
+        "body": "The time between the CPCV and the deed varies — usually a few weeks to a few months, mostly depending on financing. Beyond the purchase price, there are taxes and fees to consider (such as IMT and Stamp Duty, among other notary and registry costs) — your lawyer or accountant in Portugal can calculate the exact amount for your case."
+      }
+    ],
+    "disclaimer": "This guide is informational and general in nature — it does not replace personalised legal, tax or financial advice. We always recommend consulting a lawyer or accountant licensed in Portugal before proceeding with any decision."
+  },
+  "faq": {
+    "meta": {
+      "title": "Frequently Asked Questions | Rui Da Cruz",
+      "description": "Answers to the most common questions about buying or selling property with Rui Da Cruz, RE/MAX Collection."
+    },
+    "eyebrow": "Help",
+    "title": "Frequently Asked Questions",
+    "intro": "We've gathered the questions we get asked the most. If yours isn't here, get in touch directly.",
+    "items": [
+      {
+        "question": "Which areas does Rui work in?",
+        "answer": "The main focus is Parque das Nações, with a presence in Lisbon, Cascais, Porto and the Algarve too. Outside these areas, we look at it case by case."
+      },
+      {
+        "question": "Does Rui only work with sellers, or does he help buyers too?",
+        "answer": "Both — full support for sellers and for buyers alike, from first contact through to the deed."
+      },
+      {
+        "question": "How does a first meeting work?",
+        "answer": "No commitment required — usually a call or an in-person meeting, to understand what you're looking for (or the property you want to sell) and explain the next steps."
+      },
+      {
+        "question": "Does Rui work with foreign buyers / non-residents?",
+        "answer": "Yes. For anyone buying in Portugal from abroad, we've put together a dedicated guide covering the process, timelines and typical documents."
+      },
+      {
+        "question": "How long does the buying or selling process usually take?",
+        "answer": "It varies a lot depending on the property and financing involved — from the promissory contract to the deed usually takes a few weeks to a few months."
+      },
+      {
+        "question": "How can I schedule a viewing?",
+        "answer": "Directly through the contact form, via WhatsApp, or by booking a call — whichever is easiest for you."
+      }
+    ]
   }
 }

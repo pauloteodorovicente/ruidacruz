@@ -59,6 +59,7 @@ export function VerdelagoGallery() {
                 onMouseEnter={() => setHovering(true)}
                 onMouseLeave={() => setHovering(false)}
                 aria-label={`${g.viewPhoto}: ${displayImg.alt[locale]}`}
+                data-gallery-cursor
                 className={`relative overflow-hidden text-left md:cursor-none focus-visible:outline-2 focus-visible:outline-accent focus-visible:outline-offset-2 ${isFeatured ? "col-span-2 row-span-2 aspect-square md:aspect-auto" : "aspect-square"} ${hideOnMobile ? "hidden md:block" : ""}`}
               >
                 <Image

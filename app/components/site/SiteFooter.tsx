@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
+import { BUSINESS_INFO } from "@/lib/business-info";
 
 export function SiteFooter() {
   const nav = useTranslations("siteNav");
@@ -17,11 +18,20 @@ export function SiteFooter() {
         <Link href="/contacto" className="hover:text-white/80 transition-colors">
           {nav("contacto")}
         </Link>
+        <Link href="/guia-comprador-estrangeiro" className="hover:text-white/80 transition-colors">
+          {nav("guia")}
+        </Link>
+        <Link href="/faq" className="hover:text-white/80 transition-colors">
+          {nav("faq")}
+        </Link>
       </div>
       <Image src="/images/rui/assinatura.png" alt="" width={63} height={72} className="mx-auto mb-3 h-10 w-auto opacity-90" />
       <p>{f("rights")}</p>
       <p className="mt-1">{f("ami")}</p>
       <p className="mt-1">{f("whatsapp")}</p>
+      <p className="mt-1">
+        {BUSINESS_INFO.streetAddress}, {BUSINESS_INFO.postalCode} {BUSINESS_INFO.addressLocality}
+      </p>
     </footer>
   );
 }

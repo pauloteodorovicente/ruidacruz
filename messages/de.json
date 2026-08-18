@@ -1,7 +1,10 @@
 {
   "siteNav": {
     "sobre": "Über",
-    "contacto": "Kontakt"
+    "contacto": "Kontakt",
+    "guia": "Leitfaden",
+    "faq": "FAQ",
+    "vender": "Verkaufen"
   },
   "siteFooter": {
     "whatsapp": "+351 939 081 583",
@@ -153,5 +156,74 @@
       "architecture": "Architektur",
       "landscape": "Garten- und Landschaftsgestaltung"
     }
+  },
+  "guiaCompradorEstrangeiro": {
+    "meta": {
+      "title": "Leitfaden für ausländische Käufer | Rui Da Cruz",
+      "description": "Ein allgemeiner Leitfaden zum Immobilienkauf in Portugal für internationale Käufer – NIF, Ablauf, Fristen und Kosten."
+    },
+    "eyebrow": "Ressourcen",
+    "title": "Leitfaden für ausländische Käufer",
+    "intro": "Der Kauf einer Immobilie in Portugal als Nichtansässiger erfolgt nach einem genau festgelegten Verfahren. Dieser Leitfaden fasst die wichtigsten Schritte zusammen – er ersetzt jedoch keine individuelle Rechts- oder Steuerberatung.",
+    "sections": [
+      {
+        "title": "Wohnsitz und Steuernummer",
+        "body": "Der erste praktische Schritt besteht darin, die portugiesische Steueridentifikationsnummer (NIF) zu beantragen, die für die Eröffnung eines Bankkontos, den Abschluss von Verträgen und die Zahlung von Steuern in Portugal erforderlich ist. Je nach Ihrer Staatsangehörigkeit und Ihren Zielen kann es auch sinnvoll sein, die verfügbaren Aufenthaltsmöglichkeiten zu prüfen – wir empfehlen Ihnen, sich an einen auf Einwanderungsrecht spezialisierten Anwalt zu wenden, um herauszufinden, welche Option in Ihrem Fall in Frage kommt."
+      },
+      {
+        "title": "Kaufprozess",
+        "body": "Nach der Auswahl der Immobilie verläuft der Prozess in der Regel in folgenden Schritten: Due-Diligence-Prüfung der Immobilie (Grundbuchauszug und Grundbuchheft), Unterzeichnung des Vorvertrags über den Kauf und Verkauf (CPCV) mit einer Anzahlung, und schließlich die notarielle Beurkundung, gefolgt von der endgültigen Eintragung der Immobilie auf Ihren Namen."
+      },
+      {
+        "title": "Fristen und Kosten",
+        "body": "Die Zeitspanne zwischen dem CPCV und der Beurkundung variiert – in der Regel beträgt sie einige Wochen bis wenige Monate, was vor allem von der Finanzierung abhängt. Neben dem Kaufpreis sind Steuern und Gebühren zu berücksichtigen (wie die IMT und die Stempelsteuer sowie weitere Register- und Notarkosten) – Ihr Anwalt oder Steuerberater in Portugal kann den genauen Betrag für Ihren Fall berechnen."
+      }
+    ],
+    "disclaimer": "Dieser Leitfaden dient lediglich der Information und hat allgemeinen Charakter – er ersetzt keine individuelle Rechts-, Steuer- oder Finanzberatung. Wir empfehlen Ihnen, stets einen in Portugal zugelassenen Rechtsanwalt oder Steuerberater zu konsultieren, bevor Sie eine Entscheidung treffen."
+  },
+  "faq": {
+    "meta": {
+      "title": "Häufig gestellte Fragen | Rui Da Cruz",
+      "description": "Antworten auf die häufigsten Fragen zum Kauf oder Verkauf einer Immobilie mit Rui Da Cruz, RE/MAX Collection."
+    },
+    "eyebrow": "Hilfe",
+    "title": "Häufig gestellte Fragen",
+    "intro": "Wir haben hier die Fragen zusammengestellt, die uns am häufigsten gestellt werden. Sollte Ihre Frage nicht dabei sein, wenden Sie sich bitte direkt an mich.",
+    "items": [
+      {
+        "question": "In welchen Gebieten ist Rui tätig?",
+        "answer": "Der Schwerpunkt unserer Tätigkeit liegt im Parque das Nações, wobei wir auch in Lissabon, Cascais, Porto und an der Algarve vertreten sind. Außerhalb dieser Gebiete prüfen wir jeden Fall einzeln."
+      },
+      {
+        "question": "Arbeitet Rui nur mit Verkäufern zusammen oder unterstützt er auch Käufer?",
+        "answer": "Beides – umfassende Betreuung sowohl für Verkäufer als auch für Käufer, vom ersten Kontakt bis zur Unterzeichnung des Kaufvertrags."
+      },
+      {
+        "question": "Wie läuft ein erstes Treffen ab?",
+        "answer": "Unverbindlich – in der Regel telefonisch oder persönlich, um zu erfahren, wonach Sie suchen (oder welche Immobilie Sie verkaufen möchten), und Ihnen die nächsten Schritte zu erläutern."
+      },
+      {
+        "question": "Bedient Rui auch ausländische / nicht ansässige Käufer?",
+        "answer": "Ja. Für alle, die aus dem Ausland in Portugal einkaufen möchten, haben wir einen eigenen Leitfaden mit Informationen zum Ablauf, zu den Fristen und den üblichen Unterlagen zusammengestellt."
+      },
+      {
+        "question": "Wie lange dauert der Kauf- oder Verkaufsprozess in der Regel?",
+        "answer": "Das hängt stark von der jeweiligen Immobilie und der jeweiligen Finanzierung ab – vom Kaufvorvertrag bis zur notariellen Beurkundung dauert es in der Regel einige Wochen bis zu einigen Monaten."
+      },
+      {
+        "question": "Wie kann ich einen Besichtigungstermin für eine Immobilie vereinbaren?",
+        "answer": "Direkt über das Kontaktformular, per WhatsApp oder durch Vereinbarung eines Telefonats – ganz wie es für Sie am bequemsten ist."
+      }
+    ]
+  },
+  "vender": {
+    "meta": {
+      "title": "Ihre Immobilie verkaufen | Rui Da Cruz – Immobilienberater",
+      "description": "Wir helfen Ihnen dabei, Ihre Immobilie optimal zu präsentieren und ihr Verkaufspotenzial zu maximieren."
+    },
+    "eyebrow": "Verkaufen",
+    "title": "Denken Sie darüber nach, zu verkaufen?",
+    "subtitle": "Wir helfen Ihnen dabei, Ihre Immobilie optimal zu präsentieren und ihr Verkaufspotenzial zu maximieren.",
+    "submit": "Kontaktieren Sie uns"
   }
 }
