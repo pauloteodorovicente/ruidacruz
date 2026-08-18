@@ -12,12 +12,13 @@ const labelClass = "block text-[11px] tracking-[0.1em] uppercase text-foreground
 export function GhlForm({ initial }: { initial: GhlSettings | null }) {
   const [apiToken, setApiToken] = useState(initial?.apiToken ?? "");
   const [locationId, setLocationId] = useState(initial?.locationId ?? "");
+  const [webhookUrl, setWebhookUrl] = useState(initial?.webhookUrl ?? "");
   const [isPending, startTransition] = useTransition();
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     startTransition(() => {
-      saveGhlSettings({ apiToken: apiToken.trim(), locationId: locationId.trim() });
+      saveGhlSettings({ apiToken: apiToken.trim(), locationId: locationId.trim(), webhookUrl: webhookUrl.trim() });
     });
   }
 
@@ -49,6 +50,21 @@ export function GhlForm({ initial }: { initial: GhlSettings | null }) {
           onChange={(e) => setLocationId(e.target.value)}
           autoComplete="off"
         />
+      </label>
+
+      <label className="block">
+        <span className={labelClass}>Webhook de notificação de lead (opcional)</span>
+        <input
+          className={inputClass}
+          value={webhookUrl}
+          onChange={(e) => setWebhookUrl(e.target.value)}
+          placeholder="https://services.leadconnectorhq.com/hooks/..."
+          autoComplete="off"
+        />
+        <p className="text-xs text-foreground-muted mt-1.5">
+          URL do gatilho &quot;Webhook recebido&quot; do workflow de aviso por e-mail pro Rui. Vazio, o site continua
+          criando o contacto normalmente, só não avisa ninguém.
+        </p>
       </label>
 
       <button
