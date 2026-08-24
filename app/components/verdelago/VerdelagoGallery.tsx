@@ -123,6 +123,33 @@ export function VerdelagoGallery() {
         </div>
 
         <button
+          type="button"
+          onClick={() => {
+            setLightboxIndex(0);
+            setLightboxOpen(true);
+          }}
+          aria-label={g.playVideo}
+          className="group relative mt-3 aspect-video w-full overflow-hidden rounded-lg border border-border"
+        >
+          <Image
+            src="/images/verdelago/passadico-thumb.jpg"
+            alt={g.playVideo}
+            fill
+            sizes="(max-width: 768px) 100vw, 1024px"
+            quality={90}
+            className="object-cover transition-transform duration-700 group-hover:scale-[1.03]"
+          />
+          <div className="absolute inset-0 bg-black/25 transition-colors group-hover:bg-black/35" />
+          <span className="absolute inset-0 flex items-center justify-center">
+            <span className="flex h-16 w-16 items-center justify-center rounded-full bg-white/90 text-black shadow-lg transition-transform group-hover:scale-110">
+              <svg viewBox="0 0 24 24" fill="currentColor" className="h-6 w-6 translate-x-0.5">
+                <path d="M8 5v14l11-7z" />
+              </svg>
+            </span>
+          </span>
+        </button>
+
+        <button
           onClick={() => {
             setLightboxIndex(0);
             setLightboxOpen(true);
