@@ -48,6 +48,7 @@ export const content = {
     gallery: {
       eyebrow: "Galeria", title: "Um lugar único para viver",
       viewCursor: "Ver", viewFullGallery: "Ver Galeria Completa", photos: "fotos",
+      photosAndVideo: "fotos + vídeo", playVideo: "Reproduzir vídeo do Verdelago",
       viewPhoto: "Ver foto", previousPhoto: "Foto anterior", nextPhoto: "Próxima foto",
     },
     floorplans: {
@@ -127,7 +128,7 @@ export const content = {
       rights: "Representação exclusiva por Rui Da Cruz, RE/MAX Vantagem Platina.",
     },
     whatsappMessage: "Olá Rui, tenho interesse nos apartamentos do Verdelago Resort, no Algarve. Gostaria de mais informações.",
-    lightbox: { close: "Fechar", previous: "Anterior", next: "Próxima" },
+    lightbox: { close: "Fechar", previous: "Anterior", next: "Próxima", video: "Vídeo" },
   },
   "pt-BR": {
     meta: {
@@ -176,6 +177,7 @@ export const content = {
     gallery: {
       eyebrow: "Galeria", title: "Um lugar único para viver",
       viewCursor: "Ver", viewFullGallery: "Ver Galeria Completa", photos: "fotos",
+      photosAndVideo: "fotos + vídeo", playVideo: "Reproduzir vídeo do Verdelago",
       viewPhoto: "Ver foto", previousPhoto: "Foto anterior", nextPhoto: "Próxima foto",
     },
     floorplans: {
@@ -255,7 +257,7 @@ export const content = {
       rights: "Representação exclusiva por Rui Da Cruz, RE/MAX Vantagem Platina.",
     },
     whatsappMessage: "Olá Rui, tenho interesse nos apartamentos do Verdelago Resort, no Algarve. Gostaria de mais informações.",
-    lightbox: { close: "Fechar", previous: "Anterior", next: "Próxima" },
+    lightbox: { close: "Fechar", previous: "Anterior", next: "Próxima", video: "Vídeo" },
   },
   en: {
     meta: {
@@ -304,6 +306,7 @@ export const content = {
     gallery: {
       eyebrow: "Gallery", title: "A unique place to live",
       viewCursor: "View", viewFullGallery: "View Full Gallery", photos: "photos",
+      photosAndVideo: "photos + video", playVideo: "Play Verdelago video",
       viewPhoto: "View photo", previousPhoto: "Previous photo", nextPhoto: "Next photo",
     },
     floorplans: {
@@ -383,7 +386,7 @@ export const content = {
       rights: "Exclusively represented by Rui Da Cruz, RE/MAX Vantagem Platina.",
     },
     whatsappMessage: "Hi Rui, I'm interested in the apartments at Verdelago Resort, in the Algarve. I'd like more information.",
-    lightbox: { close: "Close", previous: "Previous", next: "Next" },
+    lightbox: { close: "Close", previous: "Previous", next: "Next", video: "Video" },
   },
   es: {
     meta: {
@@ -432,6 +435,7 @@ export const content = {
     gallery: {
       eyebrow: "Galería", title: "Un lugar único para vivir",
       viewCursor: "Ver", viewFullGallery: "Ver Galería Completa", photos: "fotos",
+      photosAndVideo: "fotos + vídeo", playVideo: "Reproducir vídeo del Verdelago",
       viewPhoto: "Ver foto", previousPhoto: "Foto anterior", nextPhoto: "Foto siguiente",
     },
     floorplans: {
@@ -511,7 +515,7 @@ export const content = {
       rights: "Representación exclusiva a cargo de Rui Da Cruz, RE/MAX Vantagem Platina.",
     },
     whatsappMessage: "Hola Rui, estoy interesado/a en los apartamentos de Verdelago Resort, en el Algarve. Me gustaría más información.",
-    lightbox: { close: "Cerrar", previous: "Anterior", next: "Siguiente" },
+    lightbox: { close: "Cerrar", previous: "Anterior", next: "Siguiente", video: "Vídeo" },
   },
   fr: {
     meta: {
@@ -560,6 +564,7 @@ export const content = {
     gallery: {
       eyebrow: "Galerie", title: "Un lieu unique où vivre",
       viewCursor: "Voir", viewFullGallery: "Voir la Galerie Complète", photos: "photos",
+      photosAndVideo: "photos + vidéo", playVideo: "Lire la vidéo du Verdelago",
       viewPhoto: "Voir la photo", previousPhoto: "Photo précédente", nextPhoto: "Photo suivante",
     },
     floorplans: {
@@ -639,7 +644,7 @@ export const content = {
       rights: "Représentation exclusive par Rui Da Cruz, RE/MAX Vantagem Platina.",
     },
     whatsappMessage: "Bonjour Rui, je suis intéressé(e) par les appartements du Verdelago Resort, en Algarve. J'aimerais plus d'informations.",
-    lightbox: { close: "Fermer", previous: "Précédent", next: "Suivant" },
+    lightbox: { close: "Fermer", previous: "Précédent", next: "Suivant", video: "Vidéo" },
   },
   it: {
     meta: {
@@ -688,6 +693,7 @@ export const content = {
     gallery: {
       eyebrow: "Galleria", title: "Un luogo unico dove vivere",
       viewCursor: "Vedi", viewFullGallery: "Vedi la Galleria Completa", photos: "foto",
+      photosAndVideo: "foto + video", playVideo: "Riproduci il video del Verdelago",
       viewPhoto: "Vedi foto", previousPhoto: "Foto precedente", nextPhoto: "Foto successiva",
     },
     floorplans: {
@@ -767,7 +773,7 @@ export const content = {
       rights: "Rappresentanza esclusiva a cura di Rui Da Cruz, RE/MAX Vantagem Platina.",
     },
     whatsappMessage: "Ciao Rui, sono interessato/a agli appartamenti del Verdelago Resort, in Algarve. Vorrei maggiori informazioni.",
-    lightbox: { close: "Chiudi", previous: "Precedente", next: "Successiva" },
+    lightbox: { close: "Chiudi", previous: "Precedente", next: "Successiva", video: "Video" },
   },
   de: {
     meta: {
@@ -816,6 +822,7 @@ export const content = {
     gallery: {
       eyebrow: "Galerie", title: "Ein einzigartiger Ort zum Leben",
       viewCursor: "Ansehen", viewFullGallery: "Vollständige Galerie ansehen", photos: "Fotos",
+      photosAndVideo: "Fotos + Video", playVideo: "Verdelago-Video abspielen",
       viewPhoto: "Foto ansehen", previousPhoto: "Vorheriges Foto", nextPhoto: "Nächstes Foto",
     },
     floorplans: {
@@ -895,7 +902,7 @@ export const content = {
       rights: "Exklusive Vertretung durch Rui Da Cruz, RE/MAX Vantagem Platina.",
     },
     whatsappMessage: "Hallo Rui, ich interessiere mich für die Wohnungen im Verdelago Resort an der Algarve. Ich hätte gerne weitere Informationen.",
-    lightbox: { close: "Schließen", previous: "Zurück", next: "Weiter" },
+    lightbox: { close: "Schließen", previous: "Zurück", next: "Weiter", video: "Video" },
   },
 } as const;
 

@@ -5,6 +5,17 @@ import Image from "next/image";
 import { galleryImages } from "@/lib/verdelago-content";
 import { useVerdelagoLanguage } from "@/lib/verdelago-language-context";
 
+// Vídeo local da Arenilha TV (inauguração do passadiço Altura/Praia Verde,
+// pedido do Rui, 23/08) — autorizado por ele pra reuso. Auto-hospedado
+// (não é YouTube como o da Leça) porque não veio um ID de canal, só o
+// arquivo — comprimido de 42,7MB pra 16,2MB via ffmpeg antes de subir.
+const LOCAL_VIDEO_SRC = "/videos/verdelago/passadico-altura-praia-verde.mp4";
+const LOCAL_VIDEO_THUMB = "/images/verdelago/passadico-thumb.jpg";
+
+type Item = { type: "video" } | { type: "image"; src: string; alt: Record<string, string> };
+
+export const lightboxItemCount = 1 + galleryImages.length;
+
 type LightboxProps = {
   open: boolean;
   index: number;
@@ -18,7 +29,8 @@ export function VerdelagoLightbox({ open, index, onIndexChange, onClose }: Light
   const thumbRefs = useRef<(HTMLButtonElement | null)[]>([]);
   const stripRef = useRef<HTMLDivElement>(null);
 
-  const items = galleryImages;
+  // Vídeo ocupa a posição 0, igual ao padrão já usado no Lightbox da Leça.
+  const items: Item[] = [{ type: "video" }, ...galleryImages.map((img) => ({ type: "image" as const, ...img }))];
 
   const next = useCallback(() => onIndexChange((index + 1) % items.length), [index, items.length, onIndexChange]);
   const prev = useCallback(
@@ -89,9 +101,17 @@ export function VerdelagoLightbox({ open, index, onIndexChange, onClose }: Light
         </button>
 
         <div className="relative w-full h-full max-w-5xl mx-auto flex items-center justify-center">
-          <div className="relative w-full h-full">
-            <Image src={current.src} alt={current.alt[locale]} fill sizes="100vw" quality={90} className="object-contain" />
-          </div>
+          {current.type === "video" ? (
+            <div className="w-full aspect-video max-h-full">
+              <video controls className="w-full h-full" poster={LOCAL_VIDEO_THUMB}>
+                <source src={LOCAL_VIDEO_SRC} type="video/mp4" />
+              </video>
+            </div>
+          ) : (
+            <div className="relative w-full h-full">
+              <Image src={current.src} alt={current.alt[locale]} fill sizes="100vw" quality={90} className="object-contain" />
+            </div>
+          )}
         </div>
       </div>
 
@@ -125,7 +145,14 @@ export function VerdelagoLightbox({ open, index, onIndexChange, onClose }: Light
                 i === index ? "ring-2 ring-accent opacity-100" : "opacity-50 hover:opacity-80"
               }`}
             >
-              <Image src={item.src} alt={item.alt[locale]} fill sizes="64px" className="object-cover" />
+              {item.type === "video" ? (
+                <>
+                  <Image src={LOCAL_VIDEO_THUMB} alt={lb.video} fill sizes="64px" className="object-cover" />
+                  <span className="absolute inset-0 flex items-center justify-center bg-black/30 text-white text-lg">▶</span>
+                </>
+              ) : (
+                <Image src={item.src} alt={item.alt[locale]} fill sizes="64px" className="object-cover" />
+              )}
             </button>
           ))}
         </div>
