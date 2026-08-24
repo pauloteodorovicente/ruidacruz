@@ -4,7 +4,7 @@ import { useState } from "react";
 import Image from "next/image";
 import { useVerdelagoLanguage } from "@/lib/verdelago-language-context";
 import { galleryImages } from "@/lib/verdelago-content";
-import { VerdelagoLightbox } from "./VerdelagoLightbox";
+import { VerdelagoLightbox, lightboxItemCount } from "./VerdelagoLightbox";
 import { Reveal } from "../Reveal";
 import { useCustomCursor } from "@/lib/use-custom-cursor";
 
@@ -19,7 +19,8 @@ export function VerdelagoGallery() {
   const [featuredIndex, setFeaturedIndex] = useState(0);
 
   function openAt(idx: number) {
-    setLightboxIndex(idx);
+    // +1 porque o vídeo ocupa a posição 0 na galeria completa do Lightbox
+    setLightboxIndex(idx + 1);
     setLightboxOpen(true);
   }
 
@@ -130,7 +131,7 @@ export function VerdelagoGallery() {
         >
           <span>{g.viewFullGallery}</span>
           <span className="text-foreground-muted normal-case tracking-normal text-xs">
-            ({galleryImages.length} {g.photos})
+            ({lightboxItemCount - 1} {g.photosAndVideo})
           </span>
         </button>
 
