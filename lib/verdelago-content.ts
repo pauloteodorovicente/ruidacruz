@@ -48,7 +48,7 @@ export const content = {
     gallery: {
       eyebrow: "Galeria", title: "Um lugar único para viver",
       viewCursor: "Ver", viewFullGallery: "Ver Galeria Completa", photos: "fotos",
-      photosAndVideo: "fotos + vídeo",
+      photosAndVideo: "fotos + vídeo", playVideo: "Reproduzir vídeo do Verdelago",
       viewPhoto: "Ver foto", previousPhoto: "Foto anterior", nextPhoto: "Próxima foto",
     },
     floorplans: {
@@ -177,7 +177,7 @@ export const content = {
     gallery: {
       eyebrow: "Galeria", title: "Um lugar único para viver",
       viewCursor: "Ver", viewFullGallery: "Ver Galeria Completa", photos: "fotos",
-      photosAndVideo: "fotos + vídeo",
+      photosAndVideo: "fotos + vídeo", playVideo: "Reproduzir vídeo do Verdelago",
       viewPhoto: "Ver foto", previousPhoto: "Foto anterior", nextPhoto: "Próxima foto",
     },
     floorplans: {
@@ -306,7 +306,7 @@ export const content = {
     gallery: {
       eyebrow: "Gallery", title: "A unique place to live",
       viewCursor: "View", viewFullGallery: "View Full Gallery", photos: "photos",
-      photosAndVideo: "photos + video",
+      photosAndVideo: "photos + video", playVideo: "Play Verdelago video",
       viewPhoto: "View photo", previousPhoto: "Previous photo", nextPhoto: "Next photo",
     },
     floorplans: {
@@ -435,7 +435,7 @@ export const content = {
     gallery: {
       eyebrow: "Galería", title: "Un lugar único para vivir",
       viewCursor: "Ver", viewFullGallery: "Ver Galería Completa", photos: "fotos",
-      photosAndVideo: "fotos + vídeo",
+      photosAndVideo: "fotos + vídeo", playVideo: "Reproducir vídeo del Verdelago",
       viewPhoto: "Ver foto", previousPhoto: "Foto anterior", nextPhoto: "Foto siguiente",
     },
     floorplans: {
@@ -564,7 +564,7 @@ export const content = {
     gallery: {
       eyebrow: "Galerie", title: "Un lieu unique où vivre",
       viewCursor: "Voir", viewFullGallery: "Voir la Galerie Complète", photos: "photos",
-      photosAndVideo: "photos + vidéo",
+      photosAndVideo: "photos + vidéo", playVideo: "Lire la vidéo du Verdelago",
       viewPhoto: "Voir la photo", previousPhoto: "Photo précédente", nextPhoto: "Photo suivante",
     },
     floorplans: {
@@ -693,7 +693,7 @@ export const content = {
     gallery: {
       eyebrow: "Galleria", title: "Un luogo unico dove vivere",
       viewCursor: "Vedi", viewFullGallery: "Vedi la Galleria Completa", photos: "foto",
-      photosAndVideo: "foto + video",
+      photosAndVideo: "foto + video", playVideo: "Riproduci il video del Verdelago",
       viewPhoto: "Vedi foto", previousPhoto: "Foto precedente", nextPhoto: "Foto successiva",
     },
     floorplans: {
@@ -822,7 +822,7 @@ export const content = {
     gallery: {
       eyebrow: "Galerie", title: "Ein einzigartiger Ort zum Leben",
       viewCursor: "Ansehen", viewFullGallery: "Vollständige Galerie ansehen", photos: "Fotos",
-      photosAndVideo: "Fotos + Video",
+      photosAndVideo: "Fotos + Video", playVideo: "Verdelago-Video abspielen",
       viewPhoto: "Foto ansehen", previousPhoto: "Vorheriges Foto", nextPhoto: "Nächstes Foto",
     },
     floorplans: {
