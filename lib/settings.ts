@@ -12,6 +12,10 @@ export type MetaPixelSettings = {
 export type GhlSettings = {
   apiToken: string;
   locationId: string;
+  // URL do gatilho "Webhook recebido" do workflow de notificação de lead por
+  // e-mail (Fase 25) — opcional, sem ela o site só segue criando o contacto
+  // normalmente, sem notificar o Rui.
+  webhookUrl?: string;
 };
 
 export type SchedulingSettings = {
@@ -84,5 +88,5 @@ export async function getGhlSettings(): Promise<GhlSettings | null> {
   const { data } = await supabase.from("settings").select("value").eq("key", "ghl").maybeSingle();
   const value = data?.value as Partial<GhlSettings> | undefined;
   if (!value?.apiToken || !value?.locationId) return null;
-  return { apiToken: value.apiToken, locationId: value.locationId };
+  return { apiToken: value.apiToken, locationId: value.locationId, webhookUrl: value.webhookUrl || undefined };
 }

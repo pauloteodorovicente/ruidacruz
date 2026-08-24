@@ -70,7 +70,7 @@ export async function POST(req: Request) {
   if (!ghl) {
     return NextResponse.json({ error: "GHL not configured" }, { status: 500 });
   }
-  const { apiToken: token, locationId } = ghl;
+  const { apiToken: token, locationId, webhookUrl } = ghl;
 
   const body = await req.json().catch(() => null);
   const name = typeof body?.name === "string" ? body.name.trim() : "";
@@ -154,6 +154,32 @@ export async function POST(req: Request) {
         headers,
         body: JSON.stringify({ body: `Mensagem do formulário (${propertyTitle || "Leça do Balio"}): ${message}` }),
       }).catch((err) => console.error("GHL note error", { message: String(err), timestamp: new Date().toISOString() }));
+    }
+
+    // Fase 25 — aviso por e-mail pro Rui, via um workflow separado (gatilho
+    // "Webhook recebido"), não pelo "Contato Criado" genérico — esse disparava
+    // pra qualquer contacto da conta inteira (93% dos mais recentes não eram
+    // do site), estourando o saldo de envio à toa. Nunca deixa uma falha aqui
+    // derrubar a resposta ao visitante — é só um aviso a mais, o lead já está
+    // salvo no GHL de qualquer jeito.
+    if (webhookUrl) {
+      const linkContacto = contactId ? `https://app.agenzi.com.br/v2/location/${locationId}/contacts/detail/${contactId}` : "";
+      // Awaited de propósito — um fetch solto, sem await, corre o risco de a
+      // função serverless encerrar antes dele completar assim que a resposta
+      // é devolvida ao visitante (mesmo motivo pelo qual a nota acima também
+      // é esperada).
+      await fetch(webhookUrl, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          nome: name,
+          telefone: phone,
+          imovel_de_interesse: interestLabel,
+          zona: zoneValue,
+          mensagem: message,
+          link_contacto: linkContacto,
+        }),
+      }).catch((err) => console.error("GHL webhook notification error", { message: String(err), timestamp: new Date().toISOString() }));
     }
 
     await recordLead({ name, phone, message, propertyReference, ghlContactId: contactId, status: "success" });
