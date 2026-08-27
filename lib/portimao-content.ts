@@ -32,7 +32,7 @@ export const content: Record<
   {
     meta: { title: string; description: string };
     breadcrumb: string;
-    nav: { sobre: string; contacto: string };
+    nav: { sobre: string; contacto: string; guia: string; faq: string };
     hero: { eyebrow: string; location: string };
     identification: {
       tags: string[];
@@ -71,7 +71,7 @@ export const content: Record<
       description: "Apartamento T1 para arrendamento semanal, Edifício Alto da Foz, Praia da Rocha, Portimão. Piscina, varanda e a poucos minutos da praia.",
     },
     breadcrumb: "Apartamento · Praia da Rocha, Portimão",
-    nav: { sobre: "Sobre", contacto: "Contacto" },
+    nav: { sobre: "Sobre", contacto: "Contacto", guia: "Guia", faq: "FAQ" },
     hero: { eyebrow: "Arrendamento de Férias", location: "Praia da Rocha, Portimão" },
     identification: {
       tags: ["Apartamento T1", "Edifício Alto da Foz", "Piscina"],
@@ -131,7 +131,7 @@ export const content: Record<
       description: "Apartamento T1 para arrendamento semanal, Edifício Alto da Foz, Praia da Rocha, Portimão. Piscina, varanda e a poucos minutos da praia.",
     },
     breadcrumb: "Apartamento · Praia da Rocha, Portimão",
-    nav: { sobre: "Sobre", contacto: "Contacto" },
+    nav: { sobre: "Sobre", contacto: "Contacto", guia: "Guia", faq: "FAQ" },
     hero: { eyebrow: "Arrendamento de Férias", location: "Praia da Rocha, Portimão" },
     identification: {
       tags: ["Apartamento T1", "Edifício Alto da Foz", "Piscina"],
@@ -191,7 +191,7 @@ export const content: Record<
       description: "One-bedroom apartment for weekly rent, Alto da Foz Building, Praia da Rocha, Portimão. Swimming pool, balcony, and just a few minutes from the beach.",
     },
     breadcrumb: "Apartment · Praia da Rocha, Portimão",
-    nav: { sobre: "About", contacto: "Contact" },
+    nav: { sobre: "About", contacto: "Contact", guia: "Guide", faq: "FAQ" },
     hero: { eyebrow: "Vacation Rentals", location: "Praia da Rocha, Portimão" },
     identification: {
       tags: ["One-Bedroom Apartment", "Alto da Foz Building", "Swimming Pool"],
@@ -251,7 +251,7 @@ export const content: Record<
       description: "Apartamento de 1 dormitorio en alquiler por semanas, edificio Alto da Foz, Praia da Rocha, Portimão. Piscina, balcón y a pocos minutos de la playa.",
     },
     breadcrumb: "Apartamento · Praia da Rocha, Portimão",
-    nav: { sobre: "Acerca de", contacto: "Contacto" },
+    nav: { sobre: "Acerca de", contacto: "Contacto", guia: "Guía", faq: "FAQ" },
     hero: { eyebrow: "Alquiler vacacional", location: "Praia da Rocha, Portimão" },
     identification: {
       tags: ["Piso de un dormitorio", "Edificio Alto da Foz", "Piscina"],
@@ -311,7 +311,7 @@ export const content: Record<
       description: "Appartement T1 à louer à la semaine, immeuble Alto da Foz, Praia da Rocha, Portimão. Piscine, balcon et à quelques minutes de la plage.",
     },
     breadcrumb: "Appartement · Praia da Rocha, Portimão",
-    nav: { sobre: "À propos", contacto: "Contact" },
+    nav: { sobre: "À propos", contacto: "Contact", guia: "Guide", faq: "FAQ" },
     hero: { eyebrow: "Location de vacances", location: "Praia da Rocha, Portimão" },
     identification: {
       tags: ["Appartement 1 pièce", "Immeuble Alto da Foz", "Piscine"],
@@ -371,7 +371,7 @@ export const content: Record<
       description: "Appartamento con una camera da letto in affitto settimanale, Edificio Alto da Foz, Praia da Rocha, Portimão. Piscina, balcone e a pochi minuti dalla spiaggia.",
     },
     breadcrumb: "Appartamento · Praia da Rocha, Portimão",
-    nav: { sobre: "Chi sono", contacto: "Contatti" },
+    nav: { sobre: "Chi sono", contacto: "Contatti", guia: "Guida", faq: "FAQ" },
     hero: { eyebrow: "Affitti per le vacanze", location: "Praia da Rocha, Portimão" },
     identification: {
       tags: ["Appartamento con una camera da letto", "Edificio Alto da Foz", "Piscina"],
@@ -431,7 +431,7 @@ export const content: Record<
       description: "1-Zimmer-Wohnung zur wöchentlichen Vermietung, Gebäude „Alto da Foz“, Praia da Rocha, Portimão. Swimmingpool, Balkon und nur wenige Minuten vom Strand entfernt.",
     },
     breadcrumb: "Wohnung · Praia da Rocha, Portimão",
-    nav: { sobre: "Über", contacto: "Kontakt" },
+    nav: { sobre: "Über", contacto: "Kontakt", guia: "Leitfaden", faq: "FAQ" },
     hero: { eyebrow: "Ferienvermietung", location: "Praia da Rocha, Portimão" },
     identification: {
       tags: ["1-Zimmer-Wohnung", "Gebäude „Alto da Foz“", "Schwimmbad"],
