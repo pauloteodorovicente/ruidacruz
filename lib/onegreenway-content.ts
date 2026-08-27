@@ -14,7 +14,7 @@ export const content: Record<
   {
     meta: { title: string; description: string };
     breadcrumb: string;
-    nav: { sobre: string; contacto: string };
+    nav: { sobre: string; contacto: string; guia: string; faq: string };
     hero: { eyebrow: string; location: string };
     identification: {
       tags: string[];
@@ -57,7 +57,9 @@ export const content: Record<
     "breadcrumb": "Empreendimento · Quinta do Lago",
     "nav": {
       "sobre": "Sobre",
-      "contacto": "Contacto"
+      "contacto": "Contacto",
+      "guia": "Guia",
+      "faq": "FAQ"
     },
     "hero": {
       "eyebrow": "Empreendimento Residencial",
@@ -142,7 +144,9 @@ export const content: Record<
     "breadcrumb": "Empreendimento · Quinta do Lago",
     "nav": {
       "sobre": "Sobre",
-      "contacto": "Contacto"
+      "contacto": "Contacto",
+      "guia": "Guia",
+      "faq": "FAQ"
     },
     "hero": {
       "eyebrow": "Empreendimento Residencial",
@@ -227,7 +231,9 @@ export const content: Record<
     "breadcrumb": "Development · Quinta do Lago",
     "nav": {
       "sobre": "About",
-      "contacto": "Contact"
+      "contacto": "Contact",
+      "guia": "Guide",
+      "faq": "FAQ"
     },
     "hero": {
       "eyebrow": "Residential Development",
@@ -312,7 +318,9 @@ export const content: Record<
     "breadcrumb": "Complejo inmobiliario · Quinta do Lago",
     "nav": {
       "sobre": "Acerca de",
-      "contacto": "Contacto"
+      "contacto": "Contacto",
+      "guia": "Guía",
+      "faq": "FAQ"
     },
     "hero": {
       "eyebrow": "Complejo residencial",
@@ -397,7 +405,9 @@ export const content: Record<
     "breadcrumb": "Complexe immobilier · Quinta do Lago",
     "nav": {
       "sobre": "À propos",
-      "contacto": "Contact"
+      "contacto": "Contact",
+      "guia": "Guide",
+      "faq": "FAQ"
     },
     "hero": {
       "eyebrow": "Programme immobilier résidentiel",
@@ -482,7 +492,9 @@ export const content: Record<
     "breadcrumb": "Complesso residenziale · Quinta do Lago",
     "nav": {
       "sobre": "Informazioni su",
-      "contacto": "Contatti"
+      "contacto": "Contatti",
+      "guia": "Guida",
+      "faq": "FAQ"
     },
     "hero": {
       "eyebrow": "Complesso residenziale",
@@ -567,7 +579,9 @@ export const content: Record<
     "breadcrumb": "Bauprojekt · Quinta do Lago",
     "nav": {
       "sobre": "Über",
-      "contacto": "Kontakt"
+      "contacto": "Kontakt",
+      "guia": "Leitfaden",
+      "faq": "FAQ"
     },
     "hero": {
       "eyebrow": "Wohnbauprojekt",
