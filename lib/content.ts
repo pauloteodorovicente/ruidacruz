@@ -12,6 +12,8 @@ export const content = {
       cta: "Solicitar Visita Privada",
       sobre: "Sobre",
       contacto: "Contacto",
+      guia: "Guia",
+      faq: "FAQ",
     },
     breadcrumb: "Moradia · Leça do Balio, Matosinhos",
     hero: {
@@ -151,6 +153,8 @@ export const content = {
       cta: "Solicitar Visita Privada",
       sobre: "Sobre",
       contacto: "Contato",
+      guia: "Guia",
+      faq: "FAQ",
     },
     breadcrumb: "Casa · Leça do Balio, Matosinhos",
     hero: {
@@ -290,6 +294,8 @@ export const content = {
       cta: "Request a Private Viewing",
       sobre: "About",
       contacto: "Contact",
+      guia: "Guide",
+      faq: "FAQ",
     },
     breadcrumb: "Residence · Leça do Balio, Matosinhos",
     hero: {
@@ -429,6 +435,8 @@ export const content = {
       cta: "Solicitar una Visita Privada",
       sobre: "Acerca de",
       contacto: "Contacto",
+      guia: "Guía",
+      faq: "FAQ",
     },
     breadcrumb: "Residencia · Leça do Balio, Matosinhos",
     hero: {
@@ -568,6 +576,8 @@ export const content = {
       cta: "Demander une Visite Privée",
       sobre: "À propos",
       contacto: "Contact",
+      guia: "Guide",
+      faq: "FAQ",
     },
     breadcrumb: "Résidence · Leça do Balio, Matosinhos",
     hero: {
@@ -707,6 +717,8 @@ export const content = {
       cta: "Richiedi una Visita Privata",
       sobre: "Informazioni",
       contacto: "Contatti",
+      guia: "Guida",
+      faq: "FAQ",
     },
     breadcrumb: "Residenza · Leça do Balio, Matosinhos",
     hero: {
@@ -846,6 +858,8 @@ export const content = {
       cta: "Private Besichtigung anfragen",
       sobre: "Über",
       contacto: "Kontakt",
+      guia: "Leitfaden",
+      faq: "FAQ",
     },
     breadcrumb: "Residenz · Leça do Balio, Matosinhos",
     hero: {
