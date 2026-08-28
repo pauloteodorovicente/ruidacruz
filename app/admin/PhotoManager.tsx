@@ -2,8 +2,13 @@
 
 import { useRef, useState, useTransition } from "react";
 import Image from "next/image";
-import { uploadPhotos, deletePhoto, movePhoto, reorderPhotos } from "./photo-actions";
+import { uploadPhotos, deletePhoto, movePhoto, reorderPhotos, togglePhotoVisibility } from "./photo-actions";
 import type { PropertyPhoto } from "@/lib/property-types";
+
+// Desloca por uma "linha inteira" nas setinhas de cima/baixo — referência de
+// desktop (grid de 4 colunas); no mobile (2 colunas) o efeito é pular 2
+// linhas, ainda assim previsível. As setinhas de lado continuam movendo 1 a 1.
+const ROW_STEP = 4;
 
 export function PhotoManager({
   propertyId,
@@ -31,17 +36,25 @@ export function PhotoManager({
   }
   const [dragFrom, setDragFrom] = useState<number | null>(null);
 
-  function handleDrop(toIndex: number) {
-    if (dragFrom === null || dragFrom === toIndex) {
-      setDragFrom(null);
-      return;
-    }
-    const next = [...photos];
-    const [moved] = next.splice(dragFrom, 1);
-    next.splice(toIndex, 0, moved);
-    setPhotos(next);
+  // Reordena de verdade (no estado local) já durante o arrastar, não só ao
+  // soltar — pedido do Paulo (24/08): "conforme movo, todas vão se
+  // recolocando". O grid tem transition-transform (ver className abaixo),
+  // então o React só precisa mover o nó pra posição nova que o navegador
+  // anima a troca sozinho.
+  function handleDragEnter(overIndex: number) {
+    if (dragFrom === null || dragFrom === overIndex) return;
+    setPhotos((current) => {
+      const next = [...current];
+      const [moved] = next.splice(dragFrom, 1);
+      next.splice(overIndex, 0, moved);
+      return next;
+    });
+    setDragFrom(overIndex);
+  }
+
+  function handleDrop() {
     setDragFrom(null);
-    startTransition(() => reorderPhotos(propertyId, propertyReference, next.map((p) => p.id)));
+    startTransition(() => reorderPhotos(propertyId, propertyReference, photos.map((p) => p.id)));
   }
 
   function handleUpload(formData: FormData) {
@@ -68,35 +81,79 @@ export function PhotoManager({
               key={photo.id}
               draggable
               onDragStart={() => setDragFrom(idx)}
+              onDragEnter={() => handleDragEnter(idx)}
               onDragOver={(e) => e.preventDefault()}
-              onDrop={() => handleDrop(idx)}
-              className="group relative aspect-square overflow-hidden border border-border cursor-grab active:cursor-grabbing"
+              onDrop={handleDrop}
+              onDragEnd={() => setDragFrom(null)}
+              className={`group relative aspect-square overflow-hidden border cursor-grab active:cursor-grabbing transition-transform duration-200 ${
+                photo.visible ? "border-border" : "border-border opacity-40"
+              }`}
             >
               <Image src={photo.storage_path} alt="" fill sizes="200px" className="object-cover" />
+              {!photo.visible && (
+                <span className="absolute top-1.5 left-1.5 bg-black/70 text-white text-[10px] tracking-[0.06em] uppercase px-1.5 py-0.5">
+                  Arquivada
+                </span>
+              )}
               <div className="absolute inset-0 flex flex-col items-center justify-center gap-1 bg-black/60 opacity-0 transition-opacity group-hover:opacity-100">
+                <div className="flex gap-1">
+                  <button
+                    type="button"
+                    disabled={idx < ROW_STEP || isPending}
+                    onClick={() => startTransition(() => movePhoto(photo.id, propertyId, propertyReference, -ROW_STEP))}
+                    title="Mover pra cima"
+                    className="flex h-6 w-6 items-center justify-center bg-white/20 text-white text-xs disabled:opacity-30"
+                  >
+                    ↑
+                  </button>
+                </div>
                 <div className="flex gap-1">
                   <button
                     type="button"
                     disabled={idx === 0 || isPending}
                     onClick={() => startTransition(() => movePhoto(photo.id, propertyId, propertyReference, -1))}
+                    title="Mover pra esquerda"
                     className="flex h-7 w-7 items-center justify-center bg-white/20 text-white text-sm disabled:opacity-30"
                   >
                     ←
                   </button>
                   <button
                     type="button"
+                    disabled={isPending}
+                    onClick={() =>
+                      startTransition(() => togglePhotoVisibility(photo.id, propertyReference, !photo.visible))
+                    }
+                    title={photo.visible ? "Arquivar (esconder sem apagar)" : "Publicar de novo"}
+                    className="flex h-7 w-7 items-center justify-center bg-white/20 text-white text-sm disabled:opacity-30"
+                  >
+                    {photo.visible ? "◎" : "◌"}
+                  </button>
+                  <button
+                    type="button"
                     disabled={idx === photos.length - 1 || isPending}
                     onClick={() => startTransition(() => movePhoto(photo.id, propertyId, propertyReference, 1))}
+                    title="Mover pra direita"
                     className="flex h-7 w-7 items-center justify-center bg-white/20 text-white text-sm disabled:opacity-30"
                   >
                     →
+                  </button>
+                </div>
+                <div className="flex gap-1">
+                  <button
+                    type="button"
+                    disabled={idx + ROW_STEP >= photos.length || isPending}
+                    onClick={() => startTransition(() => movePhoto(photo.id, propertyId, propertyReference, ROW_STEP))}
+                    title="Mover pra baixo"
+                    className="flex h-6 w-6 items-center justify-center bg-white/20 text-white text-xs disabled:opacity-30"
+                  >
+                    ↓
                   </button>
                 </div>
                 <button
                   type="button"
                   disabled={isPending}
                   onClick={() => startTransition(() => deletePhoto(photo.id, propertyReference))}
-                  className="text-[11px] tracking-[0.08em] uppercase text-white/90 hover:text-white"
+                  className="mt-1 text-[10px] tracking-[0.08em] uppercase text-white/90 hover:text-white"
                 >
                   Remover
                 </button>

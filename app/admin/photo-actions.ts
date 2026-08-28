@@ -76,7 +76,10 @@ export async function reorderPhotos(propertyId: string, propertyReference: strin
   revalidatePath(`/imoveis/${propertyReference}`);
 }
 
-export async function movePhoto(photoId: string, propertyId: string, propertyReference: string, direction: -1 | 1) {
+// direction aceita qualquer delta, não só ±1 — as setinhas de cima/baixo
+// (pedido do Paulo, 24/08) pulam uma linha inteira da grade (±4, largura de
+// desktop), não só um vizinho lateral.
+export async function movePhoto(photoId: string, propertyId: string, propertyReference: string, direction: number) {
   if (!(await isAdminAuthenticated())) redirect("/admin/login");
 
   const supabase = createAdminClient();
@@ -95,6 +98,19 @@ export async function movePhoto(photoId: string, propertyId: string, propertyRef
   const b = photos[swapIdx];
   await supabase.from("property_photos").update({ position: b.position }).eq("id", a.id);
   await supabase.from("property_photos").update({ position: a.position }).eq("id", b.id);
+
+  revalidatePath(`/admin/imoveis/${propertyReference}/editar`);
+  revalidatePath(`/imoveis/${propertyReference}`);
+}
+
+// "Arquivar" uma foto sem apagar (pedido do Paulo, 24/08) — some da página
+// pública mas continua existindo e editável no admin, pra poder trazer de
+// volta depois sem reenviar o arquivo.
+export async function togglePhotoVisibility(photoId: string, propertyReference: string, visible: boolean) {
+  if (!(await isAdminAuthenticated())) redirect("/admin/login");
+
+  const supabase = createAdminClient();
+  await supabase.from("property_photos").update({ visible }).eq("id", photoId);
 
   revalidatePath(`/admin/imoveis/${propertyReference}/editar`);
   revalidatePath(`/imoveis/${propertyReference}`);

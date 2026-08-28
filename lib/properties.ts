@@ -64,6 +64,7 @@ export async function getCoverImages(propertyIds: string[]): Promise<Record<stri
     .from("property_photos")
     .select("property_id, storage_path, position")
     .in("property_id", propertyIds)
+    .eq("visible", true)
     .order("position", { ascending: true });
 
   if (error) throw error;

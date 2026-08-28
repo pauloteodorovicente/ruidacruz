@@ -59,6 +59,7 @@ export type PropertyPhoto = {
   property_id: string;
   storage_path: string;
   position: number;
+  visible: boolean;
 };
 
 export type PropertyFloorplan = {

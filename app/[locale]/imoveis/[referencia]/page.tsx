@@ -156,12 +156,16 @@ export default async function ImovelPage({
     locale === rawProperty.source_locale ? null : await getPropertyTranslation(rawProperty.id, locale as Locale);
   const property = localizeProperty(rawProperty, translation);
 
-  const [photos, floorplans, propertyHero, allProperties] = await Promise.all([
+  const [allPhotos, floorplans, propertyHero, allProperties] = await Promise.all([
     getPropertyPhotos(property.id),
     getPropertyFloorplans(property.id),
     getPropertyHero(property.id),
     getProperties(),
   ]);
+  // "Arquivar" foto (pedido do Paulo, 24/08) — some daqui (visitante público,
+  // preview e admin veem a mesma ficha), mas continua listada e editável no
+  // PhotoManager do admin, que busca a lista própria sem esse filtro.
+  const photos = allPhotos.filter((photo) => photo.visible);
   // Fallback neutro pra imóvel sem foto ainda (rascunho) — nunca a foto de
   // outro imóvel. Achado 24/08: um Terreno sem fotos estava herdando a
   // fachada da Leça do Balio na Hero e no JSON-LD por causa desse fallback.
