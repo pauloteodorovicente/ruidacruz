@@ -10,6 +10,7 @@ import type {
   SchedulingSettings,
   HomeCollectionSettings,
   SellerCtaSettings,
+  GrainSettings,
 } from "@/lib/settings";
 
 async function upsertSetting(key: string, value: unknown) {
@@ -66,5 +67,17 @@ export async function saveSellerCtaSettings(settings: SellerCtaSettings) {
 
   revalidatePath("/admin/integracoes");
   revalidatePath("/", "layout");
+  redirect("/admin/integracoes");
+}
+
+export async function saveGrainSettings(settings: GrainSettings) {
+  if (!(await isAdminAuthenticated())) redirect("/admin/login");
+
+  await upsertSetting("grain", settings);
+
+  // "layout" pra revalidar app/layout.tsx (raiz) — é lá que --grain-opacity
+  // é lido e aplicado no <body>, não numa página específica.
+  revalidatePath("/", "layout");
+  revalidatePath("/admin/integracoes");
   redirect("/admin/integracoes");
 }

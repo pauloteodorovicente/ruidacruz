@@ -30,6 +30,12 @@ export type SellerCtaSettings = {
   enabled: boolean;
 };
 
+export type GrainSettings = {
+  // Opacidade real do CSS (0 a 0.2) — 0.035 era o valor fixo original, que o
+  // Paulo achou baixo demais pra notar diferença nenhuma (achado 24/08).
+  opacity: number;
+};
+
 const DEFAULT_META_PIXEL: MetaPixelSettings = {
   pixelId: "2026495607919533",
   pages: [],
@@ -41,6 +47,7 @@ const DEFAULT_HOME_COLLECTION: HomeCollectionSettings = { layout: "grid" };
 // Ligado por padrão — pedido do Rui via WhatsApp (13/08), aparece assim que
 // a branch for aprovada, sem precisar de um passo extra no admin pra ativar.
 const DEFAULT_SELLER_CTA: SellerCtaSettings = { enabled: true };
+const DEFAULT_GRAIN: GrainSettings = { opacity: 0.035 };
 
 // Leitura pública genérica — fetch() puro (sem cookies()) de propósito, pra
 // não forçar renderização dinâmica em toda página que a chamar só por causa
@@ -78,6 +85,10 @@ export async function getHomeCollectionSettings(): Promise<HomeCollectionSetting
 
 export async function getSellerCtaSettings(): Promise<SellerCtaSettings> {
   return getPublicSetting("seller_cta", DEFAULT_SELLER_CTA);
+}
+
+export async function getGrainSettings(): Promise<GrainSettings> {
+  return getPublicSetting("grain", DEFAULT_GRAIN);
 }
 
 // Só em contexto de servidor confiável (Route Handlers) — nunca exposto ao

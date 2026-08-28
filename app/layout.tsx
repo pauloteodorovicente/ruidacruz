@@ -3,7 +3,7 @@ import { Cormorant_Garamond, DM_Sans } from "next/font/google";
 import { MetaPixel } from "./components/MetaPixel";
 import { GlobalCursor } from "./components/site/GlobalCursor";
 import { OrganizationSchema } from "./components/OrganizationSchema";
-import { getMetaPixelSettings } from "@/lib/settings";
+import { getMetaPixelSettings, getGrainSettings } from "@/lib/settings";
 import "./globals.css";
 
 const cormorant = Cormorant_Garamond({
@@ -56,6 +56,7 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   const pixelSettings = await getMetaPixelSettings();
+  const grainSettings = await getGrainSettings();
 
   return (
     <html
@@ -67,7 +68,10 @@ export default async function RootLayout({
         <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
         <OrganizationSchema />
       </head>
-      <body className="min-h-full flex flex-col bg-background text-foreground transition-colors duration-300">
+      <body
+        className="min-h-full flex flex-col bg-background text-foreground transition-colors duration-300"
+        style={{ "--grain-opacity": grainSettings.opacity } as React.CSSProperties}
+      >
         <MetaPixel settings={pixelSettings} />
         <GlobalCursor />
         {children}
