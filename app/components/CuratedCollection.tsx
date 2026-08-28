@@ -63,6 +63,7 @@ function PropertyCard({
     <NextLink
       href={hrefFor(property)}
       onClick={onDragClick}
+      draggable={false}
       className="group block overflow-hidden rounded-lg border border-border bg-background-raised shadow-[0_8px_30px_-12px_rgba(0,0,0,0.25)] transition-all duration-500 hover:-translate-y-1.5 hover:shadow-[0_24px_48px_-16px_rgba(0,0,0,0.35)]"
     >
       <div className="relative aspect-[4/3] overflow-hidden">
@@ -104,9 +105,14 @@ function PropertyCard({
 // Carrossel infinito — pedido do Paulo (10/08): a grade fixa não escala bem
 // além de uns poucos imóveis em destaque. Duplica a lista uma vez (loop
 // visual contínuo), anda sozinho devagar (setInterval — ver abaixo), pausa
-// no hover/drag, e aceita arrastar (Pointer Events, mesmo padrão unificado
-// mouse+toque de PropertyNavArrows/ZoomableImage). Não ativa autoplay se o
-// visitante pedir menos movimento.
+// só durante um arrasto de verdade, e aceita arrastar (Pointer Events, mesmo
+// padrão unificado mouse+toque de PropertyNavArrows/ZoomableImage). Não ativa
+// autoplay se o visitante pedir menos movimento.
+//
+// Achado 28/08: tinha pausa também no hover (mouseenter/mouseleave), mas
+// como a faixa ocupa quase a largura inteira da tela, bastava o cursor ficar
+// parado sobre a seção (ex. depois de rolar a página com o mouse) pra
+// autoplay nunca sair do lugar — foi removida, só o arrasto ativo pausa.
 function CarouselCollection({
   properties,
   locale,
@@ -148,13 +154,13 @@ function CarouselCollection({
   function handlePointerDown(e: React.PointerEvent) {
     const track = trackRef.current;
     if (!track) return;
+    // NÃO captura o ponteiro aqui ainda (achado 28/08): capturar no down
+    // redireciona o pointerup/click resultante pra própria faixa em vez do
+    // card, então um clique normal (sem arrastar) nunca chegava a acionar o
+    // link — era por isso que nenhum card da Home abria. Só decide se é
+    // arrasto de verdade dentro do pointermove, abaixo.
     dragState.current = { startX: e.clientX, startScroll: track.scrollLeft, moved: false };
     setPaused(true);
-    try {
-      track.setPointerCapture(e.pointerId);
-    } catch {
-      // captura indisponível — arrasto ainda funciona enquanto o ponteiro segue sobre a faixa
-    }
   }
 
   function handlePointerMove(e: React.PointerEvent) {
@@ -162,7 +168,18 @@ function CarouselCollection({
     const drag = dragState.current;
     if (!track || !drag) return;
     const delta = e.clientX - drag.startX;
-    if (Math.abs(delta) > DRAG_CLICK_SUPPRESS_THRESHOLD) drag.moved = true;
+    if (!drag.moved && Math.abs(delta) > DRAG_CLICK_SUPPRESS_THRESHOLD) {
+      drag.moved = true;
+      // só a partir daqui é arrasto de verdade — agora sim captura o
+      // ponteiro, pra continuar recebendo o movimento mesmo se o cursor sair
+      // por cima de um card ou dos limites da faixa.
+      try {
+        track.setPointerCapture(e.pointerId);
+      } catch {
+        // captura indisponível — arrasto ainda funciona enquanto o ponteiro segue sobre a faixa
+      }
+    }
+    if (!drag.moved) return; // ainda dentro da margem de clique — deixa o clique normal acontecer
     let next = drag.startScroll - delta;
     const setWidth = track.scrollWidth / 2;
     if (next < 0) next += setWidth;
@@ -186,8 +203,6 @@ function CarouselCollection({
       onPointerMove={handlePointerMove}
       onPointerUp={handlePointerUp}
       onPointerCancel={handlePointerUp}
-      onMouseEnter={() => setPaused(true)}
-      onMouseLeave={() => !dragState.current && setPaused(false)}
       className="flex gap-6 overflow-x-hidden touch-pan-y cursor-grab active:cursor-grabbing select-none"
     >
       {[...properties, ...properties].map((property, i) => (
