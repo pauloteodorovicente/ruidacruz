@@ -105,14 +105,18 @@ function PropertyCard({
 // Carrossel infinito — pedido do Paulo (10/08): a grade fixa não escala bem
 // além de uns poucos imóveis em destaque. Duplica a lista uma vez (loop
 // visual contínuo), anda sozinho devagar (setInterval — ver abaixo), pausa
-// só durante um arrasto de verdade, e aceita arrastar (Pointer Events, mesmo
-// padrão unificado mouse+toque de PropertyNavArrows/ZoomableImage). Não ativa
-// autoplay se o visitante pedir menos movimento.
+// no hover/drag, e aceita arrastar (Pointer Events, mesmo padrão unificado
+// mouse+toque de PropertyNavArrows/ZoomableImage). Não ativa autoplay se o
+// visitante pedir menos movimento.
 //
-// Achado 28/08: tinha pausa também no hover (mouseenter/mouseleave), mas
-// como a faixa ocupa quase a largura inteira da tela, bastava o cursor ficar
-// parado sobre a seção (ex. depois de rolar a página com o mouse) pra
-// autoplay nunca sair do lugar — foi removida, só o arrasto ativo pausa.
+// Achado 28/08: a pausa por hover usava onMouseEnter, mas como a faixa ocupa
+// quase a largura inteira da tela, bastava o cursor ficar parado sobre a
+// seção (ex. depois de rolar a página com o mouse) pra travar o autoplay —
+// rolar a página move o conteúdo por baixo do cursor parado, e isso já basta
+// pro navegador disparar mouseenter, mesmo sem o visitante mexer o mouse de
+// verdade. Corrigido usando onMouseMove em vez de onMouseEnter: só pausa
+// quando o cursor realmente se move em cima da faixa (hover intencional),
+// não quando ela só "passa por baixo" dele durante o scroll.
 function CarouselCollection({
   properties,
   locale,
@@ -203,6 +207,8 @@ function CarouselCollection({
       onPointerMove={handlePointerMove}
       onPointerUp={handlePointerUp}
       onPointerCancel={handlePointerUp}
+      onMouseMove={() => setPaused(true)}
+      onMouseLeave={() => !dragState.current && setPaused(false)}
       className="flex gap-6 overflow-x-hidden touch-pan-y cursor-grab active:cursor-grabbing select-none"
     >
       {[...properties, ...properties].map((property, i) => (
