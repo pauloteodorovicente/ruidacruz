@@ -7,6 +7,8 @@ import { Select } from "@/app/components/Select";
 import { PreviewLinkButton } from "./PreviewLinkButton";
 import { ColorThemePicker } from "./ColorThemePicker";
 import { AiDescriptionAssist } from "./AiDescriptionAssist";
+import { useUnsavedChangesGuard } from "./useUnsavedChangesGuard";
+import { UnsavedChangesModal } from "./UnsavedChangesModal";
 
 const LAYOUT_LABEL: Record<string, string> = {
   arquitetura: "Arquitetura",
@@ -62,10 +64,22 @@ export function PropertyForm({ property }: { property?: Property }) {
     [propertyType, architect]
   );
   const effectiveLayoutMode = layoutMode || recommended;
+  const unsavedGuard = useUnsavedChangesGuard();
 
   return (
-    <form action={saveProperty} className="flex flex-col gap-10">
-      {property && <input type="hidden" name="id" value={property.id} />}
+    <>
+      <UnsavedChangesModal
+        open={unsavedGuard.pendingHref !== null}
+        onConfirm={unsavedGuard.confirmLeave}
+        onCancel={unsavedGuard.cancelLeave}
+      />
+      <form
+        action={saveProperty}
+        onChange={unsavedGuard.markDirty}
+        onSubmit={unsavedGuard.markSubmitting}
+        className="flex flex-col gap-10"
+      >
+        {property && <input type="hidden" name="id" value={property.id} />}
 
       <fieldset className="flex flex-col gap-4">
         <h2 className="font-display text-lg text-accent">Identificação</h2>
@@ -290,6 +304,7 @@ export function PropertyForm({ property }: { property?: Property }) {
       >
         {property ? "Guardar alterações" : "Criar imóvel"}
       </button>
-    </form>
+      </form>
+    </>
   );
 }
