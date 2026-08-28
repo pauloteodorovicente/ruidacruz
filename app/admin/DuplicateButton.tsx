@@ -19,7 +19,7 @@ export function DuplicateButton({ propertyId }: { propertyId: string }) {
       type="button"
       onClick={handleClick}
       disabled={isPending}
-      className="text-[11px] tracking-[0.08em] uppercase px-2 py-0.5 border border-border text-foreground-muted transition-colors hover:text-accent hover:border-accent disabled:opacity-50"
+      className="text-[10px] tracking-[0.06em] uppercase px-1.5 py-0.5 border border-border text-foreground-muted whitespace-nowrap transition-colors hover:text-accent hover:border-accent disabled:opacity-50"
     >
       {isPending ? "A duplicar..." : "Duplicar"}
     </button>

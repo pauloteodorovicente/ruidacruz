@@ -36,7 +36,7 @@ export function PublishToggleBadge({
       type="button"
       onClick={toggle}
       disabled={isPending}
-      className="text-[11px] tracking-[0.08em] uppercase px-2 py-0.5 border transition-opacity hover:opacity-75 disabled:opacity-50"
+      className="text-[10px] tracking-[0.06em] uppercase px-1.5 py-0.5 border whitespace-nowrap transition-opacity hover:opacity-75 disabled:opacity-50"
       style={
         published
           ? { color: "#3d6b4a", borderColor: "#3d6b4a" }

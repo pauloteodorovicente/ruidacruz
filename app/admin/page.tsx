@@ -25,7 +25,7 @@ export default async function AdminPage() {
 
   return (
     <main className="min-h-screen bg-background px-6 py-10 md:px-12">
-      <div className="mx-auto max-w-4xl">
+      <div className="mx-auto max-w-5xl">
         <h1 className="font-display text-2xl mb-6">Imóveis</h1>
         <AdminSummary leadsLast7Days={leadStats.last7Days} missingCertificate={missingCertificate} />
 
@@ -38,16 +38,16 @@ export default async function AdminPage() {
                 key={property.id}
                 className="flex flex-wrap items-center justify-between gap-3 border-b border-border px-5 py-4 last:border-b-0 transition-colors hover:bg-background-raised"
               >
-                <Link href={`/admin/imoveis/${property.reference}/editar`} className="flex-1 min-w-0">
-                  <p className="font-display text-base">{property.title}</p>
-                  <p className="text-xs text-foreground-muted mt-0.5">
+                <Link href={`/admin/imoveis/${property.reference}/editar`} className="min-w-0 max-w-[46%] shrink">
+                  <p className="font-display text-base truncate">{property.title}</p>
+                  <p className="text-xs text-foreground-muted mt-0.5 truncate">
                     {property.reference} · {property.zone}
                   </p>
                 </Link>
-                <div className="flex items-center gap-4 text-sm">
-                  <span className="text-foreground-muted">{STATUS_LABEL[property.status] ?? property.status}</span>
+                <div className="flex items-center gap-3 text-sm">
+                  <span className="text-foreground-muted whitespace-nowrap">{STATUS_LABEL[property.status] ?? property.status}</span>
                   {property.business_type === "arrendamento" && (
-                    <span className="text-[11px] tracking-[0.08em] uppercase text-foreground-muted border border-border px-2 py-0.5">
+                    <span className="text-[10px] tracking-[0.06em] uppercase text-foreground-muted border border-border px-1.5 py-0.5">
                       Arrendamento
                     </span>
                   )}
@@ -63,7 +63,7 @@ export default async function AdminPage() {
                     campaignPath={property.is_campaign_page ? property.campaign_path : null}
                     initialPublished={property.published}
                   />
-                  {!property.is_campaign_page && <DuplicateButton propertyId={property.id} />}
+                  <DuplicateButton propertyId={property.id} />
                 </div>
               </div>
             ))}

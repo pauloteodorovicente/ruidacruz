@@ -123,6 +123,14 @@ export async function duplicateProperty(id: string) {
       title: `${title} (cópia)`,
       published: false,
       featured: false,
+      // Achado (24/08): as 4 landings de campanha (Leça, Verdelago, Portimão,
+      // One Green Way) têm conteúdo próprio fixo no código, não na tabela —
+      // duplicar mantendo is_campaign_page/campaign_path criaria uma segunda
+      // linha apontando pra mesma rota especial. A cópia sempre vira um
+      // imóvel genérico normal (template /imoveis/[referencia]), usando os
+      // números/localização originais como ponto de partida.
+      is_campaign_page: false,
+      campaign_path: null,
     })
     .select("reference")
     .single();

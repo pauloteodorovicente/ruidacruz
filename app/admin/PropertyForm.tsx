@@ -271,7 +271,7 @@ export function PropertyForm({ property }: { property?: Property }) {
 
       <fieldset className="flex flex-col gap-4">
         <h2 className="font-display text-lg text-accent">Configuração</h2>
-        <Field label={`Tema/layout — recomendado: ${LAYOUT_LABEL[recommended]}`}>
+        <Field label={`Modelo da Página — recomendado: ${LAYOUT_LABEL[recommended]}`}>
           <Select
             name="layout_mode"
             value={effectiveLayoutMode}
