@@ -7,7 +7,7 @@ import { SiteWhatsAppFloating } from "@/app/components/site/SiteWhatsAppFloating
 import { ScheduleCallFloating } from "@/app/components/ScheduleCallFloating";
 import { SiteFooter } from "@/app/components/site/SiteFooter";
 import { BreadcrumbSchema } from "@/app/components/BreadcrumbSchema";
-import { getProperties } from "@/lib/properties";
+import { getProperties, getCoverImages } from "@/lib/properties";
 
 export async function generateMetadata({
   params,
@@ -38,6 +38,7 @@ export default async function PortfolioPage({
 }) {
   const { locale } = await params;
   const properties = await getProperties();
+  const coverImages = await getCoverImages(properties.map((property) => property.id));
   const t = await getTranslations({ locale, namespace: "home.portfolioPage" });
   const prefix = locale === "pt-PT" ? "" : `/${locale}`;
 
@@ -55,7 +56,7 @@ export default async function PortfolioPage({
           <h1 className="font-display text-3xl md:text-4xl mb-3">{t("title")}</h1>
           <p className="text-sm text-foreground-muted">{t("subtitle")}</p>
         </div>
-        <CuratedCollection properties={properties} hideHeading />
+        <CuratedCollection properties={properties} coverImages={coverImages} hideHeading />
       </main>
       <SiteFooter />
       <SiteWhatsAppFloating />

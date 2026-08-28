@@ -162,7 +162,10 @@ export default async function ImovelPage({
     getPropertyHero(property.id),
     getProperties(),
   ]);
-  const coverImage = photos[0]?.storage_path ?? "/images/leca-do-balio/01-hero-fachada.jpg";
+  // Fallback neutro pra imóvel sem foto ainda (rascunho) — nunca a foto de
+  // outro imóvel. Achado 24/08: um Terreno sem fotos estava herdando a
+  // fachada da Leça do Balio na Hero e no JSON-LD por causa desse fallback.
+  const coverImage = photos[0]?.storage_path ?? "/images/rui/hero-portrait.jpg";
   const p = await getTranslations({ locale, namespace: "property" });
 
   // Anterior/próximo "infinito" — nunca mostra fim de lista, dá a volta.

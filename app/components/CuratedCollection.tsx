@@ -12,19 +12,28 @@ import type { Property } from "@/lib/properties";
 // (app/page.tsx) — mantém o padrão do site de conteúdo traduzido em Client
 // Component, sem duplicar a busca de dados aqui.
 //
-// TODO (Fase 5/6): imagem hoje é um mapeamento manual por referência — vira
-// property_photos do Storage quando o upload no painel existir.
+// As 4 landings de campanha (Leça, Verdelago, Portimão, One Green Way) não
+// usam a tabela property_photos pras próprias fotos (cada uma tem seu
+// conteúdo/galeria própria) — por isso continuam com uma capa fixa aqui. Todo
+// o resto vem de coverImages (prop), buscado de verdade no Supabase — antes
+// era um mapeamento fixo com fallback pra uma foto específica da Leça do
+// Balio, então qualquer imóvel novo sem foto (ex. um rascunho recém-criado)
+// acabava mostrando a fachada da Leça por engano. Achado 24/08.
 const COVER_IMAGE_BY_REFERENCE: Record<string, string> = {
   "122481641-38": "/images/leca-do-balio/01-hero-fachada.jpg",
   verdelago: "/images/verdelago/01-hero-humanizada.jpg",
   "portimao-praia-da-rocha": "/images/portimao-praia-rocha/Apart T1 Praia_Rocha_10.jpeg",
   onegreenway: "/images/onegreenway/hero-1.jpg",
 };
+// Fallback neutro pra imóvel sem nenhuma foto ainda (rascunho) — nunca outro
+// imóvel específico. Mesmo arquivo já usado como fallback de metadata/OG.
+const NEUTRAL_COVER_IMAGE = "/images/rui/hero-portrait.jpg";
 const COVER_IMAGE_POSITION: Record<string, string> = {
   verdelago: "object-[center_22%]",
 };
 
-const AUTOPLAY_PX_PER_SEC = 26;
+const AUTOPLAY_PX_PER_SEC = 40;
+const AUTOPLAY_TICK_MS = 40;
 const DRAG_CLICK_SUPPRESS_THRESHOLD = 6;
 
 function hrefFor(property: Property) {
@@ -40,12 +49,14 @@ function PropertyCard({
   locale,
   c,
   p,
+  coverImages,
   onDragClick,
 }: {
   property: Property;
   locale: string;
   c: (key: string) => string;
   p: (key: string) => string;
+  coverImages: Record<string, string>;
   onDragClick?: (e: React.MouseEvent) => void;
 }) {
   return (
@@ -56,7 +67,7 @@ function PropertyCard({
     >
       <div className="relative aspect-[4/3] overflow-hidden">
         <Image
-          src={COVER_IMAGE_BY_REFERENCE[property.reference] ?? "/images/leca-do-balio/01-hero-fachada.jpg"}
+          src={COVER_IMAGE_BY_REFERENCE[property.reference] ?? coverImages[property.id] ?? NEUTRAL_COVER_IMAGE}
           alt={property.title}
           fill
           draggable={false}
@@ -92,7 +103,7 @@ function PropertyCard({
 
 // Carrossel infinito — pedido do Paulo (10/08): a grade fixa não escala bem
 // além de uns poucos imóveis em destaque. Duplica a lista uma vez (loop
-// visual contínuo), anda sozinho devagar via requestAnimationFrame, pausa
+// visual contínuo), anda sozinho devagar (setInterval — ver abaixo), pausa
 // no hover/drag, e aceita arrastar (Pointer Events, mesmo padrão unificado
 // mouse+toque de PropertyNavArrows/ZoomableImage). Não ativa autoplay se o
 // visitante pedir menos movimento.
@@ -101,35 +112,37 @@ function CarouselCollection({
   locale,
   c,
   p,
+  coverImages,
 }: {
   properties: Property[];
   locale: string;
   c: (key: string) => string;
   p: (key: string) => string;
+  coverImages: Record<string, string>;
 }) {
   const trackRef = useRef<HTMLDivElement>(null);
   const [paused, setPaused] = useState(false);
   const dragState = useRef<{ startX: number; startScroll: number; moved: boolean } | null>(null);
 
   useEffect(() => {
+    if (paused) return;
     const track = trackRef.current;
     if (!track) return;
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
-    let raf: number;
-    let last = performance.now();
-    function step(now: number) {
-      const dt = (now - last) / 1000;
-      last = now;
-      if (!paused && track) {
-        const setWidth = track.scrollWidth / 2;
-        track.scrollLeft += AUTOPLAY_PX_PER_SEC * dt;
-        if (track.scrollLeft >= setWidth) track.scrollLeft -= setWidth;
-      }
-      raf = requestAnimationFrame(step);
-    }
-    raf = requestAnimationFrame(step);
-    return () => cancelAnimationFrame(raf);
+    // setInterval em vez de requestAnimationFrame — mais previsível pra um
+    // scroll de fundo bem lento como este, e não depende do navegador estar
+    // renderizando frames a 60fps (rAF pode ser suspenso/atrasado por throttling
+    // de aba, o que fazia o carrossel parecer "parado" mesmo funcionando).
+    const stepPx = AUTOPLAY_PX_PER_SEC * (AUTOPLAY_TICK_MS / 1000);
+    const id = window.setInterval(() => {
+      const setWidth = track.scrollWidth / 2;
+      if (setWidth <= 0) return;
+      let next = track.scrollLeft + stepPx;
+      if (next >= setWidth) next -= setWidth;
+      track.scrollLeft = next;
+    }, AUTOPLAY_TICK_MS);
+    return () => window.clearInterval(id);
   }, [paused]);
 
   function handlePointerDown(e: React.PointerEvent) {
@@ -179,7 +192,14 @@ function CarouselCollection({
     >
       {[...properties, ...properties].map((property, i) => (
         <div key={`${property.id}-${i}`} className="w-[78vw] max-w-[340px] flex-shrink-0 sm:w-[320px]">
-          <PropertyCard property={property} locale={locale} c={c} p={p} onDragClick={handleCardClick} />
+          <PropertyCard
+            property={property}
+            locale={locale}
+            c={c}
+            p={p}
+            coverImages={coverImages}
+            onDragClick={handleCardClick}
+          />
         </div>
       ))}
     </div>
@@ -188,11 +208,13 @@ function CarouselCollection({
 
 export function CuratedCollection({
   properties,
+  coverImages = {},
   viewAllHref,
   hideHeading,
   layout = "grid",
 }: {
   properties: Property[];
+  coverImages?: Record<string, string>;
   viewAllHref?: string;
   hideHeading?: boolean;
   layout?: "grid" | "carousel";
@@ -216,12 +238,12 @@ export function CuratedCollection({
         )}
 
         {useCarousel ? (
-          <CarouselCollection properties={properties} locale={locale} c={c} p={p} />
+          <CarouselCollection properties={properties} locale={locale} c={c} p={p} coverImages={coverImages} />
         ) : (
           <div className="grid grid-cols-1 gap-8 md:grid-cols-3 md:gap-6">
             {properties.map((property) => (
               <Reveal key={property.id} className="block">
-                <PropertyCard property={property} locale={locale} c={c} p={p} />
+                <PropertyCard property={property} locale={locale} c={c} p={p} coverImages={coverImages} />
               </Reveal>
             ))}
           </div>

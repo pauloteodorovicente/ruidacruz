@@ -10,7 +10,7 @@ import { SiteTestimonials } from "@/app/components/site/SiteTestimonials";
 import { SiteWhatsAppFloating } from "@/app/components/site/SiteWhatsAppFloating";
 import { ScheduleCallFloating } from "@/app/components/ScheduleCallFloating";
 import { SiteFooter } from "@/app/components/site/SiteFooter";
-import { getProperties } from "@/lib/properties";
+import { getProperties, getCoverImages } from "@/lib/properties";
 import { getTestimonials } from "@/lib/testimonials";
 import { getHomeHero } from "@/lib/home-hero";
 import { getHomeCollectionSettings } from "@/lib/settings";
@@ -49,6 +49,7 @@ export default async function HomePage() {
   // ficar vazia.
   const featured = properties.filter((property) => property.featured);
   const curated = featured.length > 0 ? featured : properties;
+  const coverImages = await getCoverImages(curated.map((property) => property.id));
 
   return (
     <>
@@ -56,7 +57,12 @@ export default async function HomePage() {
       <main className="flex-1">
         <DynamicHero hero={hero} />
         <CredibilityStrip />
-        <CuratedCollection properties={curated} viewAllHref="/portfolio" layout={homeCollection.layout} />
+        <CuratedCollection
+          properties={curated}
+          coverImages={coverImages}
+          viewAllHref="/portfolio"
+          layout={homeCollection.layout}
+        />
         <AboutRui />
         <SiteTestimonials testimonials={testimonials} />
       </main>
