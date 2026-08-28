@@ -23,6 +23,9 @@ export function PreviewLinkButton({ propertyId, propertyReference }: { propertyI
     if (!link) return;
     await navigator.clipboard.writeText(link);
     setCopied(true);
+    // Volta pro texto normal depois de um tempo, pra poder copiar de novo
+    // sem precisar sair e voltar na tela.
+    setTimeout(() => setCopied(false), 2000);
   }
 
   return (

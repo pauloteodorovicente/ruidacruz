@@ -62,8 +62,8 @@ export function GhlForm({ initial }: { initial: GhlSettings | null }) {
           autoComplete="off"
         />
         <p className="text-xs text-foreground-muted mt-1.5">
-          URL do gatilho &quot;Webhook recebido&quot; do workflow de aviso por e-mail pro Rui. Vazio, o site continua
-          criando o contacto normalmente, só não avisa ninguém.
+          URL do gatilho &quot;Webhook recebido&quot; do workflow de aviso por e-mail de lead novo. Vazio, o site
+          continua criando o contacto normalmente, só não avisa ninguém.
         </p>
       </label>
 

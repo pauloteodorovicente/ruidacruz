@@ -91,7 +91,7 @@ export function VerdelagoUnidades({ verdelagoPhases }: { verdelagoPhases: Verdel
 
         <details className="mb-6 border border-border bg-background text-sm">
           <summary className="cursor-pointer select-none px-4 py-3 text-xs tracking-[0.05em] uppercase text-accent">
-            {u.legendToggle} ⌄
+            {u.legendToggle}
           </summary>
           <dl className="px-4 pb-4 pt-1 flex flex-col gap-2.5 text-foreground-muted">
             <div>
@@ -115,7 +115,7 @@ export function VerdelagoUnidades({ verdelagoPhases }: { verdelagoPhases: Verdel
               <summary className="cursor-pointer select-none px-5 py-4 flex items-center justify-between text-sm">
                 <span className="font-display text-lg">{phase.label}</span>
                 <span className="text-xs text-foreground-muted">
-                  {phase.units.length} {u.fracoesLabel} · {u.verTodas} ↓
+                  {phase.units.length} {u.fracoesLabel} · {u.verTodas}
                 </span>
               </summary>
               <div className="border-t border-border overflow-x-auto">

@@ -20,8 +20,8 @@ export function SellerCtaForm({ initial }: { initial: SellerCtaSettings }) {
       <h2 className="font-display text-lg text-accent">&quot;Está a Pensar Vender?&quot; (menu do site)</h2>
       <p className="text-sm text-foreground-muted">
         Link no menu do site (entre Sobre e Contacto) levando pra uma página própria com um formulário de
-        contacto pra quem quer vender um imóvel — pedido do Rui. Desligado, o link some do menu e a página
-        deixa de existir publicamente.
+        contacto pra quem quer vender um imóvel. Desligado, o link some do menu e a página deixa de existir
+        publicamente.
       </p>
 
       <label className="block">
