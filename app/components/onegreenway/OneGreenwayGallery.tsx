@@ -3,10 +3,9 @@
 import { useState } from "react";
 import Image from "next/image";
 import { useOneGreenwayLanguage } from "@/lib/onegreenway-language-context";
-import { galleryPhotos } from "@/lib/onegreenway-content";
 import { Reveal } from "../Reveal";
 
-export function OneGreenwayGallery() {
+export function OneGreenwayGallery({ photos }: { photos: string[] }) {
   const { t } = useOneGreenwayLanguage();
   const g = t.gallery;
   const [openIndex, setOpenIndex] = useState<number | null>(null);
@@ -18,15 +17,15 @@ export function OneGreenwayGallery() {
         <h2 className="font-display text-3xl md:text-4xl mb-10">{g.title}</h2>
 
         <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
-          {galleryPhotos.map((file, i) => (
+          {photos.map((src, i) => (
             <button
-              key={file}
+              key={src}
               type="button"
               onClick={() => setOpenIndex(i)}
               className="group relative aspect-[4/3] overflow-hidden bg-background"
             >
               <Image
-                src={`/images/onegreenway/${encodeURIComponent(file)}`}
+                src={src}
                 alt={`${t.hero.location} — foto ${i + 1}`}
                 fill
                 sizes="(max-width: 768px) 50vw, 33vw"
@@ -63,12 +62,12 @@ export function OneGreenwayGallery() {
               ‹
             </button>
           )}
-          {openIndex < galleryPhotos.length - 1 && (
+          {openIndex < photos.length - 1 && (
             <button
               type="button"
               onClick={(e) => {
                 e.stopPropagation();
-                setOpenIndex((i) => (i! < galleryPhotos.length - 1 ? i! + 1 : i));
+                setOpenIndex((i) => (i! < photos.length - 1 ? i! + 1 : i));
               }}
               className="absolute right-4 md:right-8 text-white/70 hover:text-white text-3xl"
               aria-label="Próxima foto"
@@ -78,7 +77,7 @@ export function OneGreenwayGallery() {
           )}
           <div className="relative h-[80vh] w-full max-w-4xl" onClick={(e) => e.stopPropagation()}>
             <Image
-              src={`/images/onegreenway/${encodeURIComponent(galleryPhotos[openIndex])}`}
+              src={photos[openIndex]}
               alt={`${t.hero.location} — foto ${openIndex + 1}`}
               fill
               sizes="90vw"

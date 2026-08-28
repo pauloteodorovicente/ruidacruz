@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { getPropertyByReference } from "@/lib/properties";
+import { getPropertyByReference, getPropertyPhotos } from "@/lib/properties";
 import { getSellerCtaSettings } from "@/lib/settings";
 import { getPropertyTypologies, getTypologyTranslations } from "@/lib/property-typologies";
 import { OneGreenwayLanguageProvider } from "@/lib/onegreenway-language-context";
@@ -64,6 +64,10 @@ export default async function OneGreenwayPage() {
   const property = await getPropertyByReference("onegreenway");
   if (!property?.published) notFound();
   const { enabled: sellerCtaEnabled } = await getSellerCtaSettings();
+  // Fotos da galeria agora vêm de property_photos (editável no admin) —
+  // achado (24/08): antes era um array fixo em onegreenway-content.ts,
+  // sem como editar sem mexer em código.
+  const galleryPhotos = await getPropertyPhotos(property.id);
 
   // Tipologias + traduções agora vêm do banco (editável no admin, Fase 23)
   // em vez do array fixo "typologies.groups" de lib/onegreenway-content.ts.
@@ -98,7 +102,7 @@ export default async function OneGreenwayPage() {
         <OneGreenwayIdentification />
         <OneGreenwayNarrative />
         <OneGreenwayAmenities />
-        <OneGreenwayGallery />
+        <OneGreenwayGallery photos={galleryPhotos.map((photo) => photo.storage_path)} />
         <OneGreenwayTypologies groups={typologyGroups} />
         <OneGreenwayBrochure />
         <OneGreenwayLeadForm />
