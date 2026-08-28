@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getPropertyByReference } from "@/lib/properties";
+import { getSellerCtaSettings } from "@/lib/settings";
 import { getPropertyTypologies, getTypologyTranslations } from "@/lib/property-typologies";
 import { OneGreenwayLanguageProvider } from "@/lib/onegreenway-language-context";
 import type { OneGreenwayTypologyGroup } from "@/app/components/onegreenway/OneGreenwayTypologies";
@@ -62,6 +63,7 @@ export default async function OneGreenwayPage() {
   // — mesmo padrão da Leça, Verdelago e Portimão.
   const property = await getPropertyByReference("onegreenway");
   if (!property?.published) notFound();
+  const { enabled: sellerCtaEnabled } = await getSellerCtaSettings();
 
   // Tipologias + traduções agora vêm do banco (editável no admin, Fase 23)
   // em vez do array fixo "typologies.groups" de lib/onegreenway-content.ts.
@@ -90,7 +92,7 @@ export default async function OneGreenwayPage() {
   return (
     <OneGreenwayLanguageProvider>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
-      <OneGreenwayHeader />
+      <OneGreenwayHeader sellerCtaEnabled={sellerCtaEnabled} />
       <main className="flex-1">
         <OneGreenwayHero />
         <OneGreenwayIdentification />
@@ -103,7 +105,7 @@ export default async function OneGreenwayPage() {
       </main>
       <OneGreenwayWhatsApp />
       <ScheduleCallFloating />
-      <OneGreenwayFooter />
+      <OneGreenwayFooter sellerCtaEnabled={sellerCtaEnabled} />
     </OneGreenwayLanguageProvider>
   );
 }

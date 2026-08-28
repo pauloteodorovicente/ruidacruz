@@ -6,7 +6,7 @@ import { useVerdelagoLanguage } from "@/lib/verdelago-language-context";
 import { ThemeToggle } from "../ThemeToggle";
 import { LanguageFlagMenu } from "../LanguageFlagMenu";
 
-export function VerdelagoHeader() {
+export function VerdelagoHeader({ sellerCtaEnabled = false }: { sellerCtaEnabled?: boolean }) {
   const { locale, setLocale, t } = useVerdelagoLanguage();
   const [overHero, setOverHero] = useState(true);
 
@@ -54,6 +54,11 @@ export function VerdelagoHeader() {
         <Link href="/sobre" className={`hover:text-accent transition-colors ${overHero ? "drop-shadow-sm" : ""}`}>
           {t.nav.sobre}
         </Link>
+        {sellerCtaEnabled && (
+          <Link href="/vender" className={`text-accent hover:text-accent-strong transition-colors ${overHero ? "drop-shadow-sm" : ""}`}>
+            {t.nav.vender}
+          </Link>
+        )}
         <Link href="/contacto" className={`hover:text-accent transition-colors ${overHero ? "drop-shadow-sm" : ""}`}>
           {t.nav.contacto}
         </Link>

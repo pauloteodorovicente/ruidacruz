@@ -6,7 +6,7 @@ import { useLanguage } from "@/lib/language-context";
 import { ThemeToggle } from "./ThemeToggle";
 import { LanguageFlagMenu } from "./LanguageFlagMenu";
 
-export function Header() {
+export function Header({ sellerCtaEnabled = false }: { sellerCtaEnabled?: boolean }) {
   const { locale, setLocale, t } = useLanguage();
   const [overHero, setOverHero] = useState(true);
 
@@ -59,6 +59,11 @@ export function Header() {
         <Link href="/sobre" className={`hover:text-accent transition-colors ${overHero ? "drop-shadow-sm" : ""}`}>
           {t.nav.sobre}
         </Link>
+        {sellerCtaEnabled && (
+          <Link href="/vender" className={`text-accent hover:text-accent-strong transition-colors ${overHero ? "drop-shadow-sm" : ""}`}>
+            {t.nav.vender}
+          </Link>
+        )}
         <Link href="/contacto" className={`hover:text-accent transition-colors ${overHero ? "drop-shadow-sm" : ""}`}>
           {t.nav.contacto}
         </Link>

@@ -14,6 +14,7 @@ export const content = {
       contacto: "Contacto",
       guia: "Guia",
       faq: "FAQ",
+      vender: "Vender",
     },
     breadcrumb: "Moradia · Leça do Balio, Matosinhos",
     hero: {
@@ -155,6 +156,7 @@ export const content = {
       contacto: "Contato",
       guia: "Guia",
       faq: "FAQ",
+      vender: "Vender",
     },
     breadcrumb: "Casa · Leça do Balio, Matosinhos",
     hero: {
@@ -296,6 +298,7 @@ export const content = {
       contacto: "Contact",
       guia: "Guide",
       faq: "FAQ",
+      vender: "Sell",
     },
     breadcrumb: "Residence · Leça do Balio, Matosinhos",
     hero: {
@@ -437,6 +440,7 @@ export const content = {
       contacto: "Contacto",
       guia: "Guía",
       faq: "FAQ",
+      vender: "Vender",
     },
     breadcrumb: "Residencia · Leça do Balio, Matosinhos",
     hero: {
@@ -578,6 +582,7 @@ export const content = {
       contacto: "Contact",
       guia: "Guide",
       faq: "FAQ",
+      vender: "Vendre",
     },
     breadcrumb: "Résidence · Leça do Balio, Matosinhos",
     hero: {
@@ -719,6 +724,7 @@ export const content = {
       contacto: "Contatti",
       guia: "Guida",
       faq: "FAQ",
+      vender: "Vendere",
     },
     breadcrumb: "Residenza · Leça do Balio, Matosinhos",
     hero: {
@@ -860,6 +866,7 @@ export const content = {
       contacto: "Kontakt",
       guia: "Leitfaden",
       faq: "FAQ",
+      vender: "Verkaufen",
     },
     breadcrumb: "Residenz · Leça do Balio, Matosinhos",
     hero: {

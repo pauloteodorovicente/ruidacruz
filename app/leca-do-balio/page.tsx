@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getPropertyByReference } from "@/lib/properties";
+import { getSellerCtaSettings } from "@/lib/settings";
 import { LanguageProvider } from "@/lib/language-context";
 import { Header } from "@/app/components/Header";
 import { Hero } from "@/app/components/Hero";
@@ -74,6 +75,7 @@ export default async function LecaDoBalioPage() {
   // despublicar no admin tira a página do ar sem precisar de deploy.
   const property = await getPropertyByReference("122481641-38");
   if (!property?.published) notFound();
+  const { enabled: sellerCtaEnabled } = await getSellerCtaSettings();
 
   return (
     <LanguageProvider>
@@ -81,7 +83,7 @@ export default async function LecaDoBalioPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <Header />
+      <Header sellerCtaEnabled={sellerCtaEnabled} />
       <main className="flex-1">
         <Hero />
         <PropertyIdentification />
@@ -95,7 +97,7 @@ export default async function LecaDoBalioPage() {
         <Related />
         <LeadForm />
       </main>
-      <Footer />
+      <Footer sellerCtaEnabled={sellerCtaEnabled} />
       <WhatsAppFloating />
       <ScheduleCallFloating />
     </LanguageProvider>

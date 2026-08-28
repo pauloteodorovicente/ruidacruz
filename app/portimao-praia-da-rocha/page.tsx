@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getPropertyByReference } from "@/lib/properties";
+import { getSellerCtaSettings } from "@/lib/settings";
 import { PortimaoLanguageProvider } from "@/lib/portimao-language-context";
 import { PortimaoHeader } from "@/app/components/portimao/PortimaoHeader";
 import { PortimaoHero } from "@/app/components/portimao/PortimaoHero";
@@ -50,11 +51,12 @@ export default async function PortimaoPage() {
   // "portimao-praia-da-rocha") — mesmo padrão da Leça e do Verdelago.
   const property = await getPropertyByReference("portimao-praia-da-rocha");
   if (!property?.published) notFound();
+  const { enabled: sellerCtaEnabled } = await getSellerCtaSettings();
 
   return (
     <PortimaoLanguageProvider>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
-      <PortimaoHeader />
+      <PortimaoHeader sellerCtaEnabled={sellerCtaEnabled} />
       <main className="flex-1">
         <PortimaoHero />
         <PortimaoIdentification />
@@ -66,7 +68,7 @@ export default async function PortimaoPage() {
       </main>
       <PortimaoWhatsApp />
       <ScheduleCallFloating />
-      <PortimaoFooter />
+      <PortimaoFooter sellerCtaEnabled={sellerCtaEnabled} />
     </PortimaoLanguageProvider>
   );
 }

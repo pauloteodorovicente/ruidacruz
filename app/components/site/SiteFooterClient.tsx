@@ -1,36 +1,39 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
-import { useVerdelagoLanguage } from "@/lib/verdelago-language-context";
+import { useTranslations } from "next-intl";
+import { Link } from "@/i18n/navigation";
+import { BUSINESS_INFO } from "@/lib/business-info";
 
-// Handle igual ao usado no SiteFooter — ver app/components/site/SiteFooter.tsx
+// Handle hardcoded aqui de propósito — lib/business-info.ts (Fase 21) ainda
+// não existe nesta branch (baseada direto na main). Quando a Fase 21 for
+// mesclada, trocar por BUSINESS_INFO.instagramUrl pra ter uma fonte só.
 const INSTAGRAM_URL = "https://www.instagram.com/ruidacruz_yourbestchoice/";
 
-export function VerdelagoFooter({ sellerCtaEnabled = false }: { sellerCtaEnabled?: boolean }) {
-  const { t } = useVerdelagoLanguage();
-  const f = t.footer;
+export function SiteFooterClient({ sellerCtaEnabled }: { sellerCtaEnabled: boolean }) {
+  const nav = useTranslations("siteNav");
+  const f = useTranslations("siteFooter");
 
   return (
     <footer className="bg-[#040815] text-white/50 px-6 py-8 md:px-12 text-center text-xs leading-relaxed">
       <Image src="/images/rui/assinatura.png" alt="" width={63} height={72} className="mx-auto mb-5 h-14 w-auto opacity-90" />
       <div className="flex justify-center gap-6 mb-4 text-[11px] tracking-[0.1em] uppercase">
         <Link href="/sobre" className="hover:text-white/80 transition-colors">
-          {t.nav.sobre}
+          {nav("sobre")}
         </Link>
         {sellerCtaEnabled && (
           <Link href="/vender" className="text-accent hover:text-accent-strong transition-colors">
-            {t.nav.vender}
+            {nav("vender")}
           </Link>
         )}
         <Link href="/contacto" className="hover:text-white/80 transition-colors">
-          {t.nav.contacto}
+          {nav("contacto")}
         </Link>
         <Link href="/guia-comprador-estrangeiro" className="hover:text-white/80 transition-colors">
-          {t.nav.guia}
+          {nav("guia")}
         </Link>
         <Link href="/faq" className="hover:text-white/80 transition-colors">
-          {t.nav.faq}
+          {nav("faq")}
         </Link>
       </div>
       <a
@@ -46,9 +49,12 @@ export function VerdelagoFooter({ sellerCtaEnabled = false }: { sellerCtaEnabled
           <circle cx="17.5" cy="6.5" r="0.6" fill="currentColor" stroke="none" />
         </svg>
       </a>
-      <p>{f.rights}</p>
-      <p className="mt-1">{f.ami}</p>
-      <p className="mt-1">{f.whatsapp}</p>
+      <p>{f("rights")}</p>
+      <p className="mt-1">{f("ami")}</p>
+      <p className="mt-1">{f("whatsapp")}</p>
+      <p className="mt-1">
+        {BUSINESS_INFO.streetAddress}, {BUSINESS_INFO.postalCode} {BUSINESS_INFO.addressLocality}
+      </p>
     </footer>
   );
 }

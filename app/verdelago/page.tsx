@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getPropertyByReference } from "@/lib/properties";
+import { getSellerCtaSettings } from "@/lib/settings";
 import { getPropertyTypologies, getPropertyUnits, getTypologyFloorplans } from "@/lib/property-typologies";
 import { VerdelagoLanguageProvider } from "@/lib/verdelago-language-context";
 import type { VerdelagoPhaseGroup, VerdelagoUnitRow } from "@/app/components/verdelago/VerdelagoUnidades";
@@ -72,6 +73,7 @@ export default async function VerdelagoPage() {
   // despublicar no admin tira a página do ar sem precisar de deploy.
   const property = await getPropertyByReference("verdelago");
   if (!property?.published) notFound();
+  const { enabled: sellerCtaEnabled } = await getSellerCtaSettings();
 
   // Tipologias + unidades + plantas agora vêm do banco (editável no admin,
   // Fase 23) em vez dos arquivos fixos lib/verdelago-units.ts e o export
@@ -130,7 +132,7 @@ export default async function VerdelagoPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <VerdelagoHeader />
+      <VerdelagoHeader sellerCtaEnabled={sellerCtaEnabled} />
       <main className="flex-1">
         <VerdelagoHero />
         <VerdelagoOverview />
@@ -150,7 +152,7 @@ export default async function VerdelagoPage() {
       </main>
       <VerdelagoWhatsApp />
       <ScheduleCallFloating />
-      <VerdelagoFooter />
+      <VerdelagoFooter sellerCtaEnabled={sellerCtaEnabled} />
     </VerdelagoLanguageProvider>
   );
 }

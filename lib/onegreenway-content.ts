@@ -14,7 +14,7 @@ export const content: Record<
   {
     meta: { title: string; description: string };
     breadcrumb: string;
-    nav: { sobre: string; contacto: string; guia: string; faq: string };
+    nav: { sobre: string; contacto: string; guia: string; faq: string; vender: string };
     hero: { eyebrow: string; location: string };
     identification: {
       tags: string[];
@@ -59,7 +59,8 @@ export const content: Record<
       "sobre": "Sobre",
       "contacto": "Contacto",
       "guia": "Guia",
-      "faq": "FAQ"
+      "faq": "FAQ",
+      "vender": "Vender"
     },
     "hero": {
       "eyebrow": "Empreendimento Residencial",
@@ -146,7 +147,8 @@ export const content: Record<
       "sobre": "Sobre",
       "contacto": "Contacto",
       "guia": "Guia",
-      "faq": "FAQ"
+      "faq": "FAQ",
+      "vender": "Vender"
     },
     "hero": {
       "eyebrow": "Empreendimento Residencial",
@@ -233,7 +235,8 @@ export const content: Record<
       "sobre": "About",
       "contacto": "Contact",
       "guia": "Guide",
-      "faq": "FAQ"
+      "faq": "FAQ",
+      "vender": "Sell"
     },
     "hero": {
       "eyebrow": "Residential Development",
@@ -320,7 +323,8 @@ export const content: Record<
       "sobre": "Acerca de",
       "contacto": "Contacto",
       "guia": "Guía",
-      "faq": "FAQ"
+      "faq": "FAQ",
+      "vender": "Vender"
     },
     "hero": {
       "eyebrow": "Complejo residencial",
@@ -407,7 +411,8 @@ export const content: Record<
       "sobre": "À propos",
       "contacto": "Contact",
       "guia": "Guide",
-      "faq": "FAQ"
+      "faq": "FAQ",
+      "vender": "Vendre"
     },
     "hero": {
       "eyebrow": "Programme immobilier résidentiel",
@@ -494,7 +499,8 @@ export const content: Record<
       "sobre": "Informazioni su",
       "contacto": "Contatti",
       "guia": "Guida",
-      "faq": "FAQ"
+      "faq": "FAQ",
+      "vender": "Vendere"
     },
     "hero": {
       "eyebrow": "Complesso residenziale",
@@ -581,7 +587,8 @@ export const content: Record<
       "sobre": "Über",
       "contacto": "Kontakt",
       "guia": "Leitfaden",
-      "faq": "FAQ"
+      "faq": "FAQ",
+      "vender": "Verkaufen"
     },
     "hero": {
       "eyebrow": "Wohnbauprojekt",
