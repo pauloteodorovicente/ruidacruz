@@ -49,17 +49,30 @@ function sectionsForMode(property: Property, photos: PropertyPhoto[], floorplans
 
 export async function generateMetadata({
   params,
+  searchParams,
 }: {
   params: Promise<{ locale: string; referencia: string }>;
+  searchParams: Promise<{ preview?: string }>;
 }): Promise<Metadata> {
   const { locale, referencia } = await params;
-  const rawProperty = await getPropertyByReference(referencia);
+  const { preview } = await searchParams;
+  // Mesma regra de visibilidade da página em si (admin vê rascunho, link de
+  // preview vê o rascunho daquele token, visitante comum só vê publicado) —
+  // achado 28/08: antes usava só a busca pública aqui, então um imóvel ainda
+  // rascunho perdia título/imagem própria no título da aba e na prévia de
+  // link (WhatsApp etc.), caindo no genérico do site inteiro.
+  const isAdmin = await isAdminAuthenticated();
+  const rawProperty = isAdmin
+    ? await getPropertyByReferenceForAdmin(referencia)
+    : preview
+      ? await getPropertyByReferenceWithPreviewToken(referencia, preview)
+      : await getPropertyByReference(referencia);
   if (!rawProperty) return {};
 
   const translation =
     locale === rawProperty.source_locale ? null : await getPropertyTranslation(rawProperty.id, locale as Locale);
   const property = localizeProperty(rawProperty, translation);
-  const photos = await getPropertyPhotos(property.id);
+  const photos = (await getPropertyPhotos(property.id)).filter((photo) => photo.visible);
   const coverImage = photos[0]?.storage_path ?? "/images/rui/hero-portrait.jpg";
 
   const title = `${property.title} | Rui Da Cruz`;
