@@ -155,6 +155,13 @@
     "architectCredit": {
       "architecture": "Architektur",
       "landscape": "Garten- und Landschaftsgestaltung"
+    },
+    "lightbox": {
+      "viewAll": "Vollständige Galerie Ansehen ({count, plural, one {# Foto} other {# Fotos}})",
+      "close": "Schließen",
+      "previous": "Zurück",
+      "next": "Weiter",
+      "video": "Video"
     }
   },
   "guiaCompradorEstrangeiro": {

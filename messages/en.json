@@ -165,6 +165,13 @@
     "architectCredit": {
       "architecture": "Architecture",
       "landscape": "Landscape"
+    },
+    "lightbox": {
+      "viewAll": "View Full Gallery ({count, plural, one {# photo} other {# photos}})",
+      "close": "Close",
+      "previous": "Previous",
+      "next": "Next",
+      "video": "Video"
     }
   },
   "guiaCompradorEstrangeiro": {

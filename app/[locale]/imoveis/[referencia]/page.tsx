@@ -30,10 +30,15 @@ import type { ReactNode } from "react";
 // mais importa naquele tipo de imóvel — Arquitetura destaca quem assinou o
 // projeto, Paisagem/Terreno e Urbano adiantam a Localização, só que com
 // enquadramentos diferentes (jardim/terreno vs. vizinhança/cidade).
-function sectionsForMode(property: Property, photos: PropertyPhoto[], floorplans: PropertyFloorplan[]): ReactNode[] {
+function sectionsForMode(
+  property: Property,
+  photos: PropertyPhoto[],
+  floorplans: PropertyFloorplan[],
+  galleryVideo?: { src: string; poster?: string },
+): ReactNode[] {
   const details = <PropertyDetails property={property} key="details" />;
   const highlights = <PropertyHighlights property={property} key="highlights" />;
-  const gallery = <PropertyGallery photos={photos} alt={property.title} key="gallery" />;
+  const gallery = <PropertyGallery photos={photos} alt={property.title} video={galleryVideo} key="gallery" />;
   const floorplan = <PropertyFloorPlan floorplans={floorplans} propertyReference={property.reference} key="floorplan" />;
   const location = <PropertyLocation property={property} key="location" />;
 
@@ -183,6 +188,11 @@ export default async function ImovelPage({
   // outro imóvel. Achado 24/08: um Terreno sem fotos estava herdando a
   // fachada da Leça do Balio na Hero e no JSON-LD por causa desse fallback.
   const coverImage = photos[0]?.storage_path ?? "/images/rui/hero-portrait.jpg";
+  // O mesmo vídeo do Hero (quando existir) também aparece na galeria, como
+  // card próprio antes das fotos (pedido do Paulo, 02/09) — mesma fonte de
+  // dado, sem duplicar upload nem campo novo pra isso.
+  const heroVideoItem = propertyHero?.media_type === "video" ? propertyHero.items[0] : undefined;
+  const galleryVideo = heroVideoItem ? { src: heroVideoItem.src, poster: heroVideoItem.poster } : undefined;
   const p = await getTranslations({ locale, namespace: "property" });
 
   // Anterior/próximo "infinito" — nunca mostra fim de lista, dá a volta.
@@ -234,7 +244,7 @@ export default async function ImovelPage({
         ) : (
           <PropertyHero property={property} coverImage={coverImage} />
         )}
-        {sectionsForMode(property, photos, floorplans)}
+        {sectionsForMode(property, photos, floorplans, galleryVideo)}
         <SiteLeadForm
           // zone aqui é a "Zona GHL" (dropdown fechado), não a "Zona" de
           // exibição da página — ver migração 0014_ghl_zone.sql.

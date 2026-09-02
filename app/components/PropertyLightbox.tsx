@@ -1,0 +1,174 @@
+"use client";
+
+import { useEffect, useCallback, useRef } from "react";
+import Image from "next/image";
+import { useTranslations } from "next-intl";
+
+// Lightbox genérico pro molde de imóvel (o da Leça do Balio é fixo por
+// arquivo próprio — este aqui recebe os itens por prop, então serve
+// qualquer imóvel). Mesmo padrão de interação (teclado, tira de miniaturas
+// com paginação, trava o scroll do body) do Lightbox.tsx da Leça, só que o
+// vídeo aqui é sempre um arquivo próprio hospedado (<video>), nunca embed do
+// YouTube — o vídeo do imóvel já entra no site como arquivo baixado e
+// re-hospedado, não como link direto (ver PropertyDynamicHero).
+export type LightboxItem =
+  | { kind: "image"; src: string; alt: string }
+  | { kind: "video"; src: string; poster?: string };
+
+type PropertyLightboxProps = {
+  items: LightboxItem[];
+  open: boolean;
+  index: number;
+  onIndexChange: (index: number) => void;
+  onClose: () => void;
+};
+
+export function PropertyLightbox({ items, open, index, onIndexChange, onClose }: PropertyLightboxProps) {
+  const lb = useTranslations("property.lightbox");
+  const thumbRefs = useRef<(HTMLButtonElement | null)[]>([]);
+  const stripRef = useRef<HTMLDivElement>(null);
+
+  const next = useCallback(() => onIndexChange((index + 1) % items.length), [index, items.length, onIndexChange]);
+  const prev = useCallback(
+    () => onIndexChange((index - 1 + items.length) % items.length),
+    [index, items.length, onIndexChange],
+  );
+
+  useEffect(() => {
+    if (!open) return;
+    function onKey(e: KeyboardEvent) {
+      if (e.key === "Escape") onClose();
+      if (e.key === "ArrowRight") next();
+      if (e.key === "ArrowLeft") prev();
+    }
+    window.addEventListener("keydown", onKey);
+    document.body.style.overflow = "hidden";
+    return () => {
+      window.removeEventListener("keydown", onKey);
+      document.body.style.overflow = "";
+    };
+  }, [open, onClose, next, prev]);
+
+  useEffect(() => {
+    thumbRefs.current[index]?.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
+  }, [index]);
+
+  function pageStrip(direction: 1 | -1) {
+    const strip = stripRef.current;
+    const first = thumbRefs.current[0];
+    const second = thumbRefs.current[1];
+    if (!strip || !first || !second) return;
+    const itemPitch = second.offsetLeft - first.offsetLeft;
+    const visibleCount = Math.max(1, Math.floor(strip.clientWidth / itemPitch));
+    const pageAmount = Math.max(1, visibleCount - 2) * itemPitch;
+    strip.scrollBy({ left: direction * pageAmount, behavior: "smooth" });
+  }
+
+  if (!open || items.length === 0) return null;
+  const current = items[index];
+
+  return (
+    <div className="fixed inset-0 z-50 bg-black/95 flex flex-col">
+      <button
+        onClick={onClose}
+        aria-label={lb("close")}
+        className="absolute top-4 right-4 z-10 flex h-11 w-11 items-center justify-center text-white/70 hover:text-white text-3xl leading-none"
+      >
+        ×
+      </button>
+      <span className="absolute top-6 left-6 z-10 text-white/50 text-xs tracking-[0.1em]">
+        {index + 1} / {items.length}
+      </span>
+
+      <div className="relative flex-1 flex items-center justify-center px-14 min-h-0">
+        {items.length > 1 && (
+          <>
+            <button
+              onClick={prev}
+              aria-label={lb("previous")}
+              className="absolute left-1 md:left-6 z-10 flex h-12 w-12 items-center justify-center text-white/60 hover:text-white text-4xl"
+            >
+              ‹
+            </button>
+            <button
+              onClick={next}
+              aria-label={lb("next")}
+              className="absolute right-1 md:right-6 z-10 flex h-12 w-12 items-center justify-center text-white/60 hover:text-white text-4xl"
+            >
+              ›
+            </button>
+          </>
+        )}
+
+        <div className="relative w-full h-full max-w-5xl mx-auto flex items-center justify-center">
+          {current.kind === "video" ? (
+            <div className="w-full aspect-video max-h-full">
+              <video
+                key={current.src}
+                className="h-full w-full"
+                src={current.src}
+                poster={current.poster}
+                controls
+                autoPlay
+                playsInline
+              />
+            </div>
+          ) : (
+            <div className="relative w-full h-full">
+              <Image src={current.src} alt={current.alt} fill sizes="100vw" quality={90} className="object-contain" />
+            </div>
+          )}
+        </div>
+      </div>
+
+      {items.length > 1 && (
+        <div className="relative shrink-0 border-t border-white/10 bg-black/60 px-12 py-3">
+          <button
+            onClick={() => pageStrip(-1)}
+            aria-label={lb("previous")}
+            className="absolute left-1 top-1/2 -translate-y-1/2 z-10 flex h-10 w-10 items-center justify-center rounded-full bg-black/50 text-white/70 hover:text-white hover:bg-black/70 transition-colors text-lg"
+          >
+            ‹
+          </button>
+          <button
+            onClick={() => pageStrip(1)}
+            aria-label={lb("next")}
+            className="absolute right-1 top-1/2 -translate-y-1/2 z-10 flex h-10 w-10 items-center justify-center rounded-full bg-black/50 text-white/70 hover:text-white hover:bg-black/70 transition-colors text-lg"
+          >
+            ›
+          </button>
+          <div
+            ref={stripRef}
+            className="flex gap-2 overflow-x-auto scroll-smooth [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+          >
+            {items.map((item, i) => (
+              <button
+                key={i}
+                ref={(el) => {
+                  thumbRefs.current[i] = el;
+                }}
+                onClick={() => onIndexChange(i)}
+                className={`relative h-14 w-14 md:h-16 md:w-16 shrink-0 overflow-hidden transition-opacity ${
+                  i === index ? "ring-2 ring-accent opacity-100" : "opacity-50 hover:opacity-80"
+                }`}
+              >
+                {item.kind === "video" ? (
+                  <>
+                    {item.poster ? (
+                      <Image src={item.poster} alt={lb("video")} fill sizes="64px" className="object-cover" />
+                    ) : (
+                      <div className="h-full w-full bg-black" />
+                    )}
+                    <span className="absolute inset-0 flex items-center justify-center bg-black/30 text-white text-lg">▶</span>
+                  </>
+                ) : (
+                  <Image src={item.src} alt={item.alt} fill sizes="64px" className="object-cover" />
+                )}
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}

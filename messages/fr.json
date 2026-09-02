@@ -155,6 +155,13 @@
     "architectCredit": {
       "architecture": "Architecture",
       "landscape": "Aménagement paysager"
+    },
+    "lightbox": {
+      "viewAll": "Voir la Galerie Complète ({count, plural, one {# photo} other {# photos}})",
+      "close": "Fermer",
+      "previous": "Précédent",
+      "next": "Suivant",
+      "video": "Vidéo"
     }
   },
   "guiaCompradorEstrangeiro": {

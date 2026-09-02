@@ -13,6 +13,11 @@ export type HeroItem = {
   position_y: number; // 0-100, object-position Y
   zoom: number; // 1-2.5, transform: scale()
   label?: string;
+  // Frame de capa pro item de vídeo — evita o navegador mostrar um retângulo
+  // preto/em branco antes do primeiro frame carregar, e serve de miniatura
+  // onde o vídeo aparece fora do Hero (ex.: galeria do imóvel). Opcional —
+  // sem isso, o navegador usa o comportamento padrão dele.
+  poster?: string;
 };
 
 export type HomeHero = {

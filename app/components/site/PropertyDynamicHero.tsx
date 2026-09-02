@@ -94,6 +94,7 @@ export function PropertyDynamicHero({
             className="absolute inset-0 h-full w-full object-cover"
             style={itemStyle(items[0])}
             src={items[0].src}
+            poster={items[0].poster}
             autoPlay
             muted
             loop
