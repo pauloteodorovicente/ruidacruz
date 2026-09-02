@@ -47,7 +47,12 @@ export function PropertyDetails({ property }: { property: Property }) {
           </div>
           <RevealText text={property.title} className="font-display text-4xl md:text-5xl leading-tight mb-6" />
           {property.description && (
-            <p className="font-body text-lg text-foreground-muted leading-relaxed max-w-xl">{property.description}</p>
+            // whitespace-pre-line: respeita as quebras de linha/parágrafo que já
+            // vêm no texto (achado 02/09 — sem isso o HTML colapsa tudo numa
+            // linha só corrida, mesmo com \n\n salvos no banco).
+            <p className="font-body text-lg text-foreground-muted leading-relaxed max-w-xl whitespace-pre-line">
+              {property.description}
+            </p>
           )}
         </Reveal>
 
