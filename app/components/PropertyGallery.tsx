@@ -8,13 +8,12 @@ import { useCustomCursor } from "@/lib/use-custom-cursor";
 import { PropertyLightbox, type LightboxItem } from "./PropertyLightbox";
 import type { PropertyPhoto } from "@/lib/properties";
 
-// Grade sempre limitada a GRID_CAP quadros no total (pedido do Paulo, 02/09
-// e reforçado depois: "devem ter apenas sempre 12 quadros na galeria", o
-// vídeo entrando nessa conta, não somando por cima). O resto só aparece
-// dentro do lightbox, que abre com "Ver Galeria Completa". O vídeo (quando
-// o imóvel tem Hero em vídeo — ver PropertyDynamicHero) entra por último,
-// não primeiro — ele já é a primeira coisa que aparece lá em cima no Hero,
-// repetir em destaque na galeria seria redundante.
+// Grade sempre limitada a GRID_CAP fotos (pedido do Paulo, 02/09). O resto
+// só aparece dentro do lightbox, que abre com "Ver Galeria Completa". O
+// vídeo do Hero (quando existir — ver PropertyDynamicHero) NÃO aparece como
+// quadro na grade — já está em destaque lá em cima, repetir aqui seria
+// redundante — mas continua acessível dentro do lightbox, como o último
+// item da navegação.
 const GRID_CAP = 12;
 
 export function PropertyGallery({
@@ -34,20 +33,15 @@ export function PropertyGallery({
 
   if (photos.length === 0 && !video) return null;
 
-  // Vídeo ocupa uma das GRID_CAP vagas, não soma por cima — com vídeo, sobram
-  // GRID_CAP - 1 vagas pra foto.
-  const photoCap = video ? GRID_CAP - 1 : GRID_CAP;
-  const visiblePhotos = photos.slice(0, photoCap);
-  const hasMore = photos.length > photoCap;
+  const visiblePhotos = photos.slice(0, GRID_CAP);
+  const hasMore = photos.length > GRID_CAP;
 
-  // Mesma ordem visual da grade (fotos primeiro, vídeo por último) também no
-  // lightbox — pra abrir sempre no item certo e a contagem "X / N" bater com
-  // a posição de cada quadro.
+  // O vídeo entra no lightbox (por último), mesmo não tendo quadro próprio
+  // na grade — só fica acessível abrindo "Ver Galeria Completa".
   const items: LightboxItem[] = [
     ...photos.map((photo) => ({ kind: "image" as const, src: photo.storage_path, alt })),
     ...(video ? [{ kind: "video" as const, src: video.src, poster: video.poster }] : []),
   ];
-  const videoIndex = video ? items.length - 1 : -1;
 
   function openAt(index: number) {
     setLightboxIndex(index);
@@ -84,34 +78,6 @@ export function PropertyGallery({
             </div>
           ))}
 
-          {video && (
-            <button
-              type="button"
-              onClick={() => openAt(videoIndex)}
-              onMouseEnter={() => setHovering(true)}
-              onMouseLeave={() => setHovering(false)}
-              data-gallery-cursor
-              aria-label={lb("video")}
-              className="group relative aspect-square overflow-hidden md:cursor-none"
-            >
-              {video.poster ? (
-                <Image
-                  src={video.poster}
-                  alt={alt}
-                  fill
-                  sizes="(max-width: 768px) 50vw, 33vw"
-                  className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
-                />
-              ) : (
-                <div className="absolute inset-0 bg-black" />
-              )}
-              <span className="absolute inset-0 flex items-center justify-center bg-black/25 transition-colors group-hover:bg-black/35">
-                <span className="flex h-14 w-14 items-center justify-center rounded-full border border-white/70 text-2xl text-white backdrop-blur-sm">
-                  ▶
-                </span>
-              </span>
-            </button>
-          )}
           <div
             ref={cursorRef}
             className={`pointer-events-none absolute top-0 left-0 z-20 hidden h-16 w-16 items-center justify-center rounded-full border border-white/70 bg-black/30 backdrop-blur-sm text-[11px] tracking-[0.1em] uppercase text-white transition-opacity duration-200 md:flex ${
@@ -122,7 +88,7 @@ export function PropertyGallery({
           </div>
         </div>
 
-        {hasMore && (
+        {(hasMore || video) && (
           <button
             onClick={() => openAt(0)}
             className="mt-8 mx-auto flex flex-wrap items-center justify-center gap-x-2 gap-y-1 border border-border px-6 py-3 text-sm tracking-[0.08em] uppercase text-foreground transition-all hover:border-accent hover:text-accent hover:-translate-y-0.5 focus-visible:outline-2 focus-visible:outline-accent focus-visible:outline-offset-2 text-center"
