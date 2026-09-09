@@ -19,6 +19,6 @@ export const BUSINESS_INFO = {
   addressLocality: "Lisboa",
   addressRegion: "Parque das Nações",
   addressCountry: "PT",
-  instagramUrl: "https://www.instagram.com/ruidacruz_yourbestchoice/",
+  instagramUrl: "https://www.instagram.com/_ruidacruz_yourbestchoice/",
   url: "https://ruidacruzconsultor.com",
 };

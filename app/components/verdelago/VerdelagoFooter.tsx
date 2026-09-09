@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useVerdelagoLanguage } from "@/lib/verdelago-language-context";
 
 // Handle igual ao usado no SiteFooter — ver app/components/site/SiteFooter.tsx
-const INSTAGRAM_URL = "https://www.instagram.com/ruidacruz_yourbestchoice/";
+const INSTAGRAM_URL = "https://www.instagram.com/_ruidacruz_yourbestchoice/";
 
 export function VerdelagoFooter({ sellerCtaEnabled = false }: { sellerCtaEnabled?: boolean }) {
   const { t } = useVerdelagoLanguage();

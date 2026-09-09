@@ -5,7 +5,7 @@ import Link from "next/link";
 import { usePortimaoLanguage } from "@/lib/portimao-language-context";
 
 // Handle igual ao usado no SiteFooter — ver app/components/site/SiteFooter.tsx
-const INSTAGRAM_URL = "https://www.instagram.com/ruidacruz_yourbestchoice/";
+const INSTAGRAM_URL = "https://www.instagram.com/_ruidacruz_yourbestchoice/";
 
 export function PortimaoFooter({ sellerCtaEnabled = false }: { sellerCtaEnabled?: boolean }) {
   const { t } = usePortimaoLanguage();

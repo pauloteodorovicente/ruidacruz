@@ -8,7 +8,7 @@ import { BUSINESS_INFO } from "@/lib/business-info";
 // Handle hardcoded aqui de propósito — lib/business-info.ts (Fase 21) ainda
 // não existe nesta branch (baseada direto na main). Quando a Fase 21 for
 // mesclada, trocar por BUSINESS_INFO.instagramUrl pra ter uma fonte só.
-const INSTAGRAM_URL = "https://www.instagram.com/ruidacruz_yourbestchoice/";
+const INSTAGRAM_URL = "https://www.instagram.com/_ruidacruz_yourbestchoice/";
 
 export function SiteFooterClient({ sellerCtaEnabled }: { sellerCtaEnabled: boolean }) {
   const nav = useTranslations("siteNav");
