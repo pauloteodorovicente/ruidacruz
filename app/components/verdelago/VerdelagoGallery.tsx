@@ -132,7 +132,7 @@ export function VerdelagoGallery() {
           className="group relative mt-3 aspect-video w-full overflow-hidden rounded-lg border border-border"
         >
           <Image
-            src="/images/verdelago/passadico-thumb.jpg"
+            src="/images/verdelago/verdelago-empreendimento-thumb.jpg"
             alt={g.playVideo}
             fill
             sizes="(max-width: 768px) 100vw, 1024px"

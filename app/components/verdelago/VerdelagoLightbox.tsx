@@ -5,12 +5,13 @@ import Image from "next/image";
 import { galleryImages } from "@/lib/verdelago-content";
 import { useVerdelagoLanguage } from "@/lib/verdelago-language-context";
 
-// Vídeo local da Arenilha TV (inauguração do passadiço Altura/Praia Verde,
-// pedido do Rui, 23/08) — autorizado por ele pra reuso. Auto-hospedado
-// (não é YouTube como o da Leça) porque não veio um ID de canal, só o
-// arquivo — comprimido de 42,7MB pra 16,2MB via ffmpeg antes de subir.
-const LOCAL_VIDEO_SRC = "/videos/verdelago/passadico-altura-praia-verde.mp4";
-const LOCAL_VIDEO_THUMB = "/images/verdelago/passadico-thumb.jpg";
+// Vídeo de apresentação do empreendimento (Espaços&Casas/gotofilms,
+// pedido do Rui via WhatsApp, 23/09) — substitui o vídeo do passadiço,
+// que não mostrava o empreendimento em si. Baixado do YouTube
+// (youtube.com/watch?v=rSrpfe7-cHQ) e re-hospedado, mesmo padrão da Leça —
+// comprimido de 1080p/51MB pra 720p/~19,2MB via ffmpeg antes de subir.
+const LOCAL_VIDEO_SRC = "/videos/verdelago/verdelago-empreendimento.mp4";
+const LOCAL_VIDEO_THUMB = "/images/verdelago/verdelago-empreendimento-thumb.jpg";
 
 type Item = { type: "video" } | { type: "image"; src: string; alt: Record<string, string> };
 
