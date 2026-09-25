@@ -13,6 +13,10 @@ export type Locale = "pt-PT" | "pt-BR" | "en" | "es" | "fr" | "it" | "de";
 export type Property = {
   id: string;
   reference: string;
+  // Endereço amigável opcional da ficha (/imoveis/{slug}) — ver migração
+  // 0021_property_slug.sql. A referência (nº da REMAX) continua sendo o "Ref."
+  // mostrado ao comprador; o slug só muda a URL.
+  slug: string | null;
   title: string;
   property_type: PropertyType;
   typology: string | null;
@@ -79,6 +83,26 @@ export type PropertyTranslation = {
   highlights: string[];
   translation_source: "ai" | "human";
 };
+
+// Trecho da URL da ficha genérica (/imoveis/{isto}): o slug quando o imóvel tem
+// um, senão a referência (comportamento de sempre). Único ponto que decide
+// isso, pra card da home, sitemap, SEO e navegação nunca divergirem.
+export function propertyPathSegment(property: Pick<Property, "reference" | "slug">): string {
+  return property.slug || property.reference;
+}
+
+// Normaliza o que o Rui digita no campo "URL amigável" do admin: minúsculas,
+// sem acento, só letras/números separados por hífen. Devolve null se sobrar
+// nada (campo vazio = imóvel continua na URL pela referência).
+export function normalizeSlug(input: string): string | null {
+  const slug = input
+    .normalize("NFD")
+    .replace(/[̀-ͯ]/g, "")
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+  return slug || null;
+}
 
 // Regra automática de recomendação de tema — Fase 5/6. Heurística inicial
 // simples, afinar quando o inventário real chegar. Rui pode sempre

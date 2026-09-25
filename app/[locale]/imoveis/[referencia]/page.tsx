@@ -1,8 +1,8 @@
-import { notFound } from "next/navigation";
+import { notFound, permanentRedirect } from "next/navigation";
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import { getProperties, getPropertyByReference, getPropertyPhotos, getPropertyFloorplans, getPropertyTranslation } from "@/lib/properties";
-import { localizeProperty } from "@/lib/property-types";
+import { localizeProperty, propertyPathSegment } from "@/lib/property-types";
 import { localeAlternates } from "@/lib/locale-alternates";
 import { getPropertyByReferenceForAdmin, getPropertyByReferenceWithPreviewToken, getOffMarketTeaser } from "@/lib/admin-properties";
 import { isAdminAuthenticated } from "@/lib/admin-auth";
@@ -85,7 +85,7 @@ export async function generateMetadata({
   return {
     title,
     description,
-    alternates: { languages: localeAlternates(`/imoveis/${referencia}`) },
+    alternates: { languages: localeAlternates(`/imoveis/${propertyPathSegment(property)}`) },
     openGraph: {
       title,
       description,
@@ -105,7 +105,7 @@ function propertyJsonLd(property: Property, coverImage: string, locale: string) 
     "@type": "RealEstateListing",
     name: property.title,
     description: property.description ?? undefined,
-    url: `https://ruidacruzconsultor.com${prefix}/imoveis/${property.reference}`,
+    url: `https://ruidacruzconsultor.com${prefix}/imoveis/${propertyPathSegment(property)}`,
     image: coverImage.startsWith("http") ? coverImage : `https://ruidacruzconsultor.com${coverImage}`,
     address: {
       "@type": "PostalAddress",
@@ -132,7 +132,7 @@ function propertyJsonLd(property: Property, coverImage: string, locale: string) 
 function hrefForProperty(property: Property, locale: string): string {
   if (property.is_campaign_page && property.campaign_path) return property.campaign_path;
   const prefix = locale === "pt-PT" ? "" : `/${locale}`;
-  return `${prefix}/imoveis/${property.reference}`;
+  return `${prefix}/imoveis/${propertyPathSegment(property)}`;
 }
 
 export default async function ImovelPage({
@@ -164,6 +164,16 @@ export default async function ImovelPage({
     const teaser = !isAdmin && !preview ? await getOffMarketTeaser(referencia) : null;
     if (teaser) return <OffMarketTeaser teaser={teaser} locale={locale} />;
     notFound();
+  }
+
+  // O endereço oficial da ficha é o do slug (quando o imóvel tem um): quem
+  // chega pela referência (link antigo, nº REMAX) vai pro amigável, sem quebrar
+  // nenhum link já compartilhado. Só pro visitante comum — admin e link de
+  // pré-visualização seguem na URL em que entraram (o preview carrega o token
+  // na query, que um redirect perderia).
+  if (!isAdmin && !preview && rawProperty.slug && referencia !== rawProperty.slug) {
+    const localePrefix = locale === "pt-PT" ? "" : `/${locale}`;
+    permanentRedirect(`${localePrefix}/imoveis/${rawProperty.slug}`);
   }
 
   // Título/descrição/destaques no idioma sendo visto — pt-PT (fonte) mostra
@@ -221,7 +231,7 @@ export default async function ImovelPage({
         items={[
           { name: "Home", path: prefix || "/" },
           { name: portfolioLabel("title"), path: `${prefix}/portfolio` },
-          { name: property.title, path: `${prefix}/imoveis/${property.reference}` },
+          { name: property.title, path: `${prefix}/imoveis/${propertyPathSegment(property)}` },
         ]}
       />
       {(isAdmin || preview) && !property.published && (

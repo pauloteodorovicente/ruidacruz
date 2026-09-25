@@ -6,7 +6,7 @@ import { revalidatePath } from "next/cache";
 import { after } from "next/server";
 import { isAdminAuthenticated } from "@/lib/admin-auth";
 import { createAdminClient } from "@/lib/supabase/admin";
-import { recommendLayoutMode } from "@/lib/property-types";
+import { recommendLayoutMode, normalizeSlug } from "@/lib/property-types";
 import { translatePropertyToAllLocales } from "@/lib/translate-property";
 
 function str(formData: FormData, key: string): string {
@@ -34,6 +34,7 @@ export async function saveProperty(formData: FormData) {
 
   const record = {
     reference: str(formData, "reference"),
+    slug: normalizeSlug(str(formData, "slug")),
     title: str(formData, "title"),
     property_type: propertyType,
     typology: str(formData, "typology") || null,
@@ -66,6 +67,22 @@ export async function saveProperty(formData: FormData) {
   }
 
   const supabase = createAdminClient();
+
+  // O slug e a referência dividem o mesmo trecho de URL (/imoveis/{x}) — um
+  // slug igual à referência de OUTRO imóvel faria as duas fichas disputarem o
+  // mesmo endereço. (Slug repetido em outro slug já é barrado pelo índice único.)
+  if (record.slug) {
+    const { data: clash } = await supabase
+      .from("properties")
+      .select("id")
+      .or(`reference.eq.${record.slug},slug.eq.${record.slug}`)
+      .neq("id", id || "00000000-0000-0000-0000-000000000000")
+      .limit(1);
+    if (clash && clash.length > 0) {
+      throw new Error(`A URL amigável "${record.slug}" já é usada por outro imóvel. Escolha outra.`);
+    }
+  }
+
   const { data: saved, error } = id
     ? await supabase.from("properties").update(record).eq("id", id).select("id").single()
     : await supabase.from("properties").insert(record).select("id").single();
@@ -88,6 +105,7 @@ export async function saveProperty(formData: FormData) {
   revalidatePath("/admin");
   revalidatePath("/");
   revalidatePath(`/imoveis/${record.reference}`);
+  if (record.slug) revalidatePath(`/imoveis/${record.slug}`);
   redirect("/admin");
 }
 
@@ -131,6 +149,9 @@ export async function duplicateProperty(id: string) {
       // números/localização originais como ponto de partida.
       is_campaign_page: false,
       campaign_path: null,
+      // Slug é único — a cópia nunca herda o do original (senão o índice único
+      // barraria a duplicação); quem duplica define o da cópia no admin.
+      slug: null,
     })
     .select("reference")
     .single();

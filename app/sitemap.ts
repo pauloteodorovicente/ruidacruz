@@ -1,6 +1,7 @@
 import type { MetadataRoute } from "next";
 import { routing } from "@/i18n/routing";
 import { getProperties } from "@/lib/properties";
+import { propertyPathSegment } from "@/lib/property-types";
 
 const BASE_URL = "https://ruidacruzconsultor.com";
 
@@ -34,7 +35,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     .filter((property) => !property.is_campaign_page)
     .flatMap((property) =>
       routing.locales.map((locale) => ({
-        url: localizedPath(locale, `/imoveis/${property.reference}`),
+        url: localizedPath(locale, `/imoveis/${propertyPathSegment(property)}`),
         changeFrequency: "weekly" as const,
         priority: 0.9,
       })),

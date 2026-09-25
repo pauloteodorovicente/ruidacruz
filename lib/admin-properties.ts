@@ -18,30 +18,36 @@ export async function getAllPropertiesForAdmin(): Promise<Property[]> {
   return data ?? [];
 }
 
+// "reference" é o trecho da URL — aceita referência (nº REMAX) ou slug amigável
+// (ver getPropertyByReference em lib/properties.ts).
 export async function getPropertyByReferenceForAdmin(reference: string): Promise<Property | null> {
   const supabase = createAdminClient();
-  const { data, error } = await supabase
-    .from("properties")
-    .select("*")
-    .eq("reference", reference)
-    .maybeSingle();
+  const byReference = await supabase.from("properties").select("*").eq("reference", reference).maybeSingle();
+  if (byReference.error) throw byReference.error;
+  if (byReference.data) return byReference.data;
 
-  if (error) throw error;
-  return data;
+  const bySlug = await supabase.from("properties").select("*").eq("slug", reference).maybeSingle();
+  if (bySlug.error) throw bySlug.error;
+  return bySlug.data;
 }
 
 // Link de pré-visualização temporário — token confere e a expiração é
 // checada aqui mesmo, na leitura (ver comentário na migration 0015).
 export async function getPropertyByReferenceWithPreviewToken(reference: string, token: string): Promise<Property | null> {
   const supabase = createAdminClient();
-  const { data, error } = await supabase
+  const byReference = await supabase
     .from("properties")
     .select("*")
     .eq("reference", reference)
     .eq("preview_token", token)
     .maybeSingle();
-
-  if (error) throw error;
+  if (byReference.error) throw byReference.error;
+  let data = byReference.data;
+  if (!data) {
+    const bySlug = await supabase.from("properties").select("*").eq("slug", reference).eq("preview_token", token).maybeSingle();
+    if (bySlug.error) throw bySlug.error;
+    data = bySlug.data;
+  }
   if (!data || !data.preview_token_expires_at) return null;
   if (new Date(data.preview_token_expires_at).getTime() < Date.now()) return null;
   return data;
@@ -67,14 +73,24 @@ export type OffMarketTeaser = {
 // de pedido em vez do 404 seco.
 export async function getOffMarketTeaser(reference: string): Promise<OffMarketTeaser | null> {
   const supabase = createAdminClient();
-  const { data, error } = await supabase
+  const columns = "id, reference, title, zone, ghl_zone, municipality, property_type, typology, business_type";
+  const byReference = await supabase
     .from("properties")
-    .select("id, reference, title, zone, ghl_zone, municipality, property_type, typology, business_type")
+    .select(columns)
     .eq("reference", reference)
     .eq("status", "off_market")
     .eq("published", true)
     .maybeSingle();
+  if (byReference.error) throw byReference.error;
+  if (byReference.data) return byReference.data;
 
-  if (error) throw error;
-  return data;
+  const bySlug = await supabase
+    .from("properties")
+    .select(columns)
+    .eq("slug", reference)
+    .eq("status", "off_market")
+    .eq("published", true)
+    .maybeSingle();
+  if (bySlug.error) throw bySlug.error;
+  return bySlug.data;
 }

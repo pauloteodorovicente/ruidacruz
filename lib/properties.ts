@@ -27,16 +27,20 @@ export async function getProperties(): Promise<Property[]> {
   return data ?? [];
 }
 
+// "reference" aqui é o trecho da URL: aceita tanto a referência (nº REMAX) quanto
+// o slug amigável do imóvel — as duas URLs precisam achar a mesma ficha (a
+// página redireciona a antiga pra amigável). Duas consultas simples em vez de
+// um .or() com o texto da URL dentro do filtro (evita injetar vírgula/parêntese
+// no PostgREST).
 export async function getPropertyByReference(reference: string): Promise<Property | null> {
   const supabase = await createClient();
-  const { data, error } = await supabase
-    .from("properties")
-    .select("*")
-    .eq("reference", reference)
-    .maybeSingle();
+  const byReference = await supabase.from("properties").select("*").eq("reference", reference).maybeSingle();
+  if (byReference.error) throw byReference.error;
+  if (byReference.data) return byReference.data;
 
-  if (error) throw error;
-  return data;
+  const bySlug = await supabase.from("properties").select("*").eq("slug", reference).maybeSingle();
+  if (bySlug.error) throw bySlug.error;
+  return bySlug.data;
 }
 
 export async function getPropertyPhotos(propertyId: string): Promise<PropertyPhoto[]> {

@@ -2,7 +2,7 @@
 
 import { useMemo, useState } from "react";
 import { saveProperty } from "./actions";
-import { recommendLayoutMode, type Property } from "@/lib/property-types";
+import { recommendLayoutMode, propertyPathSegment, type Property } from "@/lib/property-types";
 import { Select } from "@/app/components/Select";
 import { PreviewLinkButton } from "./PreviewLinkButton";
 import { ColorThemePicker } from "./ColorThemePicker";
@@ -90,6 +90,21 @@ export function PropertyForm({ property }: { property?: Property }) {
           <Field label="Título">
             <input name="title" defaultValue={property?.title} required className={inputClass} />
           </Field>
+          {!property?.is_campaign_page && (
+            <Field label="URL amigável (opcional)">
+              <input
+                name="slug"
+                defaultValue={property?.slug ?? ""}
+                placeholder="apartamento-t2-penha-de-franca"
+                className={inputClass}
+              />
+              <p className="text-xs text-foreground-muted mt-1.5">
+                Endereço da página: ruidacruzconsultor.com/imoveis/<strong>isto</strong>. Só letras, números e
+                hífens (acentos e espaços são ajustados ao salvar). Vazio = usa a referência. O endereço antigo pela
+                referência continua funcionando e leva pro novo.
+              </p>
+            </Field>
+          )}
           <Field label="Tipo">
             <Select
               name="property_type"
@@ -145,7 +160,7 @@ export function PropertyForm({ property }: { property?: Property }) {
         {property && (
           <div className="flex flex-col gap-3">
             <a
-              href={`/imoveis/${property.reference}`}
+              href={`/imoveis/${propertyPathSegment(property)}`}
               target="_blank"
               rel="noopener noreferrer"
               className="self-start text-xs tracking-[0.08em] uppercase text-accent hover:text-accent-strong transition-colors"

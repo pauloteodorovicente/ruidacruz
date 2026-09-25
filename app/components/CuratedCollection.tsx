@@ -7,6 +7,7 @@ import { useLocale, useTranslations } from "next-intl";
 import { Reveal } from "./Reveal";
 import { FavoriteButton } from "./FavoriteButton";
 import type { Property } from "@/lib/properties";
+import { propertyPathSegment } from "@/lib/property-types";
 
 // Recebe as propriedades já buscadas no Supabase por um Server Component pai
 // (app/page.tsx) — mantém o padrão do site de conteúdo traduzido em Client
@@ -38,10 +39,10 @@ const DRAG_CLICK_SUPPRESS_THRESHOLD = 6;
 
 function hrefFor(property: Property) {
   // Landings de campanha (Leça, Verdelago) têm rota própria fora do
-  // template genérico de imóvel; o resto usa a ficha /imoveis/[ref].
+  // template genérico de imóvel; o resto usa a ficha /imoveis/[slug ou ref].
   return property.is_campaign_page && property.campaign_path
     ? property.campaign_path
-    : `/imoveis/${property.reference}`;
+    : `/imoveis/${propertyPathSegment(property)}`;
 }
 
 function PropertyCard({
