@@ -12,7 +12,7 @@ import { ScheduleCallFloating } from "@/app/components/ScheduleCallFloating";
 import { SiteFooter } from "@/app/components/site/SiteFooter";
 import { getProperties, getCoverImages } from "@/lib/properties";
 import { getTestimonials } from "@/lib/testimonials";
-import { getHomeHero } from "@/lib/home-hero";
+import { getHomeHero, getHomeHeroCtaSettings } from "@/lib/home-hero";
 import { getHomeCollectionSettings } from "@/lib/settings";
 
 export async function generateMetadata({
@@ -41,6 +41,7 @@ export default async function HomePage() {
   const properties = await getProperties();
   const testimonials = await getTestimonials();
   const hero = await getHomeHero();
+  const heroCta = await getHomeHeroCtaSettings();
   const homeCollection = await getHomeCollectionSettings();
 
   // Home mostra só a coleção curada (imóveis marcados como Destaque no
@@ -55,7 +56,7 @@ export default async function HomePage() {
     <>
       <SiteHeader />
       <main className="flex-1">
-        <DynamicHero hero={hero} />
+        <DynamicHero hero={hero} cta={heroCta} />
         <CredibilityStrip />
         <CuratedCollection
           properties={curated}

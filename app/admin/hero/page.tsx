@@ -1,14 +1,19 @@
 import { redirect } from "next/navigation";
 import { isAdminAuthenticated } from "@/lib/admin-auth";
-import { getHomeHero } from "@/lib/home-hero";
+import { getHomeHero, getHomeHeroCtaSettingsForAdmin } from "@/lib/home-hero";
 import { getAllPropertyPhotosForGallery } from "@/lib/admin-gallery";
 import { HeroEditor } from "./HeroEditor";
-import { saveHomeHero } from "../hero-actions";
+import { HeroButtonsForm } from "./HeroButtonsForm";
+import { saveHomeHero, saveHomeHeroCta } from "../hero-actions";
 
 export default async function HeroAdminPage() {
   if (!(await isAdminAuthenticated())) redirect("/admin/login");
 
-  const [hero, galleryPhotos] = await Promise.all([getHomeHero(), getAllPropertyPhotosForGallery()]);
+  const [hero, galleryPhotos, ctaSettings] = await Promise.all([
+    getHomeHero(),
+    getAllPropertyPhotosForGallery(),
+    getHomeHeroCtaSettingsForAdmin(),
+  ]);
 
   return (
     <main className="min-h-screen bg-background px-6 py-10 md:px-12">
@@ -20,6 +25,7 @@ export default async function HeroAdminPage() {
           quadros pra reordenar o mosaico.
         </p>
         <HeroEditor initial={hero} galleryPhotos={galleryPhotos} onSave={saveHomeHero} />
+        <HeroButtonsForm initial={ctaSettings} onSave={saveHomeHeroCta} />
       </div>
     </main>
   );

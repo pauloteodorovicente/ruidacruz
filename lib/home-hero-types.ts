@@ -28,6 +28,46 @@ export type HomeHero = {
   updated_at: string;
 };
 
+// Destino dos 2 botões de texto abaixo do Hero da Home ("Portfólio" e "Falar
+// com Rui"). O RÓTULO de cada botão continua vindo das traduções (7 idiomas);
+// só o DESTINO é editável no painel (/admin/hero) — achado 08/10: o 2º botão
+// apontava pra "/#contacto", âncora que a Home nunca teve, então não levava a
+// lugar nenhum.
+export type HeroCtaSettings = {
+  primary: string;
+  secondary: string;
+};
+
+export const HERO_CTA_DEFAULTS: HeroCtaSettings = {
+  primary: "/#colecao",
+  secondary: "/contacto",
+};
+
+// Destinos prontos pro dropdown do painel — o Paulo/Rui escolhem sem digitar
+// endereço. "Outro endereço" (campo livre) cobre o resto.
+export const HERO_LINK_PRESETS: { value: string; label: string }[] = [
+  { value: "/#colecao", label: "Coleção em destaque (mais abaixo, na própria Home)" },
+  { value: "/portfolio", label: "Portfólio completo" },
+  { value: "/contacto", label: "Página de contacto" },
+  { value: "/vender", label: "Vender com o Rui" },
+  { value: "/sobre", label: "Sobre o Rui" },
+];
+
+// Aceita só caminho interno ("/contacto", "/#colecao"), https://, mailto: ou
+// tel: — nunca javascript:, data: etc. (o valor vira href de um link público).
+export function isValidHeroHref(href: string): boolean {
+  const value = href.trim();
+  if (!value || value.length > 300 || /\s/.test(value)) return false;
+  if (value.startsWith("/")) return !value.startsWith("//") && !value.includes("\\");
+  if (value.startsWith("mailto:") || value.startsWith("tel:")) return value.length > 7;
+  try {
+    const url = new URL(value);
+    return url.protocol === "https:" && url.hostname.includes(".");
+  } catch {
+    return false;
+  }
+}
+
 const LAYOUT_ITEM_COUNT: Record<HeroLayout, number> = {
   single: 1,
   duo: 2,

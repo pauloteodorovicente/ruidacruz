@@ -3,7 +3,8 @@
 import { useEffect, useRef, useState } from "react";
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
-import type { HeroItem, HeroLayout, HomeHero } from "@/lib/home-hero-types";
+import { HERO_CTA_DEFAULTS } from "@/lib/home-hero-types";
+import type { HeroCtaSettings, HeroItem, HeroLayout, HomeHero } from "@/lib/home-hero-types";
 
 const GRID_AREAS: Record<Exclude<HeroLayout, "single">, string> = {
   duo: `"a b"`,
@@ -23,7 +24,14 @@ const CELL_LETTERS = ["a", "b", "c", "d", "e"];
 // proxy.ts sobre não compartilhar componente entre as duas árvores) — só que
 // dirigida pelo home_hero configurável no painel, e suportando de 1 a 5
 // mídias em mosaico em vez de um vídeo/imagem fixo por código.
-export function DynamicHero({ hero }: { hero: HomeHero | null }) {
+export function DynamicHero({
+  hero,
+  cta = HERO_CTA_DEFAULTS,
+}: {
+  hero: HomeHero | null;
+  // Destino dos 2 botões abaixo do Hero — editável em /admin/hero.
+  cta?: HeroCtaSettings;
+}) {
   const h = useTranslations("home.hero");
   const wrapperRef = useRef<HTMLDivElement>(null);
   const textRef = useRef<HTMLDivElement>(null);
@@ -152,21 +160,40 @@ export function DynamicHero({ hero }: { hero: HomeHero | null }) {
       <div className="bg-background px-6 py-10 md:px-12 flex flex-col items-center text-center gap-4">
         <p className="text-foreground-muted max-w-md">{h("subtitle")}</p>
         <div className="flex flex-wrap justify-center gap-4">
-          <Link
-            href="/#colecao"
+          <HeroButton
+            href={cta.primary}
             className="border border-border px-6 py-3 text-sm tracking-[0.08em] uppercase text-foreground transition-all hover:border-accent hover:text-accent hover:-translate-y-0.5"
           >
             {h("ctaPrimary")}
-          </Link>
-          <Link
-            href="/#contacto"
+          </HeroButton>
+          <HeroButton
+            href={cta.secondary}
             className="px-6 py-3 text-sm tracking-[0.08em] uppercase text-foreground-muted transition-all hover:text-accent"
           >
             {h("ctaSecondary")}
-          </Link>
+          </HeroButton>
         </div>
       </div>
     </>
+  );
+}
+
+// Caminho interno ("/contacto", "/#colecao") usa o Link do next-intl (põe o
+// prefixo de idioma sozinho); https:// abre em nova aba, mailto:/tel: no
+// próprio app. O valor já foi validado ao guardar (isValidHeroHref).
+function HeroButton({ href, className, children }: { href: string; className: string; children: React.ReactNode }) {
+  if (href.startsWith("/")) {
+    return (
+      <Link href={href} className={className}>
+        {children}
+      </Link>
+    );
+  }
+  const isWeb = href.startsWith("https://");
+  return (
+    <a href={href} className={className} {...(isWeb ? { target: "_blank", rel: "noopener noreferrer" } : {})}>
+      {children}
+    </a>
   );
 }
 
