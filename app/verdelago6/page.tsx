@@ -91,7 +91,7 @@ export default async function Verdelago6Page() {
       <main className="flex-1">
         <VerdelagoFase6Hero />
         <VerdelagoFase6 total={rows.length} available={available} />
-        {phases.length > 0 && <VerdelagoUnidades verdelagoPhases={phases} />}
+        {phases.length > 0 && <VerdelagoUnidades verdelagoPhases={phases} openFirst />}
         <VerdelagoBrochure />
         <VerdelagoLocation />
         <VerdelagoLeadForm

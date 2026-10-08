@@ -60,7 +60,17 @@ function SortButton({
 // é terminologia real do registo predial português, mas não é óbvia pra
 // quem não é do mercado local. Rótulos traduzidos nas 7 línguas (Paulo
 // percebeu, 10/08, que essa seção não trocava de idioma).
-export function VerdelagoUnidades({ verdelagoPhases }: { verdelagoPhases: VerdelagoPhaseGroup[] }) {
+// openFirst: abre a primeira fase já no carregamento. Padrão = tudo fechado (a
+// página geral /verdelago abre com os cards fechados e o visitante abre o que
+// quiser — pedido do Paulo, 08/10); a landing /verdelago6, que é só da Fase 6,
+// passa openFirst pra a tabela já aparecer aberta.
+export function VerdelagoUnidades({
+  verdelagoPhases,
+  openFirst = false,
+}: {
+  verdelagoPhases: VerdelagoPhaseGroup[];
+  openFirst?: boolean;
+}) {
   const { t, locale } = useVerdelagoLanguage();
   const u = t.unidades;
   const [sortKey, setSortKey] = useState<SortKey | null>(null);
@@ -117,7 +127,7 @@ export function VerdelagoUnidades({ verdelagoPhases }: { verdelagoPhases: Verdel
 
         <div className="flex flex-col gap-3">
           {sortedPhases.map((phase, phaseIndex) => (
-            <details key={phase.label} className="border border-border bg-background group" open={phaseIndex === 0}>
+            <details key={phase.label} className="border border-border bg-background group" open={openFirst && phaseIndex === 0}>
               <summary className="cursor-pointer select-none px-5 py-4 flex items-center justify-between text-sm">
                 <span className="font-display text-lg">{phase.label}</span>
                 <span className="text-xs text-foreground-muted">
