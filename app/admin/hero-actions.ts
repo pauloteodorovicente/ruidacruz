@@ -4,9 +4,43 @@ import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 import { isAdminAuthenticated } from "@/lib/admin-auth";
 import { createAdminClient } from "@/lib/supabase/admin";
-import type { HeroItem, HeroLayout, HeroMediaType } from "@/lib/home-hero";
+import type { HeroItem, HeroLayout, HeroMediaType, HeroCtaSettings } from "@/lib/home-hero";
+import { isValidHeroHref } from "@/lib/home-hero-types";
 
 const BUCKET = "hero-media";
+
+// Destino dos 2 botões abaixo do Hero da Home. Fica em `settings`
+// (chave home_hero_cta), separado do home_hero: guardar a mídia do Hero nunca
+// mexe nos botões e vice-versa, e não precisa de migração (a Home antiga
+// simplesmente ignora a chave nova).
+export async function saveHomeHeroCta(settings: HeroCtaSettings): Promise<{ ok: true } | { ok: false; error: string }> {
+  if (!(await isAdminAuthenticated())) redirect("/admin/login");
+
+  const primary = settings.primary.trim();
+  const secondary = settings.secondary.trim();
+  if (!isValidHeroHref(primary) || !isValidHeroHref(secondary)) {
+    return {
+      ok: false,
+      error:
+        "Endereço inválido. Use um caminho do site (ex.: /contacto), um link https://… , mailto: ou tel:.",
+    };
+  }
+
+  const supabase = createAdminClient();
+  const { error } = await supabase
+    .from("settings")
+    .upsert(
+      { key: "home_hero_cta", value: { primary, secondary }, updated_at: new Date().toISOString() },
+      { onConflict: "key" },
+    );
+  if (error) return { ok: false, error: error.message };
+
+  // "layout" porque a Home existe em 7 idiomas (/, /en, /es...) — revalidar
+  // só "/" não garantiria os outros 6.
+  revalidatePath("/", "layout");
+  revalidatePath("/admin/hero");
+  return { ok: true };
+}
 
 export async function saveHomeHero(mediaType: HeroMediaType, layout: HeroLayout, items: HeroItem[]) {
   if (!(await isAdminAuthenticated())) redirect("/admin/login");
