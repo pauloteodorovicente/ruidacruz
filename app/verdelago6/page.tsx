@@ -82,7 +82,8 @@ export default async function Verdelago6Page() {
       vendido: unit.status === "vendido",
     }));
   const phases: VerdelagoPhaseGroup[] = rows.length > 0 ? [{ label: FASE_6_LABEL, units: rows }] : [];
-  const available = rows.filter((row) => !row.vendido).length;
+  const sold = rows.filter((row) => row.vendido).length;
+  const available = rows.length - sold;
 
   return (
     <VerdelagoLanguageProvider>
@@ -90,7 +91,7 @@ export default async function Verdelago6Page() {
       <VerdelagoHeader sellerCtaEnabled={sellerCtaEnabled} />
       <main className="flex-1">
         <VerdelagoFase6Hero />
-        <VerdelagoFase6 total={rows.length} available={available} />
+        <VerdelagoFase6 available={available} sold={sold} />
         {phases.length > 0 && <VerdelagoUnidades verdelagoPhases={phases} openFirst />}
         <VerdelagoBrochure />
         <VerdelagoLocation />

@@ -7,10 +7,10 @@ import { RevealText } from "../RevealText";
 
 // Faixa de lançamento da Fase 6 (pedido do Rui, 30/09–02/10): texto dele,
 // traduzido nas 7 línguas em lib/verdelago-content.ts (bloco `fase6`). Os
-// números vêm do banco via app/verdelago/page.tsx (total de frações da fase e
-// quantas seguem disponíveis), então acompanham o que o admin marcar como
+// números vêm do banco via app/verdelago6/page.tsx (quantas frações seguem
+// disponíveis e quantas já foram vendidas), então acompanham o que o admin marcar como
 // vendido/oculto — e a página não renderiza esta faixa quando a fase esgota.
-export function VerdelagoFase6({ total, available }: { total: number; available: number }) {
+export function VerdelagoFase6({ available, sold }: { available: number; sold: number }) {
   const { t } = useVerdelagoLanguage();
   const f = t.fase6;
 
@@ -75,8 +75,8 @@ export function VerdelagoFase6({ total, available }: { total: number; available:
                 <dt className="text-[11px] tracking-[0.1em] uppercase text-foreground-muted">{f.statAvailable}</dt>
               </div>
               <div className="p-5">
-                <dd className="font-display text-4xl leading-none mb-2">{total}</dd>
-                <dt className="text-[11px] tracking-[0.1em] uppercase text-foreground-muted">{f.statTotal}</dt>
+                <dd className="font-display text-4xl leading-none mb-2">{sold}</dd>
+                <dt className="text-[11px] tracking-[0.1em] uppercase text-foreground-muted">{f.statSold}</dt>
               </div>
             </dl>
           </div>
