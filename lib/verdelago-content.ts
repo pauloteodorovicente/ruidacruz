@@ -105,6 +105,8 @@ export const content = {
       ctaUnits: "Ver frações e valores",
       ctaContact: "Agendar visita",
       imageAlt: "Clube e SPA do Verdelago Resort",
+      teaserText: "21 frações, incluindo 4 de tipologia T4, junto ao Clube, ao SPA e ao acesso à praia.",
+      teaserCta: "Conhecer a Fase 6",
     },
     unidades: {
       eyebrow: "Unidades",
@@ -254,6 +256,8 @@ export const content = {
       ctaUnits: "Ver frações e valores",
       ctaContact: "Agendar visita",
       imageAlt: "Clube e SPA do Verdelago Resort",
+      teaserText: "21 frações, incluindo 4 de tipologia T4, junto ao Clube, ao SPA e ao acesso à praia.",
+      teaserCta: "Conhecer a Fase 6",
     },
     unidades: {
       eyebrow: "Unidades",
@@ -403,6 +407,8 @@ export const content = {
       ctaUnits: "View fractions and values",
       ctaContact: "Schedule a visit",
       imageAlt: "Verdelago Resort Club and Spa",
+      teaserText: "21 units, including 4 four-bedroom units, located next to the club, the spa, and the beach access.",
+      teaserCta: "Learn About Phase 6",
     },
     unidades: {
       eyebrow: "Units",
@@ -552,6 +558,8 @@ export const content = {
       ctaUnits: "Ver fracciones y valores",
       ctaContact: "Concertar una visita",
       imageAlt: "Club y spa del Verdelago Resort",
+      teaserText: "21 viviendas, incluidas 4 de tipo T4, situadas junto al club, al spa y al acceso a la playa.",
+      teaserCta: "Conocer la Fase 6",
     },
     unidades: {
       eyebrow: "Unidades",
@@ -701,6 +709,8 @@ export const content = {
       ctaUnits: "Afficher les fractions et les valeurs",
       ctaContact: "Prendre rendez-vous",
       imageAlt: "Club et spa du Verdelago Resort",
+      teaserText: "21 appartements, dont 4 de type T4, situés à proximité du club, du spa et de l'accès à la plage.",
+      teaserCta: "En savoir plus sur la phase 6",
     },
     unidades: {
       eyebrow: "Unités",
@@ -850,6 +860,8 @@ export const content = {
       ctaUnits: "Visualizza frazioni e valori",
       ctaContact: "Prenota una visita",
       imageAlt: "Club e SPA del Verdelago Resort",
+      teaserText: "21 appartamenti, di cui 4 di tipologia T4, situati vicino al Club, alla SPA e all’accesso alla spiaggia.",
+      teaserCta: "Scopri la Fase 6",
     },
     unidades: {
       eyebrow: "Unità",
@@ -999,6 +1011,8 @@ export const content = {
       ctaUnits: "Brüche und Werte anzeigen",
       ctaContact: "Besuch vereinbaren",
       imageAlt: "Club und Spa des Verdelago Resorts",
+      teaserText: "21 Wohnungen, darunter 4 vom Typ T4, in unmittelbarer Nähe zum Club, zum Spa und zum Strandzugang.",
+      teaserCta: "Phase 6 kennenlernen",
     },
     unidades: {
       eyebrow: "Einheiten",

@@ -15,10 +15,12 @@ const VERDELAGO_PROPERTY: LeadFormProperty = {
   zone: "Sul",
 };
 
-export function VerdelagoLeadForm() {
+// A landing da Fase 6 (/verdelago6) passa o próprio imóvel, pros leads dela
+// ficarem etiquetados à parte (site-verdelago6) no GHL e no painel.
+export function VerdelagoLeadForm({ property = VERDELAGO_PROPERTY }: { property?: LeadFormProperty }) {
   const { t, locale } = useVerdelagoLanguage();
   const f = t.form;
-  const { status, handleSubmit } = useLeadForm(VERDELAGO_PROPERTY);
+  const { status, handleSubmit } = useLeadForm(property);
 
   return (
     <section id="contacto" className="bg-[#040815] text-[#f5f3ef] px-6 pt-16 pb-28 md:px-12 md:py-24">

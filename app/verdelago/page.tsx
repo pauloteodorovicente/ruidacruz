@@ -10,7 +10,7 @@ import type { VerdelagoFeaturedUnit } from "@/app/components/verdelago/Verdelago
 import { VerdelagoHeader } from "@/app/components/verdelago/VerdelagoHeader";
 import { VerdelagoHero } from "@/app/components/verdelago/VerdelagoHero";
 import { VerdelagoOverview } from "@/app/components/verdelago/VerdelagoOverview";
-import { VerdelagoFase6 } from "@/app/components/verdelago/VerdelagoFase6";
+import { VerdelagoFase6Teaser } from "@/app/components/verdelago/VerdelagoFase6Teaser";
 import { VerdelagoNarrative } from "@/app/components/verdelago/VerdelagoNarrative";
 import { VerdelagoAmenities } from "@/app/components/verdelago/VerdelagoAmenities";
 import { VerdelagoLifestyle } from "@/app/components/verdelago/VerdelagoLifestyle";
@@ -121,12 +121,9 @@ export default async function VerdelagoPage() {
     .sort((a, b) => phaseNumber(b.label) - phaseNumber(a.label) || a.index - b.index)
     .map(({ label }) => ({ label, units: phaseMap.get(label)! }));
 
-  // Faixa de lançamento da Fase 6: números vêm do banco, então acompanham o
-  // que o admin marcar como vendido/oculto. Some sozinha quando não restar
-  // nenhuma fração disponível na fase.
-  const launchUnits = verdelagoPhases.find((phase) => phase.label === "Fase 6")?.units ?? [];
-  const launchAvailable = launchUnits.filter((unit) => !unit.vendido).length;
-  const fase6Launch = launchAvailable > 0 ? { total: launchUnits.length, available: launchAvailable } : null;
+  // A chamada pra landing da Fase 6 só aparece enquanto essa página estiver
+  // publicada (imóvel "verdelago6" no admin).
+  const fase6Landing = await getPropertyByReference("verdelago6");
 
   const featuredUnits: VerdelagoFeaturedUnit[] = visibleUnits
     .filter((unit) => unit.featured && unit.status === "disponivel")
@@ -154,7 +151,7 @@ export default async function VerdelagoPage() {
       <VerdelagoHeader sellerCtaEnabled={sellerCtaEnabled} />
       <main className="flex-1">
         <VerdelagoHero />
-        {fase6Launch && <VerdelagoFase6 total={fase6Launch.total} available={fase6Launch.available} />}
+        {fase6Landing?.published && <VerdelagoFase6Teaser />}
         <VerdelagoOverview />
         <VerdelagoNarrative />
         <VerdelagoAmenities />
