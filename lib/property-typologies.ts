@@ -17,6 +17,11 @@ export type TypologyFloorplan = {
   position: number;
 };
 
+// disponivel = à venda; vendido = aparece na tabela pública marcada como
+// Vendido; oculto = fora da página (ex.: fração unida a outra) mas mantida no
+// admin pra poder voltar atrás. Ver migração 0022_property_unit_status.sql.
+export type UnitStatus = "disponivel" | "vendido" | "oculto";
+
 export type PropertyUnit = {
   id: string;
   property_id: string;
@@ -27,6 +32,7 @@ export type PropertyUnit = {
   price: number | null;
   position: number;
   featured: boolean;
+  status: UnitStatus;
 };
 
 export type TypologyTranslation = {

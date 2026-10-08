@@ -152,6 +152,8 @@ export async function saveUnit(formData: FormData) {
     fraction: str(formData, "fraction") || null,
     price: numOrNull(formData, "price"),
     featured: formData.get("featured") === "on",
+    // Valor fora da lista cai pra "disponivel" em vez de estourar o check do banco.
+    status: (["disponivel", "vendido", "oculto"] as const).find((s) => s === str(formData, "status")) ?? "disponivel",
   };
 
   if (id) {

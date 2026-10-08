@@ -10,6 +10,7 @@ import type { VerdelagoFeaturedUnit } from "@/app/components/verdelago/Verdelago
 import { VerdelagoHeader } from "@/app/components/verdelago/VerdelagoHeader";
 import { VerdelagoHero } from "@/app/components/verdelago/VerdelagoHero";
 import { VerdelagoOverview } from "@/app/components/verdelago/VerdelagoOverview";
+import { VerdelagoFase6 } from "@/app/components/verdelago/VerdelagoFase6";
 import { VerdelagoNarrative } from "@/app/components/verdelago/VerdelagoNarrative";
 import { VerdelagoAmenities } from "@/app/components/verdelago/VerdelagoAmenities";
 import { VerdelagoLifestyle } from "@/app/components/verdelago/VerdelagoLifestyle";
@@ -92,9 +93,13 @@ export default async function VerdelagoPage() {
     if (!plantaSrcByTypologyId.has(f.typology_id)) plantaSrcByTypologyId.set(f.typology_id, f.storage_path);
   }
 
+  // "oculto" (ex.: fração unida a outra num T4) fica fora da página inteira;
+  // "vendido" continua na tabela, marcado como Vendido.
+  const visibleUnits = units.filter((unit) => unit.status !== "oculto");
+
   const phaseOrder: string[] = [];
   const phaseMap = new Map<string, VerdelagoUnitRow[]>();
-  for (const unit of units) {
+  for (const unit of visibleUnits) {
     const label = unit.phase_label ?? "Sem fase";
     if (!phaseMap.has(label)) {
       phaseMap.set(label, []);
@@ -105,12 +110,26 @@ export default async function VerdelagoPage() {
       fracao: unit.fraction,
       tipologia: (unit.typology_id && typologyNameById.get(unit.typology_id)) || "—",
       valor: unit.price,
+      vendido: unit.status === "vendido",
     });
   }
-  const verdelagoPhases: VerdelagoPhaseGroup[] = phaseOrder.map((label) => ({ label, units: phaseMap.get(label)! }));
+  // Fase mais recente primeiro (e aberta por padrão na tabela) — "Fase 6" antes
+  // de "Fase 5"... Rótulo sem número mantém a posição original.
+  const phaseNumber = (label: string) => Number(label.match(/\d+/)?.[0] ?? -1);
+  const verdelagoPhases: VerdelagoPhaseGroup[] = phaseOrder
+    .map((label, index) => ({ label, index }))
+    .sort((a, b) => phaseNumber(b.label) - phaseNumber(a.label) || a.index - b.index)
+    .map(({ label }) => ({ label, units: phaseMap.get(label)! }));
 
-  const featuredUnits: VerdelagoFeaturedUnit[] = units
-    .filter((unit) => unit.featured)
+  // Faixa de lançamento da Fase 6: números vêm do banco, então acompanham o
+  // que o admin marcar como vendido/oculto. Some sozinha quando não restar
+  // nenhuma fração disponível na fase.
+  const launchUnits = verdelagoPhases.find((phase) => phase.label === "Fase 6")?.units ?? [];
+  const launchAvailable = launchUnits.filter((unit) => !unit.vendido).length;
+  const fase6Launch = launchAvailable > 0 ? { total: launchUnits.length, available: launchAvailable } : null;
+
+  const featuredUnits: VerdelagoFeaturedUnit[] = visibleUnits
+    .filter((unit) => unit.featured && unit.status === "disponivel")
     .map((unit) => ({
       id: unit.id,
       tipologia: (unit.typology_id && typologyNameById.get(unit.typology_id)) || "—",
@@ -135,6 +154,7 @@ export default async function VerdelagoPage() {
       <VerdelagoHeader sellerCtaEnabled={sellerCtaEnabled} />
       <main className="flex-1">
         <VerdelagoHero />
+        {fase6Launch && <VerdelagoFase6 total={fase6Launch.total} available={fase6Launch.available} />}
         <VerdelagoOverview />
         <VerdelagoNarrative />
         <VerdelagoAmenities />

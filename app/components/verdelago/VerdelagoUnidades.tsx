@@ -4,7 +4,13 @@ import { useMemo, useState } from "react";
 import { useVerdelagoLanguage } from "@/lib/verdelago-language-context";
 import { Reveal } from "../Reveal";
 
-export type VerdelagoUnitRow = { lote: string | null; fracao: string | null; tipologia: string; valor: number | null };
+export type VerdelagoUnitRow = {
+  lote: string | null;
+  fracao: string | null;
+  tipologia: string;
+  valor: number | null;
+  vendido: boolean;
+};
 export type VerdelagoPhaseGroup = { label: string; units: VerdelagoUnitRow[] };
 
 type SortKey = "lote" | "fracao" | "tipologia" | "valor";
@@ -83,7 +89,7 @@ export function VerdelagoUnidades({ verdelagoPhases }: { verdelagoPhases: Verdel
   }, [verdelagoPhases, sortKey, sortDir]);
 
   return (
-    <section className="bg-background-raised px-6 py-14 md:px-12 md:py-20 border-y border-border">
+    <section id="unidades" className="scroll-mt-4 bg-background-raised px-6 py-14 md:px-12 md:py-20 border-y border-border">
       <Reveal className="mx-auto max-w-4xl block">
         <p className="text-xs tracking-[0.25em] uppercase text-accent mb-2">{u.eyebrow}</p>
         <h2 className="font-display text-3xl md:text-4xl mb-4">{u.title}</h2>
@@ -139,10 +145,23 @@ export function VerdelagoUnidades({ verdelagoPhases }: { verdelagoPhases: Verdel
                   <tbody>
                     {phase.units.map((unit, i) => (
                       <tr key={`${unit.lote}-${unit.fracao}-${i}`} className="border-t border-border">
-                        <td className="px-5 py-2.5 text-foreground-muted">{unit.lote}</td>
-                        <td className="px-5 py-2.5 text-foreground-muted">{unit.fracao}</td>
-                        <td className="px-5 py-2.5">{unit.tipologia}</td>
-                        <td className="px-5 py-2.5 text-right text-accent">{formatPrice(unit.valor)}</td>
+                        <td className={`px-5 py-2.5 text-foreground-muted ${unit.vendido ? "opacity-60" : ""}`}>{unit.lote}</td>
+                        <td className={`px-5 py-2.5 text-foreground-muted ${unit.vendido ? "opacity-60" : ""}`}>{unit.fracao}</td>
+                        <td className={`px-5 py-2.5 ${unit.vendido ? "opacity-60" : ""}`}>{unit.tipologia}</td>
+                        <td className="px-5 py-2.5 text-right">
+                          {unit.vendido ? (
+                            <span className="inline-flex items-center justify-end gap-3">
+                              {unit.valor !== null && (
+                                <span className="text-foreground-muted line-through opacity-60">{formatPrice(unit.valor)}</span>
+                              )}
+                              <span className="text-[10px] tracking-[0.12em] uppercase border border-border px-2 py-0.5 text-foreground-muted">
+                                {u.vendido}
+                              </span>
+                            </span>
+                          ) : (
+                            <span className="text-accent">{formatPrice(unit.valor)}</span>
+                          )}
+                        </td>
                       </tr>
                     ))}
                   </tbody>
