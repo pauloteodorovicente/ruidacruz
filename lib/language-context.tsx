@@ -1,7 +1,8 @@
 "use client";
 
-import { createContext, useContext, useEffect, useState, type ReactNode } from "react";
+import { createContext, useContext, useMemo, type ReactNode } from "react";
 import { content, type Locale } from "./content";
+import { useLandingLocaleSwitch } from "./use-landing-locale-switch";
 
 type LanguageContextValue = {
   locale: Locale;
@@ -11,41 +12,15 @@ type LanguageContextValue = {
 
 const LanguageContext = createContext<LanguageContextValue | null>(null);
 
-const LOCALES: Locale[] = ["pt-PT", "pt-BR", "en", "es", "fr", "it", "de"];
+// Contexto de idioma da landing da Leça do Balio (app/[locale]/leca-do-balio).
+// O idioma vem da URL e chega pronto do servidor — sem localStorage, sem
+// detecção pelo navegador e sem o "flash" em português da versão antiga.
+// Trocar de idioma (setLocale) navega pra mesma página no outro idioma.
+export function LanguageProvider({ locale, children }: { locale: Locale; children: ReactNode }) {
+  const setLocale = useLandingLocaleSwitch();
+  const value = useMemo(() => ({ locale, setLocale, t: content[locale] }), [locale, setLocale]);
 
-// Detecta o idioma do navegador entre os 7 suportados — sem correspondência
-// exata, cai no inglês (não assume português por padrão para visitantes
-// internacionais, que são o público principal desta landing de campanha).
-function detectLocale(): Locale {
-  const browserLang = navigator.language?.toLowerCase() ?? "";
-  if (browserLang.startsWith("pt-br")) return "pt-BR";
-  if (browserLang.startsWith("pt")) return "pt-PT";
-  const match = LOCALES.find((l) => browserLang.startsWith(l.toLowerCase()));
-  return match ?? "en";
-}
-
-export function LanguageProvider({ children }: { children: ReactNode }) {
-  const [locale, setLocaleState] = useState<Locale>("pt-PT");
-
-  useEffect(() => {
-    const stored = localStorage.getItem("locale") as Locale | null;
-    if (stored && LOCALES.includes(stored)) {
-      setLocaleState(stored);
-      return;
-    }
-    setLocaleState(detectLocale());
-  }, []);
-
-  function setLocale(next: Locale) {
-    setLocaleState(next);
-    localStorage.setItem("locale", next);
-  }
-
-  return (
-    <LanguageContext.Provider value={{ locale, setLocale, t: content[locale] }}>
-      {children}
-    </LanguageContext.Provider>
-  );
+  return <LanguageContext.Provider value={value}>{children}</LanguageContext.Provider>;
 }
 
 export function useLanguage() {

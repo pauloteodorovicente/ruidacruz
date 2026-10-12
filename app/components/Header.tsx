@@ -1,13 +1,15 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Link from "next/link";
+import { useTranslations } from "next-intl";
+import { Link } from "@/i18n/navigation";
 import { useLanguage } from "@/lib/language-context";
 import { ThemeToggle } from "./ThemeToggle";
 import { LanguageFlagMenu } from "./LanguageFlagMenu";
 
 export function Header({ sellerCtaEnabled = false }: { sellerCtaEnabled?: boolean }) {
   const { locale, setLocale, t } = useLanguage();
+  const tLang = useTranslations("languageSwitcher");
   const [overHero, setOverHero] = useState(true);
 
   // Enquanto a hero está "presa" no topo (vídeo sempre escuro), o header fica
@@ -69,7 +71,7 @@ export function Header({ sellerCtaEnabled = false }: { sellerCtaEnabled?: boolea
         </Link>
       </nav>
       <div className="flex items-center gap-5">
-        <LanguageFlagMenu locale={locale} onSelect={setLocale} ariaLabel="Idioma" overHero={overHero} />
+        <LanguageFlagMenu locale={locale} onSelect={setLocale} ariaLabel={tLang("label")} overHero={overHero} />
         <span className="opacity-30">·</span>
         <span className={`flex h-[18px] w-[18px] items-center justify-center ${overHero ? "drop-shadow-sm" : ""}`}>
           <ThemeToggle />

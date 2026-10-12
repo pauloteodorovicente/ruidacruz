@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 import { useLanguage } from "@/lib/language-context";
 import { Reveal } from "./Reveal";
 import { ZoomableImage } from "./ZoomableImage";
@@ -31,6 +32,7 @@ const COPY = {
 
 export function FloorPlan() {
   const { locale } = useLanguage();
+  const tFloorPlan = useTranslations("property.floorPlan");
   const [active, setActive] = useState<(typeof floors)[number]["id"]>("rc");
   const [open, setOpen] = useState(false);
   const current = floors.find((f) => f.id === active)!;
@@ -62,7 +64,7 @@ export function FloorPlan() {
         >
           <button
             onClick={() => setOpen(false)}
-            aria-label="Fechar"
+            aria-label={tFloorPlan("close")}
             className="absolute top-4 right-4 z-10 flex h-11 w-11 items-center justify-center text-white/70 hover:text-white text-3xl leading-none"
           >
             ×
