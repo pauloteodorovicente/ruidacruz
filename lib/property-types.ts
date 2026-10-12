@@ -56,6 +56,12 @@ export type Property = {
   preview_token: string | null;
   preview_token_expires_at: string | null;
   color_theme: string | null;
+  // Capa definida no admin (id de uma foto deste imóvel). Nulo = vale a
+  // primeira foto visível — ver lib/cover.ts.
+  cover_photo_id: string | null;
+  // Exceção do carrossel automático das capas: nulo = segue o padrão do site
+  // (settings card_carousel), true/false força ligado/desligado neste imóvel.
+  cover_carousel: boolean | null;
   created_at: string;
   updated_at: string;
 };

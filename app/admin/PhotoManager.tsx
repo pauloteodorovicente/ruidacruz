@@ -2,7 +2,15 @@
 
 import { useRef, useState, useTransition } from "react";
 import Image from "next/image";
-import { uploadPhotos, deletePhoto, movePhoto, reorderPhotos, togglePhotoVisibility } from "./photo-actions";
+import {
+  uploadPhotos,
+  deletePhoto,
+  movePhoto,
+  reorderPhotos,
+  togglePhotoVisibility,
+  setCoverPhoto,
+} from "./photo-actions";
+import { resolveCover } from "@/lib/cover";
 import type { PropertyPhoto } from "@/lib/property-types";
 
 // Desloca por uma "linha inteira" nas setinhas de cima/baixo — referência de
@@ -14,10 +22,13 @@ export function PhotoManager({
   propertyId,
   propertyReference,
   photos: photosProp,
+  coverPhotoId,
 }: {
   propertyId: string;
   propertyReference: string;
   photos: PropertyPhoto[];
+  // Capa definida no admin (nulo = vale a primeira foto visível).
+  coverPhotoId: string | null;
 }) {
   const [isPending, startTransition] = useTransition();
   const [error, setError] = useState<string | null>(null);
@@ -35,6 +46,21 @@ export function PhotoManager({
     setPhotos(photosProp);
   }
   const [dragFrom, setDragFrom] = useState<number | null>(null);
+
+  // Qual foto está valendo como capa agora (mesma regra do site público).
+  const cover = resolveCover(photos, coverPhotoId);
+  const explicitCoverHidden = Boolean(coverPhotoId) && cover.source !== "explicit";
+
+  function handleSetCover(photoId: string | null) {
+    setError(null);
+    startTransition(async () => {
+      try {
+        await setCoverPhoto(propertyId, propertyReference, photoId);
+      } catch (e) {
+        setError(e instanceof Error ? e.message : "Falha ao definir a capa.");
+      }
+    });
+  }
 
   // Reordena de verdade (no estado local) já durante o arrastar, não só ao
   // soltar — pedido do Paulo (24/08): "conforme movo, todas vão se
@@ -73,6 +99,28 @@ export function PhotoManager({
     <fieldset className="flex flex-col gap-4">
       <h2 className="font-display text-lg text-accent">Fotos</h2>
       {photos.length > 1 && <p className="text-xs text-foreground-muted -mt-2">Arraste pra reordenar</p>}
+      {photos.length > 0 && (
+        <p className="text-xs text-foreground-muted -mt-2">
+          {cover.source === "explicit" && (
+            <>
+              Capa definida: foto {photos.findIndex((photo) => photo.id === cover.photo?.id) + 1}.{" "}
+              <button
+                type="button"
+                disabled={isPending}
+                onClick={() => handleSetCover(null)}
+                className="underline underline-offset-2 hover:text-accent disabled:opacity-50"
+              >
+                Voltar à automática
+              </button>
+            </>
+          )}
+          {cover.source === "auto" && (
+            <>Sem capa definida — vale a primeira foto visível. Passe o mouse numa foto e use “Definir capa”.</>
+          )}
+          {cover.source === "none" && <>Nenhuma foto visível — o card mostra a assinatura do Rui como capa.</>}
+          {explicitCoverHidden && <> A capa definida está arquivada, por isso vale a primeira visível.</>}
+        </p>
+      )}
 
       {photos.length > 0 && (
         <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
@@ -93,6 +141,11 @@ export function PhotoManager({
               {!photo.visible && (
                 <span className="absolute top-1.5 left-1.5 bg-black/70 text-white text-[10px] tracking-[0.06em] uppercase px-1.5 py-0.5">
                   Arquivada
+                </span>
+              )}
+              {cover.photo?.id === photo.id && (
+                <span className="absolute top-1.5 right-1.5 bg-accent text-background text-[10px] tracking-[0.06em] uppercase px-1.5 py-0.5">
+                  {cover.source === "explicit" ? "★ Capa" : "Capa (auto)"}
                 </span>
               )}
               <div className="absolute inset-0 flex flex-col items-center justify-center gap-1 bg-black/60 opacity-0 transition-opacity group-hover:opacity-100">
@@ -149,6 +202,17 @@ export function PhotoManager({
                     ↓
                   </button>
                 </div>
+                {photo.visible && !(cover.photo?.id === photo.id && cover.source === "explicit") && (
+                  <button
+                    type="button"
+                    disabled={isPending}
+                    onClick={() => handleSetCover(photo.id)}
+                    title="Usar esta foto como capa do imóvel (sem mudar a ordem da galeria)"
+                    className="mt-0.5 text-[10px] tracking-[0.08em] uppercase text-white/90 hover:text-white"
+                  >
+                    ☆ Definir capa
+                  </button>
+                )}
                 <button
                   type="button"
                   disabled={isPending}

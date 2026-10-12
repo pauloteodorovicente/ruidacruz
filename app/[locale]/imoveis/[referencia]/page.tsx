@@ -4,6 +4,7 @@ import { getTranslations } from "next-intl/server";
 import { getProperties, getPropertyByReference, getPropertyPhotos, getPropertyFloorplans, getPropertyTranslation } from "@/lib/properties";
 import { localizeProperty, propertyPathSegment } from "@/lib/property-types";
 import { localeAlternates, localizedUrl } from "@/lib/locale-alternates";
+import { resolveCover } from "@/lib/cover";
 import { getPropertyByReferenceForAdmin, getPropertyByReferenceWithPreviewToken, getOffMarketTeaser } from "@/lib/admin-properties";
 import { isAdminAuthenticated } from "@/lib/admin-auth";
 import { getPropertyHero } from "@/lib/property-hero";
@@ -82,8 +83,10 @@ export async function generateMetadata({
   const translation =
     locale === rawProperty.source_locale ? null : await getPropertyTranslation(rawProperty.id, locale as Locale);
   const property = localizeProperty(rawProperty, translation);
-  const photos = (await getPropertyPhotos(property.id)).filter((photo) => photo.visible);
-  const coverImage = photos[0]?.storage_path ?? "/images/rui/hero-portrait.jpg";
+  // Capa definida no admin > primeira foto visível (regra única, lib/cover.ts).
+  const coverImage =
+    resolveCover(await getPropertyPhotos(property.id), property.cover_photo_id).photo?.storage_path ??
+    "/images/rui/hero-portrait.jpg";
 
   const title = `${property.title} | Rui Da Cruz`;
   const description = property.description ?? undefined;
@@ -205,7 +208,8 @@ export default async function ImovelPage({
   // Fallback neutro pra imóvel sem foto ainda (rascunho) — nunca a foto de
   // outro imóvel. Achado 24/08: um Terreno sem fotos estava herdando a
   // fachada da Leça do Balio na Hero e no JSON-LD por causa desse fallback.
-  const coverImage = photos[0]?.storage_path ?? "/images/rui/hero-portrait.jpg";
+  const coverImage =
+    resolveCover(allPhotos, property.cover_photo_id).photo?.storage_path ?? "/images/rui/hero-portrait.jpg";
   // O mesmo vídeo do Hero (quando existir) também aparece na galeria, como
   // card próprio antes das fotos (pedido do Paulo, 02/09) — mesma fonte de
   // dado, sem duplicar upload nem campo novo pra isso.

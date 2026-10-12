@@ -155,6 +155,9 @@ export async function duplicateProperty(id: string) {
       slug: null,
       // A cópia não herda a visita virtual do original (é de outro imóvel).
       virtual_tour_url: null,
+      // Nem a capa: cover_photo_id aponta pra uma foto do original, não da cópia
+      // (a cópia nasce sem fotos) — nula, volta a valer a primeira foto visível.
+      cover_photo_id: null,
     })
     .select("reference")
     .single();

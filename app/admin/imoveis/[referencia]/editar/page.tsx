@@ -48,7 +48,12 @@ export default async function EditPropertyPage({
     <main className="min-h-screen bg-background px-6 py-10 md:px-12">
       <div className="mx-auto max-w-2xl flex flex-col gap-10">
         {header}
-        <PhotoManager propertyId={property.id} propertyReference={property.reference} photos={photos} />
+        <PhotoManager
+          propertyId={property.id}
+          propertyReference={property.reference}
+          photos={photos}
+          coverPhotoId={property.cover_photo_id}
+        />
         <FloorplanManager propertyId={property.id} propertyReference={property.reference} floorplans={floorplans} />
         {property.is_campaign_page && (
           <>

@@ -103,6 +103,33 @@ export async function movePhoto(photoId: string, propertyId: string, propertyRef
   revalidatePath(`/imoveis/${propertyReference}`);
 }
 
+// Define (ou limpa, com null) qual foto é a CAPA do imóvel — cards da Home e
+// do Portfólio, Hero da ficha quando não há hero próprio e prévia de link —
+// sem mexer na ordem da galeria (pedido do Paulo, 09/10). Sem capa definida
+// vale a primeira foto visível (lib/cover.ts). Foto arquivada não serve de capa.
+export async function setCoverPhoto(propertyId: string, propertyReference: string, photoId: string | null) {
+  if (!(await isAdminAuthenticated())) redirect("/admin/login");
+
+  const supabase = createAdminClient();
+  if (photoId) {
+    const { data: photo } = await supabase
+      .from("property_photos")
+      .select("id, visible")
+      .eq("id", photoId)
+      .eq("property_id", propertyId)
+      .maybeSingle();
+    if (!photo) throw new Error("Essa foto não pertence a este imóvel.");
+    if (!photo.visible) throw new Error("Foto arquivada não pode ser a capa — publique-a de novo antes.");
+  }
+
+  const { error } = await supabase.from("properties").update({ cover_photo_id: photoId }).eq("id", propertyId);
+  if (error) throw new Error(error.message);
+
+  revalidatePath(`/admin/imoveis/${propertyReference}/editar`);
+  revalidatePath(`/imoveis/${propertyReference}`);
+  revalidatePath("/", "layout");
+}
+
 // "Arquivar" uma foto sem apagar (pedido do Paulo, 24/08) — some da página
 // pública mas continua existindo e editável no admin, pra poder trazer de
 // volta depois sem reenviar o arquivo.

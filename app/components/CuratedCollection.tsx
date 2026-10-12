@@ -6,28 +6,21 @@ import { useLocale, useTranslations } from "next-intl";
 import { Link as LocalizedLink } from "@/i18n/navigation";
 import { Reveal } from "./Reveal";
 import { FavoriteButton } from "./FavoriteButton";
-import type { Property } from "@/lib/properties";
+import type { Property, CardCover } from "@/lib/properties";
 import { propertyPathSegment } from "@/lib/property-types";
 
 // Recebe as propriedades já buscadas no Supabase por um Server Component pai
 // (app/page.tsx) — mantém o padrão do site de conteúdo traduzido em Client
 // Component, sem duplicar a busca de dados aqui.
 //
-// As 4 landings de campanha (Leça, Verdelago, Portimão, One Green Way) não
-// usam a tabela property_photos pras próprias fotos (cada uma tem seu
-// conteúdo/galeria própria) — por isso continuam com uma capa fixa aqui. Todo
-// o resto vem de coverImages (prop), buscado de verdade no Supabase — antes
-// era um mapeamento fixo com fallback pra uma foto específica da Leça do
-// Balio, então qualquer imóvel novo sem foto (ex. um rascunho recém-criado)
-// acabava mostrando a fachada da Leça por engano. Achado 24/08.
-const COVER_IMAGE_BY_REFERENCE: Record<string, string> = {
-  "122481641-38": "/images/leca-do-balio/01-hero-fachada.jpg",
-  verdelago: "/images/verdelago/01-hero-humanizada.jpg",
-  "portimao-praia-da-rocha": "/images/portimao-praia-rocha/Apart T1 Praia_Rocha_10.jpeg",
-  onegreenway: "/images/onegreenway/hero-1.jpg",
-};
-// Fallback neutro pra imóvel sem nenhuma foto ainda (rascunho) — nunca outro
-// imóvel específico. Mesmo arquivo já usado como fallback de metadata/OG.
+// A capa de cada card (e as demais fotos, se o carrossel estiver ligado) vem
+// pronta do servidor em `covers`, já com a regra única de lib/cover.ts: capa
+// definida no admin > capa que a landing de campanha já tinha no código >
+// primeira foto visível > nenhuma. Antes era um mapeamento fixo aqui, com
+// fallback pra uma foto da Leça do Balio — qualquer imóvel novo sem foto
+// mostrava a fachada dela por engano (achado 24/08).
+// Fallback neutro provisório pra imóvel sem nenhuma foto (a assinatura do Rui
+// entra na saída C-2).
 const NEUTRAL_COVER_IMAGE = "/images/rui/hero-portrait.jpg";
 const COVER_IMAGE_POSITION: Record<string, string> = {
   verdelago: "object-[center_22%]",
@@ -53,14 +46,14 @@ function PropertyCard({
   locale,
   c,
   p,
-  coverImages,
+  covers,
   onDragClick,
 }: {
   property: Property;
   locale: string;
   c: (key: string) => string;
   p: (key: string) => string;
-  coverImages: Record<string, string>;
+  covers: Record<string, CardCover>;
   onDragClick?: (e: React.MouseEvent) => void;
 }) {
   return (
@@ -72,7 +65,7 @@ function PropertyCard({
     >
       <div className="relative aspect-[4/3] overflow-hidden">
         <Image
-          src={COVER_IMAGE_BY_REFERENCE[property.reference] ?? coverImages[property.id] ?? NEUTRAL_COVER_IMAGE}
+          src={covers[property.id]?.photos[0] ?? NEUTRAL_COVER_IMAGE}
           alt={property.title}
           fill
           draggable={false}
@@ -126,13 +119,13 @@ function CarouselCollection({
   locale,
   c,
   p,
-  coverImages,
+  covers,
 }: {
   properties: Property[];
   locale: string;
   c: (key: string) => string;
   p: (key: string) => string;
-  coverImages: Record<string, string>;
+  covers: Record<string, CardCover>;
 }) {
   const trackRef = useRef<HTMLDivElement>(null);
   const [paused, setPaused] = useState(false);
@@ -222,7 +215,7 @@ function CarouselCollection({
             locale={locale}
             c={c}
             p={p}
-            coverImages={coverImages}
+            covers={covers}
             onDragClick={handleCardClick}
           />
         </div>
@@ -233,13 +226,13 @@ function CarouselCollection({
 
 export function CuratedCollection({
   properties,
-  coverImages = {},
+  covers = {},
   viewAllHref,
   hideHeading,
   layout = "grid",
 }: {
   properties: Property[];
-  coverImages?: Record<string, string>;
+  covers?: Record<string, CardCover>;
   viewAllHref?: string;
   hideHeading?: boolean;
   layout?: "grid" | "carousel";
@@ -263,12 +256,12 @@ export function CuratedCollection({
         )}
 
         {useCarousel ? (
-          <CarouselCollection properties={properties} locale={locale} c={c} p={p} coverImages={coverImages} />
+          <CarouselCollection properties={properties} locale={locale} c={c} p={p} covers={covers} />
         ) : (
           <div className="grid grid-cols-1 gap-8 md:grid-cols-3 md:gap-6">
             {properties.map((property) => (
               <Reveal key={property.id} className="block">
-                <PropertyCard property={property} locale={locale} c={c} p={p} coverImages={coverImages} />
+                <PropertyCard property={property} locale={locale} c={c} p={p} covers={covers} />
               </Reveal>
             ))}
           </div>

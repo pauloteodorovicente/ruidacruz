@@ -5,6 +5,7 @@ import { SiteFooter } from "@/app/components/site/SiteFooter";
 import { SiteWhatsAppFloating } from "@/app/components/site/SiteWhatsAppFloating";
 import { SiteLeadForm } from "@/app/components/site/SiteLeadForm";
 import { getPropertyPhotos } from "@/lib/properties";
+import { resolveCover } from "@/lib/cover";
 import type { OffMarketTeaser as OffMarketTeaserData } from "@/lib/admin-properties";
 
 // Ficha "Fora de Mercado" — nunca mostra preço, endereço exato, descrição
@@ -19,7 +20,8 @@ export async function OffMarketTeaser({ teaser, locale }: { teaser: OffMarketTea
     getPropertyPhotos(teaser.id),
     getTranslations({ locale, namespace: "property" }),
   ]);
-  const coverImage = photos[0]?.storage_path;
+  // Mesma regra de capa do resto do site (antes pegava a 1ª foto mesmo arquivada).
+  const coverImage = resolveCover(photos, teaser.cover_photo_id).photo?.storage_path;
 
   return (
     <>

@@ -63,6 +63,7 @@ export type OffMarketTeaser = {
   property_type: Property["property_type"];
   typology: string | null;
   business_type: Property["business_type"];
+  cover_photo_id: string | null;
 };
 
 // A RLS já esconde imóveis off_market de qualquer leitura pública (ver
@@ -73,7 +74,8 @@ export type OffMarketTeaser = {
 // de pedido em vez do 404 seco.
 export async function getOffMarketTeaser(reference: string): Promise<OffMarketTeaser | null> {
   const supabase = createAdminClient();
-  const columns = "id, reference, title, zone, ghl_zone, municipality, property_type, typology, business_type";
+  const columns =
+    "id, reference, title, zone, ghl_zone, municipality, property_type, typology, business_type, cover_photo_id";
   const byReference = await supabase
     .from("properties")
     .select(columns)
