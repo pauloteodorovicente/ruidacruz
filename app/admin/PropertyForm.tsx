@@ -219,6 +219,20 @@ export function PropertyForm({ property }: { property?: Property }) {
               <input name="map_url" defaultValue={property?.map_url ?? ""} className={inputClass} />
             </Field>
           </div>
+          <div className="sm:col-span-2">
+            <Field label="Visita virtual 360° (link)">
+              <input
+                name="virtual_tour_url"
+                defaultValue={property?.virtual_tour_url ?? ""}
+                placeholder="https://floorfy.com/tour/..."
+                className={inputClass}
+              />
+              <p className="text-xs text-foreground-muted mt-1.5">
+                Link da visita (Floorfy, Matterport, Kuula...). Aparece numa seção em destaque logo abaixo dos dados do
+                imóvel, incorporada na página. Tem de começar por https://. Vazio = sem visita virtual.
+              </p>
+            </Field>
+          </div>
         </div>
       </fieldset>
 

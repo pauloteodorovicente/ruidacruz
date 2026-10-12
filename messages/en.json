@@ -172,6 +172,13 @@
       "previous": "Previous",
       "next": "Next",
       "video": "Video"
+    },
+    "virtualTour": {
+      "eyebrow": "Virtual Tour",
+      "title": "Take a 360° tour of the property",
+      "description": "Explore each section at your own pace, from anywhere.",
+      "open": "Open in full screen",
+      "iframeTitle": "360° Virtual Tour"
     }
   },
   "guiaCompradorEstrangeiro": {

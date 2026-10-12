@@ -6,7 +6,7 @@ import { revalidatePath } from "next/cache";
 import { after } from "next/server";
 import { isAdminAuthenticated } from "@/lib/admin-auth";
 import { createAdminClient } from "@/lib/supabase/admin";
-import { recommendLayoutMode, normalizeSlug } from "@/lib/property-types";
+import { recommendLayoutMode, normalizeSlug, normalizeVirtualTourUrl } from "@/lib/property-types";
 import { translatePropertyToAllLocales } from "@/lib/translate-property";
 
 function str(formData: FormData, key: string): string {
@@ -46,6 +46,7 @@ export async function saveProperty(formData: FormData) {
     ghl_zone: str(formData, "ghl_zone") || null,
     municipality: str(formData, "municipality") || null,
     map_url: str(formData, "map_url") || null,
+    virtual_tour_url: normalizeVirtualTourUrl(str(formData, "virtual_tour_url")),
     price: numOrNull(formData, "price"),
     price_on_application: formData.get("price_on_application") === "on",
     land_area_sqm: numOrNull(formData, "land_area_sqm"),
@@ -152,6 +153,8 @@ export async function duplicateProperty(id: string) {
       // Slug é único — a cópia nunca herda o do original (senão o índice único
       // barraria a duplicação); quem duplica define o da cópia no admin.
       slug: null,
+      // A cópia não herda a visita virtual do original (é de outro imóvel).
+      virtual_tour_url: null,
     })
     .select("reference")
     .single();

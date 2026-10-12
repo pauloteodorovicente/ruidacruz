@@ -162,6 +162,13 @@
       "previous": "Zurück",
       "next": "Weiter",
       "video": "Video"
+    },
+    "virtualTour": {
+      "eyebrow": "Virtueller Rundgang",
+      "title": "Machen Sie einen 360°-Rundgang durch die Immobilie",
+      "description": "Entdecken Sie jeden Bereich in Ihrem eigenen Tempo – von überall aus.",
+      "open": "Im Vollbildmodus öffnen",
+      "iframeTitle": "360°-Rundgang"
     }
   },
   "guiaCompradorEstrangeiro": {

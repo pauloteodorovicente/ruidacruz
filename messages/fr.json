@@ -162,6 +162,13 @@
       "previous": "Précédent",
       "next": "Suivant",
       "video": "Vidéo"
+    },
+    "virtualTour": {
+      "eyebrow": "Visite virtuelle",
+      "title": "Découvrez le bien immobilier à 360°",
+      "description": "Explorez chaque pièce à votre rythme, où que vous soyez.",
+      "open": "Afficher en plein écran",
+      "iframeTitle": "Visite virtuelle à 360°"
     }
   },
   "guiaCompradorEstrangeiro": {

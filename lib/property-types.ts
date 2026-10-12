@@ -17,6 +17,8 @@ export type Property = {
   // 0021_property_slug.sql. A referência (nº da REMAX) continua sendo o "Ref."
   // mostrado ao comprador; o slug só muda a URL.
   slug: string | null;
+  // Visita virtual 360° (Floorfy, Matterport...) — seção em destaque na ficha. https:// apenas.
+  virtual_tour_url: string | null;
   title: string;
   property_type: PropertyType;
   typology: string | null;
@@ -94,6 +96,21 @@ export function propertyPathSegment(property: Pick<Property, "reference" | "slug
 // Normaliza o que o Rui digita no campo "URL amigável" do admin: minúsculas,
 // sem acento, só letras/números separados por hífen. Devolve null se sobrar
 // nada (campo vazio = imóvel continua na URL pela referência).
+// Valida o link da visita virtual digitado no admin: vazio = sem visita; só
+// https:// (o link vira um iframe e um botão na ficha pública).
+export function normalizeVirtualTourUrl(input: string): string | null {
+  const value = input.trim();
+  if (!value) return null;
+  let url: URL;
+  try {
+    url = new URL(value);
+  } catch {
+    throw new Error("O link da visita virtual não é um endereço válido.");
+  }
+  if (url.protocol !== "https:") throw new Error("O link da visita virtual tem de começar por https://");
+  return url.toString();
+}
+
 export function normalizeSlug(input: string): string | null {
   const slug = input
     .normalize("NFD")
