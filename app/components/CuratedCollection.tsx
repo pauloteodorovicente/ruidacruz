@@ -1,11 +1,9 @@
 "use client";
 
-import { useEffect, useRef, useState, type ComponentProps } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
-import NextLink from "next/link";
 import { useLocale, useTranslations } from "next-intl";
 import { Link as LocalizedLink } from "@/i18n/navigation";
-import { isLocalizedCampaignPath } from "@/lib/campaign-i18n";
 import { Reveal } from "./Reveal";
 import { FavoriteButton } from "./FavoriteButton";
 import type { Property } from "@/lib/properties";
@@ -39,34 +37,15 @@ const AUTOPLAY_PX_PER_SEC = 40;
 const AUTOPLAY_TICK_MS = 40;
 const DRAG_CLICK_SUPPRESS_THRESHOLD = 6;
 
+// Landings de campanha (Leça, Verdelago...) têm rota própria fora do template
+// genérico de imóvel; o resto usa a ficha /imoveis/[slug ou ref]. Todas as
+// páginas vivem em app/[locale], então o Link do next-intl (abaixo) põe o
+// prefixo do idioma (/en, /es...) sozinho — com o next/link cru, quem estava
+// em /en caía na versão em português (achado 08/10).
 function hrefFor(property: Property) {
-  // Landings de campanha (Leça, Verdelago) têm rota própria fora do
-  // template genérico de imóvel; o resto usa a ficha /imoveis/[slug ou ref].
   return property.is_campaign_page && property.campaign_path
     ? property.campaign_path
     : `/imoveis/${propertyPathSegment(property)}`;
-}
-
-// Landing de campanha que AINDA vive fora de app/[locale] (não aceita prefixo
-// de idioma) — as que já migraram (lib/campaign-i18n.ts) usam o link com
-// idioma como qualquer outra página.
-function isCampaignHref(property: Property) {
-  return Boolean(
-    property.is_campaign_page && property.campaign_path && !isLocalizedCampaignPath(property.campaign_path),
-  );
-}
-
-// Páginas dentro de app/[locale] (ficha do imóvel, /portfolio) precisam do
-// Link do next-intl, que põe o prefixo do idioma (/en, /es...) sozinho — com
-// o next/link cru, quem estava em /en caía na versão em português (achado
-// 08/10). As landings de campanha ficam FORA de app/[locale] (cada uma tem o
-// próprio seletor de idioma), então essas continuam com o link simples.
-function CollectionLink({
-  href,
-  localized,
-  ...props
-}: { href: string; localized: boolean } & Omit<ComponentProps<typeof NextLink>, "href" | "locale">) {
-  return localized ? <LocalizedLink href={href} {...props} /> : <NextLink href={href} {...props} />;
 }
 
 function PropertyCard({
@@ -85,9 +64,8 @@ function PropertyCard({
   onDragClick?: (e: React.MouseEvent) => void;
 }) {
   return (
-    <CollectionLink
+    <LocalizedLink
       href={hrefFor(property)}
-      localized={!isCampaignHref(property)}
       onClick={onDragClick}
       draggable={false}
       className="group block overflow-hidden rounded-lg border border-border bg-background-raised shadow-[0_8px_30px_-12px_rgba(0,0,0,0.25)] transition-all duration-500 hover:-translate-y-1.5 hover:shadow-[0_24px_48px_-16px_rgba(0,0,0,0.35)]"
@@ -124,7 +102,7 @@ function PropertyCard({
             !property.is_campaign_page && <span className="text-foreground-muted">{p("perMonth")}</span>}
         </p>
       </div>
-    </CollectionLink>
+    </LocalizedLink>
   );
 }
 

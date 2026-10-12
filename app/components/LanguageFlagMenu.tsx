@@ -13,9 +13,10 @@ export const LANGUAGE_OPTIONS = [
 ] as const;
 
 // Dropdown de 7 idiomas usado nas landings de campanha (Leça do Balio,
-// Verdelago) — essas páginas não passam pela rota [locale]/next-intl, então
-// não podem usar o LanguageSwitcher institucional (que depende do router de
-// locale). Mesmo visual, estado local via prop em vez de roteamento.
+// Verdelago, Portimão, One Green Way). Mesmo visual do LanguageSwitcher
+// institucional, mas recebe o idioma atual e o que fazer ao escolher por
+// props: as landings passam o setLocale do próprio contexto, que navega pra
+// mesma página no outro idioma (ver lib/use-landing-locale-switch.ts).
 export function LanguageFlagMenu({
   locale,
   onSelect,

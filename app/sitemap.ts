@@ -3,9 +3,6 @@ import { routing } from "@/i18n/routing";
 import { getProperties } from "@/lib/properties";
 import { propertyPathSegment } from "@/lib/property-types";
 import { localizedUrl as localizedPath } from "@/lib/locale-alternates";
-import { isLocalizedCampaignPath } from "@/lib/campaign-i18n";
-
-const BASE_URL = "https://ruidacruzconsultor.com";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const properties = await getProperties();
@@ -19,11 +16,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     })),
   );
 
-  // Landings de campanha: as que já migraram pra app/[locale] (ver
-  // lib/campaign-i18n.ts) entram uma vez por idioma, como o resto do site; as
-  // que ainda estão fora da árvore [locale] seguem com path fixo, sem idioma.
-  // Elas ficam fora da lista de baixo (/imoveis/{ref} não é onde a página de
-  // verdade está).
+  // Landings de campanha (Leça, Verdelago, Verdelago Fase 6, Portimão, One
+  // Green Way): vivem em app/[locale], então entram uma vez por idioma, como
+  // o resto do site. Ficam fora da lista de baixo (/imoveis/{ref} não é onde
+  // a página de verdade está).
   const propertyEntries: MetadataRoute.Sitemap = properties
     .filter((property) => !property.is_campaign_page)
     .flatMap((property) =>
@@ -36,13 +32,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   const campaignEntries: MetadataRoute.Sitemap = properties
     .filter((property) => property.is_campaign_page && property.campaign_path)
-    .flatMap((property) => {
-      const path = property.campaign_path as string;
-      const urls = isLocalizedCampaignPath(path)
-        ? routing.locales.map((locale) => localizedPath(locale, path))
-        : [`${BASE_URL}${path}`];
-      return urls.map((url) => ({ url, changeFrequency: "weekly" as const, priority: 0.9 }));
-    });
+    .flatMap((property) =>
+      routing.locales.map((locale) => ({
+        url: localizedPath(locale, property.campaign_path as string),
+        changeFrequency: "weekly" as const,
+        priority: 0.9,
+      })),
+    );
 
   return [...institutionalEntries, ...propertyEntries, ...campaignEntries];
 }

@@ -5,9 +5,10 @@ import { routing } from "@/i18n/routing";
 import { HtmlLangSync } from "@/app/components/site/HtmlLangSync";
 import { ViewTransitions } from "@/app/components/site/ViewTransitions";
 
-// Só as páginas institucionais (Home, /sobre, /contacto, /imoveis/*) passam
-// por aqui — /leca-do-balio e /admin ficam fora da árvore [locale] de
-// propósito (ver proxy.ts) e continuam no LanguageProvider antigo.
+// Toda página pública passa por aqui: as institucionais (Home, /sobre,
+// /contacto, /imoveis/*...) e as landings de campanha (Leça, Verdelago, Fase 6,
+// Portimão, One Green Way). Só o /admin fica fora da árvore [locale] (painel
+// interno, só português — ver proxy.ts).
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
 }
