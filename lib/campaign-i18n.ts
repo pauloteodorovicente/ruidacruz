@@ -9,7 +9,7 @@ import type { AppLocale } from "@/i18n/routing";
 //
 // Exigência do Paulo (08/10/2026): toda página do site dentro do sistema de
 // idiomas, funcionando perfeitamente nos 7.
-export const LOCALIZED_CAMPAIGN_PATHS: readonly string[] = ["/onegreenway"];
+export const LOCALIZED_CAMPAIGN_PATHS: readonly string[] = ["/onegreenway", "/portimao-praia-da-rocha"];
 
 export function isLocalizedCampaignPath(path: string | null | undefined): boolean {
   return Boolean(path && LOCALIZED_CAMPAIGN_PATHS.includes(path));

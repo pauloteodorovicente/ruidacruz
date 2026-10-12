@@ -1,7 +1,8 @@
 "use client";
 
-import { createContext, useContext, useEffect, useState, type ReactNode } from "react";
+import { createContext, useContext, useMemo, type ReactNode } from "react";
 import { content, type Locale } from "./portimao-content";
+import { useLandingLocaleSwitch } from "./use-landing-locale-switch";
 
 type PortimaoLanguageContextValue = {
   locale: Locale;
@@ -11,38 +12,15 @@ type PortimaoLanguageContextValue = {
 
 const PortimaoLanguageContext = createContext<PortimaoLanguageContextValue | null>(null);
 
-const LOCALES: Locale[] = ["pt-PT", "pt-BR", "en", "es", "fr", "it", "de"];
+// O idioma vem da URL (app/[locale]/portimao-praia-da-rocha) e chega pronto
+// do servidor — sem localStorage, sem detecção pelo navegador e sem o "flash"
+// em português da versão antiga. Trocar de idioma (setLocale) navega pra mesma
+// página no outro idioma.
+export function PortimaoLanguageProvider({ locale, children }: { locale: Locale; children: ReactNode }) {
+  const setLocale = useLandingLocaleSwitch();
+  const value = useMemo(() => ({ locale, setLocale, t: content[locale] }), [locale, setLocale]);
 
-function detectLocale(): Locale {
-  const browserLang = navigator.language?.toLowerCase() ?? "";
-  if (browserLang.startsWith("pt-br")) return "pt-BR";
-  if (browserLang.startsWith("pt")) return "pt-PT";
-  const match = LOCALES.find((l) => browserLang.startsWith(l.toLowerCase()));
-  return match ?? "en";
-}
-
-export function PortimaoLanguageProvider({ children }: { children: ReactNode }) {
-  const [locale, setLocaleState] = useState<Locale>("pt-PT");
-
-  useEffect(() => {
-    const stored = localStorage.getItem("locale") as Locale | null;
-    if (stored && LOCALES.includes(stored)) {
-      setLocaleState(stored);
-      return;
-    }
-    setLocaleState(detectLocale());
-  }, []);
-
-  function setLocale(next: Locale) {
-    setLocaleState(next);
-    localStorage.setItem("locale", next);
-  }
-
-  return (
-    <PortimaoLanguageContext.Provider value={{ locale, setLocale, t: content[locale] }}>
-      {children}
-    </PortimaoLanguageContext.Provider>
-  );
+  return <PortimaoLanguageContext.Provider value={value}>{children}</PortimaoLanguageContext.Provider>;
 }
 
 export function usePortimaoLanguage() {

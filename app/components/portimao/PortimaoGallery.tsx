@@ -2,12 +2,14 @@
 
 import { useState } from "react";
 import Image from "next/image";
+import { useTranslations } from "next-intl";
 import { usePortimaoLanguage } from "@/lib/portimao-language-context";
 import { galleryPhotos } from "@/lib/portimao-content";
 import { Reveal } from "../Reveal";
 
 export function PortimaoGallery() {
   const { t } = usePortimaoLanguage();
+  const tLightbox = useTranslations("property.lightbox");
   const g = t.gallery;
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
@@ -46,9 +48,9 @@ export function PortimaoGallery() {
             type="button"
             onClick={() => setOpenIndex(null)}
             className="absolute top-6 right-6 text-white/80 hover:text-white text-sm tracking-[0.1em] uppercase"
-            aria-label="Fechar"
+            aria-label={tLightbox("close")}
           >
-            Fechar ✕
+            {tLightbox("close")} ✕
           </button>
           {openIndex > 0 && (
             <button
@@ -58,7 +60,7 @@ export function PortimaoGallery() {
                 setOpenIndex((i) => (i! > 0 ? i! - 1 : i));
               }}
               className="absolute left-4 md:left-8 text-white/70 hover:text-white text-3xl"
-              aria-label="Foto anterior"
+              aria-label={tLightbox("previous")}
             >
               ‹
             </button>
@@ -71,7 +73,7 @@ export function PortimaoGallery() {
                 setOpenIndex((i) => (i! < galleryPhotos.length - 1 ? i! + 1 : i));
               }}
               className="absolute right-4 md:right-8 text-white/70 hover:text-white text-3xl"
-              aria-label="Próxima foto"
+              aria-label={tLightbox("next")}
             >
               ›
             </button>
