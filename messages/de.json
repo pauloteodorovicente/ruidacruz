@@ -232,5 +232,10 @@
     "title": "Denken Sie darüber nach, zu verkaufen?",
     "subtitle": "Wir helfen Ihnen dabei, Ihre Immobilie optimal zu präsentieren und ihr Verkaufspotenzial zu maximieren.",
     "submit": "Kontaktieren Sie uns"
+  },
+  "notFound": {
+    "title": "Seite nicht gefunden",
+    "text": "Die gewünschte Adresse existiert nicht oder wurde verschoben.",
+    "cta": "Zurück zur Startseite"
   }
 }

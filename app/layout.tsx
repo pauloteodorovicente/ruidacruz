@@ -1,22 +1,5 @@
 import type { Metadata } from "next";
-import { Cormorant_Garamond, DM_Sans } from "next/font/google";
-import { MetaPixel } from "./components/MetaPixel";
-import { GlobalCursor } from "./components/site/GlobalCursor";
-import { OrganizationSchema } from "./components/OrganizationSchema";
-import { getMetaPixelSettings, getGrainSettings } from "@/lib/settings";
 import "./globals.css";
-
-const cormorant = Cormorant_Garamond({
-  variable: "--font-cormorant",
-  subsets: ["latin"],
-  weight: ["500", "600", "700"],
-});
-
-const dmSans = DM_Sans({
-  variable: "--font-dm-sans",
-  subsets: ["latin"],
-  weight: ["300", "400", "500"],
-});
 
 // Fallback só — qualquer rota com generateMetadata/metadata próprio (Home,
 // Sobre, Contacto, fichas de imóvel, Leça, Verdelago) sobrescreve isto.
@@ -38,44 +21,10 @@ export const metadata: Metadata = {
   robots: { index: true, follow: true },
 };
 
-// Evita flash do tema errado no primeiro paint: lê a preferência salva
-// (ou do sistema) antes do React hidratar e aplica no <html> de imediato.
-const themeInitScript = `
-(function () {
-  try {
-    var stored = localStorage.getItem('theme');
-    var theme = stored || (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
-    document.documentElement.setAttribute('data-theme', theme);
-  } catch (e) {}
-})();
-`;
-
-export default async function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
-  const pixelSettings = await getMetaPixelSettings();
-  const grainSettings = await getGrainSettings();
-
-  return (
-    <html
-      lang="pt-PT"
-      className={`${cormorant.variable} ${dmSans.variable} h-full antialiased`}
-      suppressHydrationWarning
-    >
-      <head>
-        <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
-        <OrganizationSchema />
-      </head>
-      <body
-        className="min-h-full flex flex-col bg-background text-foreground transition-colors duration-300"
-        style={{ "--grain-opacity": grainSettings.opacity } as React.CSSProperties}
-      >
-        <MetaPixel settings={pixelSettings} />
-        <GlobalCursor />
-        {children}
-      </body>
-    </html>
-  );
+// Layout raiz "passa-adiante" (padrão do next-intl): quem gera <html> e <body>
+// são os layouts de baixo — app/[locale]/layout.tsx (um por idioma, com
+// lang={locale}) e app/admin/layout.tsx — ambos via RootShell. Assim o HTML
+// que o servidor entrega já traz o idioma certo, sem custo de performance.
+export default function RootLayout({ children }: { children: React.ReactNode }) {
+  return children;
 }

@@ -232,5 +232,10 @@
         "answer": "Directly through the contact form, via WhatsApp, or by booking a call — whichever is easiest for you."
       }
     ]
+  },
+  "notFound": {
+    "title": "Page not found",
+    "text": "The address you tried to open doesn't exist or has been moved.",
+    "cta": "Back to home"
   }
 }

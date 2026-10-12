@@ -232,5 +232,10 @@
     "title": "¿Estás pensando en vender?",
     "subtitle": "Le ayudamos a presentar su inmueble de la mejor manera posible y a maximizar su potencial de venta.",
     "submit": "Contáctanos"
+  },
+  "notFound": {
+    "title": "Página no encontrada",
+    "text": "La dirección que intentó abrir no existe o ha sido movida.",
+    "cta": "Volver al inicio"
   }
 }

@@ -232,5 +232,10 @@
     "title": "Vous envisagez de vendre ?",
     "subtitle": "Nous vous aidons à mettre en valeur votre bien immobilier et à maximiser son potentiel de vente.",
     "submit": "Contactez-nous"
+  },
+  "notFound": {
+    "title": "Page introuvable",
+    "text": "L'adresse que vous avez essayé d'ouvrir n'existe pas ou a été déplacée.",
+    "cta": "Retour à l'accueil"
   }
 }

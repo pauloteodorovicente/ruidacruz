@@ -232,5 +232,10 @@
     "title": "Está a Pensar Vender?",
     "subtitle": "Ajudamo-lo a apresentar o seu imóvel da melhor forma e a maximizar o seu potencial de venda.",
     "submit": "Fale Connosco"
+  },
+  "notFound": {
+    "title": "Página não encontrada",
+    "text": "O endereço que você tentou abrir não existe ou foi movido.",
+    "cta": "Voltar ao início"
   }
 }

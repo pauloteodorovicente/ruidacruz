@@ -232,5 +232,10 @@
         "answer": "Diretamente pelo formulário de contacto, por WhatsApp, ou marcando uma chamada — o que for mais prático para si."
       }
     ]
+  },
+  "notFound": {
+    "title": "Página não encontrada",
+    "text": "O endereço que tentou abrir não existe ou foi movido.",
+    "cta": "Voltar ao início"
   }
 }
