@@ -5,6 +5,7 @@ import Image from "next/image";
 import NextLink from "next/link";
 import { useLocale, useTranslations } from "next-intl";
 import { Link as LocalizedLink } from "@/i18n/navigation";
+import { isLocalizedCampaignPath } from "@/lib/campaign-i18n";
 import { Reveal } from "./Reveal";
 import { FavoriteButton } from "./FavoriteButton";
 import type { Property } from "@/lib/properties";
@@ -46,8 +47,13 @@ function hrefFor(property: Property) {
     : `/imoveis/${propertyPathSegment(property)}`;
 }
 
+// Landing de campanha que AINDA vive fora de app/[locale] (não aceita prefixo
+// de idioma) — as que já migraram (lib/campaign-i18n.ts) usam o link com
+// idioma como qualquer outra página.
 function isCampaignHref(property: Property) {
-  return Boolean(property.is_campaign_page && property.campaign_path);
+  return Boolean(
+    property.is_campaign_page && property.campaign_path && !isLocalizedCampaignPath(property.campaign_path),
+  );
 }
 
 // Páginas dentro de app/[locale] (ficha do imóvel, /portfolio) precisam do
