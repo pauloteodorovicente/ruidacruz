@@ -5,6 +5,7 @@ import { setRequestLocale } from "next-intl/server";
 import { routing } from "@/i18n/routing";
 import { getPropertyByReference } from "@/lib/properties";
 import { getSellerCtaSettings } from "@/lib/settings";
+import { getLowestAvailableUnitPrice } from "@/lib/property-typologies";
 import { localeAlternates, localizedUrl } from "@/lib/locale-alternates";
 import { OG_LOCALE } from "@/lib/campaign-i18n";
 import { content } from "@/lib/content";
@@ -106,6 +107,8 @@ export default async function LecaDoBalioPage({ params }: { params: Promise<{ lo
   const property = await getPropertyByReference("122481641-38");
   if (!property?.published) notFound();
   const { enabled: sellerCtaEnabled } = await getSellerCtaSettings();
+  const verdelago = await getPropertyByReference("verdelago");
+  const verdelagoFromPrice = verdelago ? await getLowestAvailableUnitPrice(verdelago.id) : null;
 
   return (
     <LanguageProvider locale={locale}>
@@ -124,7 +127,7 @@ export default async function LecaDoBalioPage({ params }: { params: Promise<{ lo
         <FloorPlan />
         <Location />
         <Testimonials />
-        <Related />
+        <Related fromPrice={verdelagoFromPrice} />
         <LeadForm />
       </main>
       <Footer sellerCtaEnabled={sellerCtaEnabled} />

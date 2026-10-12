@@ -3,7 +3,15 @@
 import { useVerdelagoLanguage } from "@/lib/verdelago-language-context";
 import { Reveal } from "../Reveal";
 
-export function VerdelagoBrochure() {
+// ptHref/enHref: a página geral usa a brochura do empreendimento (padrão); a landing
+// da Fase 6 passa os Documentos Comerciais da Fase 6 (enviados pelo Rui, 08/10).
+export function VerdelagoBrochure({
+  ptHref = "/docs/verdelago/Verdelago-Brochura-PT.pdf",
+  enHref = "/docs/verdelago/Verdelago-Brochure-EN.pdf",
+}: {
+  ptHref?: string;
+  enHref?: string;
+}) {
   const { t } = useVerdelagoLanguage();
   const b = t.brochure;
 
@@ -16,7 +24,7 @@ export function VerdelagoBrochure() {
         </div>
         <div className="flex gap-3 shrink-0">
           <a
-            href="/docs/verdelago/Verdelago-Brochura-PT.pdf"
+            href={ptHref}
             target="_blank"
             rel="noopener noreferrer"
             className="text-[11px] tracking-[0.1em] uppercase border border-accent text-accent px-4 py-2.5 transition-colors hover:bg-accent hover:text-background"
@@ -24,7 +32,7 @@ export function VerdelagoBrochure() {
             {b.label} PT
           </a>
           <a
-            href="/docs/verdelago/Verdelago-Brochure-EN.pdf"
+            href={enHref}
             target="_blank"
             rel="noopener noreferrer"
             className="text-[11px] tracking-[0.1em] uppercase border border-accent text-accent px-4 py-2.5 transition-colors hover:bg-accent hover:text-background"

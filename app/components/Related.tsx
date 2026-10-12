@@ -5,7 +5,9 @@ import { Link } from "@/i18n/navigation";
 import { useLanguage } from "@/lib/language-context";
 import { Reveal } from "./Reveal";
 
-export function Related() {
+// fromPrice = menor preço entre as frações disponíveis do Verdelago (calculado no
+// servidor pela página que usa o card); sem valor, o card não mostra preço.
+export function Related({ fromPrice }: { fromPrice?: number | null }) {
   const { t } = useLanguage();
   const r = t.related;
 
@@ -31,7 +33,11 @@ export function Related() {
           <div className="p-6 flex flex-col justify-center">
             <p className="text-xs tracking-[0.15em] uppercase text-foreground-muted">Altura, Algarve</p>
             <p className="font-display text-lg mt-1">Verdelago Resort</p>
-            <p className="mt-1 text-sm text-accent">880 000 €</p>
+            {fromPrice != null && (
+              <p className="mt-1 text-sm text-accent">
+                {fromPrice.toLocaleString("pt-PT", { style: "currency", currency: "EUR", maximumFractionDigits: 0 })}
+              </p>
+            )}
           </div>
         </Link>
       </Reveal>

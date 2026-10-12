@@ -13,7 +13,7 @@ export const content = {
       tags: ["Resort 5 Estrelas", "T2 e T3", "Acesso Direto à Praia", "Elegível para NHR"],
       title: "Onde o Atlântico encontra a tranquilidade do Algarve",
       lede: "Um santuário costeiro entre Altura e a Praia Verde — natureza preservada, serviços de excelência e uma coleção reduzida de residências.",
-      priceFrom: "Desde 880.000 €",
+      priceFrom: "Desde {price}",
       priceNote: "Apartamentos T2 · Fases 4 a 6",
       specs: [
         { label: "Localização", value: "Altura, Castro Marim" },
@@ -167,7 +167,7 @@ export const content = {
       tags: ["Resort Cinco Estrelas", "T2 e T3", "Acesso Direto à Praia", "Elegível para NHR"],
       title: "Onde o Atlântico encontra a tranquilidade do Algarve",
       lede: "Um santuário costeiro entre Altura e a Praia Verde — natureza preservada, serviços de excelência e uma coleção reduzida de residências.",
-      priceFrom: "A partir de € 880.000",
+      priceFrom: "A partir de {price}",
       priceNote: "Apartamentos T2 · Fases 4 a 6",
       specs: [
         { label: "Localização", value: "Altura, Castro Marim" },
@@ -321,7 +321,7 @@ export const content = {
       tags: ["5-Star Resort", "T2 & T3", "Direct Beach Access", "NHR Eligible"],
       title: "Where the Atlantic meets the tranquillity of the Algarve",
       lede: "A coastal sanctuary between Altura and Praia Verde — preserved nature, premium services and a limited collection of residences.",
-      priceFrom: "From €880,000",
+      priceFrom: "From {price}",
       priceNote: "T2 Apartments · Phases 4 to 6",
       specs: [
         { label: "Location", value: "Altura, Castro Marim" },
@@ -475,7 +475,7 @@ export const content = {
       tags: ["Resort de 5 Estrellas", "T2 y T3", "Acceso Directo a la Playa", "Elegible para NHR"],
       title: "Donde el Atlántico se encuentra con la tranquilidad del Algarve",
       lede: "Un santuario costero entre Altura y Praia Verde — naturaleza preservada, servicios de excelencia y una colección reducida de residencias.",
-      priceFrom: "Desde 880.000 €",
+      priceFrom: "Desde {price}",
       priceNote: "Apartamentos T2 · Fases 4 a 6",
       specs: [
         { label: "Ubicación", value: "Altura, Castro Marim" },
@@ -629,7 +629,7 @@ export const content = {
       tags: ["Resort 5 Étoiles", "T2 et T3", "Accès Direct à la Plage", "Éligible au statut NHR"],
       title: "Là où l'Atlantique rencontre la tranquillité de l'Algarve",
       lede: "Un sanctuaire côtier entre Altura et Praia Verde — nature préservée, services d'excellence et une collection restreinte de résidences.",
-      priceFrom: "À partir de 880 000 €",
+      priceFrom: "À partir de {price}",
       priceNote: "Appartements T2 · Phases 4 à 6",
       specs: [
         { label: "Emplacement", value: "Altura, Castro Marim" },
@@ -783,7 +783,7 @@ export const content = {
       tags: ["Resort a 5 Stelle", "T2 e T3", "Accesso Diretto alla Spiaggia", "Idoneo per NHR"],
       title: "Dove l'Atlantico incontra la tranquillità dell'Algarve",
       lede: "Un santuario costiero tra Altura e Praia Verde — natura preservata, servizi di eccellenza e una collezione ridotta di residenze.",
-      priceFrom: "Da 880.000 €",
+      priceFrom: "Da {price}",
       priceNote: "Appartamenti T2 · Fasi 4-6",
       specs: [
         { label: "Posizione", value: "Altura, Castro Marim" },
@@ -937,7 +937,7 @@ export const content = {
       tags: ["5-Sterne-Resort", "T2 & T3", "Direkter Strandzugang", "NHR-berechtigt"],
       title: "Wo der Atlantik auf die Ruhe der Algarve trifft",
       lede: "Ein Küstenrefugium zwischen Altura und Praia Verde — unberührte Natur, erstklassiger Service und eine begrenzte Auswahl an Residenzen.",
-      priceFrom: "Ab 880.000 €",
+      priceFrom: "Ab {price}",
       priceNote: "T2-Wohnungen · Phasen 4 bis 6",
       specs: [
         { label: "Lage", value: "Altura, Castro Marim" },

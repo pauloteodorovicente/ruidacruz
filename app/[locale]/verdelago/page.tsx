@@ -5,7 +5,12 @@ import { setRequestLocale } from "next-intl/server";
 import { routing } from "@/i18n/routing";
 import { getPropertyByReference } from "@/lib/properties";
 import { getSellerCtaSettings } from "@/lib/settings";
-import { getPropertyTypologies, getPropertyUnits, getTypologyFloorplans } from "@/lib/property-typologies";
+import {
+  getPropertyTypologies,
+  getPropertyUnits,
+  getTypologyFloorplans,
+  getLowestAvailableUnitPrice,
+} from "@/lib/property-typologies";
 import { localeAlternates, localizedUrl } from "@/lib/locale-alternates";
 import { OG_LOCALE } from "@/lib/campaign-i18n";
 import { content } from "@/lib/verdelago-content";
@@ -110,6 +115,7 @@ export default async function VerdelagoPage({ params }: { params: Promise<{ loca
   // Fase 23) em vez dos arquivos fixos lib/verdelago-units.ts e o export
   // "floorplans" de lib/verdelago-content.ts.
   const typologies = await getPropertyTypologies(property.id);
+  const priceFrom = await getLowestAvailableUnitPrice(property.id);
   const [units, rawTypologyFloorplans] = await Promise.all([
     getPropertyUnits(property.id),
     getTypologyFloorplans(typologies.map((t) => t.id)),
@@ -182,7 +188,7 @@ export default async function VerdelagoPage({ params }: { params: Promise<{ loca
       <main className="flex-1">
         <VerdelagoHero />
         {fase6Landing?.published && <VerdelagoFase6Teaser />}
-        <VerdelagoOverview />
+        <VerdelagoOverview priceFrom={priceFrom} />
         <VerdelagoNarrative />
         <VerdelagoAmenities />
         <VerdelagoLifestyle />

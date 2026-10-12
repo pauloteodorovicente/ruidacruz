@@ -5,8 +5,10 @@ import { useVerdelagoLanguage } from "@/lib/verdelago-language-context";
 import { Reveal } from "../Reveal";
 import { RevealText } from "../RevealText";
 
-export function VerdelagoOverview() {
-  const { t } = useVerdelagoLanguage();
+// priceFrom = menor preço entre as frações disponíveis (calculado no servidor, ver
+// app/verdelago/page.tsx); sem nenhum preço disponível o bloco mostra só a nota.
+export function VerdelagoOverview({ priceFrom }: { priceFrom?: number | null }) {
+  const { t, locale } = useVerdelagoLanguage();
   const o = t.overview;
 
   function scrollToForm() {
@@ -33,7 +35,14 @@ export function VerdelagoOverview() {
 
         <Reveal className="md:col-span-2 block">
           <div className="md:sticky md:top-8 bg-background-raised border border-border border-t-2 border-t-accent p-8 shadow-[0_20px_50px_-20px_rgba(0,0,0,0.25)]">
-            <p className="font-display text-3xl mb-1">{o.priceFrom}</p>
+            {priceFrom != null && (
+              <p className="font-display text-3xl mb-1">
+                {o.priceFrom.replace(
+                  "{price}",
+                  priceFrom.toLocaleString(locale, { style: "currency", currency: "EUR", maximumFractionDigits: 0 }),
+                )}
+              </p>
+            )}
             <p className="text-[11px] tracking-[0.1em] uppercase text-foreground-muted mb-6">{o.priceNote}</p>
             <dl className="grid grid-cols-1 gap-y-5 mb-8">
               {o.specs.map((spec) => (
