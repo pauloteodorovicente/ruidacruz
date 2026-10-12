@@ -8,6 +8,7 @@ import { ScheduleCallFloating } from "@/app/components/ScheduleCallFloating";
 import { SiteFooter } from "@/app/components/site/SiteFooter";
 import { BreadcrumbSchema } from "@/app/components/BreadcrumbSchema";
 import { getProperties, getCardCovers } from "@/lib/properties";
+import { getCardCarouselSettings } from "@/lib/settings";
 
 export async function generateMetadata({
   params,
@@ -38,7 +39,8 @@ export default async function PortfolioPage({
 }) {
   const { locale } = await params;
   const properties = await getProperties();
-  const covers = await getCardCovers(properties);
+  const cardCarousel = await getCardCarouselSettings();
+  const covers = await getCardCovers(properties, cardCarousel);
   const t = await getTranslations({ locale, namespace: "home.portfolioPage" });
   const prefix = locale === "pt-PT" ? "" : `/${locale}`;
 
@@ -56,7 +58,12 @@ export default async function PortfolioPage({
           <h1 className="font-display text-3xl md:text-4xl mb-3">{t("title")}</h1>
           <p className="text-sm text-foreground-muted">{t("subtitle")}</p>
         </div>
-        <CuratedCollection properties={properties} covers={covers} hideHeading />
+        <CuratedCollection
+          properties={properties}
+          covers={covers}
+          coverIntervalMs={cardCarousel.intervalSeconds * 1000}
+          hideHeading
+        />
       </main>
       <SiteFooter />
       <SiteWhatsAppFloating />

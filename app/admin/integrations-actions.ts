@@ -4,6 +4,8 @@ import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 import { isAdminAuthenticated } from "@/lib/admin-auth";
 import { createAdminClient } from "@/lib/supabase/admin";
+import { sanitizeCardCarousel } from "@/lib/cover";
+import type { CardCarouselSettings } from "@/lib/cover";
 import type {
   MetaPixelSettings,
   GhlSettings,
@@ -58,6 +60,21 @@ export async function saveHomeCollectionSettings(settings: HomeCollectionSetting
   revalidatePath("/admin/integracoes");
   revalidatePath("/", "layout");
   redirect("/admin/integracoes");
+}
+
+// Guarda o padrão do carrossel das capas. Sem redirect: o formulário mantém o
+// estado e mostra "Guardado". Valores são ajustados à faixa permitida no servidor.
+export async function saveCardCarouselSettings(
+  settings: CardCarouselSettings,
+): Promise<{ ok: true; settings: CardCarouselSettings }> {
+  if (!(await isAdminAuthenticated())) redirect("/admin/login");
+
+  const clean = sanitizeCardCarousel(settings);
+  await upsertSetting("card_carousel", clean);
+
+  revalidatePath("/admin/integracoes");
+  revalidatePath("/", "layout");
+  return { ok: true, settings: clean };
 }
 
 export async function saveSellerCtaSettings(settings: SellerCtaSettings) {

@@ -13,7 +13,7 @@ import { SiteFooter } from "@/app/components/site/SiteFooter";
 import { getProperties, getCardCovers } from "@/lib/properties";
 import { getTestimonials } from "@/lib/testimonials";
 import { getHomeHero, getHomeHeroCtaSettings } from "@/lib/home-hero";
-import { getHomeCollectionSettings } from "@/lib/settings";
+import { getHomeCollectionSettings, getCardCarouselSettings } from "@/lib/settings";
 
 export async function generateMetadata({
   params,
@@ -50,7 +50,8 @@ export default async function HomePage() {
   // ficar vazia.
   const featured = properties.filter((property) => property.featured);
   const curated = featured.length > 0 ? featured : properties;
-  const covers = await getCardCovers(curated);
+  const cardCarousel = await getCardCarouselSettings();
+  const covers = await getCardCovers(curated, cardCarousel);
 
   return (
     <>
@@ -61,6 +62,7 @@ export default async function HomePage() {
         <CuratedCollection
           properties={curated}
           covers={covers}
+          coverIntervalMs={cardCarousel.intervalSeconds * 1000}
           viewAllHref="/portfolio"
           layout={homeCollection.layout}
         />

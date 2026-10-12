@@ -61,6 +61,8 @@ export async function saveProperty(formData: FormData) {
     layout_mode: layoutMode || recommended,
     layout_mode_overridden: layoutMode !== recommended,
     color_theme: str(formData, "color_theme") || null,
+    // Exceção do carrossel das capas: "" = segue o padrão do site, "on"/"off" força.
+    cover_carousel: ({ on: true, off: false } as Record<string, boolean>)[str(formData, "cover_carousel")] ?? null,
   };
 
   if (!record.reference || !record.title) {

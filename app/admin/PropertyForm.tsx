@@ -188,6 +188,26 @@ export function PropertyForm({ property }: { property?: Property }) {
       )}
 
       <fieldset className="flex flex-col gap-4">
+        <h2 className="font-display text-lg text-accent">Capa nos cards</h2>
+        <div>
+          <span className={labelClass}>Carrossel automático</span>
+          <p className="text-xs text-foreground-muted mb-2">
+            Na Home e no Portfólio, a capa deste imóvel pode passar sozinha pelas fotos. “Padrão do site” segue o que
+            está em Integrações → Capas dos cards. Qual foto abre o giro (a capa) você escolhe em Fotos.
+          </p>
+          <Select
+            name="cover_carousel"
+            defaultValue={property?.cover_carousel === true ? "on" : property?.cover_carousel === false ? "off" : ""}
+            options={[
+              { value: "", label: "Padrão do site" },
+              { value: "on", label: "Ligado neste imóvel" },
+              { value: "off", label: "Desligado neste imóvel (só a capa)" },
+            ]}
+          />
+        </div>
+      </fieldset>
+
+      <fieldset className="flex flex-col gap-4">
         <h2 className="font-display text-lg text-accent">Localização</h2>
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
           <Field label="Zona">

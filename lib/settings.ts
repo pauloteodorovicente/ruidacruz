@@ -1,4 +1,7 @@
 import { createAdminClient } from "@/lib/supabase/admin";
+import { sanitizeCardCarousel, type CardCarouselSettings } from "@/lib/cover";
+
+export type { CardCarouselSettings } from "@/lib/cover";
 
 export type MetaPixelSettings = {
   pixelId: string;
@@ -89,6 +92,21 @@ export async function getSellerCtaSettings(): Promise<SellerCtaSettings> {
 
 export async function getGrainSettings(): Promise<GrainSettings> {
   return getPublicSetting("grain", DEFAULT_GRAIN);
+}
+
+// Carrossel automático nas capas dos cards da Home e do Portfólio (padrão do
+// site; cada imóvel pode sobrescrever). Valores fora da faixa são ajustados.
+export async function getCardCarouselSettings(): Promise<CardCarouselSettings> {
+  const raw = await getPublicSetting<Partial<CardCarouselSettings>>("card_carousel", {});
+  return sanitizeCardCarousel(raw);
+}
+
+// Leitura do painel — sem cache, pro formulário nunca mostrar valor velho logo
+// depois de guardar.
+export async function getCardCarouselSettingsForAdmin(): Promise<CardCarouselSettings> {
+  const supabase = createAdminClient();
+  const { data } = await supabase.from("settings").select("value").eq("key", "card_carousel").maybeSingle();
+  return sanitizeCardCarousel(data?.value as Partial<CardCarouselSettings> | undefined);
 }
 
 // Só em contexto de servidor confiável (Route Handlers) — nunca exposto ao

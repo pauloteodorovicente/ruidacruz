@@ -1,12 +1,12 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import Image from "next/image";
 import { useLocale, useTranslations } from "next-intl";
 import { Link as LocalizedLink } from "@/i18n/navigation";
 import { Reveal } from "./Reveal";
 import { FavoriteButton } from "./FavoriteButton";
 import { SignatureCover } from "./SignatureCover";
+import { CardCoverImages } from "./CardCoverImages";
 import type { Property, CardCover } from "@/lib/properties";
 import { propertyPathSegment } from "@/lib/property-types";
 
@@ -48,6 +48,7 @@ function PropertyCard({
   c,
   p,
   covers,
+  coverIntervalMs,
   onDragClick,
 }: {
   property: Property;
@@ -55,6 +56,7 @@ function PropertyCard({
   c: (key: string) => string;
   p: (key: string) => string;
   covers: Record<string, CardCover>;
+  coverIntervalMs: number;
   onDragClick?: (e: React.MouseEvent) => void;
 }) {
   return (
@@ -66,13 +68,13 @@ function PropertyCard({
     >
       <div className="relative aspect-[4/3] overflow-hidden">
         {covers[property.id]?.photos[0] ? (
-          <Image
-            src={covers[property.id].photos[0]}
+          <CardCoverImages
+            photos={covers[property.id].photos}
+            rotate={covers[property.id].rotate}
+            intervalMs={coverIntervalMs}
+            seed={property.id}
             alt={property.title}
-            fill
-            draggable={false}
-            sizes="(max-width: 768px) 100vw, 33vw"
-            className={`object-cover transition-transform duration-700 group-hover:scale-[1.05] ${COVER_IMAGE_POSITION[property.reference] ?? ""}`}
+            imageClassName={`object-cover group-hover:scale-[1.05] ${COVER_IMAGE_POSITION[property.reference] ?? ""}`}
           />
         ) : (
           <SignatureCover />
@@ -125,12 +127,14 @@ function CarouselCollection({
   c,
   p,
   covers,
+  coverIntervalMs,
 }: {
   properties: Property[];
   locale: string;
   c: (key: string) => string;
   p: (key: string) => string;
   covers: Record<string, CardCover>;
+  coverIntervalMs: number;
 }) {
   const trackRef = useRef<HTMLDivElement>(null);
   const [paused, setPaused] = useState(false);
@@ -221,6 +225,7 @@ function CarouselCollection({
             c={c}
             p={p}
             covers={covers}
+            coverIntervalMs={coverIntervalMs}
             onDragClick={handleCardClick}
           />
         </div>
@@ -232,12 +237,15 @@ function CarouselCollection({
 export function CuratedCollection({
   properties,
   covers = {},
+  coverIntervalMs = 5000,
   viewAllHref,
   hideHeading,
   layout = "grid",
 }: {
   properties: Property[];
   covers?: Record<string, CardCover>;
+  // Tempo de cada foto quando a capa gira (padrão em Integrações → Capas dos cards).
+  coverIntervalMs?: number;
   viewAllHref?: string;
   hideHeading?: boolean;
   layout?: "grid" | "carousel";
@@ -261,12 +269,26 @@ export function CuratedCollection({
         )}
 
         {useCarousel ? (
-          <CarouselCollection properties={properties} locale={locale} c={c} p={p} covers={covers} />
+          <CarouselCollection
+            properties={properties}
+            locale={locale}
+            c={c}
+            p={p}
+            covers={covers}
+            coverIntervalMs={coverIntervalMs}
+          />
         ) : (
           <div className="grid grid-cols-1 gap-8 md:grid-cols-3 md:gap-6">
             {properties.map((property) => (
               <Reveal key={property.id} className="block">
-                <PropertyCard property={property} locale={locale} c={c} p={p} covers={covers} />
+                <PropertyCard
+                  property={property}
+                  locale={locale}
+                  c={c}
+                  p={p}
+                  covers={covers}
+                  coverIntervalMs={coverIntervalMs}
+                />
               </Reveal>
             ))}
           </div>
