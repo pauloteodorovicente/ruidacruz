@@ -46,6 +46,10 @@ export const content: Record<
       sending: string;
       error: string;
     };
+    // Sem "exclusiva" de propósito: o empreendimento tem outros consultores
+    // (ver Fase 12 do checklist) — o site principal e a Portimão dizem
+    // "exclusiva", aqui a frase nunca disse e não deve passar a dizer.
+    footer: { representation: string };
     whatsappMessage: string;
   }
 > = {
@@ -135,6 +139,9 @@ export const content: Record<
       "sending": "A enviar...",
       "error": "Não foi possível enviar. Tente novamente ou contacte via WhatsApp."
     },
+    "footer": {
+      "representation": "Representação por Rui Da Cruz, RE/MAX Vantagem Platina."
+    },
     "whatsappMessage": "Olá Rui, tenho interesse no One Green Way (Quinta do Lago). Gostaria de mais informações."
   },
   "pt-BR": {
@@ -223,7 +230,10 @@ export const content: Record<
       "sending": "A enviar...",
       "error": "Não foi possível enviar. Tente novamente ou contacte via WhatsApp."
     },
-    "whatsappMessage": "Olá Rui, tenho interesse no One Green Way (Quinta do Lago). Gostaria de mais informações."
+    "whatsappMessage": "Olá Rui, tenho interesse no One Green Way (Quinta do Lago). Gostaria de mais informações.",
+    "footer": {
+      "representation": "Representação por Rui Da Cruz, RE/MAX Vantagem Platina."
+    }
   },
   "en": {
     "meta": {
@@ -310,6 +320,9 @@ export const content: Record<
       "success": "Message sent. Rui will be in touch shortly.",
       "sending": "Sending...",
       "error": "The message could not be sent. Please try again or contact us via WhatsApp."
+    },
+    "footer": {
+      "representation": "Represented by Rui Da Cruz, RE/MAX Vantagem Platina."
     },
     "whatsappMessage": "Hi Rui, I'm interested in One Green Way (Quinta do Lago). I'd like more information."
   },
@@ -399,6 +412,9 @@ export const content: Record<
       "sending": "Enviando...",
       "error": "No se ha podido enviar. Inténtalo de nuevo o ponte en contacto con nosotros a través de WhatsApp."
     },
+    "footer": {
+      "representation": "Representado por Rui Da Cruz, RE/MAX Vantagem Platina."
+    },
     "whatsappMessage": "Hola, Rui, estoy interesado en One Green Way (Quinta do Lago). Me gustaría recibir más información."
   },
   "fr": {
@@ -486,6 +502,9 @@ export const content: Record<
       "success": "Message envoyé. Rui vous contactera sous peu.",
       "sending": "Envoi en cours...",
       "error": "L'envoi a échoué. Veuillez réessayer ou nous contacter via WhatsApp."
+    },
+    "footer": {
+      "representation": "Représenté par Rui Da Cruz, RE/MAX Vantagem Platina."
     },
     "whatsappMessage": "Bonjour Rui, je suis intéressé par le projet One Green Way (Quinta do Lago). J'aimerais avoir plus d'informations."
   },
@@ -575,6 +594,9 @@ export const content: Record<
       "sending": "Invio in corso...",
       "error": "Non è stato possibile inviare il messaggio. Riprova oppure contattaci tramite WhatsApp."
     },
+    "footer": {
+      "representation": "Rappresentato da Rui Da Cruz, RE/MAX Vantagem Platina."
+    },
     "whatsappMessage": "Ciao Rui, sono interessato al One Green Way (Quinta do Lago). Vorrei ricevere maggiori informazioni."
   },
   "de": {
@@ -662,6 +684,9 @@ export const content: Record<
       "success": "Die Nachricht wurde gesendet. Rui wird sich in Kürze bei dir melden.",
       "sending": "Wird gesendet...",
       "error": "Das Senden ist nicht gelungen. Bitte versuchen Sie es erneut oder kontaktieren Sie uns über WhatsApp."
+    },
+    "footer": {
+      "representation": "Vertreten durch Rui Da Cruz, RE/MAX Vantagem Platina."
     },
     "whatsappMessage": "Hallo Rui, ich interessiere mich für das „One Green Way“ (Quinta do Lago). Ich hätte gerne weitere Informationen."
   },

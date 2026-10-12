@@ -1,7 +1,8 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
+import { useTranslations } from "next-intl";
+import { Link } from "@/i18n/navigation";
 import { useOneGreenwayLanguage } from "@/lib/onegreenway-language-context";
 
 // Handle igual ao usado no SiteFooter — ver app/components/site/SiteFooter.tsx
@@ -9,6 +10,7 @@ const INSTAGRAM_URL = "https://www.instagram.com/_ruidacruz_yourbestchoice/";
 
 export function OneGreenwayFooter({ sellerCtaEnabled = false }: { sellerCtaEnabled?: boolean }) {
   const { t } = useOneGreenwayLanguage();
+  const tFooter = useTranslations("siteFooter");
 
   return (
     <footer className="bg-[#040815] text-white/50 px-6 py-8 md:px-12 text-center text-xs leading-relaxed">
@@ -45,8 +47,8 @@ export function OneGreenwayFooter({ sellerCtaEnabled = false }: { sellerCtaEnabl
           <circle cx="17.5" cy="6.5" r="0.6" fill="currentColor" stroke="none" />
         </svg>
       </a>
-      <p>Representação por Rui Da Cruz, RE/MAX Vantagem Platina.</p>
-      <p className="mt-1">AMI 7772 · Prestígio Global – Sociedade de Mediação Imobiliária, S.A.</p>
+      <p>{t.footer.representation}</p>
+      <p className="mt-1">{tFooter("ami")}</p>
       <p className="mt-1">+351 939 081 583</p>
     </footer>
   );
