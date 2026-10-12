@@ -3,25 +3,32 @@
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { FavoriteButton } from "./FavoriteButton";
+import { SignatureCover } from "./SignatureCover";
 import type { Property } from "@/lib/properties";
 
 // Hero simples do template genérico — sem o vídeo/parallax do Hero.tsx
 // original (isso é específico da Leça do Balio); essa versão só precisa da
-// primeira foto do imóvel. Mantém data-hero-wrapper pro SiteHeader adaptativo.
-export function PropertyHero({ property, coverImage }: { property: Property; coverImage: string }) {
+// capa do imóvel (definida no admin, ou a primeira foto visível). Sem foto
+// nenhuma, mostra a assinatura do Rui. Mantém data-hero-wrapper pro SiteHeader
+// adaptativo.
+export function PropertyHero({ property, coverImage }: { property: Property; coverImage: string | null }) {
   const p = useTranslations("property");
 
   return (
     <div data-hero-wrapper className="relative h-[70vh] min-h-[420px] w-full overflow-hidden bg-black">
-      <Image
-        src={coverImage}
-        alt={property.title}
-        fill
-        priority
-        fetchPriority="high"
-        sizes="100vw"
-        className="object-cover"
-      />
+      {coverImage ? (
+        <Image
+          src={coverImage}
+          alt={property.title}
+          fill
+          priority
+          fetchPriority="high"
+          sizes="100vw"
+          className="object-cover"
+        />
+      ) : (
+        <SignatureCover variant="hero" className="absolute inset-0" />
+      )}
       <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-black/30" />
       <div className="absolute bottom-0 left-0 right-0 h-24 md:h-32 bg-gradient-to-t from-background to-transparent" />
       <FavoriteButton propertyId={property.id} className="absolute top-6 right-6 z-10 md:top-8 md:right-8" />

@@ -6,6 +6,7 @@ import { useLocale, useTranslations } from "next-intl";
 import { Link as LocalizedLink } from "@/i18n/navigation";
 import { Reveal } from "./Reveal";
 import { FavoriteButton } from "./FavoriteButton";
+import { SignatureCover } from "./SignatureCover";
 import type { Property, CardCover } from "@/lib/properties";
 import { propertyPathSegment } from "@/lib/property-types";
 
@@ -19,9 +20,9 @@ import { propertyPathSegment } from "@/lib/property-types";
 // primeira foto visível > nenhuma. Antes era um mapeamento fixo aqui, com
 // fallback pra uma foto da Leça do Balio — qualquer imóvel novo sem foto
 // mostrava a fachada dela por engano (achado 24/08).
-// Fallback neutro provisório pra imóvel sem nenhuma foto (a assinatura do Rui
-// entra na saída C-2).
-const NEUTRAL_COVER_IMAGE = "/images/rui/hero-portrait.jpg";
+// Sem foto nenhuma visível (nem capa definida): o card mostra a assinatura do
+// Rui (SignatureCover), na cor de destaque do site — vale pra qualquer imóvel,
+// inclusive os já publicados (pedido do Paulo, 09/10/2026).
 const COVER_IMAGE_POSITION: Record<string, string> = {
   verdelago: "object-[center_22%]",
 };
@@ -64,14 +65,18 @@ function PropertyCard({
       className="group block overflow-hidden rounded-lg border border-border bg-background-raised shadow-[0_8px_30px_-12px_rgba(0,0,0,0.25)] transition-all duration-500 hover:-translate-y-1.5 hover:shadow-[0_24px_48px_-16px_rgba(0,0,0,0.35)]"
     >
       <div className="relative aspect-[4/3] overflow-hidden">
-        <Image
-          src={covers[property.id]?.photos[0] ?? NEUTRAL_COVER_IMAGE}
-          alt={property.title}
-          fill
-          draggable={false}
-          sizes="(max-width: 768px) 100vw, 33vw"
-          className={`object-cover transition-transform duration-700 group-hover:scale-[1.05] ${COVER_IMAGE_POSITION[property.reference] ?? ""}`}
-        />
+        {covers[property.id]?.photos[0] ? (
+          <Image
+            src={covers[property.id].photos[0]}
+            alt={property.title}
+            fill
+            draggable={false}
+            sizes="(max-width: 768px) 100vw, 33vw"
+            className={`object-cover transition-transform duration-700 group-hover:scale-[1.05] ${COVER_IMAGE_POSITION[property.reference] ?? ""}`}
+          />
+        ) : (
+          <SignatureCover />
+        )}
         <FavoriteButton propertyId={property.id} className="absolute top-3 right-3 z-10" />
       </div>
       <div className="p-5">

@@ -208,8 +208,10 @@ export default async function ImovelPage({
   // Fallback neutro pra imóvel sem foto ainda (rascunho) — nunca a foto de
   // outro imóvel. Achado 24/08: um Terreno sem fotos estava herdando a
   // fachada da Leça do Balio na Hero e no JSON-LD por causa desse fallback.
-  const coverImage =
-    resolveCover(allPhotos, property.cover_photo_id).photo?.storage_path ?? "/images/rui/hero-portrait.jpg";
+  // null = imóvel sem foto visível: o Hero mostra a assinatura do Rui; prévia de
+  // link e JSON-LD (que não podem usar a assinatura) caem na foto neutra do site.
+  const coverPhotoPath = resolveCover(allPhotos, property.cover_photo_id).photo?.storage_path ?? null;
+  const coverImage = coverPhotoPath ?? "/images/rui/hero-portrait.jpg";
   // O mesmo vídeo do Hero (quando existir) também aparece na galeria, como
   // card próprio antes das fotos (pedido do Paulo, 02/09) — mesma fonte de
   // dado, sem duplicar upload nem campo novo pra isso.
@@ -264,7 +266,7 @@ export default async function ImovelPage({
         {propertyHero && propertyHero.items.length > 0 ? (
           <PropertyDynamicHero hero={propertyHero} eyebrow={heroEyebrow} title={property.title} propertyId={property.id} />
         ) : (
-          <PropertyHero property={property} coverImage={coverImage} />
+          <PropertyHero property={property} coverImage={coverPhotoPath} />
         )}
         {sectionsForMode(property, photos, floorplans, galleryVideo)}
         <SiteLeadForm
