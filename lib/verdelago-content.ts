@@ -236,7 +236,7 @@ export const content = {
     brochure: {
       label: "Brochura",
       eyebrow: "Documentação",
-      text: "Descarregue a brochura comercial completa do Verdelago Resort, em português ou inglês.",
+      text: "Baixe a brochura comercial completa do Verdelago Resort, em português ou inglês.",
     },
     related: {
       eyebrow: "Também Disponível",
@@ -254,7 +254,7 @@ export const content = {
       h2: "A última oportunidade de aquisição",
       p5: "Com o lançamento da Fase 6, o Verdelago entra na sua última fase de vendas, representando uma oportunidade para adquirir uma propriedade num resort concebido para proporcionar uma experiência de vida diferenciada, em harmonia com a natureza e junto ao mar.",
       p6: "Conheça as tipologias, localizações e preços disponíveis e descubra as últimas oportunidades de aquisição no Verdelago Resort.",
-      p7: "Para mais informações ou para agendar uma visita, entre em contacto connosco.",
+      p7: "Para mais informações ou para agendar uma visita, entre em contato conosco.",
       statSold: "já vendidas",
       statAvailable: "ainda disponíveis",
       ctaUnits: "Ver frações e valores",

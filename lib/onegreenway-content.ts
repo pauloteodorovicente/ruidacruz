@@ -152,7 +152,7 @@ export const content: Record<
     "breadcrumb": "Empreendimento · Quinta do Lago",
     "nav": {
       "sobre": "Sobre",
-      "contacto": "Contacto",
+      "contacto": "Contato",
       "guia": "Guia",
       "faq": "FAQ",
       "vender": "Vender"
@@ -195,7 +195,7 @@ export const content: Record<
       "items": [
         "Piscinas aquecidas, cozinhas exteriores e terraços com vista",
         "Jardim ou terraço maduro desenhado pela Cracknell, paisagistas internacionais",
-        "Cozinhas de autor, escritórios em casa, salas de cinema e ginásio",
+        "Cozinhas de autor, escritórios em casa, salas de cinema e academia",
         "Concierge personalizado e clubhouse exclusivo",
         "Spa e centro de fitness de alto rendimento",
         "Piscina comum, rooftop lounge panorâmico e business centre",
@@ -213,22 +213,22 @@ export const content: Record<
       "title": "Moradias e Apartamentos Disponíveis",
       "intro": "Duas coleções de residências, cada uma com a sua própria relação com o campo de golfe, os lagos e os jardins.",
       "fromLabel": "Desde",
-      "note": "Valores de referência para as unidades atualmente disponíveis — consulte a tabela de preços atualizada ou fale connosco para confirmação em tempo real."
+      "note": "Valores de referência para as unidades atualmente disponíveis — consulte a tabela de preços atualizada ou fale conosco para confirmação em tempo real."
     },
     "brochure": {
       "eyebrow": "Documentação",
-      "text": "Descarregue a brochura e a tabela de preços completa do One Green Way.",
+      "text": "Baixe a brochura e a tabela de preços completa do One Green Way.",
       "brochureLabel": "Brochura",
       "priceListLabel": "Tabela de Preços"
     },
     "form": {
-      "eyebrow": "Contacto",
+      "eyebrow": "Contato",
       "title": "Interessado no One Green Way?",
       "subtitle": "Fale diretamente com o Rui — resposta em poucas horas.",
       "submit": "Solicitar Informação",
-      "success": "Mensagem enviada. O Rui entra em contacto brevemente.",
-      "sending": "A enviar...",
-      "error": "Não foi possível enviar. Tente novamente ou contacte via WhatsApp."
+      "success": "Mensagem enviada. O Rui entra em contato brevemente.",
+      "sending": "Enviando...",
+      "error": "Não foi possível enviar. Tente novamente ou contate via WhatsApp."
     },
     "whatsappMessage": "Olá Rui, tenho interesse no One Green Way (Quinta do Lago). Gostaria de mais informações.",
     "footer": {
