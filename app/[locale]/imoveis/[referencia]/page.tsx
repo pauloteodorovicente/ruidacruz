@@ -14,6 +14,7 @@ import { ScheduleCallFloating } from "@/app/components/ScheduleCallFloating";
 import { PropertyHero } from "@/app/components/PropertyHero";
 import { PropertyDynamicHero } from "@/app/components/site/PropertyDynamicHero";
 import { PropertyDetails } from "@/app/components/PropertyDetails";
+import { PropertyVirtualTour } from "@/app/components/PropertyVirtualTour";
 import { PropertyHighlights } from "@/app/components/PropertyHighlights";
 import { PropertyGallery } from "@/app/components/PropertyGallery";
 import { PropertyFloorPlan } from "@/app/components/PropertyFloorPlan";
@@ -37,6 +38,10 @@ function sectionsForMode(
   galleryVideo?: { src: string; poster?: string },
 ): ReactNode[] {
   const details = <PropertyDetails property={property} key="details" />;
+  // Visita virtual em destaque logo abaixo dos dados (só quando o imóvel tem link).
+  const tour = property.virtual_tour_url ? (
+    <PropertyVirtualTour url={property.virtual_tour_url} title={property.title} key="virtual-tour" />
+  ) : null;
   const highlights = <PropertyHighlights property={property} key="highlights" />;
   const gallery = <PropertyGallery photos={photos} alt={property.title} video={galleryVideo} key="gallery" />;
   const floorplan = <PropertyFloorPlan floorplans={floorplans} propertyReference={property.reference} key="floorplan" />;
@@ -44,11 +49,11 @@ function sectionsForMode(
 
   switch (property.layout_mode) {
     case "arquitetura":
-      return [details, <ArchitectCredit property={property} key="architect" />, highlights, gallery, floorplan, location];
+      return [details, tour, <ArchitectCredit property={property} key="architect" />, highlights, gallery, floorplan, location];
     case "paisagem_terreno":
-      return [details, highlights, location, gallery, floorplan];
+      return [details, tour, highlights, location, gallery, floorplan];
     case "urbano":
-      return [details, location, highlights, gallery, floorplan];
+      return [details, tour, location, highlights, gallery, floorplan];
   }
 }
 
