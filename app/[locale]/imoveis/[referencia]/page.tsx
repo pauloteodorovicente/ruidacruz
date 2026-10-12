@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import { getProperties, getPropertyByReference, getPropertyPhotos, getPropertyFloorplans, getPropertyTranslation } from "@/lib/properties";
 import { localizeProperty, propertyPathSegment } from "@/lib/property-types";
-import { localeAlternates } from "@/lib/locale-alternates";
+import { localeAlternates, localizedUrl } from "@/lib/locale-alternates";
 import { getPropertyByReferenceForAdmin, getPropertyByReferenceWithPreviewToken, getOffMarketTeaser } from "@/lib/admin-properties";
 import { isAdminAuthenticated } from "@/lib/admin-auth";
 import { getPropertyHero } from "@/lib/property-hero";
@@ -85,7 +85,7 @@ export async function generateMetadata({
   return {
     title,
     description,
-    alternates: { languages: localeAlternates(`/imoveis/${propertyPathSegment(property)}`) },
+    alternates: { canonical: localizedUrl(locale, `/imoveis/${propertyPathSegment(property)}`), languages: localeAlternates(`/imoveis/${propertyPathSegment(property)}`) },
     openGraph: {
       title,
       description,
@@ -129,9 +129,12 @@ function propertyJsonLd(property: Property, coverImage: string, locale: string) 
   };
 }
 
+// Landings de campanha também vivem em app/[locale] (idioma na URL), então o
+// prefixo vale pra elas e pra ficha genérica — antes a seta anterior/próximo
+// levava sempre pro português quando o vizinho era uma landing.
 function hrefForProperty(property: Property, locale: string): string {
-  if (property.is_campaign_page && property.campaign_path) return property.campaign_path;
   const prefix = locale === "pt-PT" ? "" : `/${locale}`;
+  if (property.is_campaign_page && property.campaign_path) return `${prefix}${property.campaign_path}`;
   return `${prefix}/imoveis/${propertyPathSegment(property)}`;
 }
 

@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
-import { localeAlternates } from "@/lib/locale-alternates";
+import { localeAlternates, localizedUrl } from "@/lib/locale-alternates";
 import { SiteHeader } from "@/app/components/site/SiteHeader";
 import { DynamicHero } from "@/app/components/site/DynamicHero";
 import { CredibilityStrip } from "@/app/components/CredibilityStrip";
@@ -27,7 +27,7 @@ export async function generateMetadata({
   return {
     title,
     description,
-    alternates: { languages: localeAlternates("/") },
+    alternates: { canonical: localizedUrl(locale, ""), languages: localeAlternates("/") },
     openGraph: {
       title,
       description,

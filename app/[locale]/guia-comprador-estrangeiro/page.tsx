@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
-import { localeAlternates } from "@/lib/locale-alternates";
+import { localeAlternates, localizedUrl } from "@/lib/locale-alternates";
 import { SiteHeader } from "@/app/components/site/SiteHeader";
 import { SiteFooter } from "@/app/components/site/SiteFooter";
 import { SiteWhatsAppFloating } from "@/app/components/site/SiteWhatsAppFloating";
@@ -19,7 +19,7 @@ export async function generateMetadata({
   return {
     title,
     description,
-    alternates: { languages: localeAlternates("/guia-comprador-estrangeiro") },
+    alternates: { canonical: localizedUrl(locale, "/guia-comprador-estrangeiro"), languages: localeAlternates("/guia-comprador-estrangeiro") },
     openGraph: { title, description, images: ["/images/rui/hero-portrait.jpg"], type: "website" },
   };
 }

@@ -3,11 +3,23 @@ import { routing } from "@/i18n/routing";
 import { getProperties } from "@/lib/properties";
 import { propertyPathSegment } from "@/lib/property-types";
 import { localizedUrl as localizedPath } from "@/lib/locale-alternates";
+import { getSellerCtaSettings } from "@/lib/settings";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const properties = await getProperties();
 
-  const institutionalPaths = ["", "/sobre", "/contacto", "/portfolio", "/guia-comprador-estrangeiro", "/faq"];
+  // /vender some do site (404) quando o botão "Vender" está desligado no admin
+  // — então só entra no sitemap enquanto estiver ligado.
+  const { enabled: sellerCtaEnabled } = await getSellerCtaSettings();
+  const institutionalPaths = [
+    "",
+    "/sobre",
+    "/contacto",
+    "/portfolio",
+    "/guia-comprador-estrangeiro",
+    "/faq",
+    ...(sellerCtaEnabled ? ["/vender"] : []),
+  ];
   const institutionalEntries: MetadataRoute.Sitemap = institutionalPaths.flatMap((path) =>
     routing.locales.map((locale) => ({
       url: localizedPath(locale, path),

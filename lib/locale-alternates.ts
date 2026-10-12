@@ -14,6 +14,9 @@ export function localizedUrl(locale: string, path: string): string {
 // Gera o mapa alternates.languages (hreflang) do Next.js pra uma rota do
 // site — as 7 versões + x-default (a versão sem prefixo).
 export function localeAlternates(path: string): Record<string, string> {
-  const entries = routing.locales.map((locale) => [locale, localizedUrl(locale, path)] as const);
+  // "/" vira "" — /en/ redireciona pra /en, e o hreflang tem que apontar pra
+  // URL final, não pra uma que redireciona.
+  const suffix = path === "/" ? "" : path;
+  const entries = routing.locales.map((locale) => [locale, localizedUrl(locale, suffix)] as const);
   return Object.fromEntries([...entries, ["x-default", `${BASE_URL}${path}`]]);
 }

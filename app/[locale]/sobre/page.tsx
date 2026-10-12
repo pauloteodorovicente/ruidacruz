@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import { getTranslations } from "next-intl/server";
-import { localeAlternates } from "@/lib/locale-alternates";
+import { localeAlternates, localizedUrl } from "@/lib/locale-alternates";
 import { SiteHeader } from "@/app/components/site/SiteHeader";
 import { SiteFooter } from "@/app/components/site/SiteFooter";
 import { SiteWhatsAppFloating } from "@/app/components/site/SiteWhatsAppFloating";
@@ -20,7 +20,7 @@ export async function generateMetadata({
   return {
     title,
     description,
-    alternates: { languages: localeAlternates("/sobre") },
+    alternates: { canonical: localizedUrl(locale, "/sobre"), languages: localeAlternates("/sobre") },
     openGraph: {
       title,
       description,

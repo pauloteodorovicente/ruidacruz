@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
-import { localeAlternates } from "@/lib/locale-alternates";
+import { localeAlternates, localizedUrl } from "@/lib/locale-alternates";
 import { getSellerCtaSettings } from "@/lib/settings";
 import { SiteHeader } from "@/app/components/site/SiteHeader";
 import { SiteFooter } from "@/app/components/site/SiteFooter";
@@ -22,7 +22,7 @@ export async function generateMetadata({
   return {
     title,
     description,
-    alternates: { languages: localeAlternates("/vender") },
+    alternates: { canonical: localizedUrl(locale, "/vender"), languages: localeAlternates("/vender") },
     openGraph: {
       title,
       description,
