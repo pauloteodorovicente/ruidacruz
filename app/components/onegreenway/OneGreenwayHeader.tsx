@@ -1,13 +1,15 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Link from "next/link";
+import { useTranslations } from "next-intl";
+import { Link } from "@/i18n/navigation";
 import { useOneGreenwayLanguage } from "@/lib/onegreenway-language-context";
 import { ThemeToggle } from "../ThemeToggle";
 import { LanguageFlagMenu } from "../LanguageFlagMenu";
 
 export function OneGreenwayHeader({ sellerCtaEnabled = false }: { sellerCtaEnabled?: boolean }) {
   const { locale, setLocale, t } = useOneGreenwayLanguage();
+  const tLang = useTranslations("languageSwitcher");
   const [overHero, setOverHero] = useState(true);
 
   useEffect(() => {
@@ -64,7 +66,7 @@ export function OneGreenwayHeader({ sellerCtaEnabled = false }: { sellerCtaEnabl
         </Link>
       </nav>
       <div className="flex items-center gap-5">
-        <LanguageFlagMenu locale={locale} onSelect={setLocale} ariaLabel="Idioma" overHero={overHero} />
+        <LanguageFlagMenu locale={locale} onSelect={setLocale} ariaLabel={tLang("label")} overHero={overHero} />
         <span className="opacity-30">·</span>
         <span className={`flex h-[18px] w-[18px] items-center justify-center ${overHero ? "drop-shadow-sm" : ""}`}>
           <ThemeToggle />

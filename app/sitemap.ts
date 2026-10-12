@@ -2,16 +2,10 @@ import type { MetadataRoute } from "next";
 import { routing } from "@/i18n/routing";
 import { getProperties } from "@/lib/properties";
 import { propertyPathSegment } from "@/lib/property-types";
+import { localizedUrl as localizedPath } from "@/lib/locale-alternates";
+import { isLocalizedCampaignPath } from "@/lib/campaign-i18n";
 
 const BASE_URL = "https://ruidacruzconsultor.com";
-
-// "as-needed": o locale padrão (pt-PT) não leva prefixo na URL, os outros 6
-// levam — mesma regra do middleware (i18n/routing.ts), replicada aqui porque
-// o sitemap roda fora do contexto de request do next-intl.
-function localizedPath(locale: string, path: string): string {
-  const prefix = locale === routing.defaultLocale ? "" : `/${locale}`;
-  return `${BASE_URL}${prefix}${path}`;
-}
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const properties = await getProperties();
@@ -25,12 +19,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     })),
   );
 
-  // Landings de campanha (Leça, Verdelago, Portimão, One Green Way) vivem
-  // fora da árvore [locale] — path fixo, sem locale nem tradução, ao
-  // contrário do template genérico. Achado corrigindo esta fase: elas
-  // também apareciam na lista de baixo com a URL errada (/imoveis/{ref}, que
-  // não é onde a página de verdade está), e só a Leça tinha entrada própria
-  // — as outras 3 nunca apareceram no sitemap até agora.
+  // Landings de campanha: as que já migraram pra app/[locale] (ver
+  // lib/campaign-i18n.ts) entram uma vez por idioma, como o resto do site; as
+  // que ainda estão fora da árvore [locale] seguem com path fixo, sem idioma.
+  // Elas ficam fora da lista de baixo (/imoveis/{ref} não é onde a página de
+  // verdade está).
   const propertyEntries: MetadataRoute.Sitemap = properties
     .filter((property) => !property.is_campaign_page)
     .flatMap((property) =>
@@ -43,11 +36,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   const campaignEntries: MetadataRoute.Sitemap = properties
     .filter((property) => property.is_campaign_page && property.campaign_path)
-    .map((property) => ({
-      url: `${BASE_URL}${property.campaign_path}`,
-      changeFrequency: "weekly" as const,
-      priority: 0.9,
-    }));
+    .flatMap((property) => {
+      const path = property.campaign_path as string;
+      const urls = isLocalizedCampaignPath(path)
+        ? routing.locales.map((locale) => localizedPath(locale, path))
+        : [`${BASE_URL}${path}`];
+      return urls.map((url) => ({ url, changeFrequency: "weekly" as const, priority: 0.9 }));
+    });
 
   return [...institutionalEntries, ...propertyEntries, ...campaignEntries];
 }

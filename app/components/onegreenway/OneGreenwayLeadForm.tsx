@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { useOneGreenwayLanguage } from "@/lib/onegreenway-language-context";
 import { useLeadForm } from "@/lib/use-lead-form";
 import { PhoneField } from "../PhoneField";
@@ -11,6 +12,7 @@ const PROPERTY = { reference: "onegreenway", title: "One Green Way", zone: "Sul"
 
 export function OneGreenwayLeadForm() {
   const { locale, t } = useOneGreenwayLanguage();
+  const tForm = useTranslations("leadForm");
   const f = t.form;
   const { status, handleSubmit } = useLeadForm(PROPERTY);
 
@@ -35,19 +37,19 @@ export function OneGreenwayLeadForm() {
             <input
               name="name"
               required
-              placeholder="Nome"
+              placeholder={tForm("name")}
               className="bg-transparent border border-white/20 px-4 py-3 text-sm placeholder:text-white/40 focus:border-[#ce946e] outline-none transition-colors"
             />
-            <PhoneField locale={locale} countryAriaLabel="Código do país" invalidMessage="Número incompleto para o país selecionado." />
+            <PhoneField locale={locale} countryAriaLabel={tForm("countryCode")} invalidMessage={tForm("phoneInvalid")} />
             <textarea
               name="message"
               rows={3}
-              placeholder="Mensagem (opcional)"
+              placeholder={tForm("message")}
               className="bg-transparent border border-white/20 px-4 py-3 text-sm placeholder:text-white/40 focus:border-[#ce946e] outline-none transition-colors resize-none"
             />
             <label className="flex items-start gap-2 text-[11px] text-white/50 leading-relaxed mt-1">
               <input type="checkbox" name="consent" required className="mt-0.5" />
-              Concordo com o tratamento dos meus dados para fins de contacto comercial.
+              {tForm("consent")}
             </label>
             <button
               type="submit"

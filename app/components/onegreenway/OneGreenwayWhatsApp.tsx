@@ -1,9 +1,11 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { useOneGreenwayLanguage } from "@/lib/onegreenway-language-context";
 
 export function OneGreenwayWhatsApp() {
   const { t } = useOneGreenwayLanguage();
+  const tWhatsapp = useTranslations("siteWhatsapp");
 
   function trackClick() {
     fetch("/api/track", {
@@ -19,7 +21,7 @@ export function OneGreenwayWhatsApp() {
       href={`https://wa.me/351939081583?text=${encodeURIComponent(t.whatsappMessage)}`}
       target="_blank"
       rel="noopener noreferrer"
-      aria-label="WhatsApp Direto"
+      aria-label={tWhatsapp("ariaLabel")}
       onClick={trackClick}
       className="fixed bottom-6 right-6 z-40 flex h-12 w-12 items-center justify-center rounded-full bg-[#25D366] shadow-lg hover:scale-105 transition-transform"
     >
