@@ -82,6 +82,23 @@ export async function getPropertyUnits(propertyId: string): Promise<PropertyUnit
   return data ?? [];
 }
 
+// Menor preço entre as frações ainda DISPONÍVEIS (vendidas e ocultas não contam) —
+// alimenta o "a partir de" do Verdelago, que antes era um número fixo no código.
+export async function getLowestAvailableUnitPrice(propertyId: string): Promise<number | null> {
+  const supabase = await createClient();
+  const { data, error } = await supabase
+    .from("property_units")
+    .select("price")
+    .eq("property_id", propertyId)
+    .eq("status", "disponivel")
+    .not("price", "is", null)
+    .order("price", { ascending: true })
+    .limit(1);
+  if (error) throw error;
+  const price = data?.[0]?.price;
+  return price == null ? null : Number(price);
+}
+
 export async function getTypologyTranslations(typologyIds: string[]): Promise<TypologyTranslation[]> {
   if (typologyIds.length === 0) return [];
   const supabase = await createClient();

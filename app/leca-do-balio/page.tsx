@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getPropertyByReference } from "@/lib/properties";
 import { getSellerCtaSettings } from "@/lib/settings";
+import { getLowestAvailableUnitPrice } from "@/lib/property-typologies";
 import { LanguageProvider } from "@/lib/language-context";
 import { Header } from "@/app/components/Header";
 import { Hero } from "@/app/components/Hero";
@@ -76,6 +77,8 @@ export default async function LecaDoBalioPage() {
   const property = await getPropertyByReference("122481641-38");
   if (!property?.published) notFound();
   const { enabled: sellerCtaEnabled } = await getSellerCtaSettings();
+  const verdelago = await getPropertyByReference("verdelago");
+  const verdelagoFromPrice = verdelago ? await getLowestAvailableUnitPrice(verdelago.id) : null;
 
   return (
     <LanguageProvider>
@@ -94,7 +97,7 @@ export default async function LecaDoBalioPage() {
         <FloorPlan />
         <Location />
         <Testimonials />
-        <Related />
+        <Related fromPrice={verdelagoFromPrice} />
         <LeadForm />
       </main>
       <Footer sellerCtaEnabled={sellerCtaEnabled} />

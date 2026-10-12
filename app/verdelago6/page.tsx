@@ -93,7 +93,10 @@ export default async function Verdelago6Page() {
         <VerdelagoFase6Hero />
         <VerdelagoFase6 available={available} sold={sold} />
         {phases.length > 0 && <VerdelagoUnidades verdelagoPhases={phases} openFirst />}
-        <VerdelagoBrochure />
+        <VerdelagoBrochure
+          ptHref="/docs/verdelago/Verdelago-Fase6-Documento-Comercial-PT.pdf"
+          enHref="/docs/verdelago/Verdelago-Fase6-Commercial-Document-EN.pdf"
+        />
         <VerdelagoLocation />
         <VerdelagoLeadForm
           property={{ reference: landing.reference, title: "Verdelago Resort — Fase 6", zone: "Sul" }}
