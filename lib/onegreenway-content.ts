@@ -52,7 +52,7 @@ export const content: Record<
   "pt-PT": {
     "meta": {
       "title": "One Green Way | Quinta do Lago — Rui Da Cruz",
-      "description": "One Green Way, Quinta do Lago — 89 residências de luxo junto ao North Course. Moradias e apartamentos representados por Rui Da Cruz."
+      "description": "One Green Way, Quinta do Lago — 89 residências de luxo junto ao North Course. Moradias V4-V6 e apartamentos T3-T5 representados por Rui Da Cruz, RE/MAX Vantagem."
     },
     "breadcrumb": "Empreendimento · Quinta do Lago",
     "nav": {
