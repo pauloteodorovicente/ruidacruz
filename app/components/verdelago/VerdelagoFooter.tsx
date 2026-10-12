@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import { useVerdelagoLanguage } from "@/lib/verdelago-language-context";
 
 // Handle igual ao usado no SiteFooter — ver app/components/site/SiteFooter.tsx

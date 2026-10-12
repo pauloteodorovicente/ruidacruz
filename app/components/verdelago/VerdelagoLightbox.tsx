@@ -120,14 +120,14 @@ export function VerdelagoLightbox({ open, index, onIndexChange, onClose }: Light
       <div className="relative shrink-0 border-t border-white/10 bg-black/60 px-12 py-3">
         <button
           onClick={() => pageStrip(-1)}
-          aria-label="Ver miniaturas anteriores"
+          aria-label={lb.stripPrevious}
           className="absolute left-1 top-1/2 -translate-y-1/2 z-10 flex h-10 w-10 items-center justify-center rounded-full bg-black/50 text-white/70 hover:text-white hover:bg-black/70 transition-colors text-lg"
         >
           ‹
         </button>
         <button
           onClick={() => pageStrip(1)}
-          aria-label="Ver mais miniaturas"
+          aria-label={lb.stripNext}
           className="absolute right-1 top-1/2 -translate-y-1/2 z-10 flex h-10 w-10 items-center justify-center rounded-full bg-black/50 text-white/70 hover:text-white hover:bg-black/70 transition-colors text-lg"
         >
           ›

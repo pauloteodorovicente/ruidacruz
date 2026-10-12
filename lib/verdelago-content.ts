@@ -80,6 +80,7 @@ export const content = {
       text: "Um compromisso genuíno com a sustentabilidade, reconhecido internacionalmente — baixa densidade construtiva, gestão consciente da água e da energia, e respeito pela paisagem natural do Algarve.",
     },
     brochure: {
+      label: "Brochura",
       eyebrow: "Documentação",
       text: "Descarregue a brochura comercial completa do Verdelago Resort, em português ou inglês.",
     },
@@ -107,6 +108,8 @@ export const content = {
       imageAlt: "Clube e SPA do Verdelago Resort",
       teaserText: "21 frações, incluindo 4 de tipologia T4, junto ao Clube, ao SPA e ao acesso à praia.",
       teaserCta: "Conhecer a Fase 6",
+      metaTitle: "Verdelago Resort · Fase 6, a última fase de vendas | Rui Da Cruz",
+      metaDescription: "Lançamento da Fase 6 do Verdelago Resort, a última fase de vendas: 21 frações, incluindo 4 T4, junto ao Clube, ao SPA e à praia. Representação por Rui Da Cruz, RE/MAX Collection.",
     },
     unidades: {
       eyebrow: "Unidades",
@@ -150,7 +153,7 @@ export const content = {
       rights: "Representação exclusiva por Rui Da Cruz, RE/MAX Vantagem Platina.",
     },
     whatsappMessage: "Olá Rui, tenho interesse nos apartamentos do Verdelago Resort, no Algarve. Gostaria de mais informações.",
-    lightbox: { close: "Fechar", previous: "Anterior", next: "Próxima", video: "Vídeo" },
+    lightbox: { close: "Fechar", previous: "Anterior", next: "Próxima", video: "Vídeo", stripPrevious: "Ver miniaturas anteriores", stripNext: "Ver mais miniaturas" },
   },
   "pt-BR": {
     meta: {
@@ -231,6 +234,7 @@ export const content = {
       text: "Um compromisso genuíno com a sustentabilidade, reconhecido internacionalmente — baixa densidade construtiva, gestão consciente da água e da energia, e respeito pela paisagem natural do Algarve.",
     },
     brochure: {
+      label: "Brochura",
       eyebrow: "Documentação",
       text: "Descarregue a brochura comercial completa do Verdelago Resort, em português ou inglês.",
     },
@@ -258,6 +262,8 @@ export const content = {
       imageAlt: "Clube e SPA do Verdelago Resort",
       teaserText: "21 frações, incluindo 4 de tipologia T4, junto ao Clube, ao SPA e ao acesso à praia.",
       teaserCta: "Conhecer a Fase 6",
+      metaTitle: "Verdelago Resort · Fase 6, a última fase de vendas | Rui Da Cruz",
+      metaDescription: "Lançamento da Fase 6 do Verdelago Resort, a última fase de vendas: 21 frações, incluindo 4 T4, junto ao Clube, ao SPA e à praia. Representação por Rui Da Cruz, RE/MAX Collection.",
     },
     unidades: {
       eyebrow: "Unidades",
@@ -301,7 +307,7 @@ export const content = {
       rights: "Representação exclusiva por Rui Da Cruz, RE/MAX Vantagem Platina.",
     },
     whatsappMessage: "Olá Rui, tenho interesse nos apartamentos do Verdelago Resort, no Algarve. Gostaria de mais informações.",
-    lightbox: { close: "Fechar", previous: "Anterior", next: "Próxima", video: "Vídeo" },
+    lightbox: { close: "Fechar", previous: "Anterior", next: "Próxima", video: "Vídeo", stripPrevious: "Ver miniaturas anteriores", stripNext: "Ver mais miniaturas" },
   },
   en: {
     meta: {
@@ -382,6 +388,7 @@ export const content = {
       text: "A genuine, internationally recognized commitment to sustainability—low building density, responsible water and energy management, and respect for the Algarve’s natural landscape.",
     },
     brochure: {
+      label: "Brochure",
       eyebrow: "Documentation",
       text: "Download the complete Verdelago Resort brochure in Portuguese or English.",
     },
@@ -409,6 +416,8 @@ export const content = {
       imageAlt: "Verdelago Resort Club and Spa",
       teaserText: "21 units, including 4 four-bedroom units, located next to the club, the spa, and the beach access.",
       teaserCta: "Learn About Phase 6",
+      metaTitle: "Verdelago Resort · Phase 6, the final sales phase | Rui Da Cruz",
+      metaDescription: "Launch of Phase 6 at Verdelago Resort, the final sales phase: 21 units, including 4 four-bedroom (T4) units, next to the Club, the Spa and the beach access. Represented by Rui Da Cruz, RE/MAX Collection.",
     },
     unidades: {
       eyebrow: "Units",
@@ -452,7 +461,7 @@ export const content = {
       rights: "Exclusively represented by Rui Da Cruz, RE/MAX Vantagem Platina.",
     },
     whatsappMessage: "Hi Rui, I'm interested in the apartments at Verdelago Resort, in the Algarve. I'd like more information.",
-    lightbox: { close: "Close", previous: "Previous", next: "Next", video: "Video" },
+    lightbox: { close: "Close", previous: "Previous", next: "Next", video: "Video", stripPrevious: "Show previous thumbnails", stripNext: "Show more thumbnails" },
   },
   es: {
     meta: {
@@ -533,6 +542,7 @@ export const content = {
       text: "Un compromiso genuino con la sostenibilidad, reconocido internacionalmente: baja densidad de construcción, gestión responsable del agua y la energía, y respeto por el paisaje natural del Algarve.",
     },
     brochure: {
+      label: "Folleto",
       eyebrow: "Documentación",
       text: "Descarga el folleto comercial completo del Verdelago Resort, en portugués o en inglés.",
     },
@@ -560,6 +570,8 @@ export const content = {
       imageAlt: "Club y spa del Verdelago Resort",
       teaserText: "21 viviendas, incluidas 4 de tipo T4, situadas junto al club, al spa y al acceso a la playa.",
       teaserCta: "Conocer la Fase 6",
+      metaTitle: "Verdelago Resort · Fase 6, la última fase de ventas | Rui Da Cruz",
+      metaDescription: "Lanzamiento de la Fase 6 del Verdelago Resort, la última fase de ventas: 21 viviendas, incluidas 4 de tipo T4, junto al Club, al spa y al acceso a la playa. Representado por Rui Da Cruz, RE/MAX Collection.",
     },
     unidades: {
       eyebrow: "Unidades",
@@ -603,7 +615,7 @@ export const content = {
       rights: "Representación exclusiva a cargo de Rui Da Cruz, RE/MAX Vantagem Platina.",
     },
     whatsappMessage: "Hola Rui, estoy interesado/a en los apartamentos de Verdelago Resort, en el Algarve. Me gustaría más información.",
-    lightbox: { close: "Cerrar", previous: "Anterior", next: "Siguiente", video: "Vídeo" },
+    lightbox: { close: "Cerrar", previous: "Anterior", next: "Siguiente", video: "Vídeo", stripPrevious: "Ver miniaturas anteriores", stripNext: "Ver más miniaturas" },
   },
   fr: {
     meta: {
@@ -684,6 +696,7 @@ export const content = {
       text: "Un engagement sincère en faveur du développement durable, reconnu à l'échelle internationale : faible densité de construction, gestion raisonnée de l'eau et de l'énergie, et respect du paysage naturel de l'Algarve.",
     },
     brochure: {
+      label: "Brochure",
       eyebrow: "Documentation",
       text: "Téléchargez la brochure commerciale complète du Verdelago Resort, en portugais ou en anglais.",
     },
@@ -711,6 +724,8 @@ export const content = {
       imageAlt: "Club et spa du Verdelago Resort",
       teaserText: "21 appartements, dont 4 de type T4, situés à proximité du club, du spa et de l'accès à la plage.",
       teaserCta: "En savoir plus sur la phase 6",
+      metaTitle: "Verdelago Resort · Phase 6, la dernière phase de vente | Rui Da Cruz",
+      metaDescription: "Lancement de la phase 6 du Verdelago Resort, la dernière phase de commercialisation : 21 appartements, dont 4 de type T4, à proximité du Club, du spa et de l'accès à la plage. Représenté par Rui Da Cruz, RE/MAX Collection.",
     },
     unidades: {
       eyebrow: "Unités",
@@ -754,7 +769,7 @@ export const content = {
       rights: "Représentation exclusive par Rui Da Cruz, RE/MAX Vantagem Platina.",
     },
     whatsappMessage: "Bonjour Rui, je suis intéressé(e) par les appartements du Verdelago Resort, en Algarve. J'aimerais plus d'informations.",
-    lightbox: { close: "Fermer", previous: "Précédent", next: "Suivant", video: "Vidéo" },
+    lightbox: { close: "Fermer", previous: "Précédent", next: "Suivant", video: "Vidéo", stripPrevious: "Voir les miniatures précédentes", stripNext: "Voir plus de miniatures" },
   },
   it: {
     meta: {
@@ -835,6 +850,7 @@ export const content = {
       text: "Un impegno autentico a favore della sostenibilità, riconosciuto a livello internazionale: bassa densità edilizia, gestione responsabile delle risorse idriche e energetiche e rispetto per il paesaggio naturale dell’Algarve.",
     },
     brochure: {
+      label: "Brochure",
       eyebrow: "Documentazione",
       text: "Scarica la brochure commerciale completa del Verdelago Resort, in portoghese o in inglese.",
     },
@@ -862,6 +878,8 @@ export const content = {
       imageAlt: "Club e SPA del Verdelago Resort",
       teaserText: "21 appartamenti, di cui 4 di tipologia T4, situati vicino al Club, alla SPA e all’accesso alla spiaggia.",
       teaserCta: "Scopri la Fase 6",
+      metaTitle: "Verdelago Resort · Fase 6, l'ultima fase di vendita | Rui Da Cruz",
+      metaDescription: "Lancio della Fase 6 del Verdelago Resort, l'ultima fase di vendita: 21 appartamenti, di cui 4 di tipologia T4, vicino al Club, alla SPA e all'accesso alla spiaggia. Rappresentato da Rui Da Cruz, RE/MAX Collection.",
     },
     unidades: {
       eyebrow: "Unità",
@@ -905,7 +923,7 @@ export const content = {
       rights: "Rappresentanza esclusiva a cura di Rui Da Cruz, RE/MAX Vantagem Platina.",
     },
     whatsappMessage: "Ciao Rui, sono interessato/a agli appartamenti del Verdelago Resort, in Algarve. Vorrei maggiori informazioni.",
-    lightbox: { close: "Chiudi", previous: "Precedente", next: "Successiva", video: "Video" },
+    lightbox: { close: "Chiudi", previous: "Precedente", next: "Successiva", video: "Video", stripPrevious: "Mostra le miniature precedenti", stripNext: "Mostra altre miniature" },
   },
   de: {
     meta: {
@@ -986,6 +1004,7 @@ export const content = {
       text: "Ein echtes, international anerkanntes Engagement für Nachhaltigkeit – geringe Bebauungsdichte, bewusster Umgang mit Wasser und Energie sowie Respekt vor der natürlichen Landschaft der Algarve.",
     },
     brochure: {
+      label: "Broschüre",
       eyebrow: "Dokumentation",
       text: "Laden Sie die vollständige Broschüre zum Verdelago Resort auf Portugiesisch oder Englisch herunter.",
     },
@@ -1013,6 +1032,8 @@ export const content = {
       imageAlt: "Club und Spa des Verdelago Resorts",
       teaserText: "21 Wohnungen, darunter 4 vom Typ T4, in unmittelbarer Nähe zum Club, zum Spa und zum Strandzugang.",
       teaserCta: "Phase 6 kennenlernen",
+      metaTitle: "Verdelago Resort · Phase 6, die letzte Verkaufsphase | Rui Da Cruz",
+      metaDescription: "Start der Phase 6 des Verdelago Resorts, der letzten Verkaufsphase: 21 Wohnungen, darunter 4 vom Typ T4, in unmittelbarer Nähe zum Club, zum Spa und zum Strandzugang. Vertreten durch Rui Da Cruz, RE/MAX Collection.",
     },
     unidades: {
       eyebrow: "Einheiten",
@@ -1056,7 +1077,7 @@ export const content = {
       rights: "Exklusive Vertretung durch Rui Da Cruz, RE/MAX Vantagem Platina.",
     },
     whatsappMessage: "Hallo Rui, ich interessiere mich für die Wohnungen im Verdelago Resort an der Algarve. Ich hätte gerne weitere Informationen.",
-    lightbox: { close: "Schließen", previous: "Zurück", next: "Weiter", video: "Video" },
+    lightbox: { close: "Schließen", previous: "Zurück", next: "Weiter", video: "Video", stripPrevious: "Vorherige Vorschaubilder anzeigen", stripNext: "Weitere Vorschaubilder anzeigen" },
   },
 } as const;
 

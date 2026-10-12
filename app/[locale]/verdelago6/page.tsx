@@ -1,8 +1,14 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { hasLocale } from "next-intl";
+import { setRequestLocale } from "next-intl/server";
+import { routing } from "@/i18n/routing";
 import { getPropertyByReference } from "@/lib/properties";
 import { getSellerCtaSettings } from "@/lib/settings";
 import { getPropertyTypologies, getPropertyUnits } from "@/lib/property-typologies";
+import { localeAlternates, localizedUrl } from "@/lib/locale-alternates";
+import { OG_LOCALE } from "@/lib/campaign-i18n";
+import { content } from "@/lib/verdelago-content";
 import { VerdelagoLanguageProvider } from "@/lib/verdelago-language-context";
 import type { VerdelagoPhaseGroup, VerdelagoUnitRow } from "@/app/components/verdelago/VerdelagoUnidades";
 import { VerdelagoHeader } from "@/app/components/verdelago/VerdelagoHeader";
@@ -20,46 +26,70 @@ import { VerdelagoFooter } from "@/app/components/verdelago/VerdelagoFooter";
 // Paulo 08/10: página à parte, a geral continua em /verdelago). Publicar ou
 // despublicar no admin (imóvel "verdelago6") liga/desliga esta página; as
 // frações vêm do imóvel "verdelago" (mesma tabela de unidades, fase "Fase 6").
-export const metadata: Metadata = {
-  title: "Verdelago Resort · Fase 6, a última fase de vendas | Rui Da Cruz",
-  description:
-    "Lançamento da Fase 6 do Verdelago Resort, a última fase de vendas: 21 frações, incluindo 4 T4, junto ao Clube, ao SPA e à praia. Representação por Rui Da Cruz, RE/MAX Collection.",
-  alternates: { canonical: "https://ruidacruzconsultor.com/verdelago6" },
-  openGraph: {
-    title: "Verdelago Resort · Fase 6, a última fase de vendas",
-    description: "21 frações, incluindo 4 T4, junto ao Clube, ao SPA e à praia — Altura, Algarve.",
-    images: ["/images/verdelago/04-apartamento.jpg"],
-    locale: "pt_PT",
-    type: "website",
-  },
-  robots: { index: true, follow: true },
-};
+// Caminho sem prefixo de idioma — pt-PT fica em /verdelago6 (a URL de sempre,
+// a do e-mail e dos links já enviados) e os outros 6 em /en/verdelago6...
+const PATH = "/verdelago6";
 
-const jsonLd = {
-  "@context": "https://schema.org",
-  "@type": "ApartmentComplex",
-  name: "Verdelago Resort — Fase 6",
-  description:
-    "Última fase de vendas do Verdelago Resort: 21 frações, incluindo 4 de tipologia T4, junto ao Clube, ao SPA e ao acesso à praia, em Altura, Algarve.",
-  url: "https://ruidacruzconsultor.com/verdelago6",
-  image: "https://ruidacruzconsultor.com/images/verdelago/04-apartamento.jpg",
-  address: {
-    "@type": "PostalAddress",
-    addressLocality: "Altura",
-    addressRegion: "Castro Marim, Algarve",
-    postalCode: "8950-411",
-    addressCountry: "PT",
-  },
-  broker: {
-    "@type": "RealEstateAgent",
-    name: "Rui Da Cruz",
-    telephone: "+351939081583",
-  },
-};
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  if (!hasLocale(routing.locales, locale)) return {};
+  const { metaTitle: title, metaDescription: description } = content[locale].fase6;
+
+  return {
+    title,
+    description,
+    alternates: { canonical: localizedUrl(locale, PATH), languages: localeAlternates(PATH) },
+    openGraph: {
+      title,
+      description,
+      images: ["/images/verdelago/04-apartamento.jpg"],
+      locale: OG_LOCALE[locale],
+      type: "website",
+    },
+    robots: { index: true, follow: true },
+  };
+}
+
+// Descrição em português mantida como era (texto próprio do schema); nos
+// outros idiomas usa a descrição da página, já traduzida.
+const JSON_LD_DESCRIPTION_PT =
+  "Última fase de vendas do Verdelago Resort: 21 frações, incluindo 4 de tipologia T4, junto ao Clube, ao SPA e ao acesso à praia, em Altura, Algarve.";
+
+function buildJsonLd(locale: (typeof routing.locales)[number]) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "ApartmentComplex",
+    name: "Verdelago Resort — Fase 6",
+    description: locale === "pt-PT" ? JSON_LD_DESCRIPTION_PT : content[locale].fase6.metaDescription,
+    inLanguage: locale,
+    url: localizedUrl(locale, PATH),
+    image: "https://ruidacruzconsultor.com/images/verdelago/04-apartamento.jpg",
+    address: {
+      "@type": "PostalAddress",
+      addressLocality: "Altura",
+      addressRegion: "Castro Marim, Algarve",
+      postalCode: "8950-411",
+      addressCountry: "PT",
+    },
+    broker: {
+      "@type": "RealEstateAgent",
+      name: "Rui Da Cruz",
+      telephone: "+351939081583",
+    },
+  };
+}
 
 const FASE_6_LABEL = "Fase 6";
 
-export default async function Verdelago6Page() {
+export default async function Verdelago6Page({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params;
+  if (!hasLocale(routing.locales, locale)) notFound();
+  setRequestLocale(locale);
+
   const landing = await getPropertyByReference("verdelago6");
   if (!landing?.published) notFound();
   const property = await getPropertyByReference("verdelago");
@@ -86,8 +116,8 @@ export default async function Verdelago6Page() {
   const available = rows.length - sold;
 
   return (
-    <VerdelagoLanguageProvider>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+    <VerdelagoLanguageProvider locale={locale}>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(buildJsonLd(locale)) }} />
       <VerdelagoHeader sellerCtaEnabled={sellerCtaEnabled} />
       <main className="flex-1">
         <VerdelagoFase6Hero />

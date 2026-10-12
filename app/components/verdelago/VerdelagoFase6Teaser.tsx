@@ -1,6 +1,6 @@
 "use client";
 
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import { useVerdelagoLanguage } from "@/lib/verdelago-language-context";
 import { Reveal } from "../Reveal";
 

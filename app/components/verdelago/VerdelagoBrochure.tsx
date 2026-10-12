@@ -21,7 +21,7 @@ export function VerdelagoBrochure() {
             rel="noopener noreferrer"
             className="text-[11px] tracking-[0.1em] uppercase border border-accent text-accent px-4 py-2.5 transition-colors hover:bg-accent hover:text-background"
           >
-            Brochura PT
+            {b.label} PT
           </a>
           <a
             href="/docs/verdelago/Verdelago-Brochure-EN.pdf"
@@ -29,7 +29,7 @@ export function VerdelagoBrochure() {
             rel="noopener noreferrer"
             className="text-[11px] tracking-[0.1em] uppercase border border-accent text-accent px-4 py-2.5 transition-colors hover:bg-accent hover:text-background"
           >
-            Brochure EN
+            {b.label} EN
           </a>
         </div>
       </Reveal>

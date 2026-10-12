@@ -1,8 +1,14 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { hasLocale } from "next-intl";
+import { setRequestLocale } from "next-intl/server";
+import { routing } from "@/i18n/routing";
 import { getPropertyByReference } from "@/lib/properties";
 import { getSellerCtaSettings } from "@/lib/settings";
 import { getPropertyTypologies, getPropertyUnits, getTypologyFloorplans } from "@/lib/property-typologies";
+import { localeAlternates, localizedUrl } from "@/lib/locale-alternates";
+import { OG_LOCALE } from "@/lib/campaign-i18n";
+import { content } from "@/lib/verdelago-content";
 import { VerdelagoLanguageProvider } from "@/lib/verdelago-language-context";
 import type { VerdelagoPhaseGroup, VerdelagoUnitRow } from "@/app/components/verdelago/VerdelagoUnidades";
 import type { VerdelagoFloorplanItem } from "@/app/components/verdelago/VerdelagoFloorPlans";
@@ -28,48 +34,72 @@ import { VerdelagoWhatsApp } from "@/app/components/verdelago/VerdelagoWhatsApp"
 import { ScheduleCallFloating } from "@/app/components/ScheduleCallFloating";
 import { VerdelagoFooter } from "@/app/components/verdelago/VerdelagoFooter";
 
-export const metadata: Metadata = {
-  title: "Verdelago Resort | Apartamentos T2 e T3 no Algarve — Rui Da Cruz",
-  description:
-    "Apartamentos T2 e T3 no Verdelago Resort, um empreendimento turístico de 5 estrelas entre Altura e a Praia Verde, Algarve. Acesso direto à praia, SPA, piscinas e Resort Club. Representação por Rui Da Cruz, RE/MAX Collection.",
-  openGraph: {
-    title: "Verdelago Resort | Apartamentos T2 e T3 no Algarve",
-    description:
-      "Acesso direto à praia, SPA, piscinas, Resort Club e Kids Club — entre Altura e a Praia Verde, no litoral leste do Algarve.",
-    images: ["/images/verdelago/01-hero-humanizada.jpg"],
-    locale: "pt_PT",
-    type: "website",
-  },
-  robots: { index: true, follow: true },
-};
+// Caminho sem prefixo de idioma — pt-PT fica em /verdelago (a URL de sempre)
+// e os outros 6 em /en/verdelago, /es/verdelago...
+const PATH = "/verdelago";
 
-const jsonLd = {
-  "@context": "https://schema.org",
-  "@type": "ApartmentComplex",
-  name: "Verdelago Resort",
-  description:
-    "Empreendimento turístico de 5 estrelas com apartamentos T2 e T3, entre Altura e a Praia Verde, Algarve. Acesso direto à praia, SPA, piscinas, Resort Club e Kids Club.",
-  url: "https://ruidacruzconsultor.com/verdelago",
-  image: "https://ruidacruzconsultor.com/images/verdelago/01-hero-humanizada.jpg",
-  address: {
-    "@type": "PostalAddress",
-    addressLocality: "Altura",
-    addressRegion: "Castro Marim, Algarve",
-    postalCode: "8950-411",
-    addressCountry: "PT",
-  },
-  numberOfAccommodationUnits: {
-    "@type": "QuantitativeValue",
-    unitText: "T2 e T3",
-  },
-  broker: {
-    "@type": "RealEstateAgent",
-    name: "Rui Da Cruz",
-    telephone: "+351939081583",
-  },
-};
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  if (!hasLocale(routing.locales, locale)) return {};
+  const { title, description } = content[locale].meta;
 
-export default async function VerdelagoPage() {
+  return {
+    title,
+    description,
+    alternates: { canonical: localizedUrl(locale, PATH), languages: localeAlternates(PATH) },
+    openGraph: {
+      title,
+      description,
+      images: ["/images/verdelago/01-hero-humanizada.jpg"],
+      locale: OG_LOCALE[locale],
+      type: "website",
+    },
+    robots: { index: true, follow: true },
+  };
+}
+
+// Descrição em português mantida como era (texto próprio do schema); nos
+// outros idiomas usa a descrição da página, já traduzida.
+const JSON_LD_DESCRIPTION_PT =
+  "Empreendimento turístico de 5 estrelas com apartamentos T2 e T3, entre Altura e a Praia Verde, Algarve. Acesso direto à praia, SPA, piscinas, Resort Club e Kids Club.";
+
+function buildJsonLd(locale: (typeof routing.locales)[number]) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "ApartmentComplex",
+    name: "Verdelago Resort",
+    description: locale === "pt-PT" ? JSON_LD_DESCRIPTION_PT : content[locale].meta.description,
+    inLanguage: locale,
+    url: localizedUrl(locale, PATH),
+    image: "https://ruidacruzconsultor.com/images/verdelago/01-hero-humanizada.jpg",
+    address: {
+      "@type": "PostalAddress",
+      addressLocality: "Altura",
+      addressRegion: "Castro Marim, Algarve",
+      postalCode: "8950-411",
+      addressCountry: "PT",
+    },
+    numberOfAccommodationUnits: {
+      "@type": "QuantitativeValue",
+      unitText: "T2 e T3",
+    },
+    broker: {
+      "@type": "RealEstateAgent",
+      name: "Rui Da Cruz",
+      telephone: "+351939081583",
+    },
+  };
+}
+
+export default async function VerdelagoPage({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params;
+  if (!hasLocale(routing.locales, locale)) notFound();
+  setRequestLocale(locale);
+
   // Controle de publicação vem do registo em properties (ref "verdelago") —
   // despublicar no admin tira a página do ar sem precisar de deploy.
   const property = await getPropertyByReference("verdelago");
@@ -143,10 +173,10 @@ export default async function VerdelagoPage() {
   }));
 
   return (
-    <VerdelagoLanguageProvider>
+    <VerdelagoLanguageProvider locale={locale}>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(buildJsonLd(locale)) }}
       />
       <VerdelagoHeader sellerCtaEnabled={sellerCtaEnabled} />
       <main className="flex-1">
