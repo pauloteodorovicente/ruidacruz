@@ -8,6 +8,7 @@ import {
   getSellerCtaSettings,
   getGrainSettings,
   getCardCarouselSettingsForAdmin,
+  getTypeColorThemesForAdmin,
 } from "@/lib/settings";
 import { MetaPixelForm } from "./MetaPixelForm";
 import { GhlForm } from "./GhlForm";
@@ -16,6 +17,7 @@ import { HomeCollectionForm } from "./HomeCollectionForm";
 import { SellerCtaForm } from "./SellerCtaForm";
 import { GrainForm } from "./GrainForm";
 import { CardCarouselForm } from "./CardCarouselForm";
+import { TypeColorThemesForm } from "./TypeColorThemesForm";
 
 export const PIXEL_PAGE_OPTIONS = [
   { value: "/", label: "Home" },
@@ -32,7 +34,7 @@ export const PIXEL_PAGE_OPTIONS = [
 export default async function IntegracoesPage() {
   if (!(await isAdminAuthenticated())) redirect("/admin/login");
 
-  const [pixel, ghl, scheduling, homeCollection, sellerCta, grain, cardCarousel] = await Promise.all([
+  const [pixel, ghl, scheduling, homeCollection, sellerCta, grain, cardCarousel, typeColorThemes] = await Promise.all([
     getMetaPixelSettings(),
     getGhlSettings(),
     getSchedulingSettings(),
@@ -40,6 +42,7 @@ export default async function IntegracoesPage() {
     getSellerCtaSettings(),
     getGrainSettings(),
     getCardCarouselSettingsForAdmin(),
+    getTypeColorThemesForAdmin(),
   ]);
 
   return (
@@ -55,6 +58,7 @@ export default async function IntegracoesPage() {
           <SchedulingForm initial={scheduling} />
           <HomeCollectionForm initial={homeCollection} />
           <CardCarouselForm initial={cardCarousel} />
+          <TypeColorThemesForm initial={typeColorThemes} />
           <SellerCtaForm initial={sellerCta} />
           <GrainForm initial={grain} />
         </div>

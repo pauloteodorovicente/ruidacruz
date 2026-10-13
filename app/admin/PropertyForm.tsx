@@ -174,18 +174,28 @@ export function PropertyForm({ property }: { property?: Property }) {
         )}
       </fieldset>
 
-      {!property?.is_campaign_page && (
-        <fieldset className="flex flex-col gap-4">
-          <h2 className="font-display text-lg text-accent">Aparência</h2>
-          <div>
-            <span className={labelClass}>Paleta de cor</span>
+      <fieldset className="flex flex-col gap-4">
+        <h2 className="font-display text-lg text-accent">Aparência</h2>
+        <div>
+          <span className={labelClass}>Paleta de cor</span>
+          {property?.is_campaign_page ? (
             <p className="text-xs text-foreground-muted mb-2">
-              Muda a cor de destaque só nesta ficha de imóvel — o resto do site nunca muda.
+              Muda a cor da página inteira desta landing (fundo, cartões, texto e destaque), nos temas claro e escuro.
+              Sem escolha, a landing fica com as cores de sempre — as cores por tipo (Integrações) não valem aqui.
             </p>
-            <ColorThemePicker defaultValue={property?.color_theme} />
-          </div>
-        </fieldset>
-      )}
+          ) : (
+            <p className="text-xs text-foreground-muted mb-2">
+              Muda a cor da página inteira desta ficha (fundo, cartões, texto e destaque), nos temas claro e escuro. A
+              Home e o resto do site nunca mudam. Sem escolha, vale a cor do tipo de imóvel (Integrações → Cores por
+              tipo) e, se o tipo também não tiver, o padrão do site. “Terracota” força o padrão.
+            </p>
+          )}
+          <ColorThemePicker
+            defaultValue={property?.color_theme}
+            noneLabel={property?.is_campaign_page ? "Padrão" : "Seguir o tipo"}
+          />
+        </div>
+      </fieldset>
 
       <fieldset className="flex flex-col gap-4">
         <h2 className="font-display text-lg text-accent">Capa nos cards</h2>

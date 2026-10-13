@@ -1,5 +1,6 @@
 import { createAdminClient } from "@/lib/supabase/admin";
 import { sanitizeCardCarousel, type CardCarouselSettings } from "@/lib/cover";
+import { sanitizeTypeColorThemes, type TypeColorThemes } from "@/lib/property-colors";
 
 export type { CardCarouselSettings } from "@/lib/cover";
 
@@ -107,6 +108,19 @@ export async function getCardCarouselSettingsForAdmin(): Promise<CardCarouselSet
   const supabase = createAdminClient();
   const { data } = await supabase.from("settings").select("value").eq("key", "card_carousel").maybeSingle();
   return sanitizeCardCarousel(data?.value as Partial<CardCarouselSettings> | undefined);
+}
+
+// Cor da paleta por tipo de imóvel (Admin → Integrações → "Cores por tipo").
+// Vazio = nenhum tipo tem cor própria. Cache de 60s como as demais.
+export async function getTypeColorThemes(): Promise<TypeColorThemes> {
+  const raw = await getPublicSetting<Record<string, unknown>>("type_color_themes", {});
+  return sanitizeTypeColorThemes(raw);
+}
+
+export async function getTypeColorThemesForAdmin(): Promise<TypeColorThemes> {
+  const supabase = createAdminClient();
+  const { data } = await supabase.from("settings").select("value").eq("key", "type_color_themes").maybeSingle();
+  return sanitizeTypeColorThemes(data?.value);
 }
 
 // Só em contexto de servidor confiável (Route Handlers) — nunca exposto ao

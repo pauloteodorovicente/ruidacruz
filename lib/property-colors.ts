@@ -1,25 +1,163 @@
+import type { PropertyType } from "./property-types";
+
+// Paletas de cor da PÁGINA INTEIRA (fundo, cartões, texto, destaque, bordas) —
+// pedido do Paulo (28/08 e 08/10/2026): escolher "Musgo" muda a página toda,
+// não só o contorno do botão. Cada paleta tem as duas versões (escuro e claro),
+// porque o visitante alterna o tema do site e nenhuma das duas pode ficar de
+// fora. Esta é a ÚNICA fonte dos valores: o admin (seletor de cor, cores por
+// tipo) lê daqui e o CSS que vai pra página é gerado daqui (paletteCss) — não
+// existe mais uma cópia em globals.css pra manter em sincronia.
+//
+// "Terracota" é a identidade padrão do site (navy profundo + cobre): escolhê-la
+// é o mesmo que não escolher nada, e não gera CSS nenhum (a página fica
+// byte a byte como sempre foi).
+
 export type ColorThemeSlug = "terracota" | "musgo" | "marinho" | "bordo" | "grafite" | "champanhe" | "creme";
 
-export type ColorThemeSwatch = {
-  slug: ColorThemeSlug;
-  label: string;
-  dark: string;
-  light: string;
+export type PaletteTokens = {
+  bg: string;
+  bgRaised: string;
+  fg: string;
+  accent: string;
+  accentStrong: string;
+  accentDark: string;
 };
 
-// Fonte única pros nomes/pré-visualização no admin (ColorThemePicker.tsx) —
-// os valores de verdade aplicados no site vivem em app/globals.css, como
-// regras CSS (`html[data-theme] [data-color-theme="X"]`). "Terracota" não
-// tem regra própria lá porque é matematicamente igual à cor padrão do site
-// (--c-accent já é um tom terracota/cobre) — escolhê-la é o mesmo que deixar
-// em branco. As outras 6 têm que ser mantidas em sincronia manual com as
-// regras em globals.css sempre que um dos dois arquivos mudar.
-export const COLOR_THEMES: ColorThemeSwatch[] = [
-  { slug: "terracota", label: "Terracota (padrão)", dark: "#ce946e", light: "#a3623a" },
-  { slug: "musgo", label: "Musgo", dark: "#8ea67c", light: "#5f7a4e" },
-  { slug: "marinho", label: "Marinho", dark: "#7d97c4", light: "#3f5c8a" },
-  { slug: "bordo", label: "Bordô", dark: "#c07a86", light: "#8a3d4d" },
-  { slug: "grafite", label: "Grafite", dark: "#a8a49c", light: "#5c5850" },
-  { slug: "champanhe", label: "Champanhe", dark: "#d4bd8e", light: "#a8894f" },
-  { slug: "creme", label: "Creme", dark: "#d8cbb5", light: "#a8926e" },
+export type ColorTheme = {
+  slug: ColorThemeSlug;
+  label: string;
+  dark: PaletteTokens;
+  light: PaletteTokens;
+};
+
+export const COLOR_THEMES: ColorTheme[] = [
+  {
+    slug: "terracota",
+    label: "Terracota (padrão)",
+    dark: { bg: "#040815", bgRaised: "#0a1024", fg: "#f5f3ef", accent: "#ce946e", accentStrong: "#e0ab86", accentDark: "#a66a42" },
+    light: { bg: "#faf8f4", bgRaised: "#ffffff", fg: "#0c1220", accent: "#a3623a", accentStrong: "#b97a52", accentDark: "#8a5636" },
+  },
+  {
+    slug: "musgo",
+    label: "Musgo",
+    dark: { bg: "#0a110c", bgRaised: "#111a13", fg: "#f0f2ea", accent: "#8ea67c", accentStrong: "#a8bd97", accentDark: "#6b8259" },
+    light: { bg: "#f4f6ef", bgRaised: "#ffffff", fg: "#121a14", accent: "#587348", accentStrong: "#6f8a5f", accentDark: "#44592f" },
+  },
+  {
+    slug: "marinho",
+    label: "Marinho",
+    dark: { bg: "#07142e", bgRaised: "#0d1f43", fg: "#eef2f9", accent: "#7d97c4", accentStrong: "#9ab0d6", accentDark: "#5c7aa8" },
+    light: { bg: "#f2f5fa", bgRaised: "#ffffff", fg: "#0b1630", accent: "#3f5c8a", accentStrong: "#5878a8", accentDark: "#2f4a72" },
+  },
+  {
+    slug: "bordo",
+    label: "Bordô",
+    dark: { bg: "#12060a", bgRaised: "#1c0c12", fg: "#f6eff0", accent: "#c07a86", accentStrong: "#d494a0", accentDark: "#995a66" },
+    light: { bg: "#faf3f4", bgRaised: "#ffffff", fg: "#2a0f16", accent: "#8a3d4d", accentStrong: "#a35768", accentDark: "#6e2c3a" },
+  },
+  {
+    slug: "grafite",
+    label: "Grafite",
+    dark: { bg: "#0c0d0f", bgRaised: "#15171a", fg: "#f1f1ef", accent: "#a8a49c", accentStrong: "#c0bcb2", accentDark: "#83807a" },
+    light: { bg: "#f3f3f1", bgRaised: "#ffffff", fg: "#17181a", accent: "#5c5850", accentStrong: "#78746a", accentDark: "#454138" },
+  },
+  {
+    slug: "champanhe",
+    label: "Champanhe",
+    dark: { bg: "#11100b", bgRaised: "#1a1812", fg: "#f7f3e8", accent: "#d4bd8e", accentStrong: "#e2d0a8", accentDark: "#b39a68" },
+    light: { bg: "#faf6ec", bgRaised: "#ffffff", fg: "#1f1b10", accent: "#8a6d38", accentStrong: "#a8894f", accentDark: "#6f5628" },
+  },
+  {
+    slug: "creme",
+    label: "Creme",
+    dark: { bg: "#14110e", bgRaised: "#1d1915", fg: "#f4efe6", accent: "#d8cbb5", accentStrong: "#e6dcc9", accentDark: "#b8a988" },
+    light: { bg: "#f6f0e4", bgRaised: "#fffdf8", fg: "#231d14", accent: "#7d6a47", accentStrong: "#a8926e", accentDark: "#655537" },
+  },
 ];
+
+export function findColorTheme(slug: string | null | undefined): ColorTheme | null {
+  return COLOR_THEMES.find((theme) => theme.slug === slug) ?? null;
+}
+
+// Cor da paleta por tipo de imóvel (Admin → Integrações → "Cores por tipo").
+// Tipo sem entrada = sem cor própria (segue o padrão do site).
+export type TypeColorThemes = Partial<Record<PropertyType, ColorThemeSlug>>;
+
+export const COLOR_THEME_PROPERTY_TYPES: { value: PropertyType; label: string }[] = [
+  { value: "moradia", label: "Moradia" },
+  { value: "apartamento", label: "Apartamento" },
+  { value: "terreno", label: "Terreno" },
+  { value: "outro", label: "Outro" },
+];
+
+// Descarta tipo ou paleta desconhecidos (o valor vem de um formulário e do
+// banco — nunca confiar). Devolve só entradas válidas.
+export function sanitizeTypeColorThemes(raw: unknown): TypeColorThemes {
+  const clean: TypeColorThemes = {};
+  if (!raw || typeof raw !== "object") return clean;
+  const source = raw as Record<string, unknown>;
+  for (const { value } of COLOR_THEME_PROPERTY_TYPES) {
+    const slug = source[value];
+    if (typeof slug === "string" && findColorTheme(slug)) clean[value] = slug as ColorThemeSlug;
+  }
+  return clean;
+}
+
+// Precedência (decidida com o Paulo em 08/10/2026): a paleta escolhida NA FICHA
+// do imóvel manda; sem ela vale a do TIPO; sem as duas, o padrão do site.
+// Escolher "Terracota" na ficha é uma escolha de verdade: segura o imóvel no
+// padrão mesmo que o tipo dele tenha outra cor.
+export function resolveColorThemeSlug(
+  propertyTheme: string | null | undefined,
+  propertyType: PropertyType | null | undefined,
+  typeThemes: TypeColorThemes,
+): ColorThemeSlug | null {
+  const own = findColorTheme(propertyTheme);
+  if (own) return own.slug;
+  if (propertyType && typeThemes[propertyType]) return typeThemes[propertyType] ?? null;
+  return null;
+}
+
+function hexToRgb(hex: string): [number, number, number] {
+  const n = parseInt(hex.slice(1), 16);
+  return [(n >> 16) & 255, (n >> 8) & 255, n & 255];
+}
+
+function rgba(hex: string, alpha: number): string {
+  const [r, g, b] = hexToRgb(hex);
+  return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+}
+
+function tokensToVars(t: PaletteTokens, mode: "dark" | "light", band: PaletteTokens): string {
+  const borderAlpha = mode === "dark" ? 0.12 : 0.1;
+  return [
+    `--c-bg:${t.bg}`,
+    `--c-bg-raised:${t.bgRaised}`,
+    `--c-fg:${t.fg}`,
+    `--c-fg-muted:${rgba(t.fg, 0.62)}`,
+    `--c-accent:${t.accent}`,
+    `--c-accent-strong:${t.accentStrong}`,
+    `--c-accent-dark:${t.accentDark}`,
+    `--c-border:${rgba(t.fg, borderAlpha)}`,
+    // Faixas que ficam escuras nos dois temas (formulário e rodapé das landings
+    // de campanha) usam sempre a versão ESCURA da paleta.
+    `--c-band-bg:${band.bg}`,
+    `--c-band-raised:${band.bgRaised}`,
+    `--c-band-fg:${band.fg}`,
+    `--c-band-accent:${band.accent}`,
+    `--c-band-accent-strong:${band.accentStrong}`,
+  ].join(";");
+}
+
+// CSS que recolore a página inteira: sobrescreve as variáveis no <html>, então
+// fundo do <body>, cartões, texto, bordas, menu, rodapé e janelas (galeria,
+// lightbox) leem a paleta juntos. Nulo pra "sem paleta" ou "terracota" (padrão)
+// — nesses casos a página não recebe CSS nenhum.
+export function paletteCss(slug: string | null | undefined): string | null {
+  const theme = findColorTheme(slug);
+  if (!theme || theme.slug === "terracota") return null;
+  return (
+    `html[data-theme="dark"]{${tokensToVars(theme.dark, "dark", theme.dark)}}` +
+    `html[data-theme="light"]{${tokensToVars(theme.light, "light", theme.dark)}}`
+  );
+}

@@ -8,6 +8,9 @@ import { resolveCover } from "@/lib/cover";
 import { getPropertyByReferenceForAdmin, getPropertyByReferenceWithPreviewToken, getOffMarketTeaser } from "@/lib/admin-properties";
 import { isAdminAuthenticated } from "@/lib/admin-auth";
 import { getPropertyHero } from "@/lib/property-hero";
+import { getTypeColorThemes } from "@/lib/settings";
+import { resolveColorThemeSlug } from "@/lib/property-colors";
+import { PagePalette } from "@/app/components/site/PagePalette";
 import { SiteHeader } from "@/app/components/site/SiteHeader";
 import { SiteFooter } from "@/app/components/site/SiteFooter";
 import { SiteWhatsAppFloating } from "@/app/components/site/SiteWhatsAppFloating";
@@ -195,12 +198,15 @@ export default async function ImovelPage({
     locale === rawProperty.source_locale ? null : await getPropertyTranslation(rawProperty.id, locale as Locale);
   const property = localizeProperty(rawProperty, translation);
 
-  const [allPhotos, floorplans, propertyHero, allProperties] = await Promise.all([
+  const [allPhotos, floorplans, propertyHero, allProperties, typeColorThemes] = await Promise.all([
     getPropertyPhotos(property.id),
     getPropertyFloorplans(property.id),
     getPropertyHero(property.id),
     getProperties(),
+    getTypeColorThemes(),
   ]);
+  // Cor da página inteira: paleta da própria ficha > paleta do tipo > padrão.
+  const colorThemeSlug = resolveColorThemeSlug(property.color_theme, property.property_type, typeColorThemes);
   // "Arquivar" foto (pedido do Paulo, 24/08) — some daqui (visitante público,
   // preview e admin veem a mesma ficha), mas continua listada e editável no
   // PhotoManager do admin, que busca a lista própria sem esse filtro.
@@ -253,8 +259,9 @@ export default async function ImovelPage({
           Pré-visualização — este imóvel ainda não está publicado
         </div>
       )}
+      <PagePalette slug={colorThemeSlug} />
       <SiteHeader />
-      <main className="flex-1" data-color-theme={property.color_theme || undefined}>
+      <main className="flex-1">
         {prevProperty && nextProperty && (
           <PropertyNavArrows
             prevHref={hrefForProperty(prevProperty, locale)}

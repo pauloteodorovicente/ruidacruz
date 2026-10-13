@@ -29,80 +29,25 @@
   --c-border: rgba(12, 18, 32, 0.1);
 }
 
-/* Paleta de cor por imóvel — sobrescreve só --c-accent(-strong/-dark) dentro
-   do <main> da ficha de um imóvel específico (data-color-theme vem de
-   property.color_theme, ver app/[locale]/imoveis/[referencia]/page.tsx).
-   Nunca toca em :root/[data-theme], então a Home e o resto do site jamais
-   mudam de cor — só o que estiver dentro dessa <main> lê o valor novo,
-   por cascata normal de CSS custom property. "Terracota" não tem regra
-   aqui de propósito: é matematicamente igual à cor padrão acima (ver
-   lib/property-colors.ts). Nomes/valores devem ficar sincronizados com
-   esse arquivo sempre que um dos dois mudar. */
-html[data-theme="dark"] [data-color-theme="musgo"] {
-  --c-accent: #8ea67c;
-  --c-accent-strong: #a8bd97;
-  --c-accent-dark: #6b8259;
-}
-html[data-theme="light"] [data-color-theme="musgo"] {
-  --c-accent: #5f7a4e;
-  --c-accent-strong: #79936a;
-  --c-accent-dark: #4a6139;
+/* Faixas que ficam ESCURAS nos dois temas (formulário e rodapé das landings de
+   campanha). Antes tinham as cores escritas direto nos componentes; agora leem
+   estas variáveis — com os valores de sempre, então nada muda por padrão — e
+   assim acompanham a paleta da página quando alguém escolhe uma (ver
+   lib/property-colors.ts, que sobrescreve estas variáveis junto com as demais).
+   Paleta de cor da página inteira (Musgo, Marinho, Bordô...): não vive aqui. O
+   CSS é gerado em lib/property-colors.ts (paletteCss) e entra na página pelo
+   componente PagePalette, só nas páginas que têm uma paleta. */
+:root {
+  --c-band-bg: #040815;
+  --c-band-raised: #0a1024;
+  --c-band-fg: #f5f3ef;
+  --c-band-accent: #ce946e;
+  --c-band-accent-strong: #e0ab86;
 }
 
-html[data-theme="dark"] [data-color-theme="marinho"] {
-  --c-accent: #7d97c4;
-  --c-accent-strong: #9ab0d6;
-  --c-accent-dark: #5c7aa8;
-}
-html[data-theme="light"] [data-color-theme="marinho"] {
-  --c-accent: #3f5c8a;
-  --c-accent-strong: #5878a8;
-  --c-accent-dark: #2f4a72;
-}
-
-html[data-theme="dark"] [data-color-theme="bordo"] {
-  --c-accent: #c07a86;
-  --c-accent-strong: #d494a0;
-  --c-accent-dark: #995a66;
-}
-html[data-theme="light"] [data-color-theme="bordo"] {
-  --c-accent: #8a3d4d;
-  --c-accent-strong: #a35768;
-  --c-accent-dark: #6e2c3a;
-}
-
-html[data-theme="dark"] [data-color-theme="grafite"] {
-  --c-accent: #a8a49c;
-  --c-accent-strong: #c0bcb2;
-  --c-accent-dark: #83807a;
-}
-html[data-theme="light"] [data-color-theme="grafite"] {
-  --c-accent: #5c5850;
-  --c-accent-strong: #78746a;
-  --c-accent-dark: #454138;
-}
-
-html[data-theme="dark"] [data-color-theme="champanhe"] {
-  --c-accent: #d4bd8e;
-  --c-accent-strong: #e2d0a8;
-  --c-accent-dark: #b39a68;
-}
-html[data-theme="light"] [data-color-theme="champanhe"] {
-  --c-accent: #a8894f;
-  --c-accent-strong: #c0a568;
-  --c-accent-dark: #8a6d38;
-}
-
-html[data-theme="dark"] [data-color-theme="creme"] {
-  --c-accent: #d8cbb5;
-  --c-accent-strong: #e6dcc9;
-  --c-accent-dark: #b8a988;
-}
-html[data-theme="light"] [data-color-theme="creme"] {
-  --c-accent: #a8926e;
-  --c-accent-strong: #c0ac89;
-  --c-accent-dark: #8a7550;
-}
+/* Variante "light:" — estilos que valem só no tema claro (o site marca o tema
+   no atributo data-theme do <html>). */
+@custom-variant light (&:where([data-theme="light"], [data-theme="light"] *));
 
 /* Cross-fade entre páginas (ver ViewTransitions.tsx) — só ajusta o ritmo
    pro mesmo compasso pausado do resto do site; o cross-fade em si é o
@@ -123,6 +68,11 @@ html[data-theme="light"] [data-color-theme="creme"] {
   --color-accent-strong: var(--c-accent-strong);
   --color-accent-dark: var(--c-accent-dark);
   --color-border: var(--c-border);
+  --color-band: var(--c-band-bg);
+  --color-band-raised: var(--c-band-raised);
+  --color-band-fg: var(--c-band-fg);
+  --color-band-accent: var(--c-band-accent);
+  --color-band-accent-strong: var(--c-band-accent-strong);
   --font-display: var(--c-font-display);
   --font-body: var(--c-font-body);
 }

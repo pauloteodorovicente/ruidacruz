@@ -6,6 +6,8 @@ import { isAdminAuthenticated } from "@/lib/admin-auth";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { sanitizeCardCarousel } from "@/lib/cover";
 import type { CardCarouselSettings } from "@/lib/cover";
+import { sanitizeTypeColorThemes } from "@/lib/property-colors";
+import type { TypeColorThemes } from "@/lib/property-colors";
 import type {
   MetaPixelSettings,
   GhlSettings,
@@ -75,6 +77,21 @@ export async function saveCardCarouselSettings(
   revalidatePath("/admin/integracoes");
   revalidatePath("/", "layout");
   return { ok: true, settings: clean };
+}
+
+// Guarda a paleta de cor de cada tipo de imóvel. Tipo ou paleta desconhecidos
+// são descartados no servidor; tipo sem paleta simplesmente fica de fora.
+export async function saveTypeColorThemes(
+  themes: TypeColorThemes,
+): Promise<{ ok: true; themes: TypeColorThemes }> {
+  if (!(await isAdminAuthenticated())) redirect("/admin/login");
+
+  const clean = sanitizeTypeColorThemes(themes);
+  await upsertSetting("type_color_themes", clean);
+
+  revalidatePath("/admin/integracoes");
+  revalidatePath("/", "layout");
+  return { ok: true, themes: clean };
 }
 
 export async function saveSellerCtaSettings(settings: SellerCtaSettings) {
