@@ -18,6 +18,7 @@ import { PortimaoGallery } from "@/app/components/portimao/PortimaoGallery";
 import { PortimaoPricing } from "@/app/components/portimao/PortimaoPricing";
 import { PortimaoLeadForm } from "@/app/components/portimao/PortimaoLeadForm";
 import { PortimaoWhatsApp } from "@/app/components/portimao/PortimaoWhatsApp";
+import { PagePalette } from "@/app/components/site/PagePalette";
 import { ScheduleCallFloating } from "@/app/components/ScheduleCallFloating";
 import { PortimaoFooter } from "@/app/components/portimao/PortimaoFooter";
 
@@ -88,6 +89,7 @@ export default async function PortimaoPage({ params }: { params: Promise<{ local
   return (
     <PortimaoLanguageProvider locale={locale}>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(buildJsonLd(locale)) }} />
+      <PagePalette slug={property.color_theme} />
       <PortimaoHeader sellerCtaEnabled={sellerCtaEnabled} />
       <main className="flex-1">
         <PortimaoHero />

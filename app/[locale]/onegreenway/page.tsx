@@ -21,6 +21,7 @@ import { OneGreenwayTypologies } from "@/app/components/onegreenway/OneGreenwayT
 import { OneGreenwayBrochure } from "@/app/components/onegreenway/OneGreenwayBrochure";
 import { OneGreenwayLeadForm } from "@/app/components/onegreenway/OneGreenwayLeadForm";
 import { OneGreenwayWhatsApp } from "@/app/components/onegreenway/OneGreenwayWhatsApp";
+import { PagePalette } from "@/app/components/site/PagePalette";
 import { ScheduleCallFloating } from "@/app/components/ScheduleCallFloating";
 import { OneGreenwayFooter } from "@/app/components/onegreenway/OneGreenwayFooter";
 
@@ -127,6 +128,7 @@ export default async function OneGreenwayPage({ params }: { params: Promise<{ lo
   return (
     <OneGreenwayLanguageProvider locale={locale}>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(buildJsonLd(locale)) }} />
+      <PagePalette slug={property.color_theme} />
       <OneGreenwayHeader sellerCtaEnabled={sellerCtaEnabled} />
       <main className="flex-1">
         <OneGreenwayHero />

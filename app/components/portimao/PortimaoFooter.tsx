@@ -13,7 +13,7 @@ export function PortimaoFooter({ sellerCtaEnabled = false }: { sellerCtaEnabled?
   const tFooter = useTranslations("siteFooter");
 
   return (
-    <footer className="bg-[#040815] text-white/50 px-6 py-8 md:px-12 text-center text-xs leading-relaxed">
+    <footer className="bg-band text-white/50 px-6 py-8 md:px-12 text-center text-xs leading-relaxed">
       <Image src="/images/rui/assinatura.png" alt="" width={63} height={72} className="mx-auto mb-5 h-14 w-auto opacity-90" />
       <div className="flex justify-center gap-6 mb-4 text-[11px] tracking-[0.1em] uppercase">
         <Link href="/sobre" className="hover:text-white/80 transition-colors">

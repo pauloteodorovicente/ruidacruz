@@ -36,6 +36,7 @@ import { VerdelagoLocation } from "@/app/components/verdelago/VerdelagoLocation"
 import { VerdelagoRelated } from "@/app/components/verdelago/VerdelagoRelated";
 import { VerdelagoLeadForm } from "@/app/components/verdelago/VerdelagoLeadForm";
 import { VerdelagoWhatsApp } from "@/app/components/verdelago/VerdelagoWhatsApp";
+import { PagePalette } from "@/app/components/site/PagePalette";
 import { ScheduleCallFloating } from "@/app/components/ScheduleCallFloating";
 import { VerdelagoFooter } from "@/app/components/verdelago/VerdelagoFooter";
 
@@ -184,6 +185,7 @@ export default async function VerdelagoPage({ params }: { params: Promise<{ loca
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(buildJsonLd(locale)) }}
       />
+      <PagePalette slug={property.color_theme} />
       <VerdelagoHeader sellerCtaEnabled={sellerCtaEnabled} />
       <main className="flex-1">
         <VerdelagoHero />

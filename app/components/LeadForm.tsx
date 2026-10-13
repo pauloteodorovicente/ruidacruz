@@ -17,20 +17,20 @@ export function LeadForm({ property, heading }: { property?: LeadFormProperty; h
   const { status, handleSubmit } = useLeadForm(property);
 
   return (
-    <section id="contacto" className="bg-[#040815] text-[#f5f3ef] px-6 pt-16 pb-28 md:px-12 md:py-24">
+    <section id="contacto" className="bg-band text-band-fg px-6 pt-16 pb-28 md:px-12 md:py-24">
       <Reveal className="mx-auto max-w-xl text-center block">
-        <p className="text-xs tracking-[0.25em] uppercase text-[#ce946e] mb-3">{h.eyebrow}</p>
+        <p className="text-xs tracking-[0.25em] uppercase text-band-accent mb-3">{h.eyebrow}</p>
         <h2 className="font-display text-3xl md:text-4xl mb-3">{h.title}</h2>
         <p className="text-sm text-white/60 mb-10">{h.subtitle}</p>
 
         {status === "success" ? (
           <div className="flex flex-col items-center gap-4 py-8">
-            <span className="flex h-12 w-12 items-center justify-center rounded-full border border-[#ce946e]">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ce946e" strokeWidth="2">
+            <span className="flex h-12 w-12 items-center justify-center rounded-full border border-band-accent text-band-accent">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                 <path d="M5 13l4 4L19 7" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
             </span>
-            <p className="font-display text-xl text-[#ce946e]">{f.success}</p>
+            <p className="font-display text-xl text-band-accent">{f.success}</p>
           </div>
         ) : (
           <form onSubmit={handleSubmit} className="flex flex-col gap-4 text-left">
@@ -38,7 +38,7 @@ export function LeadForm({ property, heading }: { property?: LeadFormProperty; h
               name="name"
               required
               placeholder={f.name}
-              className="bg-transparent border border-white/20 px-4 py-3 text-sm placeholder:text-white/40 focus:border-[#ce946e] outline-none transition-colors"
+              className="bg-transparent border border-white/20 px-4 py-3 text-sm placeholder:text-white/40 focus:border-band-accent outline-none transition-colors"
             />
             <PhoneField
               locale={locale}
@@ -49,7 +49,7 @@ export function LeadForm({ property, heading }: { property?: LeadFormProperty; h
               name="message"
               rows={3}
               placeholder={f.message}
-              className="bg-transparent border border-white/20 px-4 py-3 text-sm placeholder:text-white/40 focus:border-[#ce946e] outline-none transition-colors resize-none"
+              className="bg-transparent border border-white/20 px-4 py-3 text-sm placeholder:text-white/40 focus:border-band-accent outline-none transition-colors resize-none"
             />
             <label className="flex items-start gap-2 text-[11px] text-white/50 leading-relaxed mt-1">
               <input type="checkbox" name="consent" required className="mt-0.5" />
@@ -58,7 +58,7 @@ export function LeadForm({ property, heading }: { property?: LeadFormProperty; h
             <button
               type="submit"
               disabled={status === "submitting"}
-              className="mt-2 py-3.5 bg-[#ce946e] text-[#040815] font-body text-sm tracking-[0.05em] uppercase transition-all hover:bg-[#e0ab86] hover:-translate-y-0.5 focus-visible:outline-2 focus-visible:outline-[#ce946e] focus-visible:outline-offset-2 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-y-0"
+              className="mt-2 py-3.5 bg-band-accent text-band font-body text-sm tracking-[0.05em] uppercase transition-all hover:bg-band-accent-strong hover:-translate-y-0.5 focus-visible:outline-2 focus-visible:outline-band-accent focus-visible:outline-offset-2 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-y-0"
             >
               {status === "submitting" ? f.submitting : (heading?.submitLabel ?? f.submit)}
             </button>
