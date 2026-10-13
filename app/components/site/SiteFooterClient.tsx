@@ -10,15 +10,18 @@ import { BUSINESS_INFO } from "@/lib/business-info";
 // mesclada, trocar por BUSINESS_INFO.instagramUrl pra ter uma fonte só.
 const INSTAGRAM_URL = "https://www.instagram.com/_ruidacruz_yourbestchoice/";
 
+// Cores do tema (não mais o escuro fixo): no tema claro o rodapé também fica
+// claro, em vez de uma faixa escura embaixo da página (achado 28/08), e segue a
+// paleta de cor da página. No tema escuro vale os mesmos tons de antes.
 export function SiteFooterClient({ sellerCtaEnabled }: { sellerCtaEnabled: boolean }) {
   const nav = useTranslations("siteNav");
   const f = useTranslations("siteFooter");
 
   return (
-    <footer className="bg-[#040815] text-white/50 px-6 py-8 md:px-12 text-center text-xs leading-relaxed">
+    <footer className="bg-background text-foreground/50 light:bg-background-raised light:border-t light:border-border px-6 py-8 md:px-12 text-center text-xs leading-relaxed">
       <Image src="/images/rui/assinatura.png" alt="" width={63} height={72} className="mx-auto mb-5 h-14 w-auto opacity-90" />
       <div className="flex justify-center gap-6 mb-4 text-[11px] tracking-[0.1em] uppercase">
-        <Link href="/sobre" className="hover:text-white/80 transition-colors">
+        <Link href="/sobre" className="hover:text-foreground/80 transition-colors">
           {nav("sobre")}
         </Link>
         {sellerCtaEnabled && (
@@ -26,13 +29,13 @@ export function SiteFooterClient({ sellerCtaEnabled }: { sellerCtaEnabled: boole
             {nav("vender")}
           </Link>
         )}
-        <Link href="/contacto" className="hover:text-white/80 transition-colors">
+        <Link href="/contacto" className="hover:text-foreground/80 transition-colors">
           {nav("contacto")}
         </Link>
-        <Link href="/guia-comprador-estrangeiro" className="hover:text-white/80 transition-colors">
+        <Link href="/guia-comprador-estrangeiro" className="hover:text-foreground/80 transition-colors">
           {nav("guia")}
         </Link>
-        <Link href="/faq" className="hover:text-white/80 transition-colors">
+        <Link href="/faq" className="hover:text-foreground/80 transition-colors">
           {nav("faq")}
         </Link>
       </div>
@@ -41,7 +44,7 @@ export function SiteFooterClient({ sellerCtaEnabled }: { sellerCtaEnabled: boole
         target="_blank"
         rel="noopener noreferrer"
         aria-label="Instagram"
-        className="inline-flex mb-4 text-white/50 hover:text-white/80 transition-colors"
+        className="inline-flex mb-4 text-foreground/50 hover:text-foreground/80 transition-colors"
       >
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="h-4 w-4">
           <rect x="3" y="3" width="18" height="18" rx="5" />
