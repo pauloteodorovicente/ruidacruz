@@ -10,6 +10,7 @@ import { isAdminAuthenticated } from "@/lib/admin-auth";
 import { getPropertyHero } from "@/lib/property-hero";
 import { getTypeColorThemes } from "@/lib/settings";
 import { resolveColorThemeSlug } from "@/lib/property-colors";
+import { resolveSectionOrder, type SectionId } from "@/lib/section-order";
 import { PagePalette } from "@/app/components/site/PagePalette";
 import { SiteHeader } from "@/app/components/site/SiteHeader";
 import { SiteFooter } from "@/app/components/site/SiteFooter";
@@ -31,34 +32,38 @@ import { OffMarketTeaser } from "./OffMarketTeaser";
 import type { Property, PropertyPhoto, PropertyFloorplan, Locale } from "@/lib/properties";
 import type { ReactNode } from "react";
 
-// Os 3 modos de layout reordenam/adicionam seções pra dar destaque ao que
-// mais importa naquele tipo de imóvel — Arquitetura destaca quem assinou o
-// projeto, Paisagem/Terreno e Urbano adiantam a Localização, só que com
-// enquadramentos diferentes (jardim/terreno vs. vizinhança/cidade).
+// A ordem das seções vem de lib/section-order.ts: a ordem guardada no admin
+// (Layout da página, properties.section_order) ou, sem ela, a do "Modelo da
+// Página" — Arquitetura destaca quem assinou o projeto, Paisagem/Terreno e Urbano
+// adiantam a Localização. Seção sem conteúdo (ex.: sem visita virtual) não ocupa lugar.
 function sectionsForMode(
   property: Property,
   photos: PropertyPhoto[],
   floorplans: PropertyFloorplan[],
   galleryVideo?: { src: string; poster?: string },
 ): ReactNode[] {
-  const details = <PropertyDetails property={property} key="details" />;
-  // Visita virtual em destaque logo abaixo dos dados (só quando o imóvel tem link).
-  const tour = property.virtual_tour_url ? (
-    <PropertyVirtualTour url={property.virtual_tour_url} title={property.title} key="virtual-tour" />
-  ) : null;
-  const highlights = <PropertyHighlights property={property} key="highlights" />;
-  const gallery = <PropertyGallery photos={photos} alt={property.title} video={galleryVideo} key="gallery" />;
-  const floorplan = <PropertyFloorPlan floorplans={floorplans} propertyReference={property.reference} key="floorplan" />;
-  const location = <PropertyLocation property={property} key="location" />;
-
-  switch (property.layout_mode) {
-    case "arquitetura":
-      return [details, tour, <ArchitectCredit property={property} key="architect" />, highlights, gallery, floorplan, location];
-    case "paisagem_terreno":
-      return [details, tour, highlights, location, gallery, floorplan];
-    case "urbano":
-      return [details, tour, location, highlights, gallery, floorplan];
-  }
+  const sections: Record<SectionId, ReactNode> = {
+    details: <PropertyDetails property={property} key="details" />,
+    // Visita virtual em destaque (só quando o imóvel tem link).
+    tour: property.virtual_tour_url ? (
+      <PropertyVirtualTour url={property.virtual_tour_url} title={property.title} key="virtual-tour" />
+    ) : null,
+    architect: property.layout_mode === "arquitetura" ? <ArchitectCredit property={property} key="architect" /> : null,
+    highlights: <PropertyHighlights property={property} key="highlights" />,
+    gallery: (
+      <PropertyGallery
+        photos={photos}
+        alt={property.title}
+        video={galleryVideo}
+        videoInGrid={property.gallery_video_in_grid}
+        featured={property.gallery_featured}
+        key="gallery"
+      />
+    ),
+    floorplan: <PropertyFloorPlan floorplans={floorplans} propertyReference={property.reference} key="floorplan" />,
+    location: <PropertyLocation property={property} key="location" />,
+  };
+  return resolveSectionOrder(property.layout_mode, property.section_order).map((id) => sections[id]);
 }
 
 export async function generateMetadata({
