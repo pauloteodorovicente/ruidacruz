@@ -1,6 +1,7 @@
 import { createAdminClient } from "@/lib/supabase/admin";
 import { sanitizeCardCarousel, type CardCarouselSettings } from "@/lib/cover";
 import { sanitizeTypeColorThemes, type TypeColorThemes } from "@/lib/property-colors";
+import { sanitizeVerdelagoPhaseNotes, type VerdelagoPhaseNotes } from "@/lib/verdelago-phase-notes";
 
 export type { CardCarouselSettings } from "@/lib/cover";
 
@@ -121,6 +122,19 @@ export async function getTypeColorThemesForAdmin(): Promise<TypeColorThemes> {
   const supabase = createAdminClient();
   const { data } = await supabase.from("settings").select("value").eq("key", "type_color_themes").maybeSingle();
   return sanitizeTypeColorThemes(data?.value);
+}
+
+// Notas das fases do Verdelago (Admin → Integrações). Vazio = nenhuma fase tem nota.
+// Cache de 60s como as demais.
+export async function getVerdelagoPhaseNotes(): Promise<VerdelagoPhaseNotes> {
+  const raw = await getPublicSetting<Record<string, unknown>>("verdelago_phase_notes", {});
+  return sanitizeVerdelagoPhaseNotes(raw);
+}
+
+export async function getVerdelagoPhaseNotesForAdmin(): Promise<VerdelagoPhaseNotes> {
+  const supabase = createAdminClient();
+  const { data } = await supabase.from("settings").select("value").eq("key", "verdelago_phase_notes").maybeSingle();
+  return sanitizeVerdelagoPhaseNotes(data?.value);
 }
 
 // Só em contexto de servidor confiável (Route Handlers) — nunca exposto ao

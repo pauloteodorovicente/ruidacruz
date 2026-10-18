@@ -4,7 +4,8 @@ import { hasLocale } from "next-intl";
 import { setRequestLocale } from "next-intl/server";
 import { routing } from "@/i18n/routing";
 import { getPropertyByReference } from "@/lib/properties";
-import { getSellerCtaSettings } from "@/lib/settings";
+import { getSellerCtaSettings, getVerdelagoPhaseNotes } from "@/lib/settings";
+import { phaseNoteFor } from "@/lib/verdelago-phase-notes";
 import {
   getPropertyTypologies,
   getPropertyUnits,
@@ -156,11 +157,12 @@ export default async function VerdelagoPage({ params }: { params: Promise<{ loca
   const verdelagoPhases: VerdelagoPhaseGroup[] = phaseOrder
     .map((label, index) => ({ label, index }))
     .sort((a, b) => phaseNumber(b.label) - phaseNumber(a.label) || a.index - b.index)
-    .map(({ label }) => ({ label, units: phaseMap.get(label)! }));
+    .map(({ label }) => ({ label, units: phaseMap.get(label)!, note: phaseNoteFor(phaseNotes, label, locale) }));
 
   // A chamada pra landing da Fase 6 só aparece enquanto essa página estiver
   // publicada (imóvel "verdelago6" no admin).
   const fase6Landing = await getPropertyByReference("verdelago6");
+  const phaseNotes = await getVerdelagoPhaseNotes();
 
   const featuredUnits: VerdelagoFeaturedUnit[] = visibleUnits
     .filter((unit) => unit.featured && unit.status === "disponivel")

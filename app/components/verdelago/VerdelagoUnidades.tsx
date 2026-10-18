@@ -11,7 +11,9 @@ export type VerdelagoUnitRow = {
   valor: number | null;
   vendido: boolean;
 };
-export type VerdelagoPhaseGroup = { label: string; units: VerdelagoUnitRow[] };
+// note: frase curta da fase (ex.: "Termina construção no 1.º semestre de 2027"), já no
+// idioma da página — editável em Admin → Integrações → Notas das fases do Verdelago.
+export type VerdelagoPhaseGroup = { label: string; units: VerdelagoUnitRow[]; note?: string };
 
 type SortKey = "lote" | "fracao" | "tipologia" | "valor";
 type SortDir = "asc" | "desc";
@@ -129,11 +131,17 @@ export function VerdelagoUnidades({
           {sortedPhases.map((phase, phaseIndex) => (
             <details key={phase.label} className="border border-border bg-background group" open={openFirst && phaseIndex === 0}>
               <summary className="cursor-pointer select-none px-5 py-4 flex items-center justify-between text-sm">
-                <span className="font-display text-lg">{phase.label}</span>
+                <span className="flex min-w-0 flex-col gap-0.5">
+                  <span className="font-display text-lg">{phase.label}</span>
+                  {phase.note && <span className="text-xs text-accent">{phase.note}</span>}
+                </span>
                 <span className="text-xs text-foreground-muted">
                   {phase.units.length} {u.fracoesLabel} · {u.verTodas}
                 </span>
               </summary>
+              {phase.note && (
+                <p className="border-t border-border px-5 py-3 text-sm text-accent">{phase.note}</p>
+              )}
               <div className="border-t border-border overflow-x-auto">
                 <table className="w-full text-sm">
                   <thead>

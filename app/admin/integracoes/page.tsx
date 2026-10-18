@@ -9,6 +9,7 @@ import {
   getGrainSettings,
   getCardCarouselSettingsForAdmin,
   getTypeColorThemesForAdmin,
+  getVerdelagoPhaseNotesForAdmin,
 } from "@/lib/settings";
 import { MetaPixelForm } from "./MetaPixelForm";
 import { GhlForm } from "./GhlForm";
@@ -18,6 +19,7 @@ import { SellerCtaForm } from "./SellerCtaForm";
 import { GrainForm } from "./GrainForm";
 import { CardCarouselForm } from "./CardCarouselForm";
 import { TypeColorThemesForm } from "./TypeColorThemesForm";
+import { VerdelagoPhaseNotesForm } from "./VerdelagoPhaseNotesForm";
 
 export const PIXEL_PAGE_OPTIONS = [
   { value: "/", label: "Home" },
@@ -34,7 +36,7 @@ export const PIXEL_PAGE_OPTIONS = [
 export default async function IntegracoesPage() {
   if (!(await isAdminAuthenticated())) redirect("/admin/login");
 
-  const [pixel, ghl, scheduling, homeCollection, sellerCta, grain, cardCarousel, typeColorThemes] = await Promise.all([
+  const [pixel, ghl, scheduling, homeCollection, sellerCta, grain, cardCarousel, typeColorThemes, phaseNotes] = await Promise.all([
     getMetaPixelSettings(),
     getGhlSettings(),
     getSchedulingSettings(),
@@ -43,6 +45,7 @@ export default async function IntegracoesPage() {
     getGrainSettings(),
     getCardCarouselSettingsForAdmin(),
     getTypeColorThemesForAdmin(),
+    getVerdelagoPhaseNotesForAdmin(),
   ]);
 
   return (
@@ -59,6 +62,9 @@ export default async function IntegracoesPage() {
           <HomeCollectionForm initial={homeCollection} />
           <CardCarouselForm initial={cardCarousel} />
           <TypeColorThemesForm initial={typeColorThemes} />
+          <VerdelagoPhaseNotesForm
+            initial={Object.entries(phaseNotes).map(([phase, texts]) => ({ phase, text: texts["pt-PT"] }))}
+          />
           <SellerCtaForm initial={sellerCta} />
           <GrainForm initial={grain} />
         </div>

@@ -8,6 +8,12 @@ import { sanitizeCardCarousel } from "@/lib/cover";
 import type { CardCarouselSettings } from "@/lib/cover";
 import { sanitizeTypeColorThemes } from "@/lib/property-colors";
 import type { TypeColorThemes } from "@/lib/property-colors";
+import { translateBatch } from "@/lib/deepl";
+import {
+  PHASE_NOTE_LOCALES,
+  sanitizeVerdelagoPhaseNotes,
+  type VerdelagoPhaseNotes,
+} from "@/lib/verdelago-phase-notes";
 import type {
   MetaPixelSettings,
   GhlSettings,
@@ -92,6 +98,41 @@ export async function saveTypeColorThemes(
   revalidatePath("/admin/integracoes");
   revalidatePath("/", "layout");
   return { ok: true, themes: clean };
+}
+
+// Guarda as notas das fases do Verdelago. O texto vem em pt-PT e é traduzido para os
+// outros 6 idiomas aqui, antes de guardar (se o DeepL falhar, nada é guardado e o
+// formulário mostra o erro).
+export async function saveVerdelagoPhaseNotes(
+  rows: { phase: string; text: string }[],
+): Promise<{ ok: true; rows: { phase: string; text: string }[] }> {
+  if (!(await isAdminAuthenticated())) redirect("/admin/login");
+
+  const source = sanitizeVerdelagoPhaseNotes(
+    Object.fromEntries(rows.map((row) => [row.phase, { "pt-PT": row.text }])),
+  );
+  const phases = Object.keys(source);
+  const ptTexts = phases.map((phase) => source[phase]["pt-PT"]);
+
+  const notes: VerdelagoPhaseNotes = {};
+  for (const phase of phases) notes[phase] = { "pt-PT": source[phase]["pt-PT"] };
+  for (const locale of PHASE_NOTE_LOCALES) {
+    if (locale === "pt-PT" || phases.length === 0) continue;
+    const translated = await translateBatch(ptTexts, locale);
+    phases.forEach((phase, index) => {
+      notes[phase][locale] = translated[index];
+    });
+  }
+
+  const clean = sanitizeVerdelagoPhaseNotes(notes);
+  await upsertSetting("verdelago_phase_notes", clean);
+
+  revalidatePath("/admin/integracoes");
+  revalidatePath("/", "layout");
+  return {
+    ok: true,
+    rows: Object.entries(clean).map(([phase, texts]) => ({ phase, text: texts["pt-PT"] })),
+  };
 }
 
 export async function saveSellerCtaSettings(settings: SellerCtaSettings) {
