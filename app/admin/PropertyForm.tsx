@@ -6,6 +6,7 @@ import { recommendLayoutMode, propertyPathSegment, type Property } from "@/lib/p
 import { Select } from "@/app/components/Select";
 import { PreviewLinkButton } from "./PreviewLinkButton";
 import { ColorThemePicker } from "./ColorThemePicker";
+import { CardHighlightField } from "./CardHighlightField";
 import { AiDescriptionAssist } from "./AiDescriptionAssist";
 import { useUnsavedChangesGuard } from "./useUnsavedChangesGuard";
 import { UnsavedChangesModal } from "./UnsavedChangesModal";
@@ -152,10 +153,10 @@ export function PropertyForm({ property }: { property?: Property }) {
             <input type="checkbox" name="featured" defaultChecked={property?.featured} />
             <span className="text-sm">Destaque na home</span>
           </label>
-          <label className="flex items-center gap-2 self-end pb-2.5">
-            <input type="checkbox" name="card_highlight" defaultChecked={property?.card_highlight ?? false} />
-            <span className="text-sm">Card com selo “Em destaque”</span>
-          </label>
+          <CardHighlightField
+            defaultChecked={property?.card_highlight ?? false}
+            defaultColor={property?.card_highlight_color ?? null}
+          />
           <label className="flex items-center gap-2 self-end pb-2.5">
             <input type="checkbox" name="published" defaultChecked={property?.published ?? false} />
             <span className="text-sm">Publicado (visível no site)</span>

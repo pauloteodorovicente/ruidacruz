@@ -56,12 +56,20 @@ export function ColorThemeSwatches({
   );
 }
 
-export function ColorThemePicker({ defaultValue, noneLabel = "Nenhuma" }: { defaultValue?: string | null; noneLabel?: string }) {
+export function ColorThemePicker({
+  defaultValue,
+  noneLabel = "Nenhuma",
+  name = "color_theme",
+}: {
+  defaultValue?: string | null;
+  noneLabel?: string;
+  name?: string;
+}) {
   const [selected, setSelected] = useState(defaultValue ?? "");
 
   return (
     <div className="flex flex-col gap-2">
-      <input type="hidden" name="color_theme" value={selected} />
+      <input type="hidden" name={name} value={selected} />
       <ColorThemeSwatches value={selected} onChange={setSelected} noneLabel={noneLabel} />
     </div>
   );

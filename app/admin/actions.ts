@@ -8,6 +8,7 @@ import { isAdminAuthenticated } from "@/lib/admin-auth";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { recommendLayoutMode, normalizeSlug, normalizeVirtualTourUrl } from "@/lib/property-types";
 import { translatePropertyToAllLocales } from "@/lib/translate-property";
+import { findColorTheme } from "@/lib/property-colors";
 
 function str(formData: FormData, key: string): string {
   return String(formData.get(key) ?? "").trim();
@@ -42,6 +43,9 @@ export async function saveProperty(formData: FormData) {
     business_type: str(formData, "business_type") || "venda",
     featured: formData.get("featured") === "on",
     card_highlight: formData.get("card_highlight") === "on",
+    // Só vale com Super-Destaque ligado; paleta desconhecida ou "padrão" vira nulo.
+    card_highlight_color:
+      formData.get("card_highlight") === "on" ? (findColorTheme(str(formData, "card_highlight_color"))?.slug ?? null) : null,
     published: formData.get("published") === "on",
     zone: str(formData, "zone") || null,
     ghl_zone: str(formData, "ghl_zone") || null,

@@ -64,6 +64,14 @@ export type Property = {
   cover_carousel: boolean | null;
   // Selo "Em destaque" e borda de destaque no card da Home/Portfólio (migração 0026).
   card_highlight: boolean;
+  // Paleta do card em Super-Destaque (migração 0027). Nulo = cores padrão do site.
+  card_highlight_color: string | null;
+  // Mídia da galeria que ocupa 2x2: id de uma foto ou "video" (o vídeo do Hero).
+  gallery_featured: string | null;
+  // O vídeo do Hero também é o primeiro quadro da grade da galeria.
+  gallery_video_in_grid: boolean;
+  // Ordem das seções da ficha (ids em lib/section-order.ts). Nulo = padrão do modelo.
+  section_order: string[] | null;
   created_at: string;
   updated_at: string;
 };

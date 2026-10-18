@@ -9,6 +9,7 @@ import { SignatureCover } from "./SignatureCover";
 import { CardCoverImages } from "./CardCoverImages";
 import type { Property, CardCover } from "@/lib/properties";
 import { propertyPathSegment } from "@/lib/property-types";
+import { cardPaletteCss, findColorTheme } from "@/lib/property-colors";
 
 // Recebe as propriedades já buscadas no Supabase por um Server Component pai
 // (app/page.tsx) — mantém o padrão do site de conteúdo traduzido em Client
@@ -70,9 +71,11 @@ function PropertyCard({
       href={hrefFor(property)}
       onClick={onDragClick}
       draggable={false}
+      data-card-palette={property.card_highlight ? (findColorTheme(property.card_highlight_color)?.slug ?? undefined) : undefined}
+      data-super={property.card_highlight ? "true" : undefined}
       className={`group block overflow-hidden rounded-lg border ${property.card_highlight ? "border-accent" : "border-border"} bg-background-raised shadow-[0_8px_30px_-12px_rgba(0,0,0,0.25)] transition-all duration-500 hover:-translate-y-1.5 hover:shadow-[0_24px_48px_-16px_rgba(0,0,0,0.35)]`}
     >
-      <div className="relative aspect-[4/3] overflow-hidden">
+      <div className={`relative overflow-hidden ${property.card_highlight ? "aspect-[5/4]" : "aspect-[4/3]"}`}>
         {covers[property.id]?.photos[0] ? (
           <CardCoverImages
             photos={covers[property.id].photos}
@@ -92,7 +95,7 @@ function PropertyCard({
         )}
         <FavoriteButton propertyId={property.id} className="absolute top-3 right-3 z-10" />
       </div>
-      <div className="p-5">
+      <div className={property.card_highlight ? "p-7" : "p-5"}>
         <div className="flex items-center justify-between gap-2">
           <p className="text-xs tracking-[0.15em] uppercase text-foreground-muted">{property.zone}</p>
           <span className="shrink-0 text-[10px] tracking-[0.1em] uppercase px-2 py-0.5 border border-accent/40 text-accent">
@@ -230,7 +233,7 @@ function CarouselCollection({
       onPointerCancel={handlePointerUp}
       onMouseMove={() => setPaused(true)}
       onMouseLeave={() => !dragState.current && setPaused(false)}
-      className="flex gap-6 overflow-x-hidden touch-pan-y cursor-grab active:cursor-grabbing select-none"
+      className="flex items-center gap-6 overflow-x-hidden py-4 touch-pan-y cursor-grab active:cursor-grabbing select-none"
     >
       {[...properties, ...properties].map((property, i) => (
         <div key={`${property.id}-${i}`} className="w-[78vw] max-w-[340px] flex-shrink-0 sm:w-[320px]">
@@ -276,9 +279,14 @@ export function CuratedCollection({
   // Carrossel só faz sentido com pelo menos alguns cartões pra rolar —
   // com poucos, cai de volta pra grade automaticamente.
   const useCarousel = layout === "carousel" && properties.length > 2;
+  // Só emite o CSS das paletas dos cards se algum card em Super-Destaque usa uma.
+  const needsCardPalettes = properties.some(
+    (property) => property.card_highlight && findColorTheme(property.card_highlight_color)?.slug !== undefined,
+  );
 
   return (
     <section id="colecao" className="bg-background px-6 py-14 md:px-12 md:py-20">
+      {needsCardPalettes && <style dangerouslySetInnerHTML={{ __html: cardPaletteCss() }} />}
       <div className={useCarousel ? "" : "mx-auto max-w-6xl"}>
         {!hideHeading && (
           <Reveal className={`block ${useCarousel ? "mx-auto max-w-6xl px-6 md:px-12" : ""}`}>
@@ -298,7 +306,7 @@ export function CuratedCollection({
             fromPrices={fromPrices}
           />
         ) : (
-          <div className="grid grid-cols-1 gap-8 md:grid-cols-3 md:gap-6">
+          <div className="grid grid-cols-1 items-center gap-8 md:grid-cols-3 md:gap-6">
             {properties.map((property) => (
               <Reveal key={property.id} className="block">
                 <PropertyCard

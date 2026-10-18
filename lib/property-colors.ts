@@ -161,3 +161,23 @@ export function paletteCss(slug: string | null | undefined): string | null {
     `html[data-theme="light"]{${tokensToVars(theme.light, "light", theme.dark)}}`
   );
 }
+
+// CSS das paletas para UM card em Super-Destaque (Home e Portfólio): em vez de trocar a
+// página inteira (paletteCss), troca só as cores dentro do elemento marcado com
+// data-card-palette="<slug>". O tema do Tailwind é `@theme inline` (globals.css): as classes
+// leem os --c-* direto, então são eles que se redefinem aqui. Terracota (padrão) não gera CSS.
+export function cardPaletteCss(): string {
+  const rule = (slug: string, mode: "dark" | "light", t: PaletteTokens) => {
+    const alpha = mode === "dark" ? 0.12 : 0.1;
+    return (
+      `html[data-theme="${mode}"] [data-card-palette="${slug}"]{` +
+      `--c-bg-raised:${t.bgRaised};--c-fg:${t.fg};` +
+      `--c-fg-muted:${rgba(t.fg, 0.62)};--c-accent:${t.accent};` +
+      `--c-accent-strong:${t.accentStrong};--c-border:${rgba(t.fg, alpha)};` +
+      `color:${t.fg}}`
+    );
+  };
+  return COLOR_THEMES.filter((theme) => theme.slug !== "terracota")
+    .map((theme) => rule(theme.slug, "dark", theme.dark) + rule(theme.slug, "light", theme.light))
+    .join("");
+}
