@@ -49,6 +49,7 @@ function PropertyCard({
   p,
   covers,
   coverIntervalMs,
+  fromPrices,
   onDragClick,
 }: {
   property: Property;
@@ -57,14 +58,19 @@ function PropertyCard({
   p: (key: string) => string;
   covers: Record<string, CardCover>;
   coverIntervalMs: number;
+  fromPrices: Record<string, number>;
   onDragClick?: (e: React.MouseEvent) => void;
 }) {
+  // "A partir de": menor valor ainda disponível (frações do Verdelago, calculado no
+  // servidor — lib/property-typologies.ts). Sem valor calculado, vale o preço do imóvel.
+  const fromPrice = fromPrices[property.id];
+  const shownPrice = fromPrice ?? property.price;
   return (
     <LocalizedLink
       href={hrefFor(property)}
       onClick={onDragClick}
       draggable={false}
-      className="group block overflow-hidden rounded-lg border border-border bg-background-raised shadow-[0_8px_30px_-12px_rgba(0,0,0,0.25)] transition-all duration-500 hover:-translate-y-1.5 hover:shadow-[0_24px_48px_-16px_rgba(0,0,0,0.35)]"
+      className={`group block overflow-hidden rounded-lg border ${property.card_highlight ? "border-accent" : "border-border"} bg-background-raised shadow-[0_8px_30px_-12px_rgba(0,0,0,0.25)] transition-all duration-500 hover:-translate-y-1.5 hover:shadow-[0_24px_48px_-16px_rgba(0,0,0,0.35)]`}
     >
       <div className="relative aspect-[4/3] overflow-hidden">
         {covers[property.id]?.photos[0] ? (
@@ -79,6 +85,11 @@ function PropertyCard({
         ) : (
           <SignatureCover />
         )}
+        {property.card_highlight && (
+          <span className="absolute top-3 left-3 z-10 bg-accent px-2.5 py-1 text-[10px] font-medium tracking-[0.14em] uppercase text-background">
+            {c("featuredBadge")}
+          </span>
+        )}
         <FavoriteButton propertyId={property.id} className="absolute top-3 right-3 z-10" />
       </div>
       <div className="p-5">
@@ -92,11 +103,13 @@ function PropertyCard({
         <p className="mt-1 text-sm text-accent">
           {property.price_on_application
             ? c("priceOnApplication")
-            : property.price?.toLocaleString(locale, {
-                style: "currency",
-                currency: "EUR",
-                maximumFractionDigits: 0,
-              })}
+            : shownPrice != null
+              ? `${fromPrice != null ? `${c("priceFrom")} ` : ""}${shownPrice.toLocaleString(locale, {
+                  style: "currency",
+                  currency: "EUR",
+                  maximumFractionDigits: 0,
+                })}`
+              : null}
           {!property.price_on_application &&
             property.business_type === "arrendamento" &&
             !property.is_campaign_page && <span className="text-foreground-muted">{p("perMonth")}</span>}
@@ -128,6 +141,7 @@ function CarouselCollection({
   p,
   covers,
   coverIntervalMs,
+  fromPrices,
 }: {
   properties: Property[];
   locale: string;
@@ -135,6 +149,7 @@ function CarouselCollection({
   p: (key: string) => string;
   covers: Record<string, CardCover>;
   coverIntervalMs: number;
+  fromPrices: Record<string, number>;
 }) {
   const trackRef = useRef<HTMLDivElement>(null);
   const [paused, setPaused] = useState(false);
@@ -226,6 +241,7 @@ function CarouselCollection({
             p={p}
             covers={covers}
             coverIntervalMs={coverIntervalMs}
+            fromPrices={fromPrices}
             onDragClick={handleCardClick}
           />
         </div>
@@ -238,6 +254,7 @@ export function CuratedCollection({
   properties,
   covers = {},
   coverIntervalMs = 5000,
+  fromPrices = {},
   viewAllHref,
   hideHeading,
   layout = "grid",
@@ -246,6 +263,8 @@ export function CuratedCollection({
   covers?: Record<string, CardCover>;
   // Tempo de cada foto quando a capa gira (padrão em Integrações → Capas dos cards).
   coverIntervalMs?: number;
+  // Menor valor disponível por imóvel ("A partir de"), calculado no servidor.
+  fromPrices?: Record<string, number>;
   viewAllHref?: string;
   hideHeading?: boolean;
   layout?: "grid" | "carousel";
@@ -276,6 +295,7 @@ export function CuratedCollection({
             p={p}
             covers={covers}
             coverIntervalMs={coverIntervalMs}
+            fromPrices={fromPrices}
           />
         ) : (
           <div className="grid grid-cols-1 gap-8 md:grid-cols-3 md:gap-6">
@@ -288,6 +308,7 @@ export function CuratedCollection({
                   p={p}
                   covers={covers}
                   coverIntervalMs={coverIntervalMs}
+                  fromPrices={fromPrices}
                 />
               </Reveal>
             ))}

@@ -62,6 +62,8 @@ export type Property = {
   // Exceção do carrossel automático das capas: nulo = segue o padrão do site
   // (settings card_carousel), true/false força ligado/desligado neste imóvel.
   cover_carousel: boolean | null;
+  // Selo "Em destaque" e borda de destaque no card da Home/Portfólio (migração 0026).
+  card_highlight: boolean;
   created_at: string;
   updated_at: string;
 };

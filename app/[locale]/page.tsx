@@ -11,6 +11,7 @@ import { SiteWhatsAppFloating } from "@/app/components/site/SiteWhatsAppFloating
 import { ScheduleCallFloating } from "@/app/components/ScheduleCallFloating";
 import { SiteFooter } from "@/app/components/site/SiteFooter";
 import { getProperties, getCardCovers } from "@/lib/properties";
+import { getCardFromPrices } from "@/lib/property-typologies";
 import { getTestimonials } from "@/lib/testimonials";
 import { getHomeHero, getHomeHeroCtaSettings } from "@/lib/home-hero";
 import { getHomeCollectionSettings, getCardCarouselSettings } from "@/lib/settings";
@@ -52,6 +53,7 @@ export default async function HomePage() {
   const curated = featured.length > 0 ? featured : properties;
   const cardCarousel = await getCardCarouselSettings();
   const covers = await getCardCovers(curated, cardCarousel);
+  const fromPrices = await getCardFromPrices(curated);
 
   return (
     <>
@@ -62,6 +64,7 @@ export default async function HomePage() {
         <CuratedCollection
           properties={curated}
           covers={covers}
+          fromPrices={fromPrices}
           coverIntervalMs={cardCarousel.intervalSeconds * 1000}
           viewAllHref="/portfolio"
           layout={homeCollection.layout}

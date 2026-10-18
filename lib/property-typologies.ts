@@ -109,3 +109,51 @@ export async function getTypologyTranslations(typologyIds: string[]): Promise<Ty
   if (error) throw error;
   return data ?? [];
 }
+
+// "A partir de" dos cards da Home e do Portfólio (Backlog 15/10, item c): menor valor
+// ainda DISPONÍVEL entre as frações do imóvel. Só entra quem tem frações com valor;
+// os demais cards seguem mostrando o preço do imóvel. A landing da Fase 6 não tem
+// frações próprias: usa as da referência "verdelago" com fase "Fase 6" (mesma regra
+// de app/[locale]/verdelago6/page.tsx).
+const FASE_6_REFERENCE = "verdelago6";
+const FASE_6_SOURCE_REFERENCE = "verdelago";
+const FASE_6_PHASE_LABEL = "Fase 6";
+
+export async function getCardFromPrices(
+  properties: { id: string; reference: string }[],
+): Promise<Record<string, number>> {
+  if (properties.length === 0) return {};
+  const supabase = await createClient();
+  const { data, error } = await supabase
+    .from("property_units")
+    .select("property_id, price, phase_label")
+    .eq("status", "disponivel")
+    .not("price", "is", null);
+  if (error) throw error;
+
+  const units = (data ?? []) as { property_id: string; price: number | string; phase_label: string | null }[];
+  const lowest = (rows: typeof units) => {
+    const prices = rows.map((u) => Number(u.price)).filter((n) => Number.isFinite(n));
+    return prices.length > 0 ? Math.min(...prices) : null;
+  };
+
+  const result: Record<string, number> = {};
+  const sourceId = properties.find((p) => p.reference === FASE_6_SOURCE_REFERENCE)?.id;
+  for (const property of properties) {
+    if (property.reference === FASE_6_REFERENCE) {
+      // Sem o imóvel de origem na lista, a Fase 6 não ganha "a partir de".
+      const id = sourceId ?? (await idByReference(supabase, FASE_6_SOURCE_REFERENCE));
+      const price = id ? lowest(units.filter((u) => u.property_id === id && u.phase_label === FASE_6_PHASE_LABEL)) : null;
+      if (price != null) result[property.id] = price;
+      continue;
+    }
+    const price = lowest(units.filter((u) => u.property_id === property.id));
+    if (price != null) result[property.id] = price;
+  }
+  return result;
+}
+
+async function idByReference(supabase: Awaited<ReturnType<typeof createClient>>, reference: string) {
+  const { data } = await supabase.from("properties").select("id").eq("reference", reference).maybeSingle();
+  return (data?.id as string | undefined) ?? null;
+}

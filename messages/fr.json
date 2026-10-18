@@ -64,6 +64,8 @@
     "collection": {
       "eyebrow": "Portefeuille",
       "title": "Chaque bien, un choix délibéré.",
+      "featuredBadge": "À la une",
+      "priceFrom": "À partir de",
       "priceOnApplication": "Prix sur demande",
       "viewProperty": "Voir le bien immobilier",
       "viewAll": "Voir le Portefeuille Complet"

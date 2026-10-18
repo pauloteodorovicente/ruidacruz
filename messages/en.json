@@ -64,6 +64,8 @@
     "collection": {
       "eyebrow": "Portfolio",
       "title": "Every property, a deliberate choice.",
+      "featuredBadge": "Featured",
+      "priceFrom": "From",
       "priceOnApplication": "Price on Application",
       "viewProperty": "View Property",
       "viewAll": "View Full Portfolio"

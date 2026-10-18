@@ -153,6 +153,10 @@ export function PropertyForm({ property }: { property?: Property }) {
             <span className="text-sm">Destaque na home</span>
           </label>
           <label className="flex items-center gap-2 self-end pb-2.5">
+            <input type="checkbox" name="card_highlight" defaultChecked={property?.card_highlight ?? false} />
+            <span className="text-sm">Card com selo “Em destaque”</span>
+          </label>
+          <label className="flex items-center gap-2 self-end pb-2.5">
             <input type="checkbox" name="published" defaultChecked={property?.published ?? false} />
             <span className="text-sm">Publicado (visível no site)</span>
           </label>

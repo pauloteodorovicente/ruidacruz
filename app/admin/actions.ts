@@ -41,6 +41,7 @@ export async function saveProperty(formData: FormData) {
     status: str(formData, "status") || "disponivel",
     business_type: str(formData, "business_type") || "venda",
     featured: formData.get("featured") === "on",
+    card_highlight: formData.get("card_highlight") === "on",
     published: formData.get("published") === "on",
     zone: str(formData, "zone") || null,
     ghl_zone: str(formData, "ghl_zone") || null,

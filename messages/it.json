@@ -64,6 +64,8 @@
     "collection": {
       "eyebrow": "Portfolio",
       "title": "Ogni immobile, una scelta ponderata.",
+      "featuredBadge": "In evidenza",
+      "priceFrom": "Da",
       "priceOnApplication": "Prezzo su richiesta",
       "viewProperty": "Visualizza l'immobile",
       "viewAll": "Vedi il Portfolio Completo"

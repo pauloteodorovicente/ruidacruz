@@ -64,6 +64,8 @@
     "collection": {
       "eyebrow": "Portfolio",
       "title": "Jede Immobilie, eine bewusste Entscheidung.",
+      "featuredBadge": "Im Fokus",
+      "priceFrom": "Ab",
       "priceOnApplication": "Preis auf Anfrage",
       "viewProperty": "Immobilie ansehen",
       "viewAll": "Vollständiges Portfolio Ansehen"

@@ -8,6 +8,7 @@ import { ScheduleCallFloating } from "@/app/components/ScheduleCallFloating";
 import { SiteFooter } from "@/app/components/site/SiteFooter";
 import { BreadcrumbSchema } from "@/app/components/BreadcrumbSchema";
 import { getProperties, getCardCovers } from "@/lib/properties";
+import { getCardFromPrices } from "@/lib/property-typologies";
 import { getCardCarouselSettings } from "@/lib/settings";
 
 export async function generateMetadata({
@@ -41,6 +42,7 @@ export default async function PortfolioPage({
   const properties = await getProperties();
   const cardCarousel = await getCardCarouselSettings();
   const covers = await getCardCovers(properties, cardCarousel);
+  const fromPrices = await getCardFromPrices(properties);
   const t = await getTranslations({ locale, namespace: "home.portfolioPage" });
   const prefix = locale === "pt-PT" ? "" : `/${locale}`;
 
@@ -61,6 +63,7 @@ export default async function PortfolioPage({
         <CuratedCollection
           properties={properties}
           covers={covers}
+          fromPrices={fromPrices}
           coverIntervalMs={cardCarousel.intervalSeconds * 1000}
           hideHeading
         />

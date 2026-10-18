@@ -64,6 +64,8 @@
     "collection": {
       "eyebrow": "Portafolio",
       "title": "Cada inmueble, una elección deliberada.",
+      "featuredBadge": "Destacado",
+      "priceFrom": "Desde",
       "priceOnApplication": "Precio a consultar",
       "viewProperty": "Ver inmueble",
       "viewAll": "Ver Portafolio Completo"
