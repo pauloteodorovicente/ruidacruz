@@ -3,9 +3,12 @@ import Link from "next/link";
 import { isAdminAuthenticated } from "@/lib/admin-auth";
 import { getPropertyByReferenceForAdmin } from "@/lib/admin-properties";
 import { getPropertyPhotos, getPropertyFloorplans } from "@/lib/properties";
+import { getPropertyHero } from "@/lib/property-hero";
+import { LEGACY_COVER_BY_REFERENCE } from "@/lib/cover";
 import { getPropertyTypologies, getTypologyFloorplans, getPropertyUnits } from "@/lib/property-typologies";
 import { PropertyForm } from "../../../PropertyForm";
 import { PhotoManager } from "../../../PhotoManager";
+import { SectionOrderEditor } from "../../../SectionOrderEditor";
 import { FloorplanManager } from "../../../FloorplanManager";
 import { TypologyManager } from "../../../TypologyManager";
 import { UnitsManager } from "../../../UnitsManager";
@@ -36,11 +39,12 @@ export default async function EditPropertyPage({
     </div>
   );
 
-  const [photos, floorplans, typologies, units] = await Promise.all([
+  const [photos, floorplans, typologies, units, hero] = await Promise.all([
     getPropertyPhotos(property.id),
     getPropertyFloorplans(property.id),
     getPropertyTypologies(property.id),
     getPropertyUnits(property.id),
+    getPropertyHero(property.id),
   ]);
   const typologyFloorplans = await getTypologyFloorplans(typologies.map((t) => t.id));
 
@@ -53,7 +57,19 @@ export default async function EditPropertyPage({
           propertyReference={property.reference}
           photos={photos}
           coverPhotoId={property.cover_photo_id}
+          legacyCover={LEGACY_COVER_BY_REFERENCE[property.reference] ?? null}
+          hasHeroVideo={hero?.media_type === "video"}
+          galleryFeatured={property.gallery_featured}
+          galleryVideoInGrid={property.gallery_video_in_grid}
         />
+        {!property.is_campaign_page && (
+          <SectionOrderEditor
+            propertyId={property.id}
+            propertyReference={property.reference}
+            layoutMode={property.layout_mode}
+            savedOrder={property.section_order}
+          />
+        )}
         <FloorplanManager propertyId={property.id} propertyReference={property.reference} floorplans={floorplans} />
         {property.is_campaign_page && (
           <>

@@ -9,6 +9,9 @@ import {
   reorderPhotos,
   togglePhotoVisibility,
   setCoverPhoto,
+  uploadCoverPhoto,
+  setGalleryFeatured,
+  setGalleryVideoInGrid,
 } from "./photo-actions";
 import { resolveCover } from "@/lib/cover";
 import type { PropertyPhoto } from "@/lib/property-types";
@@ -23,16 +26,28 @@ export function PhotoManager({
   propertyReference,
   photos: photosProp,
   coverPhotoId,
+  legacyCover,
+  hasHeroVideo,
+  galleryFeatured,
+  galleryVideoInGrid,
 }: {
   propertyId: string;
   propertyReference: string;
   photos: PropertyPhoto[];
   // Capa definida no admin (nulo = vale a primeira foto visível).
   coverPhotoId: string | null;
+  // Capa que a landing já tinha no código (fotos fixas), usada enquanto não houver capa definida.
+  legacyCover: string | null;
+  // O imóvel tem vídeo no Hero (pode aparecer na galeria e ser destacado).
+  hasHeroVideo: boolean;
+  // Mídia em destaque na galeria (2x2): id de uma foto ou "video".
+  galleryFeatured: string | null;
+  galleryVideoInGrid: boolean;
 }) {
   const [isPending, startTransition] = useTransition();
   const [error, setError] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const coverInputRef = useRef<HTMLInputElement>(null);
 
   // Espelho local pra reordenar arrastando com resposta imediata na tela —
   // sincroniza de novo sempre que o servidor manda uma lista nova (upload,
@@ -83,6 +98,40 @@ export function PhotoManager({
     startTransition(() => reorderPhotos(propertyId, propertyReference, photos.map((p) => p.id)));
   }
 
+  function handleCoverUpload(formData: FormData) {
+    setError(null);
+    startTransition(async () => {
+      try {
+        await uploadCoverPhoto(propertyId, propertyReference, formData);
+        if (coverInputRef.current) coverInputRef.current.value = "";
+      } catch (e) {
+        setError(e instanceof Error ? e.message : "Falha ao enviar a capa.");
+      }
+    });
+  }
+
+  function handleFeatured(media: string | null) {
+    setError(null);
+    startTransition(async () => {
+      try {
+        await setGalleryFeatured(propertyId, propertyReference, media);
+      } catch (e) {
+        setError(e instanceof Error ? e.message : "Falha ao destacar a mídia.");
+      }
+    });
+  }
+
+  function handleVideoInGrid(on: boolean) {
+    setError(null);
+    startTransition(async () => {
+      try {
+        await setGalleryVideoInGrid(propertyId, propertyReference, on);
+      } catch (e) {
+        setError(e instanceof Error ? e.message : "Falha ao mudar a galeria.");
+      }
+    });
+  }
+
   function handleUpload(formData: FormData) {
     setError(null);
     startTransition(async () => {
@@ -98,6 +147,74 @@ export function PhotoManager({
   return (
     <fieldset className="flex flex-col gap-4">
       <h2 className="font-display text-lg text-accent">Fotos</h2>
+
+      <div className="flex flex-col gap-3 border border-border p-4 sm:flex-row sm:items-start" data-testid="cover-panel">
+        <div className="relative h-24 w-36 shrink-0 overflow-hidden border border-border bg-background-raised">
+          {cover.source === "explicit" || (cover.source === "auto" && !legacyCover) ? (
+            <Image src={cover.photo!.storage_path} alt="" fill sizes="144px" className="object-cover" />
+          ) : legacyCover ? (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img src={legacyCover} alt="" className="h-full w-full object-cover" />
+          ) : (
+            <span className="flex h-full items-center justify-center text-[10px] uppercase tracking-[0.08em] text-foreground-muted">
+              Assinatura
+            </span>
+          )}
+        </div>
+        <div className="flex flex-col gap-2 text-xs text-foreground-muted">
+          <p className="text-sm text-foreground">Capa do imóvel (cards da Home e do Portfólio)</p>
+          <p>
+            {cover.source === "explicit" && "Capa escolhida no admin."}
+            {cover.source !== "explicit" && legacyCover && "Capa padrão do site (imagem fixa desta página). Envie uma foto abaixo para trocar."}
+            {cover.source === "auto" && !legacyCover && "Sem capa escolhida: vale a primeira foto visível."}
+            {cover.source === "none" && !legacyCover && "Sem fotos: o card mostra a assinatura do Rui."}
+          </p>
+          <form action={handleCoverUpload} className="flex flex-wrap items-center gap-2">
+            <input ref={coverInputRef} type="file" name="cover" accept="image/*" className="text-xs" />
+            <button
+              type="submit"
+              disabled={isPending}
+              className="px-3 py-1.5 border border-border text-[11px] tracking-[0.08em] uppercase hover:border-accent hover:text-accent transition-colors disabled:opacity-50"
+            >
+              {isPending ? "A enviar…" : "Enviar foto como capa"}
+            </button>
+          </form>
+          {cover.source === "explicit" && (
+            <button
+              type="button"
+              disabled={isPending}
+              onClick={() => handleSetCover(null)}
+              className="self-start underline underline-offset-2 hover:text-accent disabled:opacity-50"
+            >
+              Voltar à automática
+            </button>
+          )}
+        </div>
+      </div>
+
+      {hasHeroVideo && (
+        <div className="flex flex-col gap-2 border border-border p-4 text-xs text-foreground-muted" data-testid="video-panel">
+          <p className="text-sm text-foreground">Vídeo do Hero na galeria</p>
+          <label className="flex items-center gap-2">
+            <input
+              type="checkbox"
+              checked={galleryVideoInGrid || galleryFeatured === "video"}
+              disabled={isPending || galleryFeatured === "video"}
+              onChange={(e) => handleVideoInGrid(e.target.checked)}
+            />
+            Mostrar o vídeo na galeria, como primeiro quadro
+          </label>
+          <label className="flex items-center gap-2">
+            <input
+              type="checkbox"
+              checked={galleryFeatured === "video"}
+              disabled={isPending}
+              onChange={(e) => handleFeatured(e.target.checked ? "video" : null)}
+            />
+            Destacar o vídeo (ocupa o espaço de 4 quadros)
+          </label>
+        </div>
+      )}
       {photos.length > 1 && <p className="text-xs text-foreground-muted -mt-2">Arraste pra reordenar</p>}
       {photos.length > 0 && (
         <p className="text-xs text-foreground-muted -mt-2">
@@ -141,6 +258,11 @@ export function PhotoManager({
               {!photo.visible && (
                 <span className="absolute top-1.5 left-1.5 bg-black/70 text-white text-[10px] tracking-[0.06em] uppercase px-1.5 py-0.5">
                   Arquivada
+                </span>
+              )}
+              {galleryFeatured === photo.id && (
+                <span className="absolute bottom-1.5 left-1.5 bg-black/70 text-white text-[10px] tracking-[0.06em] uppercase px-1.5 py-0.5">
+                  ◼ Destaque
                 </span>
               )}
               {cover.photo?.id === photo.id && (
@@ -211,6 +333,17 @@ export function PhotoManager({
                     className="mt-0.5 text-[10px] tracking-[0.08em] uppercase text-white/90 hover:text-white"
                   >
                     ☆ Definir capa
+                  </button>
+                )}
+                {photo.visible && (
+                  <button
+                    type="button"
+                    disabled={isPending}
+                    onClick={() => handleFeatured(galleryFeatured === photo.id ? null : photo.id)}
+                    title="Esta foto ocupa o espaço de 4 na galeria do site (2 de largura por 2 de altura)"
+                    className="text-[10px] tracking-[0.08em] uppercase text-white/90 hover:text-white"
+                  >
+                    {galleryFeatured === photo.id ? "◼ Tirar destaque" : "◻ Destacar na galeria"}
                   </button>
                 )}
                 <button

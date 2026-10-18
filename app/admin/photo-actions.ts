@@ -4,6 +4,7 @@ import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 import { isAdminAuthenticated } from "@/lib/admin-auth";
 import { createAdminClient } from "@/lib/supabase/admin";
+import { sanitizeSectionOrder } from "@/lib/section-order";
 
 const BUCKET = "property-photos";
 
@@ -138,6 +139,101 @@ export async function togglePhotoVisibility(photoId: string, propertyReference: 
 
   const supabase = createAdminClient();
   await supabase.from("property_photos").update({ visible }).eq("id", photoId);
+
+  revalidatePath(`/admin/imoveis/${propertyReference}/editar`);
+  revalidatePath(`/imoveis/${propertyReference}`);
+}
+
+// Envia UMA foto e já a define como capa (pedido do Paulo, 18/10: "definir capa tem que
+// ser possível pelo admin" em qualquer imóvel). Serve sobretudo às landings cujas fotos
+// moram no código (Verdelago, Portimão...) e não têm foto nenhuma no banco para marcar:
+// a foto enviada entra na lista de fotos do imóvel (no fim) e vira a capa dos cards.
+export async function uploadCoverPhoto(propertyId: string, propertyReference: string, formData: FormData) {
+  if (!(await isAdminAuthenticated())) redirect("/admin/login");
+
+  const file = formData.getAll("cover").find((f): f is File => f instanceof File && f.size > 0);
+  if (!file) throw new Error("Escolha uma foto para a capa.");
+  if (!file.type.startsWith("image/")) throw new Error("O arquivo precisa ser uma imagem.");
+
+  const supabase = createAdminClient();
+  const { data: existing } = await supabase
+    .from("property_photos")
+    .select("position")
+    .eq("property_id", propertyId)
+    .order("position", { ascending: false })
+    .limit(1);
+  const position = (existing?.[0]?.position ?? -1) + 1;
+
+  const path = `${propertyId}/${Date.now()}-${file.name}`;
+  const { error: uploadError } = await supabase.storage.from(BUCKET).upload(path, file, {
+    contentType: file.type,
+    upsert: false,
+  });
+  if (uploadError) throw new Error(uploadError.message);
+
+  const { data: publicUrl } = supabase.storage.from(BUCKET).getPublicUrl(path);
+  const { data: inserted, error: insertError } = await supabase
+    .from("property_photos")
+    .insert({ property_id: propertyId, storage_path: publicUrl.publicUrl, position })
+    .select("id")
+    .single();
+  if (insertError) throw new Error(insertError.message);
+
+  const { error } = await supabase.from("properties").update({ cover_photo_id: inserted.id }).eq("id", propertyId);
+  if (error) throw new Error(error.message);
+
+  revalidatePath(`/admin/imoveis/${propertyReference}/editar`);
+  revalidatePath(`/imoveis/${propertyReference}`);
+  revalidatePath("/", "layout");
+}
+
+// Mídia em destaque da galeria (2x2, ocupa o espaço de 4): id de uma foto visível do
+// imóvel, ou "video" (o vídeo do Hero); null tira o destaque.
+export async function setGalleryFeatured(propertyId: string, propertyReference: string, media: string | null) {
+  if (!(await isAdminAuthenticated())) redirect("/admin/login");
+
+  const supabase = createAdminClient();
+  if (media === "video") {
+    const { data: hero } = await supabase.from("property_hero").select("media_type").eq("property_id", propertyId).maybeSingle();
+    if (hero?.media_type !== "video") throw new Error("Este imóvel não tem vídeo no Hero.");
+  } else if (media) {
+    const { data: photo } = await supabase
+      .from("property_photos")
+      .select("id, visible")
+      .eq("id", media)
+      .eq("property_id", propertyId)
+      .maybeSingle();
+    if (!photo) throw new Error("Essa foto não pertence a este imóvel.");
+    if (!photo.visible) throw new Error("Foto arquivada não pode ser destacada — publique-a de novo antes.");
+  }
+
+  const { error } = await supabase.from("properties").update({ gallery_featured: media }).eq("id", propertyId);
+  if (error) throw new Error(error.message);
+
+  revalidatePath(`/admin/imoveis/${propertyReference}/editar`);
+  revalidatePath(`/imoveis/${propertyReference}`);
+}
+
+// Liga/desliga o vídeo do Hero como primeiro quadro da grade da galeria.
+export async function setGalleryVideoInGrid(propertyId: string, propertyReference: string, on: boolean) {
+  if (!(await isAdminAuthenticated())) redirect("/admin/login");
+
+  const supabase = createAdminClient();
+  const { error } = await supabase.from("properties").update({ gallery_video_in_grid: on }).eq("id", propertyId);
+  if (error) throw new Error(error.message);
+
+  revalidatePath(`/admin/imoveis/${propertyReference}/editar`);
+  revalidatePath(`/imoveis/${propertyReference}`);
+}
+
+// Ordem das seções da ficha (Layout da página). null volta à ordem padrão do modelo.
+export async function saveSectionOrder(propertyId: string, propertyReference: string, order: string[] | null) {
+  if (!(await isAdminAuthenticated())) redirect("/admin/login");
+
+  const clean = order === null ? null : sanitizeSectionOrder(order);
+  const supabase = createAdminClient();
+  const { error } = await supabase.from("properties").update({ section_order: clean }).eq("id", propertyId);
+  if (error) throw new Error(error.message);
 
   revalidatePath(`/admin/imoveis/${propertyReference}/editar`);
   revalidatePath(`/imoveis/${propertyReference}`);
