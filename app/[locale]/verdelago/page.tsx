@@ -112,6 +112,7 @@ export default async function VerdelagoPage({ params }: { params: Promise<{ loca
   const property = await getPropertyByReference("verdelago");
   if (!property?.published) notFound();
   const { enabled: sellerCtaEnabled } = await getSellerCtaSettings();
+  const phaseNotes = await getVerdelagoPhaseNotes();
 
   // Tipologias + unidades + plantas agora vêm do banco (editável no admin,
   // Fase 23) em vez dos arquivos fixos lib/verdelago-units.ts e o export
@@ -162,7 +163,6 @@ export default async function VerdelagoPage({ params }: { params: Promise<{ loca
   // A chamada pra landing da Fase 6 só aparece enquanto essa página estiver
   // publicada (imóvel "verdelago6" no admin).
   const fase6Landing = await getPropertyByReference("verdelago6");
-  const phaseNotes = await getVerdelagoPhaseNotes();
 
   const featuredUnits: VerdelagoFeaturedUnit[] = visibleUnits
     .filter((unit) => unit.featured && unit.status === "disponivel")
