@@ -147,3 +147,15 @@ body::before {
   mix-blend-mode: overlay;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
+
+/* Botão "Falar com Rui" da Home: moldura na cor de destaque com um brilho
+   discreto que pulsa devagar. Desligado com "reduzir movimento". */
+@keyframes cta-talk-glow {
+  0%, 100% { box-shadow: 0 0 0 0 transparent; }
+  50% { box-shadow: 0 0 0 4px color-mix(in srgb, var(--c-accent) 22%, transparent); }
+}
+.cta-talk { animation: cta-talk-glow 3.2s ease-in-out infinite; }
+.cta-talk:hover { animation: none; }
+@media (prefers-reduced-motion: reduce) {
+  .cta-talk { animation: none; }
+}

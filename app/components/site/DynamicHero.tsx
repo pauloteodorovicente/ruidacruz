@@ -168,7 +168,7 @@ export function DynamicHero({
           </HeroButton>
           <HeroButton
             href={cta.secondary}
-            className="px-6 py-3 text-sm tracking-[0.08em] uppercase text-foreground-muted transition-all hover:text-accent"
+            className="cta-talk border border-accent px-6 py-3 text-sm tracking-[0.08em] uppercase text-accent transition-all hover:bg-accent hover:text-background hover:-translate-y-0.5"
           >
             {h("ctaSecondary")}
           </HeroButton>
