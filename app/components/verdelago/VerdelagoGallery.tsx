@@ -3,8 +3,8 @@
 import { useState } from "react";
 import Image from "next/image";
 import { useVerdelagoLanguage } from "@/lib/verdelago-language-context";
-import { galleryImages } from "@/lib/verdelago-content";
-import { VerdelagoLightbox, lightboxItemCount } from "./VerdelagoLightbox";
+import { VerdelagoLightbox } from "./VerdelagoLightbox";
+import { GALLERY_GRID_COUNT } from "@/lib/landing-gallery-shared";
 import { Reveal } from "../Reveal";
 import { useCustomCursor } from "@/lib/use-custom-cursor";
 
@@ -15,7 +15,10 @@ import { useCustomCursor } from "@/lib/use-custom-cursor";
 const VIDEO_SLOT_IDX = 5;
 
 export function VerdelagoGallery() {
-  const { t, locale } = useVerdelagoLanguage();
+  const { t, locale, photos } = useVerdelagoLanguage();
+  // A grade mostra as primeiras fotos; a galeria completa tem todas (ordem e fotos em Admin → Fotos do imóvel).
+  const galleryImages = photos.slice(0, GALLERY_GRID_COUNT);
+  const lightboxItemCount = 1 + photos.length;
   const g = t.gallery;
   const { areaRef: gridRef, cursorRef, hovering, setHovering, handleMouseMove } =
     useCustomCursor<HTMLDivElement>();

@@ -2,8 +2,6 @@
 
 import { useEffect, useCallback, useRef } from "react";
 import Image from "next/image";
-import { galleryImages } from "@/lib/content";
-import { fullGalleryImages } from "@/lib/full-gallery";
 import { useLanguage } from "@/lib/language-context";
 
 // Movido pro canal do próprio Rui (13/08) — antes apontava pro canal
@@ -13,8 +11,6 @@ const YT_THUMB = `https://i.ytimg.com/vi/${YT_VIDEO_ID}/hqdefault.jpg`;
 
 type Item = { type: "video" } | { type: "image"; src: string; alt: string };
 
-export const lightboxItemCount = 1 + galleryImages.length + fullGalleryImages.length;
-
 type LightboxProps = {
   open: boolean;
   index: number;
@@ -23,15 +19,14 @@ type LightboxProps = {
 };
 
 export function Lightbox({ open, index, onIndexChange, onClose }: LightboxProps) {
-  const { locale, t } = useLanguage();
+  const { locale, t, photos } = useLanguage();
   const lb = t.lightbox;
   const thumbRefs = useRef<(HTMLButtonElement | null)[]>([]);
   const stripRef = useRef<HTMLDivElement>(null);
 
   const items: Item[] = [
     { type: "video" },
-    ...galleryImages.map((img) => ({ type: "image" as const, src: img.src, alt: img.alt[locale] })),
-    ...fullGalleryImages.map((src) => ({ type: "image" as const, src, alt: t.breadcrumb })),
+    ...photos.map((img) => ({ type: "image" as const, src: img.src, alt: img.alt[locale] })),
   ];
 
   const next = useCallback(() => onIndexChange((index + 1) % items.length), [index, items.length, onIndexChange]);

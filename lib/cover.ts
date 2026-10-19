@@ -49,27 +49,15 @@ export const LEGACY_COVER_BY_REFERENCE: Record<string, string> = {
   onegreenway: "/images/onegreenway/hero-1.jpg",
 };
 
-// Imagens fixas extras para o carrossel dos cards das páginas de campanha que quase não têm foto
-// no banco (Verdelago, Fase 6, Portimão): sem elas o card tinha uma imagem só e não girava
-// (Paulo, 18/10: "alguns não giram"). Entram logo depois da capa, antes das fotos do admin.
+// Imagens fixas extras para o carrossel dos cards de páginas de campanha que ainda quase não têm foto
+// no banco (hoje só a Fase 6; Verdelago, Portimão e Leça já têm a galeria inteira no banco desde 19/10).
+// Entram logo depois da capa, antes das fotos do admin.
 export const LEGACY_EXTRA_IMAGES_BY_REFERENCE: Record<string, string[]> = {
-  verdelago: [
-    "/images/verdelago/02-humanizada.jpg",
-    "/images/verdelago/04-apartamento.jpg",
-    "/images/verdelago/05-spa.jpg",
-    "/images/verdelago/07-praca-pinhal.jpg",
-  ],
   verdelago6: [
     "/images/verdelago/04-apartamento.jpg",
     "/images/verdelago/03-apartamento.jpg",
     "/images/verdelago/05-spa.jpg",
     "/images/verdelago/07-praca-pinhal.jpg",
-  ],
-  "portimao-praia-da-rocha": [
-    "/images/portimao-praia-rocha/Apart T1 Praia_Rocha_1.jpeg",
-    "/images/portimao-praia-rocha/Apart T1 Praia_Rocha_5.jpeg",
-    "/images/portimao-praia-rocha/Apart T1 Praia_Rocha_12.jpeg",
-    "/images/portimao-praia-rocha/Apart T1 Praia_Rocha_16.jpeg",
   ],
 };
 

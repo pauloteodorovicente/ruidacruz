@@ -86,6 +86,8 @@ export type PropertyPhoto = {
   visible: boolean;
   // 'video' = vídeo da galeria (migração 0028); capas e carrossel só usam imagens.
   media_type: "image" | "video";
+  // Legenda por idioma (migração 0030): {"pt-PT": "...", "en": "..."}. Nulo = descrição padrão da página.
+  alt_text: Record<string, string> | null;
 };
 
 export type PropertyFloorplan = {

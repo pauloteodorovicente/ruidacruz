@@ -3,14 +3,17 @@
 import { useState } from "react";
 import Image from "next/image";
 import { useLanguage } from "@/lib/language-context";
-import { galleryImages } from "@/lib/content";
-import { Lightbox, lightboxItemCount } from "./Lightbox";
+import { Lightbox } from "./Lightbox";
+import { GALLERY_GRID_COUNT } from "@/lib/landing-gallery-shared";
 import { Reveal } from "./Reveal";
 import { useCustomCursor } from "@/lib/use-custom-cursor";
 import { trackEvent } from "@/lib/track-event";
 
 export function Gallery() {
-  const { t, locale } = useLanguage();
+  const { t, locale, photos } = useLanguage();
+  // A grade mostra as primeiras fotos; a galeria completa tem todas (ordem e fotos em Admin → Fotos do imóvel).
+  const galleryImages = photos.slice(0, GALLERY_GRID_COUNT);
+  const lightboxItemCount = 1 + photos.length;
   const g = t.gallery;
   const { areaRef: gridRef, cursorRef, hovering, setHovering, handleMouseMove } =
     useCustomCursor<HTMLDivElement>();

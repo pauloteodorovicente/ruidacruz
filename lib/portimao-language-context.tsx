@@ -1,7 +1,8 @@
 "use client";
 
 import { createContext, useContext, useMemo, type ReactNode } from "react";
-import { content, type Locale } from "./portimao-content";
+import { content, galleryPhotos, type Locale } from "./portimao-content";
+import type { GalleryPhoto } from "./landing-gallery-shared";
 import { applyOverrides } from "./content-overrides";
 import { useLandingLocaleSwitch } from "./use-landing-locale-switch";
 
@@ -9,7 +10,12 @@ type PortimaoLanguageContextValue = {
   locale: Locale;
   setLocale: (locale: Locale) => void;
   t: (typeof content)[Locale];
+  // Fotos da galeria (banco, ordem do admin); sem fotos no banco valem as imagens padrão da landing.
+  photos: GalleryPhoto[];
 };
+
+// Imagens padrão da galeria (as que a landing sempre teve; o nome do arquivo tem espaço, daí o encode).
+const STATIC_PHOTOS: GalleryPhoto[] = galleryPhotos.map((file) => ({ src: `/images/portimao-praia-rocha/${encodeURIComponent(file)}` }));
 
 const PortimaoLanguageContext = createContext<PortimaoLanguageContextValue | null>(null);
 
@@ -21,14 +27,19 @@ const PortimaoLanguageContext = createContext<PortimaoLanguageContextValue | nul
 export function PortimaoLanguageProvider({
   locale,
   overrides,
+  photos,
   children,
 }: {
   locale: Locale;
   overrides?: Record<string, string>;
+  photos?: GalleryPhoto[];
   children: ReactNode;
 }) {
   const setLocale = useLandingLocaleSwitch();
-  const value = useMemo(() => ({ locale, setLocale, t: applyOverrides(content[locale], overrides) }), [locale, setLocale, overrides]);
+  const value = useMemo(
+    () => ({ locale, setLocale, t: applyOverrides(content[locale], overrides), photos: photos ?? STATIC_PHOTOS }),
+    [locale, setLocale, overrides, photos],
+  );
 
   return <PortimaoLanguageContext.Provider value={value}>{children}</PortimaoLanguageContext.Provider>;
 }

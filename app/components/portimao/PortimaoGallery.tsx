@@ -4,11 +4,10 @@ import { useState } from "react";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { usePortimaoLanguage } from "@/lib/portimao-language-context";
-import { galleryPhotos } from "@/lib/portimao-content";
 import { Reveal } from "../Reveal";
 
 export function PortimaoGallery() {
-  const { t } = usePortimaoLanguage();
+  const { t, locale, photos } = usePortimaoLanguage();
   const tLightbox = useTranslations("property.lightbox");
   const g = t.gallery;
   const [openIndex, setOpenIndex] = useState<number | null>(null);
@@ -20,16 +19,16 @@ export function PortimaoGallery() {
         <h2 className="font-display text-3xl md:text-4xl mb-10">{g.title}</h2>
 
         <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
-          {galleryPhotos.map((file, i) => (
+          {photos.map((photo, i) => (
             <button
-              key={file}
+              key={photo.src}
               type="button"
               onClick={() => setOpenIndex(i)}
               className="group relative aspect-[4/3] overflow-hidden bg-background"
             >
               <Image
-                src={`/images/portimao-praia-rocha/${encodeURIComponent(file)}`}
-                alt={`${t.hero.location} — foto ${i + 1}`}
+                src={photo.src}
+                alt={photo.alt?.[locale] ?? `${t.hero.location} — foto ${i + 1}`}
                 fill
                 sizes="(max-width: 768px) 50vw, 33vw"
                 className="object-cover transition-transform duration-700 group-hover:scale-[1.05]"
@@ -65,12 +64,12 @@ export function PortimaoGallery() {
               ‹
             </button>
           )}
-          {openIndex < galleryPhotos.length - 1 && (
+          {openIndex < photos.length - 1 && (
             <button
               type="button"
               onClick={(e) => {
                 e.stopPropagation();
-                setOpenIndex((i) => (i! < galleryPhotos.length - 1 ? i! + 1 : i));
+                setOpenIndex((i) => (i! < photos.length - 1 ? i! + 1 : i));
               }}
               className="absolute right-4 md:right-8 text-white/70 hover:text-white text-3xl"
               aria-label={tLightbox("next")}
@@ -80,8 +79,8 @@ export function PortimaoGallery() {
           )}
           <div className="relative h-[80vh] w-full max-w-4xl" onClick={(e) => e.stopPropagation()}>
             <Image
-              src={`/images/portimao-praia-rocha/${encodeURIComponent(galleryPhotos[openIndex])}`}
-              alt={`${t.hero.location} — foto ${openIndex + 1}`}
+              src={photos[openIndex].src}
+              alt={photos[openIndex].alt?.[locale] ?? `${t.hero.location} — foto ${openIndex + 1}`}
               fill
               sizes="90vw"
               className="object-contain"

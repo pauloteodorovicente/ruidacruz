@@ -2,7 +2,6 @@
 
 import { useEffect, useCallback, useRef } from "react";
 import Image from "next/image";
-import { galleryImages } from "@/lib/verdelago-content";
 import { useVerdelagoLanguage } from "@/lib/verdelago-language-context";
 
 // Vídeo de apresentação do empreendimento, o do canal do próprio Rui
@@ -16,8 +15,6 @@ const LOCAL_VIDEO_THUMB = "/images/verdelago/verdelago-apresentacao-thumb.jpg";
 
 type Item = { type: "video" } | { type: "image"; src: string; alt: Record<string, string> };
 
-export const lightboxItemCount = 1 + galleryImages.length;
-
 type LightboxProps = {
   open: boolean;
   index: number;
@@ -26,13 +23,13 @@ type LightboxProps = {
 };
 
 export function VerdelagoLightbox({ open, index, onIndexChange, onClose }: LightboxProps) {
-  const { locale, t } = useVerdelagoLanguage();
+  const { locale, t, photos } = useVerdelagoLanguage();
   const lb = t.lightbox;
   const thumbRefs = useRef<(HTMLButtonElement | null)[]>([]);
   const stripRef = useRef<HTMLDivElement>(null);
 
   // Vídeo ocupa a posição 0, igual ao padrão já usado no Lightbox da Leça.
-  const items: Item[] = [{ type: "video" }, ...galleryImages.map((img) => ({ type: "image" as const, ...img }))];
+  const items: Item[] = [{ type: "video" }, ...photos.map((img) => ({ type: "image" as const, ...img }))];
 
   const next = useCallback(() => onIndexChange((index + 1) % items.length), [index, items.length, onIndexChange]);
   const prev = useCallback(

@@ -41,6 +41,7 @@ import { PagePalette } from "@/app/components/site/PagePalette";
 import { LandingLanguageAutoDetect } from "@/app/components/site/LandingLanguageAutoDetect";
 import { PropertyNavArrows } from "@/app/components/PropertyNavArrows";
 import { getNeighborArrows } from "@/lib/property-neighbors";
+import { getLandingPhotos } from "@/lib/landing-gallery";
 import { getSourceOverrides } from "@/lib/settings";
 import { applyOverrides } from "@/lib/content-overrides";
 import { ScheduleCallFloating } from "@/app/components/ScheduleCallFloating";
@@ -189,10 +190,12 @@ export default async function VerdelagoPage({ params }: { params: Promise<{ loca
 
   // Setas para o imóvel anterior e o próximo, na cor do vizinho (lib/property-neighbors.ts).
   const overrides = await getSourceOverrides("verdelago", locale);
+  // Galeria: as fotos do admin (banco); sem nenhuma, as imagens padrão da página.
+  const photos = await getLandingPhotos(property.id);
   const neighbors = await getNeighborArrows(property.id, locale);
 
   return (
-    <VerdelagoLanguageProvider locale={locale} overrides={overrides}>
+    <VerdelagoLanguageProvider locale={locale} overrides={overrides} photos={photos}>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(buildJsonLd(locale, applyOverrides(content[locale], overrides).meta.description)) }}
