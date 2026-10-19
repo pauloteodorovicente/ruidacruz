@@ -2,13 +2,15 @@
 
 import { useRef, useState } from "react";
 import { useRouter } from "next/navigation";
+import type { NeighborArrow } from "@/lib/property-neighbors";
+import { trackLinkClick } from "@/lib/track-event";
 
 const DRAG_THRESHOLD = 60;
 const CLICK_SUPPRESS_THRESHOLD = 8;
 
 function ArrowIcon({ direction }: { direction: "prev" | "next" }) {
   return (
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true">
       {direction === "prev" ? (
         <path d="M15 5l-7 7 7 7" strokeLinecap="round" strokeLinejoin="round" />
       ) : (
@@ -18,40 +20,35 @@ function ArrowIcon({ direction }: { direction: "prev" | "next" }) {
   );
 }
 
-// Setas fixas nas bordas da tela — cada uma é um <a> de verdade (funciona
-// no clique/teclado sem depender de JS) e, por cima disso, um gesto de
-// arrastar horizontal via Pointer Events (mesmo mecanismo unificado
-// mouse+toque do zoom de plantas em ZoomableImage.tsx). Arrastar mais que
-// DRAG_THRESHOLD solta a navegação; um arrasto real (>8px) suprime o clique
-// nativo do <a> na soltura, senão os dois disparariam juntos.
-export function PropertyNavArrows({
-  prevHref,
-  nextHref,
-  prevLabel,
-  nextLabel,
-}: {
-  prevHref: string;
-  nextHref: string;
-  prevLabel: string;
-  nextLabel: string;
-}) {
+// Setas nas bordas da tela para o imóvel anterior e o próximo, em todas as páginas de imóvel (a
+// ficha e as landings de campanha). Cada seta é um <a> de verdade (funciona sem JavaScript e com
+// "abrir em nova aba") e, por cima disso:
+//  - leva a cor de destaque da página do VIZINHO (nos dois temas) e mostra o nome dele ao passar o mouse;
+//  - ao clicar ou arrastar, a página desliza para o lado (a atual sai, a outra entra) em vez de
+//    recarregar: a direção vai em html[data-nav-dir], e o CSS de globals.css faz a animação com a View
+//    Transitions API (ver ViewTransitions.tsx; sem suporte, ou com "reduzir movimento", troca direto);
+//  - arrastar a própria seta mais que DRAG_THRESHOLD também navega (mesmo gesto mouse+toque de antes).
+export function PropertyNavArrows({ prev, next }: { prev: NeighborArrow; next: NeighborArrow }) {
   const router = useRouter();
   const [dragDelta, setDragDelta] = useState(0);
   const dragStartX = useRef<number | null>(null);
   const wasDragging = useRef(false);
 
+  function go(target: NeighborArrow, direction: "prev" | "next") {
+    document.documentElement.dataset.navDir = direction;
+    trackLinkClick(direction === "next" ? "seta_proximo" : "seta_anterior");
+    router.push(target.href);
+  }
+
   function handlePointerDown(e: React.PointerEvent<HTMLAnchorElement>) {
     dragStartX.current = e.clientX;
     wasDragging.current = false;
-    // Alguns navegadores recusam capturar um ponteiro que não reconhecem
-    // como ativo (visto em teste automatizado com PointerEvent sintético;
-    // pode acontecer em casos reais também) — sem a captura, o arrasto
-    // ainda funciona enquanto o dedo/cursor ficar sobre a própria seta, só
-    // perde o "segue fora da caixinha", não vale travar a página por isso.
+    // Alguns navegadores recusam capturar um ponteiro que não reconhecem como ativo; sem a captura o
+    // arrasto ainda funciona enquanto o cursor ficar sobre a seta, então não vale travar por isso.
     try {
       e.currentTarget.setPointerCapture(e.pointerId);
     } catch {
-      // captura indisponível — degrada graciosamente, ver comentário acima
+      // captura indisponível: degrada sem erro
     }
   }
 
@@ -66,48 +63,59 @@ export function PropertyNavArrows({
     const delta = dragDelta;
     dragStartX.current = null;
     setDragDelta(0);
-    if (delta <= -DRAG_THRESHOLD) router.push(nextHref);
-    else if (delta >= DRAG_THRESHOLD) router.push(prevHref);
+    if (delta <= -DRAG_THRESHOLD) go(next, "next");
+    else if (delta >= DRAG_THRESHOLD) go(prev, "prev");
   }
 
-  function handleClick(e: React.MouseEvent) {
+  function handleClick(e: React.MouseEvent<HTMLAnchorElement>, target: NeighborArrow, direction: "prev" | "next") {
     if (wasDragging.current) {
       e.preventDefault();
       wasDragging.current = false;
+      return;
     }
+    // Ctrl/Cmd/Shift/botão do meio: deixa o navegador abrir em outra aba do jeito dele.
+    if (e.metaKey || e.ctrlKey || e.shiftKey || e.button !== 0) return;
+    e.preventDefault();
+    go(target, direction);
   }
 
-  const arrowClass =
-    "pointer-events-auto touch-none flex h-11 w-11 items-center justify-center rounded-full text-white/60 opacity-70 transition-all duration-300 [text-shadow:0_1px_3px_rgba(0,0,0,0.6)] hover:text-accent hover:drop-shadow-[0_0_12px_var(--color-accent)] md:opacity-0 md:group-hover:opacity-100";
+  const style = (target: NeighborArrow) =>
+    ({ "--na-dark": target.accentDark, "--na-light": target.accentLight, transform: `translateX(${dragDelta / 3}px)` }) as React.CSSProperties;
 
   return (
     <>
-      <div className="group pointer-events-none fixed left-0 top-1/2 z-20 flex h-28 w-16 -translate-y-1/2 items-center justify-start pl-1">
+      <div className="nav-arrow-zone nav-arrow-zone-prev">
         <a
-          href={prevHref}
-          aria-label={`Imóvel anterior: ${prevLabel}`}
+          href={prev.href}
+          aria-label={`Imóvel anterior: ${prev.title}`}
           onPointerDown={handlePointerDown}
           onPointerMove={handlePointerMove}
           onPointerUp={handlePointerUp}
-          onClick={handleClick}
-          style={{ transform: `translateX(${dragDelta / 3}px)` }}
-          className={arrowClass}
+          onClick={(e) => handleClick(e, prev, "prev")}
+          style={style(prev)}
+          className="nav-arrow nav-arrow-prev"
         >
           <ArrowIcon direction="prev" />
+          <span className="nav-arrow-label" aria-hidden="true">
+            {prev.title}
+          </span>
         </a>
       </div>
-      <div className="group pointer-events-none fixed right-0 top-1/2 z-20 flex h-28 w-16 -translate-y-1/2 items-center justify-end pr-1">
+      <div className="nav-arrow-zone nav-arrow-zone-next">
         <a
-          href={nextHref}
-          aria-label={`Próximo imóvel: ${nextLabel}`}
+          href={next.href}
+          aria-label={`Próximo imóvel: ${next.title}`}
           onPointerDown={handlePointerDown}
           onPointerMove={handlePointerMove}
           onPointerUp={handlePointerUp}
-          onClick={handleClick}
-          style={{ transform: `translateX(${dragDelta / 3}px)` }}
-          className={arrowClass}
+          onClick={(e) => handleClick(e, next, "next")}
+          style={style(next)}
+          className="nav-arrow nav-arrow-next"
         >
           <ArrowIcon direction="next" />
+          <span className="nav-arrow-label" aria-hidden="true">
+            {next.title}
+          </span>
         </a>
       </div>
     </>

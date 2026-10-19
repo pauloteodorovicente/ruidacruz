@@ -27,6 +27,7 @@ import { PropertyLocation } from "@/app/components/PropertyLocation";
 import { ArchitectCredit } from "@/app/components/ArchitectCredit";
 import { SiteLeadForm } from "@/app/components/site/SiteLeadForm";
 import { PropertyNavArrows } from "@/app/components/PropertyNavArrows";
+import { getNeighborArrows } from "@/lib/property-neighbors";
 import { BreadcrumbSchema } from "@/app/components/BreadcrumbSchema";
 import { OffMarketTeaser } from "./OffMarketTeaser";
 import type { Property, PropertyPhoto, PropertyFloorplan, Locale } from "@/lib/properties";
@@ -145,15 +146,6 @@ function propertyJsonLd(property: Property, coverImage: string, locale: string) 
   };
 }
 
-// Landings de campanha também vivem em app/[locale] (idioma na URL), então o
-// prefixo vale pra elas e pra ficha genérica — antes a seta anterior/próximo
-// levava sempre pro português quando o vizinho era uma landing.
-function hrefForProperty(property: Property, locale: string): string {
-  const prefix = locale === "pt-PT" ? "" : `/${locale}`;
-  if (property.is_campaign_page && property.campaign_path) return `${prefix}${property.campaign_path}`;
-  return `${prefix}/imoveis/${propertyPathSegment(property)}`;
-}
-
 export default async function ImovelPage({
   params,
   searchParams,
@@ -236,12 +228,7 @@ export default async function ImovelPage({
   // navegação lateral é um recurso pro visitante comum, não uma ferramenta
   // de admin. Some sozinha se o imóvel atual não estiver nessa lista
   // (rascunho sendo pré-visualizado) ou se não houver outro pra navegar.
-  const currentIndex = allProperties.findIndex((item) => item.id === property.id);
-  const hasNeighbors = currentIndex !== -1 && allProperties.length >= 2;
-  const prevProperty = hasNeighbors
-    ? allProperties[(currentIndex - 1 + allProperties.length) % allProperties.length]
-    : null;
-  const nextProperty = hasNeighbors ? allProperties[(currentIndex + 1) % allProperties.length] : null;
+  const neighbors = await getNeighborArrows(property.id, locale, allProperties);
   const heroEyebrow = property.zone ?? p(`propertyTypeTags.${property.property_type}`);
   const portfolioLabel = await getTranslations({ locale, namespace: "home.portfolioPage" });
   const prefix = locale === "pt-PT" ? "" : `/${locale}`;
@@ -267,14 +254,7 @@ export default async function ImovelPage({
       <PagePalette slug={colorThemeSlug} />
       <SiteHeader />
       <main className="flex-1">
-        {prevProperty && nextProperty && (
-          <PropertyNavArrows
-            prevHref={hrefForProperty(prevProperty, locale)}
-            nextHref={hrefForProperty(nextProperty, locale)}
-            prevLabel={prevProperty.title}
-            nextLabel={nextProperty.title}
-          />
-        )}
+        {neighbors && <PropertyNavArrows prev={neighbors.prev} next={neighbors.next} />}
         {propertyHero && propertyHero.items.length > 0 ? (
           <PropertyDynamicHero hero={propertyHero} eyebrow={heroEyebrow} title={property.title} propertyId={property.id} />
         ) : (

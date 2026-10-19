@@ -20,6 +20,8 @@ import { PortimaoLeadForm } from "@/app/components/portimao/PortimaoLeadForm";
 import { PortimaoWhatsApp } from "@/app/components/portimao/PortimaoWhatsApp";
 import { PagePalette } from "@/app/components/site/PagePalette";
 import { LandingLanguageAutoDetect } from "@/app/components/site/LandingLanguageAutoDetect";
+import { PropertyNavArrows } from "@/app/components/PropertyNavArrows";
+import { getNeighborArrows } from "@/lib/property-neighbors";
 import { ScheduleCallFloating } from "@/app/components/ScheduleCallFloating";
 import { PortimaoFooter } from "@/app/components/portimao/PortimaoFooter";
 
@@ -87,11 +89,15 @@ export default async function PortimaoPage({ params }: { params: Promise<{ local
   if (!property?.published) notFound();
   const { enabled: sellerCtaEnabled } = await getSellerCtaSettings();
 
+  // Setas para o imóvel anterior e o próximo, na cor do vizinho (lib/property-neighbors.ts).
+  const neighbors = await getNeighborArrows(property.id, locale);
+
   return (
     <PortimaoLanguageProvider locale={locale}>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(buildJsonLd(locale)) }} />
       <PagePalette slug={property.color_theme} />
       <LandingLanguageAutoDetect />
+      {neighbors && <PropertyNavArrows prev={neighbors.prev} next={neighbors.next} />}
       <PortimaoHeader sellerCtaEnabled={sellerCtaEnabled} />
       <main className="flex-1">
         <PortimaoHero />

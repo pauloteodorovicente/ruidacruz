@@ -39,6 +39,8 @@ import { VerdelagoLeadForm } from "@/app/components/verdelago/VerdelagoLeadForm"
 import { VerdelagoWhatsApp } from "@/app/components/verdelago/VerdelagoWhatsApp";
 import { PagePalette } from "@/app/components/site/PagePalette";
 import { LandingLanguageAutoDetect } from "@/app/components/site/LandingLanguageAutoDetect";
+import { PropertyNavArrows } from "@/app/components/PropertyNavArrows";
+import { getNeighborArrows } from "@/lib/property-neighbors";
 import { ScheduleCallFloating } from "@/app/components/ScheduleCallFloating";
 import { VerdelagoFooter } from "@/app/components/verdelago/VerdelagoFooter";
 
@@ -182,6 +184,9 @@ export default async function VerdelagoPage({ params }: { params: Promise<{ loca
     label: typologyNameById.get(f.typology_id) ?? "",
   }));
 
+  // Setas para o imóvel anterior e o próximo, na cor do vizinho (lib/property-neighbors.ts).
+  const neighbors = await getNeighborArrows(property.id, locale);
+
   return (
     <VerdelagoLanguageProvider locale={locale}>
       <script
@@ -190,6 +195,7 @@ export default async function VerdelagoPage({ params }: { params: Promise<{ loca
       />
       <PagePalette slug={property.color_theme} />
       <LandingLanguageAutoDetect />
+      {neighbors && <PropertyNavArrows prev={neighbors.prev} next={neighbors.next} />}
       <VerdelagoHeader sellerCtaEnabled={sellerCtaEnabled} />
       <main className="flex-1">
         <VerdelagoHero />

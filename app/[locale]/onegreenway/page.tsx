@@ -23,6 +23,8 @@ import { OneGreenwayLeadForm } from "@/app/components/onegreenway/OneGreenwayLea
 import { OneGreenwayWhatsApp } from "@/app/components/onegreenway/OneGreenwayWhatsApp";
 import { PagePalette } from "@/app/components/site/PagePalette";
 import { LandingLanguageAutoDetect } from "@/app/components/site/LandingLanguageAutoDetect";
+import { PropertyNavArrows } from "@/app/components/PropertyNavArrows";
+import { getNeighborArrows } from "@/lib/property-neighbors";
 import { ScheduleCallFloating } from "@/app/components/ScheduleCallFloating";
 import { OneGreenwayFooter } from "@/app/components/onegreenway/OneGreenwayFooter";
 
@@ -127,11 +129,15 @@ export default async function OneGreenwayPage({ params }: { params: Promise<{ lo
     return { id: typology.id, priceFrom: typology.price_from, byLocale };
   });
 
+  // Setas para o imóvel anterior e o próximo, na cor do vizinho (lib/property-neighbors.ts).
+  const neighbors = await getNeighborArrows(property.id, locale);
+
   return (
     <OneGreenwayLanguageProvider locale={locale}>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(buildJsonLd(locale)) }} />
       <PagePalette slug={property.color_theme} />
       <LandingLanguageAutoDetect />
+      {neighbors && <PropertyNavArrows prev={neighbors.prev} next={neighbors.next} />}
       <OneGreenwayHeader sellerCtaEnabled={sellerCtaEnabled} />
       <main className="flex-1">
         <OneGreenwayHero />

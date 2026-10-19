@@ -27,6 +27,8 @@ export function ViewTransitions({ children }: { children: React.ReactNode }) {
     const supportsViewTransition = typeof document.startViewTransition === "function";
     const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (!supportsViewTransition || reducedMotion) {
+      // Sem transição: a direção das setas (html[data-nav-dir]) não tem o que animar.
+      delete document.documentElement.dataset.navDir;
       setDisplayChildren(children);
       return;
     }
@@ -40,7 +42,10 @@ export function ViewTransitions({ children }: { children: React.ReactNode }) {
     // resolve normalmente mesmo assim). Sem isto aqui, sobra como unhandled
     // rejection solto no console; peguei as duas por segurança.
     transition.ready.catch(() => {});
-    transition.finished.catch(() => {});
+    // A direção do deslize (setas entre imóveis) só vale para esta transição.
+    transition.finished.catch(() => {}).finally(() => {
+      delete document.documentElement.dataset.navDir;
+    });
   }, [pathname, children]);
 
   return displayChildren;

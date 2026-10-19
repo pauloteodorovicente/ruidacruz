@@ -21,6 +21,8 @@ import { VerdelagoLeadForm } from "@/app/components/verdelago/VerdelagoLeadForm"
 import { VerdelagoWhatsApp } from "@/app/components/verdelago/VerdelagoWhatsApp";
 import { PagePalette } from "@/app/components/site/PagePalette";
 import { LandingLanguageAutoDetect } from "@/app/components/site/LandingLanguageAutoDetect";
+import { PropertyNavArrows } from "@/app/components/PropertyNavArrows";
+import { getNeighborArrows } from "@/lib/property-neighbors";
 import { ScheduleCallFloating } from "@/app/components/ScheduleCallFloating";
 import { VerdelagoFooter } from "@/app/components/verdelago/VerdelagoFooter";
 
@@ -117,11 +119,15 @@ export default async function Verdelago6Page({ params }: { params: Promise<{ loc
   const sold = rows.filter((row) => row.vendido).length;
   const available = rows.length - sold;
 
+  // Setas para o imóvel anterior e o próximo, na cor do vizinho (lib/property-neighbors.ts).
+  const neighbors = await getNeighborArrows(landing.id, locale);
+
   return (
     <VerdelagoLanguageProvider locale={locale}>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(buildJsonLd(locale)) }} />
       <PagePalette slug={landing.color_theme} />
       <LandingLanguageAutoDetect />
+      {neighbors && <PropertyNavArrows prev={neighbors.prev} next={neighbors.next} />}
       <VerdelagoHeader sellerCtaEnabled={sellerCtaEnabled} />
       <main className="flex-1">
         <VerdelagoFase6Hero />

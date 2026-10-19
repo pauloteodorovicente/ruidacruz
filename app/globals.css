@@ -172,3 +172,87 @@ body::before {
 @media (prefers-reduced-motion: reduce) {
   .card-pulse { animation: none; }
 }
+
+/* Setas entre imóveis (PropertyNavArrows): na cor de destaque do imóvel VIZINHO, nos dois temas
+   (--na-dark e --na-light vêm da página dele). Sempre visíveis, discretas no computador até o mouse
+   chegar perto; o nome do vizinho aparece ao passar o mouse. */
+.nav-arrow-zone {
+  position: fixed;
+  top: 50%;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  height: 7rem;
+  width: 4.5rem;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+.nav-arrow-zone-prev { left: 0; justify-content: flex-start; padding-left: 0.5rem; }
+.nav-arrow-zone-next { right: 0; justify-content: flex-end; padding-right: 0.5rem; }
+.nav-arrow {
+  --na: var(--na-dark);
+  pointer-events: auto;
+  touch-action: none;
+  position: relative;
+  display: flex;
+  height: 2.75rem;
+  width: 2.75rem;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  color: var(--na);
+  border: 1px solid color-mix(in srgb, var(--na) 60%, transparent);
+  background: color-mix(in srgb, var(--c-bg) 62%, transparent);
+  backdrop-filter: blur(6px);
+  box-shadow: 0 2px 14px -4px rgba(0, 0, 0, 0.45);
+  opacity: 0.85;
+  transition: opacity 0.3s, background-color 0.3s, box-shadow 0.3s;
+}
+html[data-theme="light"] .nav-arrow { --na: var(--na-light); }
+.nav-arrow:hover,
+.nav-arrow:focus-visible {
+  background: color-mix(in srgb, var(--na) 16%, var(--c-bg));
+  box-shadow: 0 0 18px -2px color-mix(in srgb, var(--na) 55%, transparent);
+}
+.nav-arrow-label {
+  display: none;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  max-width: 14rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  padding: 0.4rem 0.75rem;
+  font-size: 0.7rem;
+  line-height: 1;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--na);
+  background: color-mix(in srgb, var(--c-bg) 88%, transparent);
+  border: 1px solid color-mix(in srgb, var(--na) 40%, transparent);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s;
+}
+.nav-arrow-prev .nav-arrow-label { left: calc(100% + 0.6rem); }
+.nav-arrow-next .nav-arrow-label { right: calc(100% + 0.6rem); }
+@media (min-width: 768px) {
+  .nav-arrow { opacity: 0.6; }
+  .nav-arrow-zone:hover .nav-arrow,
+  .nav-arrow:focus-visible { opacity: 1; }
+  .nav-arrow-label { display: block; }
+  .nav-arrow:hover .nav-arrow-label,
+  .nav-arrow:focus-visible .nav-arrow-label { opacity: 1; }
+}
+
+/* Deslize lateral ao trocar de imóvel pelas setas: a página atual sai para um lado enquanto a outra
+   entra do lado oposto. A direção vem de html[data-nav-dir] ("next" ou "prev"). */
+@keyframes nav-slide-out-left { to { transform: translateX(-30%); opacity: 0; } }
+@keyframes nav-slide-in-right { from { transform: translateX(30%); opacity: 0; } }
+@keyframes nav-slide-out-right { to { transform: translateX(30%); opacity: 0; } }
+@keyframes nav-slide-in-left { from { transform: translateX(-30%); opacity: 0; } }
+html[data-nav-dir="next"]::view-transition-old(root) { animation: 380ms cubic-bezier(0.4, 0, 0.2, 1) both nav-slide-out-left; }
+html[data-nav-dir="next"]::view-transition-new(root) { animation: 380ms cubic-bezier(0.4, 0, 0.2, 1) both nav-slide-in-right; }
+html[data-nav-dir="prev"]::view-transition-old(root) { animation: 380ms cubic-bezier(0.4, 0, 0.2, 1) both nav-slide-out-right; }
+html[data-nav-dir="prev"]::view-transition-new(root) { animation: 380ms cubic-bezier(0.4, 0, 0.2, 1) both nav-slide-in-left; }

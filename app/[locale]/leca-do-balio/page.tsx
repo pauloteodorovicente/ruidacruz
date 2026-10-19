@@ -25,6 +25,8 @@ import { LeadForm } from "@/app/components/LeadForm";
 import { WhatsAppFloating } from "@/app/components/WhatsAppFloating";
 import { PagePalette } from "@/app/components/site/PagePalette";
 import { LandingLanguageAutoDetect } from "@/app/components/site/LandingLanguageAutoDetect";
+import { PropertyNavArrows } from "@/app/components/PropertyNavArrows";
+import { getNeighborArrows } from "@/lib/property-neighbors";
 import { ScheduleCallFloating } from "@/app/components/ScheduleCallFloating";
 import { Footer } from "@/app/components/Footer";
 
@@ -112,6 +114,9 @@ export default async function LecaDoBalioPage({ params }: { params: Promise<{ lo
   const verdelago = await getPropertyByReference("verdelago");
   const verdelagoFromPrice = verdelago ? await getLowestAvailableUnitPrice(verdelago.id) : null;
 
+  // Setas para o imóvel anterior e o próximo, na cor do vizinho (lib/property-neighbors.ts).
+  const neighbors = await getNeighborArrows(property.id, locale);
+
   return (
     <LanguageProvider locale={locale}>
       <script
@@ -120,6 +125,7 @@ export default async function LecaDoBalioPage({ params }: { params: Promise<{ lo
       />
       <PagePalette slug={property.color_theme} />
       <LandingLanguageAutoDetect />
+      {neighbors && <PropertyNavArrows prev={neighbors.prev} next={neighbors.next} />}
       <Header sellerCtaEnabled={sellerCtaEnabled} />
       <main className="flex-1">
         <Hero />
