@@ -41,6 +41,8 @@ import { PagePalette } from "@/app/components/site/PagePalette";
 import { LandingLanguageAutoDetect } from "@/app/components/site/LandingLanguageAutoDetect";
 import { PropertyNavArrows } from "@/app/components/PropertyNavArrows";
 import { getNeighborArrows } from "@/lib/property-neighbors";
+import { getSourceOverrides } from "@/lib/settings";
+import { applyOverrides } from "@/lib/content-overrides";
 import { ScheduleCallFloating } from "@/app/components/ScheduleCallFloating";
 import { VerdelagoFooter } from "@/app/components/verdelago/VerdelagoFooter";
 
@@ -55,7 +57,8 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale } = await params;
   if (!hasLocale(routing.locales, locale)) return {};
-  const { title, description } = content[locale].meta;
+  const overrides = await getSourceOverrides("verdelago", locale);
+  const { title, description } = applyOverrides(content[locale], overrides).meta;
 
   return {
     title,
@@ -77,12 +80,12 @@ export async function generateMetadata({
 const JSON_LD_DESCRIPTION_PT =
   "Empreendimento turístico de 5 estrelas com apartamentos T2 e T3, entre Altura e a Praia Verde, Algarve. Acesso direto à praia, SPA, piscinas, Resort Club e Kids Club.";
 
-function buildJsonLd(locale: (typeof routing.locales)[number]) {
+function buildJsonLd(locale: (typeof routing.locales)[number], metaDescription: string) {
   return {
     "@context": "https://schema.org",
     "@type": "ApartmentComplex",
     name: "Verdelago Resort",
-    description: locale === "pt-PT" ? JSON_LD_DESCRIPTION_PT : content[locale].meta.description,
+    description: locale === "pt-PT" ? JSON_LD_DESCRIPTION_PT : metaDescription,
     inLanguage: locale,
     url: localizedUrl(locale, PATH),
     image: "https://ruidacruzconsultor.com/images/verdelago/01-hero-humanizada.jpg",
@@ -185,13 +188,14 @@ export default async function VerdelagoPage({ params }: { params: Promise<{ loca
   }));
 
   // Setas para o imóvel anterior e o próximo, na cor do vizinho (lib/property-neighbors.ts).
+  const overrides = await getSourceOverrides("verdelago", locale);
   const neighbors = await getNeighborArrows(property.id, locale);
 
   return (
-    <VerdelagoLanguageProvider locale={locale}>
+    <VerdelagoLanguageProvider locale={locale} overrides={overrides}>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(buildJsonLd(locale)) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(buildJsonLd(locale, applyOverrides(content[locale], overrides).meta.description)) }}
       />
       <PagePalette slug={property.color_theme} />
       <LandingLanguageAutoDetect />

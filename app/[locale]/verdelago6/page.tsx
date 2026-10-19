@@ -23,6 +23,8 @@ import { PagePalette } from "@/app/components/site/PagePalette";
 import { LandingLanguageAutoDetect } from "@/app/components/site/LandingLanguageAutoDetect";
 import { PropertyNavArrows } from "@/app/components/PropertyNavArrows";
 import { getNeighborArrows } from "@/lib/property-neighbors";
+import { getSourceOverrides } from "@/lib/settings";
+import { applyOverrides } from "@/lib/content-overrides";
 import { ScheduleCallFloating } from "@/app/components/ScheduleCallFloating";
 import { VerdelagoFooter } from "@/app/components/verdelago/VerdelagoFooter";
 
@@ -41,7 +43,8 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale } = await params;
   if (!hasLocale(routing.locales, locale)) return {};
-  const { metaTitle: title, metaDescription: description } = content[locale].fase6;
+  const overrides = await getSourceOverrides("verdelago", locale);
+  const { metaTitle: title, metaDescription: description } = applyOverrides(content[locale], overrides).fase6;
 
   return {
     title,
@@ -63,12 +66,12 @@ export async function generateMetadata({
 const JSON_LD_DESCRIPTION_PT =
   "Última fase de vendas do Verdelago Resort: 21 frações, incluindo 4 de tipologia T4, junto ao Clube, ao SPA e ao acesso à praia, em Altura, Algarve.";
 
-function buildJsonLd(locale: (typeof routing.locales)[number]) {
+function buildJsonLd(locale: (typeof routing.locales)[number], metaDescription: string) {
   return {
     "@context": "https://schema.org",
     "@type": "ApartmentComplex",
     name: "Verdelago Resort — Fase 6",
-    description: locale === "pt-PT" ? JSON_LD_DESCRIPTION_PT : content[locale].fase6.metaDescription,
+    description: locale === "pt-PT" ? JSON_LD_DESCRIPTION_PT : metaDescription,
     inLanguage: locale,
     url: localizedUrl(locale, PATH),
     image: "https://ruidacruzconsultor.com/images/verdelago/04-apartamento.jpg",
@@ -120,11 +123,12 @@ export default async function Verdelago6Page({ params }: { params: Promise<{ loc
   const available = rows.length - sold;
 
   // Setas para o imóvel anterior e o próximo, na cor do vizinho (lib/property-neighbors.ts).
+  const overrides = await getSourceOverrides("verdelago", locale);
   const neighbors = await getNeighborArrows(landing.id, locale);
 
   return (
-    <VerdelagoLanguageProvider locale={locale}>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(buildJsonLd(locale)) }} />
+    <VerdelagoLanguageProvider locale={locale} overrides={overrides}>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(buildJsonLd(locale, applyOverrides(content[locale], overrides).fase6.metaDescription)) }} />
       <PagePalette slug={landing.color_theme} />
       <LandingLanguageAutoDetect />
       {neighbors && <PropertyNavArrows prev={neighbors.prev} next={neighbors.next} />}

@@ -22,6 +22,8 @@ import { PagePalette } from "@/app/components/site/PagePalette";
 import { LandingLanguageAutoDetect } from "@/app/components/site/LandingLanguageAutoDetect";
 import { PropertyNavArrows } from "@/app/components/PropertyNavArrows";
 import { getNeighborArrows } from "@/lib/property-neighbors";
+import { getSourceOverrides } from "@/lib/settings";
+import { applyOverrides } from "@/lib/content-overrides";
 import { ScheduleCallFloating } from "@/app/components/ScheduleCallFloating";
 import { PortimaoFooter } from "@/app/components/portimao/PortimaoFooter";
 
@@ -37,7 +39,8 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale } = await params;
   if (!hasLocale(routing.locales, locale)) return {};
-  const { title, description } = content[locale].meta;
+  const overrides = await getSourceOverrides("portimao", locale);
+  const { title, description } = applyOverrides(content[locale], overrides).meta;
 
   return {
     title,
@@ -59,12 +62,12 @@ export async function generateMetadata({
 const JSON_LD_DESCRIPTION_PT =
   "Apartamento T1 para arrendamento semanal, Edifício Alto da Foz, Praia da Rocha, Portimão.";
 
-function buildJsonLd(locale: (typeof routing.locales)[number]) {
+function buildJsonLd(locale: (typeof routing.locales)[number], metaDescription: string) {
   return {
     "@context": "https://schema.org",
     "@type": "LodgingBusiness",
     name: "Apartamento T1 Praia da Rocha",
-    description: locale === "pt-PT" ? JSON_LD_DESCRIPTION_PT : content[locale].meta.description,
+    description: locale === "pt-PT" ? JSON_LD_DESCRIPTION_PT : metaDescription,
     inLanguage: locale,
     url: localizedUrl(locale, PATH),
     image: `https://ruidacruzconsultor.com${OG_IMAGE}`,
@@ -90,11 +93,12 @@ export default async function PortimaoPage({ params }: { params: Promise<{ local
   const { enabled: sellerCtaEnabled } = await getSellerCtaSettings();
 
   // Setas para o imóvel anterior e o próximo, na cor do vizinho (lib/property-neighbors.ts).
+  const overrides = await getSourceOverrides("portimao", locale);
   const neighbors = await getNeighborArrows(property.id, locale);
 
   return (
-    <PortimaoLanguageProvider locale={locale}>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(buildJsonLd(locale)) }} />
+    <PortimaoLanguageProvider locale={locale} overrides={overrides}>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(buildJsonLd(locale, applyOverrides(content[locale], overrides).meta.description)) }} />
       <PagePalette slug={property.color_theme} />
       <LandingLanguageAutoDetect />
       {neighbors && <PropertyNavArrows prev={neighbors.prev} next={neighbors.next} />}

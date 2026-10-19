@@ -2,6 +2,7 @@ import { createAdminClient } from "@/lib/supabase/admin";
 import { sanitizeCardCarousel, type CardCarouselSettings } from "@/lib/cover";
 import { sanitizeTypeColorThemes, type TypeColorThemes } from "@/lib/property-colors";
 import { sanitizeVerdelagoPhaseNotes, type VerdelagoPhaseNotes } from "@/lib/verdelago-phase-notes";
+import { sanitizeContentOverrides, type ContentOverrides } from "@/lib/content-overrides";
 
 export type { CardCarouselSettings } from "@/lib/cover";
 
@@ -135,6 +136,24 @@ export async function getVerdelagoPhaseNotesForAdmin(): Promise<VerdelagoPhaseNo
   const supabase = createAdminClient();
   const { data } = await supabase.from("settings").select("value").eq("key", "verdelago_phase_notes").maybeSingle();
   return sanitizeVerdelagoPhaseNotes(data?.value);
+}
+
+// Textos editados no admin (Admin → Textos das páginas), aplicados por cima do texto padrão em código.
+// Vazio = o site é idêntico ao texto original. Cache de 60s como as demais.
+export async function getContentOverrides(): Promise<ContentOverrides> {
+  const raw = await getPublicSetting<Record<string, unknown>>("content_overrides", {});
+  return sanitizeContentOverrides(raw);
+}
+
+// As substituições de UMA fonte (site, leca, verdelago...) em UM idioma.
+export async function getSourceOverrides(source: string, locale: string): Promise<Record<string, string> | undefined> {
+  return (await getContentOverrides())[source]?.[locale];
+}
+
+export async function getContentOverridesForAdmin(): Promise<ContentOverrides> {
+  const supabase = createAdminClient();
+  const { data } = await supabase.from("settings").select("value").eq("key", "content_overrides").maybeSingle();
+  return sanitizeContentOverrides(data?.value);
 }
 
 // Só em contexto de servidor confiável (Route Handlers) — nunca exposto ao

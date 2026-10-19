@@ -8,6 +8,7 @@ const NAV_ITEMS = [
   { href: "/admin", label: "Imóveis" },
   { href: "/admin/imoveis/novo", label: "+ Novo Imóvel" },
   { href: "/admin/hero", label: "Hero da Home" },
+  { href: "/admin/conteudo", label: "Textos das páginas" },
   { href: "/admin/depoimentos", label: "Depoimentos" },
   { href: "/admin/analytics", label: "Analytics" },
   { href: "/admin/integracoes", label: "Integrações" },
