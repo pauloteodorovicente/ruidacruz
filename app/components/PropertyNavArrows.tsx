@@ -23,7 +23,8 @@ function ArrowIcon({ direction }: { direction: "prev" | "next" }) {
 // Setas nas bordas da tela para o imóvel anterior e o próximo, em todas as páginas de imóvel (a
 // ficha e as landings de campanha). Cada seta é um <a> de verdade (funciona sem JavaScript e com
 // "abrir em nova aba") e, por cima disso:
-//  - leva a cor de destaque da página do VIZINHO (nos dois temas) e mostra o nome dele ao passar o mouse;
+//  - usa a cor de destaque da PRÓPRIA página (azul-marinho numa página marinho, creme numa creme...) e mostra o
+//    nome do vizinho ao passar o mouse;
 //  - ao clicar ou arrastar, a página desliza para o lado (a atual sai, a outra entra) em vez de
 //    recarregar: a direção vai em html[data-nav-dir], e o CSS de globals.css faz a animação com a View
 //    Transitions API (ver ViewTransitions.tsx; sem suporte, ou com "reduzir movimento", troca direto);
@@ -79,8 +80,7 @@ export function PropertyNavArrows({ prev, next }: { prev: NeighborArrow; next: N
     go(target, direction);
   }
 
-  const style = (target: NeighborArrow) =>
-    ({ "--na-dark": target.accentDark, "--na-light": target.accentLight, transform: `translateX(${dragDelta / 3}px)` }) as React.CSSProperties;
+  const style = (): React.CSSProperties => ({ transform: `translateX(${dragDelta / 3}px)` });
 
   return (
     <>
@@ -92,7 +92,7 @@ export function PropertyNavArrows({ prev, next }: { prev: NeighborArrow; next: N
           onPointerMove={handlePointerMove}
           onPointerUp={handlePointerUp}
           onClick={(e) => handleClick(e, prev, "prev")}
-          style={style(prev)}
+          style={style()}
           className="nav-arrow nav-arrow-prev"
         >
           <ArrowIcon direction="prev" />
@@ -109,7 +109,7 @@ export function PropertyNavArrows({ prev, next }: { prev: NeighborArrow; next: N
           onPointerMove={handlePointerMove}
           onPointerUp={handlePointerUp}
           onClick={(e) => handleClick(e, next, "next")}
-          style={style(next)}
+          style={style()}
           className="nav-arrow nav-arrow-next"
         >
           <ArrowIcon direction="next" />

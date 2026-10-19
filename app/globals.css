@@ -173,9 +173,9 @@ body::before {
   .card-pulse { animation: none; }
 }
 
-/* Setas entre imóveis (PropertyNavArrows): na cor de destaque do imóvel VIZINHO, nos dois temas
-   (--na-dark e --na-light vêm da página dele). Sempre visíveis, discretas no computador até o mouse
-   chegar perto; o nome do vizinho aparece ao passar o mouse. */
+/* Setas entre imóveis (PropertyNavArrows): na cor de destaque da PRÓPRIA página (a paleta dela, nos dois
+   temas, vem de --c-accent). Sempre visíveis, discretas no computador até o mouse chegar perto; o nome do
+   vizinho aparece ao passar o mouse. */
 .nav-arrow-zone {
   position: fixed;
   top: 50%;
@@ -190,7 +190,7 @@ body::before {
 .nav-arrow-zone-prev { left: 0; justify-content: flex-start; padding-left: 0.5rem; }
 .nav-arrow-zone-next { right: 0; justify-content: flex-end; padding-right: 0.5rem; }
 .nav-arrow {
-  --na: var(--na-dark);
+  --na: var(--c-accent);
   pointer-events: auto;
   touch-action: none;
   position: relative;
@@ -208,7 +208,6 @@ body::before {
   opacity: 0.85;
   transition: opacity 0.3s, background-color 0.3s, box-shadow 0.3s;
 }
-html[data-theme="light"] .nav-arrow { --na: var(--na-light); }
 .nav-arrow:hover,
 .nav-arrow:focus-visible {
   background: color-mix(in srgb, var(--na) 16%, var(--c-bg));
