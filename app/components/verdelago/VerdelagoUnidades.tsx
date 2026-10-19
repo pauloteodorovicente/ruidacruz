@@ -3,6 +3,7 @@
 import { useMemo, useState } from "react";
 import { useVerdelagoLanguage } from "@/lib/verdelago-language-context";
 import { Reveal } from "../Reveal";
+import { trackLinkClick } from "@/lib/track-event";
 
 export type VerdelagoUnitRow = {
   lote: string | null;
@@ -130,7 +131,14 @@ export function VerdelagoUnidades({
         <div className="flex flex-col gap-3">
           {sortedPhases.map((phase, phaseIndex) => (
             <details key={phase.label} className="border border-border bg-background group" open={openFirst && phaseIndex === 0}>
-              <summary className="cursor-pointer select-none px-5 py-4 flex items-center justify-between text-sm">
+              <summary
+                className="cursor-pointer select-none px-5 py-4 flex items-center justify-between text-sm"
+                onClick={(e) => {
+                  // Conta só quando a tabela da fase vai ABRIR por um clique do visitante (fechar não conta).
+                  const details = e.currentTarget.parentElement as HTMLDetailsElement | null;
+                  if (details && !details.open) trackLinkClick(`tabela_${phase.label.toLowerCase().replace(/\s+/g, "_")}`);
+                }}
+              >
                 <span className="flex min-w-0 flex-col gap-0.5">
                   <span className="font-display text-lg">{phase.label}</span>
                   {phase.note && <span className="text-xs text-accent">{phase.note}</span>}

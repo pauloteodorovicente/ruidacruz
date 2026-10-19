@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useVerdelagoLanguage } from "@/lib/verdelago-language-context";
 import { Reveal } from "../Reveal";
 import { RevealText } from "../RevealText";
+import { trackLinkClick } from "@/lib/track-event";
 
 // Faixa de lançamento da Fase 6 (pedido do Rui, 30/09–02/10): texto dele,
 // traduzido nas 7 línguas em lib/verdelago-content.ts (bloco `fase6`). Os
@@ -43,13 +44,19 @@ export function VerdelagoFase6({ available, sold }: { available: number; sold: n
 
           <div className="flex flex-col sm:flex-row gap-3">
             <button
-              onClick={() => scrollTo("unidades")}
+              onClick={() => {
+                trackLinkClick("ver_fracoes");
+                scrollTo("unidades");
+              }}
               className="px-6 py-3.5 bg-accent text-background font-body text-sm tracking-[0.05em] uppercase transition-all hover:bg-accent-strong hover:-translate-y-0.5 hover:shadow-lg focus-visible:outline-2 focus-visible:outline-accent focus-visible:outline-offset-2"
             >
               {f.ctaUnits}
             </button>
             <button
-              onClick={() => scrollTo("contacto")}
+              onClick={() => {
+                trackLinkClick("falar_contacto");
+                scrollTo("contacto");
+              }}
               className="px-6 py-3.5 border border-border font-body text-sm tracking-[0.05em] uppercase transition-all hover:border-accent hover:text-accent hover:-translate-y-0.5 focus-visible:outline-2 focus-visible:outline-accent focus-visible:outline-offset-2"
             >
               {f.ctaContact}

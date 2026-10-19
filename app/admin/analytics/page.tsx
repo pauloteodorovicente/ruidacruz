@@ -1,6 +1,7 @@
 import { redirect } from "next/navigation";
 import { isAdminAuthenticated } from "@/lib/admin-auth";
 import { getLeadStats, getWhatsAppClickCount, getEngagementStats } from "@/lib/admin-analytics";
+import { TrafficSection, type TrafficSearchParams } from "./TrafficSection";
 
 function StatCard({ label, value, hint }: { label: string; value: string | number; hint?: string }) {
   return (
@@ -21,7 +22,8 @@ function NotCollectingYet({ what, howTo }: { what: string; howTo: string }) {
   );
 }
 
-export default async function AnalyticsPage() {
+export default async function AnalyticsPage({ searchParams }: { searchParams: Promise<TrafficSearchParams> }) {
+  const params = await searchParams;
   if (!(await isAdminAuthenticated())) redirect("/admin/login");
 
   const [leadStats, whatsapp, engagement] = await Promise.all([
@@ -37,13 +39,7 @@ export default async function AnalyticsPage() {
       <div className="mx-auto max-w-4xl flex flex-col gap-14">
         <h1 className="font-display text-2xl">Analytics</h1>
 
-        <section className="flex flex-col gap-4">
-          <h2 className="font-display text-lg text-accent">Tráfego</h2>
-          <NotCollectingYet
-            what="visitantes, sessões, origem, país, idioma ou dispositivo"
-            howTo='Precisa de uma ferramenta de análise de visitas (ex.: Google Analytics) ligada ao site — ainda não configurada. É uma decisão rápida de tomar quando fizer sentido.'
-          />
-        </section>
+        <TrafficSection params={params} />
 
         <section className="flex flex-col gap-4">
           <h2 className="font-display text-lg text-accent">Engajamento</h2>

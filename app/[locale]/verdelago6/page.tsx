@@ -130,6 +130,8 @@ export default async function Verdelago6Page({ params }: { params: Promise<{ loc
         <VerdelagoBrochure
           ptHref="/docs/verdelago/Verdelago-Fase6-Documento-Comercial-PT.pdf"
           enHref="/docs/verdelago/Verdelago-Fase6-Commercial-Document-EN.pdf"
+          trackPt="doc_comercial_pt"
+          trackEn="doc_comercial_en"
         />
         <VerdelagoLocation />
         <VerdelagoLeadForm

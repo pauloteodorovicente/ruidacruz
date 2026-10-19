@@ -10,6 +10,23 @@ const nextConfig: NextConfig = {
     // do default [75] explicitamente ou ele avisa (e futuramente bloqueia).
     qualities: [75, 90],
   },
+  // Os PDFs do Verdelago (brochuras e Documentos Comerciais da Fase 6) continuam abrindo nas MESMAS
+  // URLs de sempre (/docs/verdelago/<arquivo>.pdf, já enviadas por e-mail), mas passam por
+  // app/api/docs/verdelago/[file]/route.ts, que conta o download e devolve o arquivo igual. O
+  // cabeçalho x-internal-doc é o que a própria rota usa para buscar o PDF estático sem cair aqui de novo.
+  async rewrites() {
+    return {
+      beforeFiles: [
+        {
+          source: "/docs/verdelago/:file(.+\\.pdf)",
+          missing: [{ type: "header" as const, key: "x-internal-doc" }],
+          destination: "/api/docs/verdelago/:file",
+        },
+      ],
+      afterFiles: [],
+      fallback: [],
+    };
+  },
   async redirects() {
     // .com é o domínio canônico (maioria dos compradores é internacional).
     // .pt e .org (e seus "www") redirecionam pra ele. Cada host tem sua

@@ -41,7 +41,10 @@ export function LandingLanguageAutoDetect() {
     }
     if (locale !== routing.defaultLocale) return;
     const target = pickLocale(navigator.languages?.length ? navigator.languages : [navigator.language]);
-    if (target && target !== locale) router.replace(pathname, { locale: target, scroll: false });
+    if (target && target !== locale) {
+      // Preserva ?utm_... e #âncora: o link do e-mail da campanha traz a origem na URL.
+      router.replace(`${pathname}${window.location.search}${window.location.hash}`, { locale: target, scroll: false });
+    }
   }, [locale, pathname, router]);
 
   return null;

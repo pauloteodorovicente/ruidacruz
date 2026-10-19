@@ -5,6 +5,7 @@ import { routing } from "@/i18n/routing";
 import { RootShell } from "@/app/components/site/RootShell";
 import { HtmlLangSync } from "@/app/components/site/HtmlLangSync";
 import { ViewTransitions } from "@/app/components/site/ViewTransitions";
+import { PageViewTracker } from "@/app/components/site/PageViewTracker";
 
 // Toda página pública passa por aqui: as institucionais (Home, /sobre,
 // /contacto, /imoveis/*...) e as landings de campanha (Leça, Verdelago, Fase 6,
@@ -30,6 +31,7 @@ export default async function LocaleLayout({
     <RootShell lang={locale}>
       <NextIntlClientProvider>
         <HtmlLangSync locale={locale} />
+        <PageViewTracker />
         <ViewTransitions>{children}</ViewTransitions>
       </NextIntlClientProvider>
     </RootShell>

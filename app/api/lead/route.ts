@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { getGhlSettings } from "@/lib/settings";
+import { sanitizeAttribution, type Attribution } from "@/lib/analytics-shared";
 
 const GHL_BASE = "https://services.leadconnectorhq.com";
 const GHL_VERSION = "2021-07-28";
@@ -12,6 +13,7 @@ async function recordLead(params: {
   phone: string;
   message: string;
   propertyReference: string;
+  attribution?: Attribution | null;
   ghlContactId?: string;
   status: "success" | "failed";
   errorMessage?: string;
@@ -37,6 +39,7 @@ async function recordLead(params: {
       property_id: propertyId,
       source: params.propertyReference ? `site-${params.propertyReference}` : "site-leca-do-balio",
       ghl_contact_id: params.ghlContactId ?? null,
+      attribution: params.attribution ?? null,
       status: params.status,
       error_message: params.errorMessage ?? null,
     });
@@ -79,6 +82,7 @@ export async function POST(req: Request) {
   const propertyReference = typeof body?.propertyReference === "string" ? body.propertyReference.trim() : "";
   const propertyTitle = typeof body?.propertyTitle === "string" ? body.propertyTitle.trim() : "";
   const zone = typeof body?.zone === "string" ? body.zone.trim() : "";
+  const attribution = sanitizeAttribution(body?.attribution);
 
   if (!name || !phone) {
     return NextResponse.json({ error: "name and phone are required" }, { status: 400 });
@@ -140,6 +144,7 @@ export async function POST(req: Request) {
         phone,
         message,
         propertyReference,
+        attribution,
         status: "failed",
         errorMessage: `GHL ${contactRes.status}: ${JSON.stringify(contactData).slice(0, 300)}`,
       });
@@ -182,7 +187,7 @@ export async function POST(req: Request) {
       }).catch((err) => console.error("GHL webhook notification error", { message: String(err), timestamp: new Date().toISOString() }));
     }
 
-    await recordLead({ name, phone, message, propertyReference, ghlContactId: contactId, status: "success" });
+    await recordLead({ name, phone, message, propertyReference, attribution, ghlContactId: contactId, status: "success" });
     return NextResponse.json({ ok: true, contactId });
   } catch (err) {
     console.error("GHL request error", {
@@ -194,6 +199,7 @@ export async function POST(req: Request) {
       phone,
       message,
       propertyReference,
+      attribution,
       status: "failed",
       errorMessage: err instanceof Error ? err.message : String(err),
     });

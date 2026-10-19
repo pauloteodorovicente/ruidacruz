@@ -2,6 +2,8 @@
 
 import { useState, type FormEvent } from "react";
 import { parsePhoneNumber, type CountryCode } from "libphonenumber-js";
+import { getAttribution } from "@/lib/attribution";
+import { trackLinkClick } from "@/lib/track-event";
 
 declare global {
   interface Window {
@@ -62,6 +64,8 @@ export function useLeadForm(property?: LeadFormProperty) {
       name: String(formData.get("name") ?? ""),
       phone,
       message: String(formData.get("message") ?? ""),
+      // Origem da visita (utm da primeira página da sessão, ou domínio de referência): vai junto do lead.
+      attribution: getAttribution(),
       ...(property && {
         propertyReference: property.reference,
         propertyTitle: property.title,
@@ -73,6 +77,7 @@ export function useLeadForm(property?: LeadFormProperty) {
       const res = await submitWithRetry(payload, 1);
       if (!res.ok) throw new Error("request failed");
       setStatus("success");
+      trackLinkClick("enviar_formulario", property?.reference);
       window.fbq?.("track", "Lead", { content_name: property?.title ?? "Moradia Leça do Balio" });
     } catch {
       setStatus("error");

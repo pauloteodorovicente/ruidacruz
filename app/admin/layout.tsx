@@ -3,6 +3,7 @@ import { RootShell } from "@/app/components/site/RootShell";
 import { Sidebar } from "./Sidebar";
 import { TopBar } from "./TopBar";
 import { CommandPalette } from "./CommandPalette";
+import { InternalVisitorMark } from "./InternalVisitorMark";
 
 // A sidebar só aparece pra sessão autenticada — a página de login (e o
 // instante antes de cada página protegida redirecionar) renderiza sem
@@ -11,11 +12,19 @@ import { CommandPalette } from "./CommandPalette";
 export default async function AdminLayout({ children }: { children: React.ReactNode }) {
   const authenticated = await isAdminAuthenticated();
 
-  if (!authenticated) return <RootShell lang="pt-PT">{children}</RootShell>;
+  if (!authenticated) {
+    return (
+      <RootShell lang="pt-PT">
+        <InternalVisitorMark />
+        {children}
+      </RootShell>
+    );
+  }
 
   return (
     <RootShell lang="pt-PT">
       <div className="flex min-h-screen bg-background">
+        <InternalVisitorMark />
         <Sidebar />
         <TopBar />
         <CommandPalette />

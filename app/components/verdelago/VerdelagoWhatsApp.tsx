@@ -1,17 +1,14 @@
 "use client";
 
 import { useVerdelagoLanguage } from "@/lib/verdelago-language-context";
+import { trackEvent, trackLinkClick } from "@/lib/track-event";
 
 export function VerdelagoWhatsApp() {
   const { t } = useVerdelagoLanguage();
 
   function trackClick() {
-    fetch("/api/track", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ type: "whatsapp_click", propertyReference: "verdelago" }),
-      keepalive: true,
-    }).catch(() => {});
+    trackEvent("whatsapp_click", "verdelago");
+    trackLinkClick("whatsapp", "verdelago");
   }
 
   return (
