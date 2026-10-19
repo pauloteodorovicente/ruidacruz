@@ -3,6 +3,7 @@
 import { useCallback } from "react";
 import { usePathname, useRouter } from "@/i18n/navigation";
 import type { AppLocale } from "@/i18n/routing";
+import { LANDING_LANG_KEY } from "@/app/components/site/LandingLanguageAutoDetect";
 
 // Troca de idioma das landings de campanha que já vivem em app/[locale]
 // (idioma na URL: /verdelago em português, /en/verdelago em inglês...). Em vez
@@ -18,6 +19,12 @@ export function useLandingLocaleSwitch(): (next: AppLocale) => void {
 
   return useCallback(
     (next: AppLocale) => {
+      // Escolha manual: a detecção automática do navegador não mexe mais neste visitante.
+      try {
+        localStorage.setItem(LANDING_LANG_KEY, "1");
+      } catch {
+        // sem armazenamento: segue sem lembrar
+      }
       router.replace(pathname, { locale: next, scroll: false });
     },
     [router, pathname],

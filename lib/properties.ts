@@ -17,6 +17,7 @@ export type { CardCover } from "@/lib/cover";
 import type { Property, PropertyPhoto, PropertyFloorplan, PropertyTranslation, Locale } from "@/lib/property-types";
 import {
   LEGACY_COVER_BY_REFERENCE,
+  LEGACY_EXTRA_IMAGES_BY_REFERENCE,
   coverFirstOrder,
   resolveCover,
   type CardCarouselSettings,
@@ -81,7 +82,7 @@ export async function getCardCovers(
   const supabase = await createClient();
   const { data, error } = await supabase
     .from("property_photos")
-    .select("id, property_id, storage_path, position, visible")
+    .select("id, property_id, storage_path, position, visible, media_type")
     .in(
       "property_id",
       properties.map((property) => property.id),
@@ -104,6 +105,12 @@ export async function getCardCovers(
     let paths = coverFirstOrder(photos, property.cover_photo_id).map((photo) => photo.storage_path);
     const legacy = LEGACY_COVER_BY_REFERENCE[property.reference];
     if (legacy && source !== "explicit") paths = [legacy, ...paths.filter((path) => path !== legacy)];
+    // Páginas de campanha com pouca foto no banco: imagens fixas extras logo depois da capa.
+    const extras = LEGACY_EXTRA_IMAGES_BY_REFERENCE[property.reference] ?? [];
+    if (extras.length > 0) {
+      const first = paths[0] ?? extras[0];
+      paths = [first, ...extras.filter((path) => path !== first), ...paths.filter((path) => path !== first && !extras.includes(path))];
+    }
     if (paths.length === 0) continue; // sem foto nenhuma: o card mostra a assinatura
 
     const rotate = Boolean(carousel && (property.cover_carousel ?? carousel.enabled) && paths.length > 1);

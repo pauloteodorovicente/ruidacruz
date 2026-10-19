@@ -24,6 +24,7 @@ import { Related } from "@/app/components/Related";
 import { LeadForm } from "@/app/components/LeadForm";
 import { WhatsAppFloating } from "@/app/components/WhatsAppFloating";
 import { PagePalette } from "@/app/components/site/PagePalette";
+import { LandingLanguageAutoDetect } from "@/app/components/site/LandingLanguageAutoDetect";
 import { ScheduleCallFloating } from "@/app/components/ScheduleCallFloating";
 import { Footer } from "@/app/components/Footer";
 
@@ -118,6 +119,7 @@ export default async function LecaDoBalioPage({ params }: { params: Promise<{ lo
         dangerouslySetInnerHTML={{ __html: JSON.stringify(buildJsonLd(locale)) }}
       />
       <PagePalette slug={property.color_theme} />
+      <LandingLanguageAutoDetect />
       <Header sellerCtaEnabled={sellerCtaEnabled} />
       <main className="flex-1">
         <Hero />
