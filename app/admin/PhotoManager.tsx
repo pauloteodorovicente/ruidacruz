@@ -12,7 +12,10 @@ import {
   uploadCoverPhoto,
   setGalleryFeatured,
   setGalleryVideoInGrid,
+  createGalleryVideoUpload,
+  addGalleryVideo,
 } from "./photo-actions";
+import { createClient } from "@/lib/supabase/client";
 import { resolveCover } from "@/lib/cover";
 import type { PropertyPhoto } from "@/lib/property-types";
 
@@ -48,6 +51,8 @@ export function PhotoManager({
   const [error, setError] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const coverInputRef = useRef<HTMLInputElement>(null);
+  const videoInputRef = useRef<HTMLInputElement>(null);
+  const [videoStatus, setVideoStatus] = useState("");
 
   // Espelho local pra reordenar arrastando com resposta imediata na tela —
   // sincroniza de novo sempre que o servidor manda uma lista nova (upload,
@@ -128,6 +133,30 @@ export function PhotoManager({
         await setGalleryVideoInGrid(propertyId, propertyReference, on);
       } catch (e) {
         setError(e instanceof Error ? e.message : "Falha ao mudar a galeria.");
+      }
+    });
+  }
+
+  // Vídeo da galeria: vai direto do navegador ao armazenamento (link assinado) porque é grande
+  // demais para passar pelo servidor; depois o servidor só registra o vídeo na galeria.
+  function handleVideo(file: File | undefined) {
+    if (!file) return;
+    setError(null);
+    setVideoStatus("A preparar o envio…");
+    startTransition(async () => {
+      try {
+        const { path, token } = await createGalleryVideoUpload(propertyId, file.name);
+        setVideoStatus("A enviar o vídeo… (pode demorar alguns minutos)");
+        const { error: uploadError } = await createClient()
+          .storage.from("property-photos")
+          .uploadToSignedUrl(path, token, file, { contentType: file.type || "video/mp4" });
+        if (uploadError) throw new Error(uploadError.message);
+        await addGalleryVideo(propertyId, propertyReference, path);
+        setVideoStatus("");
+        if (videoInputRef.current) videoInputRef.current.value = "";
+      } catch (e) {
+        setVideoStatus("");
+        setError(e instanceof Error ? e.message : "Falha ao enviar o vídeo.");
       }
     });
   }
@@ -254,16 +283,33 @@ export function PhotoManager({
                 photo.visible ? "border-border" : "border-border opacity-40"
               }`}
             >
-              <Image src={photo.storage_path} alt="" fill sizes="200px" className="object-cover" />
+              {photo.media_type === "video" ? (
+                <video src={photo.storage_path} muted playsInline preload="metadata" className="absolute inset-0 h-full w-full object-cover" />
+              ) : (
+                <Image src={photo.storage_path} alt="" fill sizes="200px" className="object-cover" />
+              )}
+              {photo.media_type === "video" && (
+                <span className="absolute bottom-1.5 right-1.5 bg-black/70 text-white text-[10px] tracking-[0.06em] uppercase px-1.5 py-0.5">
+                  ▶ Vídeo
+                </span>
+              )}
               {!photo.visible && (
                 <span className="absolute top-1.5 left-1.5 bg-black/70 text-white text-[10px] tracking-[0.06em] uppercase px-1.5 py-0.5">
                   Arquivada
                 </span>
               )}
-              {galleryFeatured === photo.id && (
-                <span className="absolute bottom-1.5 left-1.5 bg-black/70 text-white text-[10px] tracking-[0.06em] uppercase px-1.5 py-0.5">
-                  ◼ Destaque
-                </span>
+              {photo.visible && (
+                <button
+                  type="button"
+                  disabled={isPending}
+                  onClick={() => handleFeatured(galleryFeatured === photo.id ? null : photo.id)}
+                  title="A mídia destacada ocupa o espaço de 4 na galeria do site e vai para a primeira posição"
+                  className={`absolute bottom-1.5 left-1.5 z-10 px-1.5 py-0.5 text-[10px] tracking-[0.06em] uppercase disabled:opacity-50 ${
+                    galleryFeatured === photo.id ? "bg-accent text-background" : "bg-black/70 text-white hover:bg-black"
+                  }`}
+                >
+                  {galleryFeatured === photo.id ? "◼ Destacada" : "◻ Destacar"}
+                </button>
               )}
               {cover.photo?.id === photo.id && (
                 <span className="absolute top-1.5 right-1.5 bg-accent text-background text-[10px] tracking-[0.06em] uppercase px-1.5 py-0.5">
@@ -324,7 +370,7 @@ export function PhotoManager({
                     ↓
                   </button>
                 </div>
-                {photo.visible && !(cover.photo?.id === photo.id && cover.source === "explicit") && (
+                {photo.visible && photo.media_type !== "video" && !(cover.photo?.id === photo.id && cover.source === "explicit") && (
                   <button
                     type="button"
                     disabled={isPending}
@@ -333,17 +379,6 @@ export function PhotoManager({
                     className="mt-0.5 text-[10px] tracking-[0.08em] uppercase text-white/90 hover:text-white"
                   >
                     ☆ Definir capa
-                  </button>
-                )}
-                {photo.visible && (
-                  <button
-                    type="button"
-                    disabled={isPending}
-                    onClick={() => handleFeatured(galleryFeatured === photo.id ? null : photo.id)}
-                    title="Esta foto ocupa o espaço de 4 na galeria do site (2 de largura por 2 de altura)"
-                    className="text-[10px] tracking-[0.08em] uppercase text-white/90 hover:text-white"
-                  >
-                    {galleryFeatured === photo.id ? "◼ Tirar destaque" : "◻ Destacar na galeria"}
                   </button>
                 )}
                 <button
@@ -370,6 +405,20 @@ export function PhotoManager({
           {isPending ? "A enviar…" : "Enviar"}
         </button>
       </form>
+      <div className="flex flex-wrap items-center gap-3">
+        <input
+          ref={videoInputRef}
+          type="file"
+          accept="video/mp4,video/webm,video/quicktime"
+          disabled={isPending}
+          onChange={(e) => handleVideo(e.target.files?.[0])}
+          className="text-sm"
+          aria-label="Adicionar vídeo à galeria"
+        />
+        <span className="text-xs text-foreground-muted">
+          {videoStatus || "Adicionar vídeo à galeria (MP4 ou WebM). Ele entra como uma mídia como as fotos: dá para reordenar, arquivar e destacar."}
+        </span>
+      </div>
       {error && <p className="text-sm" style={{ color: "#a13f3f" }}>{error}</p>}
     </fieldset>
   );

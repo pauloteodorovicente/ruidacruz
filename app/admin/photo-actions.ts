@@ -238,3 +238,43 @@ export async function saveSectionOrder(propertyId: string, propertyReference: st
   revalidatePath(`/admin/imoveis/${propertyReference}/editar`);
   revalidatePath(`/imoveis/${propertyReference}`);
 }
+
+// Vídeo na galeria (Paulo, 18/10: "destacar qualquer mídia"). O arquivo é grande demais para
+// passar pelo servidor (o limite da hospedagem é de poucos MB), então o navegador envia direto
+// ao armazenamento com um link assinado e este servidor só autoriza e registra.
+export async function createGalleryVideoUpload(
+  propertyId: string,
+  fileName: string,
+): Promise<{ path: string; token: string }> {
+  if (!(await isAdminAuthenticated())) redirect("/admin/login");
+
+  const safeName = fileName.replace(/[^a-zA-Z0-9._-]+/g, "-").slice(-80) || "video.mp4";
+  const path = `${propertyId}/videos/${Date.now()}-${safeName}`;
+  const supabase = createAdminClient();
+  const { data, error } = await supabase.storage.from(BUCKET).createSignedUploadUrl(path);
+  if (error || !data) throw new Error(error?.message ?? "Não consegui preparar o envio do vídeo.");
+  return { path, token: data.token };
+}
+
+export async function addGalleryVideo(propertyId: string, propertyReference: string, path: string) {
+  if (!(await isAdminAuthenticated())) redirect("/admin/login");
+  if (!path.startsWith(`${propertyId}/videos/`)) throw new Error("Caminho de vídeo inválido.");
+
+  const supabase = createAdminClient();
+  const { data: existing } = await supabase
+    .from("property_photos")
+    .select("position")
+    .eq("property_id", propertyId)
+    .order("position", { ascending: false })
+    .limit(1);
+  const position = (existing?.[0]?.position ?? -1) + 1;
+
+  const { data: publicUrl } = supabase.storage.from(BUCKET).getPublicUrl(path);
+  const { error } = await supabase
+    .from("property_photos")
+    .insert({ property_id: propertyId, storage_path: publicUrl.publicUrl, position, media_type: "video" });
+  if (error) throw new Error(error.message);
+
+  revalidatePath(`/admin/imoveis/${propertyReference}/editar`);
+  revalidatePath(`/imoveis/${propertyReference}`);
+}

@@ -22,6 +22,7 @@ import { OneGreenwayBrochure } from "@/app/components/onegreenway/OneGreenwayBro
 import { OneGreenwayLeadForm } from "@/app/components/onegreenway/OneGreenwayLeadForm";
 import { OneGreenwayWhatsApp } from "@/app/components/onegreenway/OneGreenwayWhatsApp";
 import { PagePalette } from "@/app/components/site/PagePalette";
+import { LandingLanguageAutoDetect } from "@/app/components/site/LandingLanguageAutoDetect";
 import { ScheduleCallFloating } from "@/app/components/ScheduleCallFloating";
 import { OneGreenwayFooter } from "@/app/components/onegreenway/OneGreenwayFooter";
 
@@ -100,7 +101,8 @@ export default async function OneGreenwayPage({ params }: { params: Promise<{ lo
   // Fotos da galeria agora vêm de property_photos (editável no admin) —
   // achado (24/08): antes era um array fixo em onegreenway-content.ts,
   // sem como editar sem mexer em código.
-  const galleryPhotos = await getPropertyPhotos(property.id);
+  // Vídeos da galeria (media_type 'video') não entram nesta galeria só de fotos.
+  const galleryPhotos = (await getPropertyPhotos(property.id)).filter((photo) => photo.media_type !== "video");
 
   // Tipologias + traduções agora vêm do banco (editável no admin, Fase 23)
   // em vez do array fixo "typologies.groups" de lib/onegreenway-content.ts.
@@ -129,6 +131,7 @@ export default async function OneGreenwayPage({ params }: { params: Promise<{ lo
     <OneGreenwayLanguageProvider locale={locale}>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(buildJsonLd(locale)) }} />
       <PagePalette slug={property.color_theme} />
+      <LandingLanguageAutoDetect />
       <OneGreenwayHeader sellerCtaEnabled={sellerCtaEnabled} />
       <main className="flex-1">
         <OneGreenwayHero />

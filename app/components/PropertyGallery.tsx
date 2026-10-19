@@ -24,6 +24,13 @@ type Tile =
   | { kind: "image"; key: string; src: string; featured: boolean }
   | { kind: "video"; key: string; src: string; poster?: string; featured: boolean };
 
+// Uma linha de property_photos vira quadro de imagem ou de vídeo (media_type, migração 0028).
+function tileOf(photo: PropertyPhoto, featured: boolean): Tile {
+  return photo.media_type === "video"
+    ? { kind: "video", key: photo.id, src: photo.storage_path, featured }
+    : { kind: "image", key: photo.id, src: photo.storage_path, featured };
+}
+
 export function PropertyGallery({
   photos,
   alt,
@@ -53,21 +60,22 @@ export function PropertyGallery({
   // Ordem única da grade e do lightbox: destaque, vídeo (se estiver na grade), fotos.
   const tiles: Tile[] = [];
   if (video && featuredVideo) tiles.push({ kind: "video", key: "video", src: video.src, poster: video.poster, featured: true });
-  if (featuredPhoto) tiles.push({ kind: "image", key: featuredPhoto.id, src: featuredPhoto.storage_path, featured: true });
+  if (featuredPhoto) tiles.push(tileOf(featuredPhoto, true));
   if (video && !featuredVideo && videoInGrid) {
     tiles.push({ kind: "video", key: "video", src: video.src, poster: video.poster, featured: false });
   }
   for (const photo of photos) {
     if (photo.id === featuredPhoto?.id) continue;
-    tiles.push({ kind: "image", key: photo.id, src: photo.storage_path, featured: false });
+    tiles.push(tileOf(photo, false));
   }
-  const videoInTiles = tiles.some((tile) => tile.kind === "video");
-  // Vídeo fora da grade: só no fim do lightbox.
-  if (video && !videoInTiles) tiles.push({ kind: "video", key: "video", src: video.src, poster: video.poster, featured: false });
+  // O vídeo do Hero tem chave "video"; vídeos da galeria (banco) têm o id da linha.
+  const heroInTiles = tiles.some((tile) => tile.key === "video");
+  // Vídeo do Hero fora da grade: só no fim do lightbox.
+  if (video && !heroInTiles) tiles.push({ kind: "video", key: "video", src: video.src, poster: video.poster, featured: false });
 
   const hasFeatured = tiles.some((tile) => tile.featured);
   const plainSlots = GRID_SLOTS - (hasFeatured ? FEATURED_SLOTS : 0);
-  const gridTiles = videoInGrid || featuredVideo || !video ? tiles : tiles.filter((tile) => tile.kind !== "video");
+  const gridTiles = videoInGrid || featuredVideo || !video ? tiles : tiles.filter((tile) => tile.key !== "video");
   const featuredTiles = gridTiles.filter((tile) => tile.featured);
   const plainTiles = gridTiles.filter((tile) => !tile.featured).slice(0, plainSlots);
   const shown = [...featuredTiles, ...plainTiles];

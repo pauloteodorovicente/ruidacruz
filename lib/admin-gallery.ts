@@ -17,6 +17,7 @@ export async function getAllPropertyPhotosForGallery(): Promise<GalleryPhoto[]> 
   const { data, error } = await supabase
     .from("property_photos")
     .select("id, storage_path, position, properties!inner(reference, title)")
+    .neq("media_type", "video")
     .order("position", { ascending: true });
 
   if (error) throw error;
