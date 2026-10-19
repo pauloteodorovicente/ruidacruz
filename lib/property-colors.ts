@@ -12,7 +12,7 @@ import type { PropertyType } from "./property-types";
 // é o mesmo que não escolher nada, e não gera CSS nenhum (a página fica
 // byte a byte como sempre foi).
 
-export type ColorThemeSlug = "terracota" | "musgo" | "marinho" | "bordo" | "grafite" | "champanhe" | "creme";
+export type ColorThemeSlug = "terracota" | "terra" | "musgo" | "marinho" | "bordo" | "grafite" | "champanhe" | "creme";
 
 export type PaletteTokens = {
   bg: string;
@@ -33,9 +33,18 @@ export type ColorTheme = {
 export const COLOR_THEMES: ColorTheme[] = [
   {
     slug: "terracota",
-    label: "Terracota (padrão)",
+    // O slug "terracota" é o padrão do site desde o começo (azul-marinho profundo com acento cobre) e continua
+    // guardado assim nos imóveis; só o NOME mudou (Paulo, 19/10), porque "Terracota" passou a ser a paleta terrosa.
+    label: "Clássico (marinho e cobre, padrão)",
     dark: { bg: "#040815", bgRaised: "#0a1024", fg: "#f5f3ef", accent: "#ce946e", accentStrong: "#e0ab86", accentDark: "#a66a42" },
     light: { bg: "#faf8f4", bgRaised: "#ffffff", fg: "#0c1220", accent: "#a3623a", accentStrong: "#b97a52", accentDark: "#8a5636" },
+  },
+  {
+    // Paleta terrosa (Paulo, 19/10): fundo marrom-terracota, acento terracota. Escuro: barro queimado; claro: argila clara.
+    slug: "terra",
+    label: "Terracota",
+    dark: { bg: "#2b1711", bgRaised: "#3a2118", fg: "#f8ece3", accent: "#e8956b", accentStrong: "#f0aa84", accentDark: "#c06f48" },
+    light: { bg: "#f5e6da", bgRaised: "#fff8f2", fg: "#2b1711", accent: "#a8452a", accentStrong: "#c0573a", accentDark: "#8a3820" },
   },
   {
     slug: "musgo",

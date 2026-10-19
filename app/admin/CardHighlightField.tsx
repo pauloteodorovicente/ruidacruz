@@ -16,7 +16,7 @@ const NAMES: Record<keyof CardHighlightOptions, string> = {
 
 // Super-Destaque do card (Home e Portfólio): escolhe-se a cor e o que o card ganha — selo,
 // ficar mais alto, borda, brilho que pulsa (pedido do Paulo, 18/10). Cada extra liga e
-// desliga sozinho. "Cor padrão do site" = terracota, como os demais cards.
+// desliga sozinho. "Cor padrão do site" = Clássico (marinho e cobre), como os demais cards.
 export function CardHighlightField({
   defaultChecked,
   defaultColor,

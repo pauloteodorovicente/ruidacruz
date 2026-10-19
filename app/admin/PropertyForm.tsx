@@ -194,7 +194,7 @@ export function PropertyForm({ property }: { property?: Property }) {
             <p className="text-xs text-foreground-muted mb-2">
               Muda a cor da página inteira desta ficha (fundo, cartões, texto e destaque), nos temas claro e escuro. A
               Home e o resto do site nunca mudam. Sem escolha, vale a cor do tipo de imóvel (Integrações → Cores por
-              tipo) e, se o tipo também não tiver, o padrão do site. “Terracota” força o padrão.
+              tipo) e, se o tipo também não tiver, o padrão do site. “Clássico” força o padrão.
             </p>
           )}
           <ColorThemePicker
