@@ -66,6 +66,8 @@ export type Property = {
   card_highlight: boolean;
   // Paleta do card em Super-Destaque (migração 0027). Nulo = cores padrão do site.
   card_highlight_color: string | null;
+  // O que o Super-Destaque tem: selo, mais alto, borda, pulsar (lib/card-highlight.ts). Nulo = padrões.
+  card_highlight_options: Record<string, boolean> | null;
   // Mídia da galeria que ocupa 2x2: id de uma foto ou "video" (o vídeo do Hero).
   gallery_featured: string | null;
   // O vídeo do Hero também é o primeiro quadro da grade da galeria.
@@ -82,6 +84,8 @@ export type PropertyPhoto = {
   storage_path: string;
   position: number;
   visible: boolean;
+  // 'video' = vídeo da galeria (migração 0028); capas e carrossel só usam imagens.
+  media_type: "image" | "video";
 };
 
 export type PropertyFloorplan = {

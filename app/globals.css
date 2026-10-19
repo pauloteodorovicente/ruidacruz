@@ -159,3 +159,16 @@ body::before {
 @media (prefers-reduced-motion: reduce) {
   .cta-talk { animation: none; }
 }
+
+/* Card em Super-Destaque com "brilho que pulsa" (opção no admin): mesmo ritmo do botão
+   "Falar com Rui", na cor de destaque do próprio card (a paleta escolhida entra pelo
+   --c-accent). Pára ao passar o mouse e com "reduzir movimento". */
+@keyframes card-pulse-glow {
+  0%, 100% { box-shadow: 0 8px 30px -12px rgba(0, 0, 0, 0.25), 0 0 0 0 transparent; }
+  50% { box-shadow: 0 8px 30px -12px rgba(0, 0, 0, 0.25), 0 0 0 6px color-mix(in srgb, var(--c-accent) 24%, transparent); }
+}
+.card-pulse { animation: card-pulse-glow 3.2s ease-in-out infinite; }
+.card-pulse:hover { animation: none; }
+@media (prefers-reduced-motion: reduce) {
+  .card-pulse { animation: none; }
+}

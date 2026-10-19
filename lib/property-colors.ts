@@ -62,21 +62,20 @@ export const COLOR_THEMES: ColorTheme[] = [
     light: { bg: "#f3f3f1", bgRaised: "#ffffff", fg: "#17181a", accent: "#5c5850", accentStrong: "#78746a", accentDark: "#454138" },
   },
   {
-    slug: "champanhe",
-    label: "Champanhe",
-    dark: { bg: "#11100b", bgRaised: "#1a1812", fg: "#f7f3e8", accent: "#d4bd8e", accentStrong: "#e2d0a8", accentDark: "#b39a68" },
-    light: { bg: "#faf6ec", bgRaised: "#ffffff", fg: "#1f1b10", accent: "#8a6d38", accentStrong: "#a8894f", accentDark: "#6f5628" },
-  },
-  {
     slug: "creme",
     label: "Creme",
-    dark: { bg: "#14110e", bgRaised: "#1d1915", fg: "#f4efe6", accent: "#d8cbb5", accentStrong: "#e6dcc9", accentDark: "#b8a988" },
-    light: { bg: "#f6f0e4", bgRaised: "#fffdf8", fg: "#231d14", accent: "#7d6a47", accentStrong: "#a8926e", accentDark: "#655537" },
+    dark: { bg: "#1c1814", bgRaised: "#27221c", fg: "#f7f2e9", accent: "#e4d8c3", accentStrong: "#efe6d6", accentDark: "#c4b595" },
+    light: { bg: "#fbf8f1", bgRaised: "#ffffff", fg: "#231d14", accent: "#7d6a47", accentStrong: "#a8926e", accentDark: "#655537" },
   },
 ];
 
+// "champanhe" saiu da lista (Paulo, 18/10: parecida demais com o Creme). Dado antigo com esse nome
+// vale como Creme, para nenhuma página perder a cor.
+const LEGACY_SLUG_ALIAS: Record<string, ColorThemeSlug> = { champanhe: "creme" };
+
 export function findColorTheme(slug: string | null | undefined): ColorTheme | null {
-  return COLOR_THEMES.find((theme) => theme.slug === slug) ?? null;
+  const wanted = slug ? (LEGACY_SLUG_ALIAS[slug] ?? slug) : slug;
+  return COLOR_THEMES.find((theme) => theme.slug === wanted) ?? null;
 }
 
 // Cor da paleta por tipo de imóvel (Admin → Integrações → "Cores por tipo").

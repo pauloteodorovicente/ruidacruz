@@ -46,6 +46,16 @@ export async function saveProperty(formData: FormData) {
     // Só vale com Super-Destaque ligado; paleta desconhecida ou "padrão" vira nulo.
     card_highlight_color:
       formData.get("card_highlight") === "on" ? (findColorTheme(str(formData, "card_highlight_color"))?.slug ?? null) : null,
+    // O que o Super-Destaque tem (cada caixa liga um extra). Desligado = sem opções guardadas.
+    card_highlight_options:
+      formData.get("card_highlight") === "on"
+        ? {
+            badge: formData.get("hl_badge") === "on",
+            taller: formData.get("hl_taller") === "on",
+            border: formData.get("hl_border") === "on",
+            pulse: formData.get("hl_pulse") === "on",
+          }
+        : null,
     published: formData.get("published") === "on",
     zone: str(formData, "zone") || null,
     ghl_zone: str(formData, "ghl_zone") || null,

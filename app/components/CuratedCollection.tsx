@@ -10,6 +10,7 @@ import { CardCoverImages } from "./CardCoverImages";
 import type { Property, CardCover } from "@/lib/properties";
 import { propertyPathSegment } from "@/lib/property-types";
 import { cardPaletteCss, findColorTheme } from "@/lib/property-colors";
+import { resolveCardHighlightOptions } from "@/lib/card-highlight";
 
 // Recebe as propriedades já buscadas no Supabase por um Server Component pai
 // (app/page.tsx) — mantém o padrão do site de conteúdo traduzido em Client
@@ -65,6 +66,8 @@ function PropertyCard({
   // "A partir de": menor valor ainda disponível (frações do Verdelago, calculado no
   // servidor — lib/property-typologies.ts). Sem valor calculado, vale o preço do imóvel.
   const fromPrice = fromPrices[property.id];
+  // Super-Destaque: cada extra (selo, mais alto, borda, pulsar) liga e desliga no admin.
+  const hl = property.card_highlight ? resolveCardHighlightOptions(property.card_highlight_options) : null;
   const shownPrice = fromPrice ?? property.price;
   return (
     <LocalizedLink
@@ -73,9 +76,9 @@ function PropertyCard({
       draggable={false}
       data-card-palette={property.card_highlight ? (findColorTheme(property.card_highlight_color)?.slug ?? undefined) : undefined}
       data-super={property.card_highlight ? "true" : undefined}
-      className={`group block overflow-hidden rounded-lg border ${property.card_highlight ? "border-accent" : "border-border"} bg-background-raised shadow-[0_8px_30px_-12px_rgba(0,0,0,0.25)] transition-all duration-500 hover:-translate-y-1.5 hover:shadow-[0_24px_48px_-16px_rgba(0,0,0,0.35)]`}
+      className={`group block overflow-hidden rounded-lg border ${hl?.border ? "border-accent" : "border-border"} ${hl?.pulse ? "card-pulse" : ""} bg-background-raised shadow-[0_8px_30px_-12px_rgba(0,0,0,0.25)] transition-all duration-500 hover:-translate-y-1.5 hover:shadow-[0_24px_48px_-16px_rgba(0,0,0,0.35)]`}
     >
-      <div className={`relative overflow-hidden ${property.card_highlight ? "aspect-[5/4]" : "aspect-[4/3]"}`}>
+      <div className={`relative overflow-hidden ${hl?.taller ? "aspect-[5/4]" : "aspect-[4/3]"}`}>
         {covers[property.id]?.photos[0] ? (
           <CardCoverImages
             photos={covers[property.id].photos}
@@ -88,14 +91,14 @@ function PropertyCard({
         ) : (
           <SignatureCover />
         )}
-        {property.card_highlight && (
+        {hl?.badge && (
           <span className="absolute top-3 left-3 z-10 bg-accent px-2.5 py-1 text-[10px] font-medium tracking-[0.14em] uppercase text-background">
             {c("featuredBadge")}
           </span>
         )}
         <FavoriteButton propertyId={property.id} className="absolute top-3 right-3 z-10" />
       </div>
-      <div className={property.card_highlight ? "p-7" : "p-5"}>
+      <div className={hl?.taller ? "p-7" : "p-5"}>
         <div className="flex items-center justify-between gap-2">
           <p className="text-xs tracking-[0.15em] uppercase text-foreground-muted">{property.zone}</p>
           <span className="shrink-0 text-[10px] tracking-[0.1em] uppercase px-2 py-0.5 border border-accent/40 text-accent">

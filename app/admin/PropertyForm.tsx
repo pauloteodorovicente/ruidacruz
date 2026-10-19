@@ -7,6 +7,7 @@ import { Select } from "@/app/components/Select";
 import { PreviewLinkButton } from "./PreviewLinkButton";
 import { ColorThemePicker } from "./ColorThemePicker";
 import { CardHighlightField } from "./CardHighlightField";
+import { resolveCardHighlightOptions } from "@/lib/card-highlight";
 import { AiDescriptionAssist } from "./AiDescriptionAssist";
 import { useUnsavedChangesGuard } from "./useUnsavedChangesGuard";
 import { UnsavedChangesModal } from "./UnsavedChangesModal";
@@ -156,6 +157,7 @@ export function PropertyForm({ property }: { property?: Property }) {
           <CardHighlightField
             defaultChecked={property?.card_highlight ?? false}
             defaultColor={property?.card_highlight_color ?? null}
+            defaultOptions={resolveCardHighlightOptions(property?.card_highlight_options)}
           />
           <label className="flex items-center gap-2 self-end pb-2.5">
             <input type="checkbox" name="published" defaultChecked={property?.published ?? false} />
