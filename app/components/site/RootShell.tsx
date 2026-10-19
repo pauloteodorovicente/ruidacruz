@@ -1,5 +1,6 @@
 import { MetaPixel } from "../MetaPixel";
 import { GlobalCursor } from "./GlobalCursor";
+import { ThemeEnsure } from "./ThemeEnsure";
 import { OrganizationSchema } from "../OrganizationSchema";
 import { getMetaPixelSettings, getGrainSettings } from "@/lib/settings";
 import { cormorant, dmSans } from "@/app/fonts";
@@ -45,6 +46,7 @@ export async function RootShell({ lang, children }: { lang: string; children: Re
       >
         <MetaPixel settings={pixelSettings} />
         <GlobalCursor />
+        <ThemeEnsure locale={lang} />
         {children}
       </body>
     </html>
