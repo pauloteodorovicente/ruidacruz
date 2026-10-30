@@ -13,15 +13,22 @@ import { Pool } from "pg";
 // erro aparece como antes. As regras de acesso (RLS) valem: a consulta roda com
 // o papel do token (anon ou service_role), igual à API.
 //
+// Desempenho: cada consulta vai num único pedido ao banco (transação + papel +
+// consulta juntos) e as leituras ficam 60 s em memória por instância — o mesmo
+// ritmo de atualização que os settings públicos já tinham.
+//
 // Fotos e vídeos guardados no Storage da Supabase continuam bloqueados até a
 // cota voltar — o que a ponte devolve são os dados (textos, preços, imóveis).
 
 const IDENT = /^[A-Za-z_][A-Za-z0-9_]*$/;
 const RESERVED = new Set(["select", "order", "limit", "offset", "on_conflict", "columns"]);
 const REST_DOWN_MS = 60_000;
+const CACHE_TTL_MS = 60_000;
+const CACHE_MAX = 500;
 
 let pool: Pool | null = null;
 let restDownUntil = 0;
+const cache = new Map<string, { at: number; status: number; body: string }>();
 
 function getPool(): Pool | null {
   const url = process.env.SUPABASE_DB_URL;
@@ -29,18 +36,25 @@ function getPool(): Pool | null {
   pool ??= new Pool({
     connectionString: url,
     ssl: { rejectUnauthorized: false },
-    max: 3,
-    idleTimeoutMillis: 10_000,
-    connectionTimeoutMillis: 8_000,
+    max: 8,
+    idleTimeoutMillis: 20_000,
+    connectionTimeoutMillis: 10_000,
   });
   return pool;
 }
 
-function jsonResponse(body: unknown, status = 200, extra: Record<string, string> = {}): Response {
+function jsonResponse(body: unknown, status = 200): Response {
   return new Response(typeof body === "string" ? body : JSON.stringify(body), {
     status,
-    headers: { "content-type": "application/json; charset=utf-8", ...extra },
+    headers: { "content-type": "application/json; charset=utf-8" },
   });
+}
+
+// Literal de texto do Postgres (a consulta vai num pedido só, sem parâmetros).
+function lit(value: string): string {
+  const clean = value.replace(/\u0000/g, "");
+  const escaped = clean.replace(/'/g, "''");
+  return clean.includes("\\") ? ` E'${escaped.replace(/\\/g, "\\\\")}'` : `'${escaped}'`;
 }
 
 function roleFromJwt(headers: Headers): "anon" | "service_role" {
@@ -80,9 +94,13 @@ function parseList(raw: string): string[] | null {
   return out;
 }
 
-type Built = { sql: string; params: unknown[]; count: boolean };
+// Vira literal de array do Postgres ({"a","b"}), sem tipo — o banco infere pelo
+// tipo da coluna.
+function arrayLiteral(items: string[]): string {
+  return lit(`{${items.map((s) => `"${s.replace(/\\/g, "\\\\").replace(/"/g, '\\"')}"`).join(",")}}`);
+}
 
-function buildSelect(table: string, u: URL): Built | null {
+function buildSelect(table: string, u: URL): string | null {
   if (!IDENT.test(table)) return null;
   const selectParam = u.searchParams.get("select") ?? "*";
   let cols = "*";
@@ -92,7 +110,6 @@ function buildSelect(table: string, u: URL): Built | null {
     cols = names.map((c) => `"${c}"`).join(", ");
   }
 
-  const params: unknown[] = [];
   const where: string[] = [];
   for (const [key, value] of u.searchParams.entries()) {
     if (RESERVED.has(key)) continue;
@@ -117,13 +134,11 @@ function buildSelect(table: string, u: URL): Built | null {
     } else if (op === "in") {
       const list = parseList(arg);
       if (!list) return null;
-      params.push(list);
-      expr = `${col} = any($${params.length})`;
+      expr = `${col} = any(${arrayLiteral(list)})`;
     } else {
       const sqlOp = ({ eq: "=", neq: "<>", gt: ">", gte: ">=", lt: "<", lte: "<=", like: "like", ilike: "ilike", cs: "@>" } as Record<string, string>)[op];
       if (!sqlOp) return null;
-      params.push(op === "like" || op === "ilike" ? arg.replace(/\*/g, "%") : arg);
-      expr = `${col} ${sqlOp} $${params.length}`;
+      expr = `${col} ${sqlOp} ${lit(op === "like" || op === "ilike" ? arg.replace(/\*/g, "%") : arg)}`;
     }
     where.push(negate ? `not (${expr})` : expr);
   }
@@ -151,29 +166,33 @@ function buildSelect(table: string, u: URL): Built | null {
   const offset = u.searchParams.get("offset");
   if ((limit && !/^\d+$/.test(limit)) || (offset && !/^\d+$/.test(offset))) return null;
 
-  const sql =
+  return (
     `select coalesce(json_agg(_t), '[]'::json) as j from (select ${cols} from "public"."${table}"` +
     `${where.length ? ` where ${where.join(" and ")}` : ""}${order}` +
-    `${limit ? ` limit ${limit}` : ""}${offset ? ` offset ${offset}` : ""}) _t`;
-  return { sql, params, count: false };
+    `${limit ? ` limit ${limit}` : ""}${offset ? ` offset ${offset}` : ""}) _t`
+  );
 }
 
-async function withRole<T>(role: "anon" | "service_role", run: (q: (sql: string, params?: unknown[]) => Promise<{ rows: Record<string, unknown>[] }>) => Promise<T>): Promise<T> {
+// Roda a consulta no papel do token, tudo num único pedido ao banco
+// (begin; set local role; claims; consulta; commit) — cada ida e volta ao
+// pooler custa caro vista de uma função da Vercel.
+async function runAs(role: "anon" | "service_role", sql: string): Promise<unknown> {
   const p = getPool();
   if (!p) throw new Error("SUPABASE_DB_URL não configurada");
+  const claims = lit(JSON.stringify({ role }));
   const client = await p.connect();
+  let broken = false;
   try {
-    await client.query("begin");
-    await client.query(`set local role ${role}`);
-    await client.query("select set_config('request.jwt.claims', $1, true)", [JSON.stringify({ role })]);
-    const result = await run((sql, params) => client.query(sql, params as unknown[]));
-    await client.query("commit");
-    return result;
+    const results = (await client.query(
+      `begin; set local role ${role}; select set_config('request.jwt.claims', ${claims}, true); ${sql}; commit;`,
+    )) as unknown as { rows: Record<string, unknown>[] }[];
+    return results[3]?.rows[0]?.j;
   } catch (err) {
+    broken = true;
     await client.query("rollback").catch(() => {});
     throw err;
   } finally {
-    client.release();
+    client.release(broken ? true : undefined);
   }
 }
 
@@ -188,24 +207,31 @@ async function viaPostgres(url: string, init: RequestInit | undefined): Promise<
   const role = roleFromJwt(headers);
 
   if (method === "GET" || method === "HEAD") {
-    const built = buildSelect(table, u);
-    if (!built) return null;
+    const sql = buildSelect(table, u);
+    if (!sql) return null;
     const wantObject = (headers.get("accept") ?? "").includes("application/vnd.pgrst.object+json");
-    const rows = await withRole(role, async (q) => {
-      const r = await q(built.sql, built.params);
-      return (r.rows[0]?.j ?? []) as unknown[];
-    });
-    if (method === "HEAD") return new Response(null, { status: 200 });
-    if (wantObject) {
-      if (rows.length !== 1) {
-        return jsonResponse(
-          { code: "PGRST116", details: `The result contains ${rows.length} rows`, hint: null, message: "JSON object requested, multiple (or no) rows returned" },
-          406,
-        );
-      }
-      return jsonResponse(rows[0]);
+    const key = `${role}|${wantObject ? "o" : "a"}|${url}`;
+    const hit = cache.get(key);
+    if (hit && Date.now() - hit.at < CACHE_TTL_MS) {
+      return method === "HEAD" ? new Response(null, { status: 200 }) : jsonResponse(hit.body, hit.status);
     }
-    return jsonResponse(rows);
+    const rows = ((await runAs(role, sql)) ?? []) as unknown[];
+    let status = 200;
+    let body: string;
+    if (wantObject && rows.length !== 1) {
+      status = 406;
+      body = JSON.stringify({
+        code: "PGRST116",
+        details: `The result contains ${rows.length} rows`,
+        hint: null,
+        message: "JSON object requested, multiple (or no) rows returned",
+      });
+    } else {
+      body = JSON.stringify(wantObject ? rows[0] : rows);
+    }
+    if (cache.size >= CACHE_MAX) cache.clear();
+    cache.set(key, { at: Date.now(), status, body });
+    return method === "HEAD" ? new Response(null, { status: 200 }) : jsonResponse(body, status);
   }
 
   if (method === "POST" && !u.searchParams.has("on_conflict") && IDENT.test(table) && typeof init?.body === "string") {
@@ -222,11 +248,11 @@ async function viaPostgres(url: string, init: RequestInit | undefined): Promise<
     }
     if (columns.length === 0 || !columns.every((c) => IDENT.test(c))) return null;
     const list = columns.map((c) => `"${c}"`).join(", ");
-    const source = `select ${list} from json_populate_recordset(null::"public"."${table}", $1::json)`;
+    const source = `select ${list} from json_populate_recordset(null::"public"."${table}", ${lit(body)}::json)`;
     const sql = wantRows
       ? `with ins as (insert into "public"."${table}" (${list}) ${source} returning *) select coalesce(json_agg(ins), '[]'::json) as j from ins`
       : `insert into "public"."${table}" (${list}) ${source}`;
-    const result = await withRole(role, async (q) => (await q(sql, [body])).rows[0]?.j);
+    const result = await runAs(role, sql);
     return wantRows ? jsonResponse(result ?? [], 201) : new Response(null, { status: 201 });
   }
 
