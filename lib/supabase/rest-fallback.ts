@@ -43,6 +43,17 @@ function getPool(): Pool | null {
   return pool;
 }
 
+// Consulta parametrizada direto no Postgres (papel do dono da conexão, sem RLS).
+// Só para gravações que a ponte REST não cobre (ex.: descadastro, que precisa
+// de upsert) enquanto a API da Supabase responde 402. Devolve false se não há
+// SUPABASE_DB_URL configurada.
+export async function runDirectQuery(text: string, values: unknown[]): Promise<boolean> {
+  const p = getPool();
+  if (!p) return false;
+  await p.query(text, values);
+  return true;
+}
+
 function jsonResponse(body: unknown, status = 200): Response {
   return new Response(typeof body === "string" ? body : JSON.stringify(body), {
     status,

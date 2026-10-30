@@ -2,6 +2,7 @@ import "server-only";
 import { createHmac, timingSafeEqual } from "node:crypto";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { getGhlSettings } from "@/lib/settings";
+import { runDirectQuery } from "@/lib/supabase/rest-fallback";
 
 // Link de "cancelar subscrição" dos e-mails do Rui: /api/unsubscribe?e=<e-mail
 // em base64url>&s=<assinatura>. A assinatura (HMAC com a chave do servidor)
@@ -57,7 +58,16 @@ export async function recordUnsubscribe(email: string, source: string): Promise<
   const { error } = await supabase
     .from("email_unsubscribes")
     .upsert({ email, source }, { onConflict: "email", ignoreDuplicates: true });
-  if (error) throw new Error(error.message);
+  if (error) {
+    // API da Supabase restrita (402) ou fora do ar: o upsert não passa pela
+    // ponte de leitura, então grava direto no Postgres — o descadastro tem de
+    // funcionar sempre (obrigação legal).
+    const saved = await runDirectQuery(
+      "insert into public.email_unsubscribes (email, source) values ($1, $2) on conflict (email) do nothing",
+      [email, source],
+    ).catch(() => false);
+    if (!saved) throw new Error(error.message);
+  }
 
   try {
     const ghl = await getGhlSettings();
