@@ -1,5 +1,6 @@
 import { createClient } from "@/lib/supabase/server";
 import { createAdminClient } from "@/lib/supabase/admin";
+import { fetchWithFallback } from "@/lib/supabase/rest-fallback";
 
 export type { HeroLayout, HeroMediaType, HeroItem, HomeHero, HeroCtaSettings } from "@/lib/home-hero-types";
 export { itemCountForLayout } from "@/lib/home-hero-types";
@@ -23,7 +24,7 @@ export async function getHomeHeroCtaSettings(): Promise<HeroCtaSettings> {
   const anonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
   if (!url || !anonKey) return HERO_CTA_DEFAULTS;
   try {
-    const res = await fetch(`${url}/rest/v1/settings?select=value&key=eq.home_hero_cta`, {
+    const res = await fetchWithFallback(`${url}/rest/v1/settings?select=value&key=eq.home_hero_cta`, {
       headers: { apikey: anonKey, Authorization: `Bearer ${anonKey}` },
       next: { revalidate: 60 },
     });

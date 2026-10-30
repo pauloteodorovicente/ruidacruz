@@ -1,5 +1,6 @@
 import "server-only";
 import { createClient as createSupabaseClient } from "@supabase/supabase-js";
+import { fetchWithFallback } from "@/lib/supabase/rest-fallback";
 
 // Cliente privilegiado (bypassa RLS) — só pra uso em Server Actions/Route
 // Handlers do /admin, sempre atrás de isAdminAuthenticated(). Nunca importar
@@ -12,5 +13,6 @@ export function createAdminClient() {
   }
   return createSupabaseClient(url, serviceRoleKey, {
     auth: { autoRefreshToken: false, persistSession: false },
+    global: { fetch: fetchWithFallback },
   });
 }

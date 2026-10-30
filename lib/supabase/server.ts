@@ -1,5 +1,6 @@
 import { createServerClient } from "@supabase/ssr";
 import { cookies } from "next/headers";
+import { fetchWithFallback } from "@/lib/supabase/rest-fallback";
 
 // Server Components só leem cookies; Server Actions/Route Handlers também escrevem
 // (renovando o token de sessão). O try/catch cobre o caso de leitura pura.
@@ -15,6 +16,9 @@ export async function createClient() {
   const cookieStore = await cookies();
 
   return createServerClient(url, anonKey, {
+    // Se a API REST da Supabase ficar restrita (402), refaz a leitura direto no
+    // Postgres — ver lib/supabase/rest-fallback.ts.
+    global: { fetch: fetchWithFallback },
     cookies: {
       getAll() {
         return cookieStore.getAll();

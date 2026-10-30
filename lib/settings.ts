@@ -1,4 +1,5 @@
 import { createAdminClient } from "@/lib/supabase/admin";
+import { fetchWithFallback } from "@/lib/supabase/rest-fallback";
 import { sanitizeCardCarousel, type CardCarouselSettings } from "@/lib/cover";
 import { sanitizeTypeColorThemes, type TypeColorThemes } from "@/lib/property-colors";
 import { sanitizeVerdelagoPhaseNotes, type VerdelagoPhaseNotes } from "@/lib/verdelago-phase-notes";
@@ -64,7 +65,7 @@ async function getPublicSetting<T>(key: string, fallback: T): Promise<T> {
   if (!url || !anonKey) return fallback;
 
   try {
-    const res = await fetch(`${url}/rest/v1/settings?select=value&key=eq.${key}`, {
+    const res = await fetchWithFallback(`${url}/rest/v1/settings?select=value&key=eq.${key}`, {
       headers: { apikey: anonKey, Authorization: `Bearer ${anonKey}` },
       next: { revalidate: 60 },
     });
