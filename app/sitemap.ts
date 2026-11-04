@@ -4,6 +4,7 @@ import { getProperties } from "@/lib/properties";
 import { propertyPathSegment } from "@/lib/property-types";
 import { localizedUrl as localizedPath } from "@/lib/locale-alternates";
 import { getSellerCtaSettings } from "@/lib/settings";
+import { BRASIL_DEVELOPMENTS } from "@/lib/brasil-developments";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const properties = await getProperties();
@@ -16,6 +17,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     "/sobre",
     "/contacto",
     "/portfolio",
+    "/empreendimentos-brasil",
     "/guia-comprador-estrangeiro",
     "/faq",
     ...(sellerCtaEnabled ? ["/vender"] : []),
@@ -52,5 +54,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       })),
     );
 
-  return [...institutionalEntries, ...propertyEntries, ...campaignEntries];
+  const brasilEntries: MetadataRoute.Sitemap = BRASIL_DEVELOPMENTS.flatMap((d) =>
+    routing.locales.map((locale) => ({
+      url: localizedPath(locale, `/empreendimentos-brasil/${d.slug}`),
+      changeFrequency: "weekly" as const,
+      priority: 0.8,
+    })),
+  );
+
+  return [...institutionalEntries, ...propertyEntries, ...campaignEntries, ...brasilEntries];
 }

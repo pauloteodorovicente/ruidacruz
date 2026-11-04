@@ -1,9 +1,11 @@
 "use client";
 
 import Image from "next/image";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import { BUSINESS_INFO } from "@/lib/business-info";
+import { BRASIL_UI } from "@/lib/brasil-developments";
+import type { AppLocale } from "@/i18n/routing";
 
 // Handle hardcoded aqui de propósito — lib/business-info.ts (Fase 21) ainda
 // não existe nesta branch (baseada direto na main). Quando a Fase 21 for
@@ -16,6 +18,8 @@ const INSTAGRAM_URL = "https://www.instagram.com/_ruidacruz_yourbestchoice/";
 export function SiteFooterClient({ sellerCtaEnabled }: { sellerCtaEnabled: boolean }) {
   const nav = useTranslations("siteNav");
   const f = useTranslations("siteFooter");
+  const locale = useLocale();
+  const brasilLabel = (BRASIL_UI[locale as AppLocale] ?? BRASIL_UI["pt-PT"]).navLabel;
 
   return (
     <footer className="bg-background text-foreground/50 light:bg-background-raised light:border-t light:border-border px-6 py-8 md:px-12 text-center text-xs leading-relaxed">
@@ -37,6 +41,9 @@ export function SiteFooterClient({ sellerCtaEnabled }: { sellerCtaEnabled: boole
         </Link>
         <Link href="/faq" className="hover:text-foreground/80 transition-colors">
           {nav("faq")}
+        </Link>
+        <Link href="/empreendimentos-brasil" className="hover:text-foreground/80 transition-colors">
+          {brasilLabel}
         </Link>
       </div>
       <a

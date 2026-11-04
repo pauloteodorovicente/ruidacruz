@@ -10,6 +10,9 @@ import { BreadcrumbSchema } from "@/app/components/BreadcrumbSchema";
 import { getProperties, getCardCovers } from "@/lib/properties";
 import { getCardFromPrices } from "@/lib/property-typologies";
 import { getCardCarouselSettings } from "@/lib/settings";
+import { Link } from "@/i18n/navigation";
+import { BRASIL_UI } from "@/lib/brasil-developments";
+import type { AppLocale } from "@/i18n/routing";
 
 export async function generateMetadata({
   params,
@@ -67,6 +70,14 @@ export default async function PortfolioPage({
           coverIntervalMs={cardCarousel.intervalSeconds * 1000}
           hideHeading
         />
+        <div className="bg-background px-6 pb-16 text-center md:px-12">
+          <Link
+            href="/empreendimentos-brasil"
+            className="inline-block text-xs tracking-[0.15em] uppercase text-accent border-b border-accent/40 pb-1 transition-colors hover:text-accent-strong hover:border-accent-strong"
+          >
+            {(BRASIL_UI[locale as AppLocale] ?? BRASIL_UI["pt-PT"]).navLabel} →
+          </Link>
+        </div>
       </main>
       <SiteFooter />
       <SiteWhatsAppFloating />
