@@ -7,7 +7,7 @@ export const content = {
       description:
         "Apartamentos T2 e T3 no Verdelago Resort, um empreendimento turístico de 5 estrelas entre Altura e a Praia Verde, Algarve. Acesso direto à praia, SPA, piscinas e Resort Club. Representação por Rui Da Cruz, RE/MAX Collection.",
     },
-    nav: { whatsapp: "WhatsApp Direto", sobre: "Sobre", contacto: "Contacto", guia: "Guia", faq: "FAQ", vender: "Vender" },
+    nav: { whatsapp: "WhatsApp Direto", sobre: "Sobre", contacto: "Contacto", guia: "Guia", faq: "FAQ", vender: "Venda" },
     hero: { eyebrow: "Verdelago Resort", location: "Altura · Algarve" },
     overview: {
       tags: ["Resort 5 Estrelas", "T2 e T3", "Acesso Direto à Praia", "Elegível para NHR"],
@@ -161,7 +161,7 @@ export const content = {
       description:
         "Apartamentos T2 e T3 no Verdelago Resort, um empreendimento turístico cinco estrelas entre Altura e a Praia Verde, Algarve, Portugal. Acesso direto à praia, spa, piscinas e Resort Club. Representação de Rui Da Cruz, RE/MAX Collection.",
     },
-    nav: { whatsapp: "WhatsApp Direto", sobre: "Sobre", contacto: "Contato", guia: "Guia", faq: "FAQ", vender: "Vender" },
+    nav: { whatsapp: "WhatsApp Direto", sobre: "Sobre", contacto: "Contato", guia: "Guia", faq: "FAQ", vender: "Venda" },
     hero: { eyebrow: "Verdelago Resort", location: "Altura · Algarve" },
     overview: {
       tags: ["Resort Cinco Estrelas", "T2 e T3", "Acesso Direto à Praia", "Elegível para NHR"],

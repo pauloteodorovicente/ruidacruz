@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import Image from "next/image";
 import { useLocale, useTranslations } from "next-intl";
 import { Link as LocalizedLink } from "@/i18n/navigation";
 import { Reveal } from "./Reveal";
@@ -8,6 +9,7 @@ import { FavoriteButton } from "./FavoriteButton";
 import { SignatureCover } from "./SignatureCover";
 import { CardCoverImages } from "./CardCoverImages";
 import type { Property, CardCover } from "@/lib/properties";
+import type { BrasilHomeCard } from "@/lib/brasil-developments";
 import { propertyPathSegment } from "@/lib/property-types";
 import { cardPaletteCss, findColorTheme } from "@/lib/property-colors";
 import { resolveCardHighlightOptions } from "@/lib/card-highlight";
@@ -125,6 +127,40 @@ function PropertyCard({
   );
 }
 
+// Empreendimentos do Brasil (conteúdo estático, sem banco): mesmo desenho dos
+// cards de imóvel, entram no fim da lista como destaque.
+function ExtraCard({ card, onDragClick }: { card: BrasilHomeCard; onDragClick?: (e: React.MouseEvent) => void }) {
+  return (
+    <LocalizedLink
+      href={card.href}
+      onClick={onDragClick}
+      draggable={false}
+      className="group block overflow-hidden rounded-lg border border-border bg-background-raised shadow-[0_8px_30px_-12px_rgba(0,0,0,0.25)] transition-all duration-500 hover:-translate-y-1.5 hover:shadow-[0_24px_48px_-16px_rgba(0,0,0,0.35)]"
+    >
+      <div className="relative aspect-[4/3] overflow-hidden">
+        <Image
+          src={card.image}
+          alt={card.alt}
+          fill
+          sizes="(min-width: 640px) 320px, 78vw"
+          className="object-cover transition-transform duration-700 group-hover:scale-[1.05]"
+          draggable={false}
+        />
+      </div>
+      <div className="p-5">
+        <div className="flex items-center justify-between gap-2">
+          <p className="text-xs tracking-[0.15em] uppercase text-foreground-muted">{card.zone}</p>
+          <span className="shrink-0 text-[10px] tracking-[0.1em] uppercase px-2 py-0.5 border border-accent/40 text-accent">
+            Brasil
+          </span>
+        </div>
+        <p className="font-display text-lg mt-1">{card.title}</p>
+        <p className="mt-1 text-sm text-accent">{card.price}</p>
+      </div>
+    </LocalizedLink>
+  );
+}
+
 // Carrossel infinito — pedido do Paulo (10/08): a grade fixa não escala bem
 // além de uns poucos imóveis em destaque. Duplica a lista uma vez (loop
 // visual contínuo), anda sozinho devagar (setInterval — ver abaixo), pausa
@@ -148,6 +184,7 @@ function CarouselCollection({
   covers,
   coverIntervalMs,
   fromPrices,
+  extraCards,
 }: {
   properties: Property[];
   locale: string;
@@ -156,7 +193,12 @@ function CarouselCollection({
   covers: Record<string, CardCover>;
   coverIntervalMs: number;
   fromPrices: Record<string, number>;
+  extraCards: BrasilHomeCard[];
 }) {
+  const items = [
+    ...properties.map((property) => ({ key: property.id, property, card: null as BrasilHomeCard | null })),
+    ...extraCards.map((card) => ({ key: card.id, property: null as Property | null, card })),
+  ];
   const trackRef = useRef<HTMLDivElement>(null);
   const [paused, setPaused] = useState(false);
   const dragState = useRef<{ startX: number; startScroll: number; moved: boolean } | null>(null);
@@ -238,18 +280,22 @@ function CarouselCollection({
       onMouseLeave={() => !dragState.current && setPaused(false)}
       className="flex items-center gap-6 overflow-x-hidden py-4 touch-pan-y cursor-grab active:cursor-grabbing select-none"
     >
-      {[...properties, ...properties].map((property, i) => (
-        <div key={`${property.id}-${i}`} className="w-[78vw] max-w-[340px] flex-shrink-0 sm:w-[320px]">
-          <PropertyCard
-            property={property}
-            locale={locale}
-            c={c}
-            p={p}
-            covers={covers}
-            coverIntervalMs={coverIntervalMs}
-            fromPrices={fromPrices}
-            onDragClick={handleCardClick}
-          />
+      {[...items, ...items].map((item, i) => (
+        <div key={`${item.key}-${i}`} className="w-[78vw] max-w-[340px] flex-shrink-0 sm:w-[320px]">
+          {item.property ? (
+            <PropertyCard
+              property={item.property}
+              locale={locale}
+              c={c}
+              p={p}
+              covers={covers}
+              coverIntervalMs={coverIntervalMs}
+              fromPrices={fromPrices}
+              onDragClick={handleCardClick}
+            />
+          ) : (
+            <ExtraCard card={item.card as BrasilHomeCard} onDragClick={handleCardClick} />
+          )}
         </div>
       ))}
     </div>
@@ -264,6 +310,7 @@ export function CuratedCollection({
   viewAllHref,
   hideHeading,
   layout = "grid",
+  extraCards = [],
 }: {
   properties: Property[];
   covers?: Record<string, CardCover>;
@@ -274,6 +321,8 @@ export function CuratedCollection({
   viewAllHref?: string;
   hideHeading?: boolean;
   layout?: "grid" | "carousel";
+  // Cards extras (ex.: empreendimentos do Brasil), sem passar pelo banco.
+  extraCards?: BrasilHomeCard[];
 }) {
   const locale = useLocale();
   const c = useTranslations("home.collection");
@@ -281,7 +330,7 @@ export function CuratedCollection({
 
   // Carrossel só faz sentido com pelo menos alguns cartões pra rolar —
   // com poucos, cai de volta pra grade automaticamente.
-  const useCarousel = layout === "carousel" && properties.length > 2;
+  const useCarousel = layout === "carousel" && properties.length + extraCards.length > 2;
   // Só emite o CSS das paletas dos cards se algum card em Super-Destaque usa uma.
   const needsCardPalettes = properties.some(
     (property) => property.card_highlight && findColorTheme(property.card_highlight_color)?.slug !== undefined,
@@ -307,6 +356,7 @@ export function CuratedCollection({
             covers={covers}
             coverIntervalMs={coverIntervalMs}
             fromPrices={fromPrices}
+            extraCards={extraCards}
           />
         ) : (
           <div className="grid grid-cols-1 items-center gap-8 md:grid-cols-3 md:gap-6">
@@ -321,6 +371,11 @@ export function CuratedCollection({
                   coverIntervalMs={coverIntervalMs}
                   fromPrices={fromPrices}
                 />
+              </Reveal>
+            ))}
+            {extraCards.map((card) => (
+              <Reveal key={card.id} className="block">
+                <ExtraCard card={card} />
               </Reveal>
             ))}
           </div>

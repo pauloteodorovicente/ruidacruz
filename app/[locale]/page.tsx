@@ -15,6 +15,9 @@ import { getCardFromPrices } from "@/lib/property-typologies";
 import { getTestimonials } from "@/lib/testimonials";
 import { getHomeHero, getHomeHeroCtaSettings } from "@/lib/home-hero";
 import { getHomeCollectionSettings, getCardCarouselSettings } from "@/lib/settings";
+import { Link } from "@/i18n/navigation";
+import { BRASIL_UI, brasilHomeCards } from "@/lib/brasil-developments";
+import type { AppLocale } from "@/i18n/routing";
 
 export async function generateMetadata({
   params,
@@ -38,7 +41,9 @@ export async function generateMetadata({
   };
 }
 
-export default async function HomePage() {
+export default async function HomePage({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params;
+  const brasilUi = BRASIL_UI[(locale in BRASIL_UI ? locale : "pt-PT") as AppLocale];
   const properties = await getProperties();
   const testimonials = await getTestimonials();
   const hero = await getHomeHero();
@@ -61,6 +66,22 @@ export default async function HomePage() {
       <main className="flex-1">
         <DynamicHero hero={hero} cta={heroCta} />
         <CredibilityStrip />
+        <section className="bg-background px-6 pt-12 md:px-12">
+          <div className="mx-auto flex max-w-6xl flex-col items-stretch justify-center gap-4 sm:flex-row sm:items-center">
+            <Link
+              href="/portfolio"
+              className="flex-1 border border-accent/60 px-8 py-4 text-center text-xs tracking-[0.2em] uppercase text-accent transition-colors hover:bg-accent hover:text-black sm:max-w-sm"
+            >
+              {brasilUi.homePortugal}
+            </Link>
+            <Link
+              href="/empreendimentos-brasil"
+              className="flex-1 border border-accent/60 px-8 py-4 text-center text-xs tracking-[0.2em] uppercase text-accent transition-colors hover:bg-accent hover:text-black sm:max-w-sm"
+            >
+              {brasilUi.homeBrasil}
+            </Link>
+          </div>
+        </section>
         <CuratedCollection
           properties={curated}
           covers={covers}
@@ -68,6 +89,7 @@ export default async function HomePage() {
           coverIntervalMs={cardCarousel.intervalSeconds * 1000}
           viewAllHref="/portfolio"
           layout={homeCollection.layout}
+          extraCards={brasilHomeCards(locale)}
         />
         <AboutRui />
         <SiteTestimonials testimonials={testimonials} />

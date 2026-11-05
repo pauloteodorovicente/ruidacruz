@@ -72,16 +72,17 @@ export default async function BrasilDevelopmentsPage({ params }: { params: Promi
                 <div className="p-6">
                   <div className="flex items-center justify-between gap-2">
                     <p className="text-xs tracking-[0.15em] uppercase text-foreground-muted">
-                      {d.neighborhood} · {d.city}
+                      {[d.neighborhood, d.city].filter(Boolean).join(" · ")}
                     </p>
                     <span className="shrink-0 text-[10px] tracking-[0.1em] uppercase px-2 py-0.5 border border-accent/40 text-accent">
                       Brasil
                     </span>
                   </div>
                   <p className="font-display text-2xl mt-2">{d.name}</p>
-                  <p className="mt-1 text-sm text-foreground-muted">{d.tagline[loc]}</p>
+                  {d.tagline && <p className="mt-1 text-sm text-foreground-muted">{d.tagline[loc]}</p>}
                   <p className="mt-3 text-sm text-accent">
-                    {ui.from} {formatBrl(d.priceFrom, loc)}
+                    {d.priceFrom === d.priceTo ? "" : `${ui.from} `}
+                    {formatBrl(d.priceFrom, loc)}
                   </p>
                   <p className="mt-1 text-xs text-foreground-muted">
                     {d.typologies[loc]} · {d.area}

@@ -17,7 +17,7 @@ async function recordLead(params: {
   ghlContactId?: string;
   status: "success" | "failed";
   errorMessage?: string;
-}) {
+}): Promise<boolean> {
   try {
     // Service role, não o cliente público — achado nesta fase: um pedido de
     // acesso a um imóvel Fora de Mercado nunca resolvia o property_id certo,
@@ -32,7 +32,7 @@ async function recordLead(params: {
     const reference = params.propertyReference || "122481641-38";
     const { data } = await supabase.from("properties").select("id").eq("reference", reference).maybeSingle();
     const propertyId = data?.id ?? null;
-    await supabase.from("leads").insert({
+    const { error: insertError } = await supabase.from("leads").insert({
       name: params.name,
       phone: params.phone,
       message: params.message || null,
@@ -43,8 +43,11 @@ async function recordLead(params: {
       status: params.status,
       error_message: params.errorMessage ?? null,
     });
+    if (insertError) throw new Error(insertError.message);
+    return true;
   } catch (err) {
     console.error("lead record error", { message: String(err), timestamp: new Date().toISOString() });
+    return false;
   }
 }
 
@@ -139,7 +142,7 @@ export async function POST(req: Request) {
         body: contactData,
         timestamp: new Date().toISOString(),
       });
-      await recordLead({
+      const saved = await recordLead({
         name,
         phone,
         message,
@@ -148,6 +151,10 @@ export async function POST(req: Request) {
         status: "failed",
         errorMessage: `GHL ${contactRes.status}: ${JSON.stringify(contactData).slice(0, 300)}`,
       });
+      // GHL fora do ar (ex.: conta inativa) mas o lead ficou guardado no nosso
+      // banco: o visitante não deve ver erro — o contacto fica na lista de
+      // leads com falha para ser reenviado ao GHL depois.
+      if (saved) return NextResponse.json({ ok: true, queued: true });
       return NextResponse.json({ error: "ghl_contact_failed" }, { status: 502 });
     }
 
@@ -194,7 +201,7 @@ export async function POST(req: Request) {
       message: err instanceof Error ? err.message : String(err),
       timestamp: new Date().toISOString(),
     });
-    await recordLead({
+    const saved = await recordLead({
       name,
       phone,
       message,
@@ -203,6 +210,7 @@ export async function POST(req: Request) {
       status: "failed",
       errorMessage: err instanceof Error ? err.message : String(err),
     });
+    if (saved) return NextResponse.json({ ok: true, queued: true });
     return NextResponse.json({ error: "unexpected_error" }, { status: 500 });
   }
 }

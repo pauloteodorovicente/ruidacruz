@@ -14,7 +14,7 @@ export const content = {
       contacto: "Contacto",
       guia: "Guia",
       faq: "FAQ",
-      vender: "Vender",
+      vender: "Venda",
     },
     breadcrumb: "Moradia · Leça do Balio, Matosinhos",
     hero: {
@@ -156,7 +156,7 @@ export const content = {
       contacto: "Contato",
       guia: "Guia",
       faq: "FAQ",
-      vender: "Vender",
+      vender: "Venda",
     },
     breadcrumb: "Casa · Leça do Balio, Matosinhos",
     hero: {

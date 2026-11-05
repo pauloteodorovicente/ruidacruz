@@ -71,7 +71,7 @@ export const content: Record<
       description: "Apartamento T1 para arrendamento semanal, Edifício Alto da Foz, Praia da Rocha, Portimão. Piscina, varanda e a poucos minutos da praia.",
     },
     breadcrumb: "Apartamento · Praia da Rocha, Portimão",
-    nav: { sobre: "Sobre", contacto: "Contacto", guia: "Guia", faq: "FAQ", vender: "Vender" },
+    nav: { sobre: "Sobre", contacto: "Contacto", guia: "Guia", faq: "FAQ", vender: "Venda" },
     hero: { eyebrow: "Arrendamento de Férias", location: "Praia da Rocha, Portimão" },
     identification: {
       tags: ["Apartamento T1", "Edifício Alto da Foz", "Piscina"],
@@ -131,7 +131,7 @@ export const content: Record<
       description: "Apartamento T1 para arrendamento semanal, Edifício Alto da Foz, Praia da Rocha, Portimão. Piscina, varanda e a poucos minutos da praia.",
     },
     breadcrumb: "Apartamento · Praia da Rocha, Portimão",
-    nav: { sobre: "Sobre", contacto: "Contato", guia: "Guia", faq: "FAQ", vender: "Vender" },
+    nav: { sobre: "Sobre", contacto: "Contato", guia: "Guia", faq: "FAQ", vender: "Venda" },
     hero: { eyebrow: "Arrendamento de Férias", location: "Praia da Rocha, Portimão" },
     identification: {
       tags: ["Apartamento T1", "Edifício Alto da Foz", "Piscina"],

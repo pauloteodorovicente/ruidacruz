@@ -64,7 +64,7 @@ export const content: Record<
       "contacto": "Contacto",
       "guia": "Guia",
       "faq": "FAQ",
-      "vender": "Vender"
+      "vender": "Venda"
     },
     "hero": {
       "eyebrow": "Empreendimento Residencial",
@@ -155,7 +155,7 @@ export const content: Record<
       "contacto": "Contato",
       "guia": "Guia",
       "faq": "FAQ",
-      "vender": "Vender"
+      "vender": "Venda"
     },
     "hero": {
       "eyebrow": "Empreendimento Residencial",
