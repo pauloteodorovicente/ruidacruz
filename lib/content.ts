@@ -87,7 +87,7 @@ export const content = {
     testimonials: {
       eyebrow: "Representações Anteriores",
       title: "A confiança de quem já foi representado",
-      rating: "4,9 · 34 avaliações no Google",
+      rating: "4,9 · 36 avaliações no Google",
       items: [
         {
           quote:
@@ -229,7 +229,7 @@ export const content = {
     testimonials: {
       eyebrow: "Representações Anteriores",
       title: "A confiança de quem já foi representado",
-      rating: "4,9 · 34 avaliações no Google",
+      rating: "4,9 · 36 avaliações no Google",
       items: [
         {
           quote:
@@ -371,7 +371,7 @@ export const content = {
     testimonials: {
       eyebrow: "Past Representations",
       title: "The trust of those already represented",
-      rating: "4.9 · 34 reviews on Google",
+      rating: "4.9 · 36 reviews on Google",
       items: [
         {
           quote:
@@ -513,7 +513,7 @@ export const content = {
     testimonials: {
       eyebrow: "Representaciones Anteriores",
       title: "La confianza de quienes ya han sido representados",
-      rating: "4,9 · 34 reseñas en Google",
+      rating: "4,9 · 36 reseñas en Google",
       items: [
         {
           quote:
@@ -655,7 +655,7 @@ export const content = {
     testimonials: {
       eyebrow: "Représentations Précédentes",
       title: "La confiance de ceux qui ont déjà été représentés",
-      rating: "4,9 · 34 avis sur Google",
+      rating: "4,9 · 36 avis sur Google",
       items: [
         {
           quote:
@@ -797,7 +797,7 @@ export const content = {
     testimonials: {
       eyebrow: "Rappresentanze Precedenti",
       title: "La fiducia di chi è già stato rappresentato",
-      rating: "4,9 · 34 recensioni su Google",
+      rating: "4,9 · 36 recensioni su Google",
       items: [
         {
           quote:
@@ -939,7 +939,7 @@ export const content = {
     testimonials: {
       eyebrow: "Frühere Vertretungen",
       title: "Das Vertrauen bereits vertretener Kunden",
-      rating: "4,9 · 34 Bewertungen auf Google",
+      rating: "4,9 · 36 Bewertungen auf Google",
       items: [
         {
           quote:
