@@ -4,7 +4,7 @@
     "contacto": "Contact",
     "guia": "Guide",
     "faq": "FAQ",
-    "vender": "Vendre"
+    "vender": "Cher propriétaire, vous envisagez de vendre ?"
   },
   "siteFooter": {
     "whatsapp": "+351 939 081 583",
@@ -238,9 +238,54 @@
       "description": "Nous vous aidons à mettre en valeur votre bien immobilier et à maximiser son potentiel de vente."
     },
     "eyebrow": "Vendre",
-    "title": "Vous envisagez de vendre ?",
+    "title": "Cher propriétaire, vous envisagez de vendre ?",
     "subtitle": "Nous vous aidons à mettre en valeur votre bien immobilier et à maximiser son potentiel de vente.",
-    "submit": "Contactez-nous"
+    "submit": "Contactez-nous",
+    "cta": "Je souhaite préparer la vente de mon bien immobilier",
+    "form": {
+      "email": "E-mail",
+      "notes": "Remarques",
+      "submit": "Envoyer",
+      "close": "Fermer"
+    },
+    "article": {
+      "headline": "Vous comptez vendre votre maison ? Commencez par mettre vos documents en ordre.",
+      "p1": "Imaginez que vous trouviez l'acheteur idéal, que vous receviez une offre intéressante et que vous soyez prêt à aller de l'avant. Mais, au moment de conclure la transaction, vous vous rendez compte qu'il manque un document ou qu'il y a une situation à régulariser.",
+      "p2": "Le résultat ? Des retards, de la bureaucratie et, dans certains cas, le risque de compromettre la vente.",
+      "p3": "Pour éviter ce scénario, il y a certaines vérifications que vous devez effectuer avant de mettre le bien immobilier sur le marché.",
+      "listTitle": "5 documents et informations à prendre en compte :",
+      "items": [
+        {
+          "title": "Extrait du registre foncier",
+          "text": "Cela permet de vérifier qui est le propriétaire du bien immobilier et d'identifier d'éventuelles hypothèques, saisies ou autres charges inscrites au registre."
+        },
+        {
+          "title": "Carnet foncier urbain",
+          "text": "Il contient les informations fiscales relatives au bien immobilier, notamment son emplacement, ses surfaces enregistrées et sa valeur patrimoniale fiscale (VPT)."
+        },
+        {
+          "title": "Certificat de performance énergétique",
+          "text": "En règle générale, ce document est obligatoire pour publier une annonce et vendre un bien immobilier. Il indique la classe énergétique et formule des recommandations pour améliorer l'efficacité énergétique du logement."
+        },
+        {
+          "title": "Permis d'utilisation et documentation d'urbanisme",
+          "text": "Même si la présentation du permis d'utilisation n'est plus obligatoire lors de la cession, cela ne signifie pas pour autant que d'éventuelles irrégularités urbanistiques n'ont plus d'importance. Il convient de vérifier au préalable la situation du bien immobilier."
+        },
+        {
+          "title": "Déclaration des charges de copropriété",
+          "text": "Si vous comptez vendre un lot dans une copropriété, il est important de vérifier les charges et les éventuelles dettes envers la copropriété. La déclaration du syndic est, en règle générale, nécessaire, sauf dérogation expresse de l'acheteur conformément à la loi."
+        }
+      ],
+      "detailTitle": "Un détail qui peut faire toute la différence...",
+      "detail1": "Si vous avez effectué des travaux, fermé un balcon ou modifié l'agencement de votre logement, vérifiez si ces interventions nécessitaient des démarches urbanistiques et si la situation est désormais en règle.",
+      "detail2": "Toutes les modifications ne posent pas nécessairement problème, mais certaines peuvent soulever des questions lors de l'évaluation bancaire ou de la préparation de l'achat et de la vente.",
+      "closing": "Anticiper les problèmes, c'est éviter les complications.",
+      "askTitle": "Vous envisagez de vendre ?",
+      "ask1": "Au sein du Groupe Valor, nous aidons les propriétaires à identifier les étapes nécessaires à la préparation de la vente, à répondre à leurs questions et à organiser le processus dès le début.",
+      "ask2": "Car une vente bien préparée ne commence pas dès la première visite. Elle commence bien avant.",
+      "ctaTitle": "Vous envisagez de vendre votre bien immobilier ?",
+      "ctaText": "Contactez notre équipe et découvrez comment nous pouvons vous aider à préparer votre vente en toute sérénité."
+    }
   },
   "notFound": {
     "title": "Page introuvable",

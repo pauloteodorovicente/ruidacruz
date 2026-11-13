@@ -82,6 +82,8 @@ export async function POST(req: Request) {
   const name = typeof body?.name === "string" ? body.name.trim() : "";
   const phone = typeof body?.phone === "string" ? body.phone.trim() : "";
   const message = typeof body?.message === "string" ? body.message.trim() : "";
+  const rawEmail = typeof body?.email === "string" ? body.email.trim().toLowerCase() : "";
+  const email = /^[^s@]+@[^s@]+.[^s@]+$/.test(rawEmail) && rawEmail.length <= 254 ? rawEmail : "";
   const propertyReference = typeof body?.propertyReference === "string" ? body.propertyReference.trim() : "";
   const propertyTitle = typeof body?.propertyTitle === "string" ? body.propertyTitle.trim() : "";
   const zone = typeof body?.zone === "string" ? body.zone.trim() : "";
@@ -125,6 +127,7 @@ export async function POST(req: Request) {
         firstName,
         lastName,
         phone,
+        ...(email && { email }),
         tags: [tag],
         source,
         customFields: [

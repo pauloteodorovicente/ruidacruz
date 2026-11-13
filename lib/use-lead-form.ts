@@ -60,9 +60,11 @@ export function useLeadForm(property?: LeadFormProperty) {
     } catch {
       // mantém o fallback
     }
+    const email = String(formData.get("email") ?? "").trim();
     const payload = {
       name: String(formData.get("name") ?? ""),
       phone,
+      ...(email && { email }),
       message: String(formData.get("message") ?? ""),
       // Origem da visita (utm da primeira página da sessão, ou domínio de referência): vai junto do lead.
       attribution: getAttribution(),

@@ -4,7 +4,7 @@
     "contacto": "Contato",
     "guia": "Guia",
     "faq": "FAQ",
-    "vender": "Venda"
+    "vender": "Senhor proprietário Está a Pensar Vender?"
   },
   "siteFooter": {
     "whatsapp": "+351 939 081 583",
@@ -240,7 +240,52 @@
     "eyebrow": "Venda",
     "title": "Senhor proprietário Está a Pensar Vender?",
     "subtitle": "Ajudamo-lo a apresentar o seu imóvel da melhor forma e a maximizar o seu potencial de venda.",
-    "submit": "Fale Connosco"
+    "submit": "Fale Connosco",
+    "cta": "Quero preparar a venda do meu imóvel",
+    "form": {
+      "email": "E-mail",
+      "notes": "Observações",
+      "submit": "Enviar",
+      "close": "Fechar"
+    },
+    "article": {
+      "headline": "Vai vender casa? Comece por ter os documentos em ordem.",
+      "p1": "Imagine que encontra o comprador ideal, recebe uma proposta interessante e está pronto para avançar. Mas, na hora de formalizar o negócio, descobre que falta um documento ou existe uma situação por regularizar.",
+      "p2": "O resultado? Atrasos, burocracia e, em alguns casos, o risco de comprometer a venda.",
+      "p3": "Para evitar este cenário, há verificações que deve fazer antes de colocar o imóvel no mercado.",
+      "listTitle": "5 documentos e informações que deve ter em atenção:",
+      "items": [
+        {
+          "title": "Certidão do Registo Predial",
+          "text": "Permite confirmar a titularidade do imóvel e identificar eventuais hipotecas, penhoras ou outros encargos registados."
+        },
+        {
+          "title": "Caderneta Predial Urbana",
+          "text": "Contém a informação fiscal do imóvel, incluindo a localização, as áreas registadas e o Valor Patrimonial Tributário (VPT)."
+        },
+        {
+          "title": "Certificado Energético",
+          "text": "Regra geral, é obrigatório para anunciar e vender um imóvel. Identifica a classe energética e apresenta recomendações para melhorar a eficiência da habitação."
+        },
+        {
+          "title": "Licença de Utilização e documentação urbanística",
+          "text": "Embora a apresentação da autorização de utilização tenha deixado de ser obrigatória no ato de transmissão, isso não significa que eventuais irregularidades urbanísticas deixem de ser relevantes. Convém verificar a situação do imóvel antecipadamente."
+        },
+        {
+          "title": "Declaração de encargos do condomínio",
+          "text": "Se vai vender uma fração em propriedade horizontal, é importante verificar os encargos e eventuais dívidas ao condomínio. A declaração do administrador é, em regra, necessária, salvo dispensa expressa do comprador nos termos legais."
+        }
+      ],
+      "detailTitle": "Um detalhe que pode fazer toda a diferença...",
+      "detail1": "Se realizou obras, fechou uma varanda ou alterou a distribuição da casa, confirme se essas intervenções exigiam procedimentos urbanísticos e se a situação está regularizada.",
+      "detail2": "Nem todas as alterações representam um problema, mas algumas podem levantar questões durante a avaliação bancária ou a preparação da compra e venda.",
+      "closing": "Antecipar problemas é evitar complicações.",
+      "askTitle": "Está a pensar vender?",
+      "ask1": "No Grupo Valor, ajudamos os proprietários a identificar os passos necessários para preparar a venda, esclarecer dúvidas e organizar o processo desde o início.",
+      "ask2": "Porque uma venda bem preparada não começa com a primeira visita. Começa muito antes.",
+      "ctaTitle": "Está a pensar vender o seu imóvel?",
+      "ctaText": "Fale com a nossa equipa e descubra como podemos ajudá-lo a preparar uma venda com maior tranquilidade."
+    }
   },
   "notFound": {
     "title": "Página não encontrada",

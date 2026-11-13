@@ -7,7 +7,7 @@ import { SiteHeader } from "@/app/components/site/SiteHeader";
 import { SiteFooter } from "@/app/components/site/SiteFooter";
 import { SiteWhatsAppFloating } from "@/app/components/site/SiteWhatsAppFloating";
 import { ScheduleCallFloating } from "@/app/components/ScheduleCallFloating";
-import { VenderLeadForm } from "./VenderLeadForm";
+import { VenderContent } from "./VenderContent";
 import { BUSINESS_INFO } from "@/lib/business-info";
 
 export async function generateMetadata({
@@ -46,7 +46,7 @@ export default async function VenderPage() {
     <>
       <SiteHeader />
       <main className="flex-1 pt-32 pb-20">
-        <VenderLeadForm />
+        <VenderContent />
         <p className="text-center text-xs text-foreground-muted mt-8 px-6">
           {BUSINESS_INFO.brand} · {BUSINESS_INFO.streetAddress}, {BUSINESS_INFO.postalCode} {BUSINESS_INFO.addressLocality}{" "}
           · {BUSINESS_INFO.phoneDisplay}

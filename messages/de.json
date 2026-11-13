@@ -4,7 +4,7 @@
     "contacto": "Kontakt",
     "guia": "Leitfaden",
     "faq": "FAQ",
-    "vender": "Verkaufen"
+    "vender": "Sehr geehrter Eigentümer, denken Sie darüber nach, zu verkaufen?"
   },
   "siteFooter": {
     "whatsapp": "+351 939 081 583",
@@ -238,9 +238,54 @@
       "description": "Wir helfen Ihnen dabei, Ihre Immobilie optimal zu präsentieren und ihr Verkaufspotenzial zu maximieren."
     },
     "eyebrow": "Verkaufen",
-    "title": "Denken Sie darüber nach, zu verkaufen?",
+    "title": "Sehr geehrter Eigentümer, denken Sie darüber nach, zu verkaufen?",
     "subtitle": "Wir helfen Ihnen dabei, Ihre Immobilie optimal zu präsentieren und ihr Verkaufspotenzial zu maximieren.",
-    "submit": "Kontaktieren Sie uns"
+    "submit": "Kontaktieren Sie uns",
+    "cta": "Ich möchte den Verkauf meiner Immobilie vorbereiten",
+    "form": {
+      "email": "E-Mail",
+      "notes": "Anmerkungen",
+      "submit": "Senden",
+      "close": "Schließen"
+    },
+    "article": {
+      "headline": "Möchten Sie Ihr Haus verkaufen? Dann sorgen Sie zunächst dafür, dass alle Unterlagen in Ordnung sind.",
+      "p1": "Stellen Sie sich vor, Sie finden den idealen Käufer, erhalten ein interessantes Angebot und sind bereit, den nächsten Schritt zu gehen. Doch gerade als es darum geht, das Geschäft abzuschließen, stellen Sie fest, dass ein Dokument fehlt oder eine Angelegenheit noch geklärt werden muss.",
+      "p2": "Das Ergebnis? Verzögerungen, Bürokratie und in manchen Fällen die Gefahr, dass der Verkauf gefährdet wird.",
+      "p3": "Um dieses Szenario zu vermeiden, sollten Sie einige Überprüfungen vornehmen, bevor Sie die Immobilie auf den Markt bringen.",
+      "listTitle": "5 Dokumente und Informationen, die Sie beachten sollten:",
+      "items": [
+        {
+          "title": "Grundbuchauszug",
+          "text": "Damit lässt sich das Eigentumsrecht an der Immobilie überprüfen und eventuelle eingetragene Hypotheken, Pfändungen oder sonstige Belastungen ermitteln."
+        },
+        {
+          "title": "Grundbuchauszug für städtische Grundstücke",
+          "text": "Enthält die steuerlichen Angaben zur Immobilie, einschließlich des Standorts, der eingetragenen Flächen und des steuerlichen Vermögenswerts (VPT)."
+        },
+        {
+          "title": "Energieausweis",
+          "text": "In der Regel ist dies für die Vermarktung und den Verkauf einer Immobilie vorgeschrieben. Es gibt Aufschluss über die Energieeffizienzklasse und enthält Empfehlungen zur Verbesserung der Energieeffizienz der Wohnung."
+        },
+        {
+          "title": "Nutzungsgenehmigung und städtebauliche Unterlagen",
+          "text": "Auch wenn die Vorlage der Nutzungsgenehmigung bei der Übertragung nicht mehr zwingend vorgeschrieben ist, bedeutet dies nicht, dass etwaige städtebauliche Unregelmäßigkeiten keine Rolle mehr spielen. Es empfiehlt sich, den Zustand der Immobilie im Vorfeld zu überprüfen."
+        },
+        {
+          "title": "Abrechnung der Wohnnebenkosten",
+          "text": "Wenn Sie eine Wohnung in einer Eigentumswohnanlage verkaufen möchten, ist es wichtig, die Nebenkosten und eventuelle Schulden gegenüber der Eigentümergemeinschaft zu überprüfen. Die Erklärung des Verwalters ist in der Regel erforderlich, es sei denn, der Käufer verzichtet gemäß den gesetzlichen Bestimmungen ausdrücklich darauf."
+        }
+      ],
+      "detailTitle": "Ein Detail, das den entscheidenden Unterschied ausmachen kann...",
+      "detail1": "Wenn Sie Umbauarbeiten durchgeführt, eine Terrasse geschlossen oder den Grundriss des Hauses verändert haben, überprüfen Sie bitte, ob für diese Maßnahmen städtebauliche Genehmigungen erforderlich waren und ob die Situation nun ordnungsgemäß geregelt ist.",
+      "detail2": "Nicht alle Änderungen stellen ein Problem dar, doch einige können bei der bankseitigen Prüfung oder bei der Vorbereitung des Kaufs bzw. Verkaufs Fragen aufwerfen.",
+      "closing": "Probleme frühzeitig zu erkennen bedeutet, Komplikationen zu vermeiden.",
+      "askTitle": "Haben Sie vor, zu verkaufen?",
+      "ask1": "Bei der Valor-Gruppe unterstützen wir Eigentümer dabei, die notwendigen Schritte zur Vorbereitung des Verkaufs zu ermitteln, Fragen zu klären und den Prozess von Anfang an zu organisieren.",
+      "ask2": "Denn ein gut vorbereiteter Verkauf beginnt nicht erst mit dem ersten Besuch. Er beginnt schon viel früher.",
+      "ctaTitle": "Denken Sie darüber nach, Ihre Immobilie zu verkaufen?",
+      "ctaText": "Sprechen Sie mit unserem Team und erfahren Sie, wie wir Ihnen helfen können, einen Verkauf stressfreier vorzubereiten."
+    }
   },
   "notFound": {
     "title": "Seite nicht gefunden",

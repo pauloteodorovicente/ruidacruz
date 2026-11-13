@@ -4,7 +4,7 @@
     "contacto": "Contacto",
     "guia": "Guía",
     "faq": "FAQ",
-    "vender": "Vender"
+    "vender": "Estimado propietario, ¿está pensando en vender?"
   },
   "siteFooter": {
     "whatsapp": "+351 939 081 583",
@@ -238,9 +238,54 @@
       "description": "Le ayudamos a presentar su inmueble de la mejor manera posible y a maximizar su potencial de venta."
     },
     "eyebrow": "Vender",
-    "title": "¿Estás pensando en vender?",
+    "title": "Estimado propietario, ¿está pensando en vender?",
     "subtitle": "Le ayudamos a presentar su inmueble de la mejor manera posible y a maximizar su potencial de venta.",
-    "submit": "Contáctanos"
+    "submit": "Contáctanos",
+    "cta": "Quiero preparar la venta de mi vivienda",
+    "form": {
+      "email": "Correo electrónico",
+      "notes": "Observaciones",
+      "submit": "Enviar",
+      "close": "Cerrar"
+    },
+    "article": {
+      "headline": "¿Vas a vender tu casa? Empieza por tener la documentación en regla.",
+      "p1": "Imagina que encuentras al comprador ideal, recibes una oferta interesante y estás listo para seguir adelante. Pero, a la hora de formalizar la operación, descubres que falta un documento o que hay algún asunto pendiente de resolver.",
+      "p2": "¿El resultado? Retrasos, trámites burocráticos y, en algunos casos, el riesgo de que se vea comprometida la venta.",
+      "p3": "Para evitar esta situación, hay una serie de comprobaciones que debes realizar antes de poner la vivienda a la venta.",
+      "listTitle": "5 documentos e informaciones que debes tener en cuenta:",
+      "items": [
+        {
+          "title": "Certificado del Registro de la Propiedad",
+          "text": "Permite confirmar la titularidad del inmueble e identificar posibles hipotecas, embargos u otras cargas inscritas."
+        },
+        {
+          "title": "Libro de propiedad urbana",
+          "text": "Contiene la información fiscal del inmueble, incluida la ubicación, las superficies registradas y el valor patrimonial tributario (VPT)."
+        },
+        {
+          "title": "Certificado energético",
+          "text": "Por regla general, es obligatorio para anunciar y vender un inmueble. Identifica la clase energética y ofrece recomendaciones para mejorar la eficiencia energética de la vivienda."
+        },
+        {
+          "title": "Licencia de uso y documentación urbanística",
+          "text": "Aunque la presentación de la autorización de uso ya no sea obligatoria en el momento de la transmisión, esto no significa que las posibles irregularidades urbanísticas dejen de ser relevantes. Es recomendable comprobar la situación del inmueble con antelación."
+        },
+        {
+          "title": "Declaración de gastos de la comunidad de propietarios",
+          "text": "Si vas a vender una parcela en una comunidad de propietarios, es importante comprobar los gastos y las posibles deudas con la comunidad. Por regla general, es necesaria la declaración del administrador, salvo que el comprador renuncie expresamente a ella en los términos previstos por la ley."
+        }
+      ],
+      "detailTitle": "Un detalle que puede marcar la diferencia...",
+      "detail1": "Si has realizado obras, has cerrado un balcón o has modificado la distribución de la vivienda, comprueba si esas modificaciones requerían trámites urbanísticos y si la situación está en regla.",
+      "detail2": "No todas las modificaciones suponen un problema, pero algunas pueden plantear dudas durante la evaluación bancaria o la preparación de la compraventa.",
+      "closing": "Prever los problemas es evitar complicaciones.",
+      "askTitle": "¿Estás pensando en vender?",
+      "ask1": "En Grupo Valor, ayudamos a los propietarios a identificar los pasos necesarios para preparar la venta, aclarar dudas y organizar el proceso desde el principio.",
+      "ask2": "Porque una venta bien preparada no empieza con la primera visita. Empieza mucho antes.",
+      "ctaTitle": "¿Estás pensando en vender tu vivienda?",
+      "ctaText": "Ponte en contacto con nuestro equipo y descubre cómo podemos ayudarte a preparar una venta con mayor tranquilidad."
+    }
   },
   "notFound": {
     "title": "Página no encontrada",

@@ -1,7 +1,7 @@
 {
   "siteNav": {
     "sobre": "About",
-    "vender": "Sell",
+    "vender": "Homeowner, Are You Thinking About Selling?",
     "contacto": "Contact",
     "guia": "Guide",
     "faq": "FAQ"
@@ -118,9 +118,54 @@
       "description": "We help you present your property in the best possible way and maximize its selling potential."
     },
     "eyebrow": "Sell",
-    "title": "Thinking of Selling?",
+    "title": "Homeowner, Are You Thinking About Selling?",
     "subtitle": "We help you present your property in the best possible way and maximize its selling potential.",
-    "submit": "Get in Touch"
+    "submit": "Get in Touch",
+    "cta": "I want to prepare to sell my property",
+    "form": {
+      "email": "Email",
+      "notes": "Notes",
+      "submit": "Send",
+      "close": "Close"
+    },
+    "article": {
+      "headline": "Are you planning to sell your house? Start by making sure your documents are in order.",
+      "p1": "Imagine you find the ideal buyer, receive an attractive offer, and are ready to move forward. But when it comes time to finalize the deal, you discover that a document is missing or there’s an issue that needs to be resolved.",
+      "p2": "The result? Delays, red tape, and, in some cases, the risk of jeopardizing the sale.",
+      "p3": "To avoid this scenario, there are some checks you should perform before listing the property on the market.",
+      "listTitle": "5 documents and pieces of information you should keep in mind:",
+      "items": [
+        {
+          "title": "Land Registry Certificate",
+          "text": "It allows you to verify the ownership of the property and identify any mortgages, liens, or other registered encumbrances."
+        },
+        {
+          "title": "Urban Property Register",
+          "text": "It contains the property's tax information, including its location, registered areas, and the Tax Assessment Value (VPT)."
+        },
+        {
+          "title": "Energy Performance Certificate",
+          "text": "As a general rule, it is required when advertising and selling a property. It identifies the energy class and provides recommendations for improving the home's energy efficiency."
+        },
+        {
+          "title": "Permit for Use and Urban Planning Documentation",
+          "text": "Although the submission of the occupancy permit is no longer required at the time of transfer, this does not mean that any zoning violations are no longer relevant. It is advisable to verify the property’s status in advance."
+        },
+        {
+          "title": "Statement of Condominium Fees",
+          "text": "If you are selling a unit in a condominium, it is important to verify any outstanding fees and debts owed to the condominium association. A statement from the property manager is generally required, unless the buyer expressly waives this requirement in accordance with the law."
+        }
+      ],
+      "detailTitle": "A small detail that can make all the difference...",
+      "detail1": "If you have done any construction work, enclosed a balcony, or changed the layout of the house, make sure to verify whether these changes required planning permits and whether the situation is now in compliance with regulations.",
+      "detail2": "Not all changes pose a problem, but some may raise issues during a bank evaluation or when preparing for a purchase or sale.",
+      "closing": "Anticipating problems means avoiding complications.",
+      "askTitle": "Are you thinking about selling?",
+      "ask1": "At Grupo Valor, we help homeowners identify the steps needed to prepare for the sale, answer their questions, and organize the process from the very beginning.",
+      "ask2": "Because a well-prepared sale doesn't start with the first visit. It starts long before that.",
+      "ctaTitle": "Are you thinking about selling your property?",
+      "ctaText": "Talk to our team and find out how we can help you prepare for a sale with greater peace of mind."
+    }
   },
   "testimonials": {
     "eyebrow": "Past Representations",
