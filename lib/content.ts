@@ -1,3 +1,5 @@
+import { adaptPtBrInPlace } from "@/lib/ptbr-adapt";
+
 export type Locale = "pt-PT" | "pt-BR" | "en" | "es" | "fr" | "it" | "de";
 
 export const content = {
@@ -14,7 +16,7 @@ export const content = {
       contacto: "Contacto",
       guia: "Guia",
       faq: "FAQ",
-      vender: "Venda",
+      vender: "Vender",
     },
     breadcrumb: "Moradia · Leça do Balio, Matosinhos",
     hero: {
@@ -156,7 +158,7 @@ export const content = {
       contacto: "Contato",
       guia: "Guia",
       faq: "FAQ",
-      vender: "Venda",
+      vender: "Vender",
     },
     breadcrumb: "Casa · Leça do Balio, Matosinhos",
     hero: {
@@ -1011,3 +1013,6 @@ export const galleryImages = [
   { src: "/images/leca-do-balio/06-aereo-terraco.jpg", alt: { "pt-PT": "Terraço e deck vistos do ar", "pt-BR": "Terraço e deck vistos do alto", en: "Terrace and deck from above", es: "Terraza y deck vistos desde el aire", fr: "Terrasse et deck vus du ciel", it: "Terrazza e deck visti dall'alto", de: "Terrasse und Deck aus der Vogelperspektive" } },
   { src: "/images/leca-do-balio/12-corredor-vidro.jpg", alt: { "pt-PT": "Corredor com parede de vidro para o jardim", "pt-BR": "Corredor com parede de vidro para o jardim", en: "Corridor with glass wall opening to the garden", es: "Pasillo con pared de cristal hacia el jardín", fr: "Couloir avec verrière donnant sur le jardin", it: "Corridoio con parete vetrata sul giardino", de: "Flur mit Glaswand zum Garten" } },
 ] as const;
+
+// Páginas de campanha: o pt-BR é sempre adaptado do texto em português (ver lib/ptbr-adapt.ts).
+adaptPtBrInPlace((content as unknown as Record<string, unknown>)["pt-BR"]);

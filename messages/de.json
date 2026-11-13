@@ -4,7 +4,7 @@
     "contacto": "Kontakt",
     "guia": "Leitfaden",
     "faq": "FAQ",
-    "vender": "Sehr geehrter Eigentümer, denken Sie darüber nach, zu verkaufen?"
+    "vender": "Verkaufen"
   },
   "siteFooter": {
     "whatsapp": "+351 939 081 583",
@@ -246,7 +246,8 @@
       "email": "E-Mail",
       "notes": "Anmerkungen",
       "submit": "Senden",
-      "close": "Schließen"
+      "close": "Schließen",
+      "consent": "Ich erkläre hiermit, dass ich die <terms>Allgemeinen Geschäftsbedingungen</terms> und die <privacy>Datenschutzerklärung</privacy> gelesen und verstanden habe und ihnen zustimme."
     },
     "article": {
       "headline": "Möchten Sie Ihr Haus verkaufen? Dann sorgen Sie zunächst dafür, dass alle Unterlagen in Ordnung sind.",
@@ -291,5 +292,155 @@
     "title": "Seite nicht gefunden",
     "text": "Die gewünschte Adresse existiert nicht oder wurde verschoben.",
     "cta": "Zurück zur Startseite"
+  },
+  "legal": {
+    "updated": "Letzte Aktualisierung: 13. November 2026",
+    "footer": {
+      "terms": "Allgemeine Geschäftsbedingungen",
+      "privacy": "Datenschutzerklärung"
+    },
+    "privacy": {
+      "title": "Datenschutzerklärung",
+      "intro": "In dieser Datenschutzerklärung wird erläutert, wie die personenbezogenen Daten der Besucher dieser Website oder derjenigen, die über diese Website Kontakt mit uns aufnehmen, in Übereinstimmung mit der Datenschutz-Grundverordnung (DSGVO) und dem geltenden portugiesischen Recht verarbeitet werden.",
+      "sections": [
+        {
+          "title": "1. Wer ist für die Datenverarbeitung verantwortlich?",
+          "paragraphs": [
+            "Der für die Datenverarbeitung Verantwortliche ist Rui Da Cruz, Immobilienberater bei RE/MAX Vantagem Platina (Prestígio Global – Sociedade de Mediação Imobiliária, S.A., AMI 7772) mit Sitz in der Av. Fernando Pessoa 11B, 1990-108 Lissabon.",
+            "Sie können uns per E-Mail unter consultor@ruidacruzconsultor.com, telefonisch unter +351 939 081 583 oder per Post unter der Adresse Av. Fernando Pessoa 11B, 1990-108 Lissabon erreichen."
+          ]
+        },
+        {
+          "title": "2. Welche Daten erheben wir?",
+          "paragraphs": [
+            "Daten, die Sie uns in den Formularen und bei der Kontaktaufnahme mitteilen: Name, Telefonnummer, E-Mail-Adresse, Nachricht sowie die Immobilie oder das Bauprojekt, an dem Sie interessiert sind.",
+            "Navigationsdaten: besuchte Seiten, Klicks auf Schaltflächen und Links, Downloads von Dokumenten sowie die Herkunft des Besuchs (z. B. eine Kampagne oder eine E-Mail). Diese Daten dienen dazu, zu verstehen, was auf der Website gut funktioniert, und können nicht dazu verwendet werden, Sie direkt zu identifizieren.",
+            "In Ihrem Browser gespeicherte Einstellungen, wie beispielsweise die Sprache, das helle oder dunkle Design und die Immobilien, die Sie als Favoriten markiert haben."
+          ]
+        },
+        {
+          "title": "3. Wofür verwenden wir die Daten und auf welcher Rechtsgrundlage?",
+          "paragraphs": [
+            "Bearbeitung Ihrer Anfragen nach Informationen, Besichtigungen und Immobilienbewertungen: Diese Verarbeitung ist erforderlich, um Ihre Anfrage zu bearbeiten und gegebenenfalls vorvertragliche Maßnahmen durchzuführen.",
+            "Ihnen Werbemitteilungen zu Immobilien und Bauprojekten zuzusenden: mit Ihrer Einwilligung, die Sie jederzeit widerrufen können.",
+            "Messung und Verbesserung der Leistung der Website und der Kampagnen: auf der Grundlage unseres berechtigten Interesses und – im Falle von Werbetechnologien – auf der Grundlage Ihrer Einwilligung."
+          ]
+        },
+        {
+          "title": "4. An wen wir die Daten weitergeben",
+          "paragraphs": [
+            "Die Daten werden nicht verkauft. Sie können von Dienstleistern verarbeitet werden, die in unserem Auftrag und gemäß unseren Anweisungen tätig sind: Plattform für Kontaktverwaltung und E-Mail-Versand, Hosting der Website und der Datenbank in der Europäischen Union sowie Mess- und Werbetools wie Meta, sofern diese aktiviert sind.",
+            "Befindet sich einer dieser Dienstleister außerhalb des Europäischen Wirtschaftsraums, erfolgt die Übermittlung unter Einhaltung der gesetzlich vorgesehenen Garantien, wie beispielsweise Standardvertragsklauseln.",
+            "Wir können Daten auch an RE/MAX sowie an die Bauträger oder Eigentümer der Immobilien weitergeben, jedoch nur in dem Umfang, der zur Bearbeitung Ihrer Anfrage erforderlich ist."
+          ]
+        },
+        {
+          "title": "5. Wie lange speichern wir die Daten?",
+          "paragraphs": [
+            "Wir speichern die Daten nur so lange, wie es für die Zwecke, für die sie erhoben wurden, sowie zur Erfüllung gesetzlicher Verpflichtungen erforderlich ist. Kontaktdaten für geschäftliche Zwecke werden so lange gespeichert, bis Sie Ihre Einwilligung widerrufen oder die Löschung beantragen."
+          ]
+        },
+        {
+          "title": "6. Ihre Rechte",
+          "paragraphs": [
+            "Sie können jederzeit Auskunft über Ihre Daten, deren Berichtigung, Löschung, Einschränkung der Verarbeitung sowie deren Übertragbarkeit verlangen, der Verarbeitung widersprechen und Ihre Einwilligung widerrufen, unbeschadet der bereits erfolgten Verarbeitung.",
+            "Um diese Rechte auszuüben, wenden Sie sich bitte an die oben angegebenen Kontaktdaten. Wenn Sie der Ansicht sind, dass die Datenverarbeitung gegen geltendes Recht verstößt, können Sie eine Beschwerde bei der Nationalen Datenschutzkommission (www.cnpd.pt) einreichen."
+          ]
+        },
+        {
+          "title": "7. Cookies und ähnliche Technologien",
+          "paragraphs": [
+            "Die Website speichert einfache Informationen wie Sprache, Design und Lesezeichen in Ihrem Browser, damit sie so funktioniert, wie Sie es erwarten.",
+            "Sie können auch das Meta-Pixel verwenden, das dazu dient, Kampagnen zu messen und relevantere Anzeigen anzuzeigen. Sie können diese Technologien in den Einstellungen Ihres Browsers einschränken oder blockieren."
+          ]
+        },
+        {
+          "title": "8. E-Mail-Korrespondenz und Stornierung",
+          "paragraphs": [
+            "Alle Werbe-E-Mails enthalten einen Link zum Abbestellen des Abonnements. Nach der Abmeldung senden wir Ihnen keine Werbe-E-Mails mehr zu."
+          ]
+        },
+        {
+          "title": "9. Sicherheit",
+          "paragraphs": [
+            "Wir ergreifen geeignete technische und organisatorische Maßnahmen, um die Daten vor unbefugtem Zugriff, Verlust oder unbefugter Änderung zu schützen. Dennoch ist kein System vollkommen sicher."
+          ]
+        },
+        {
+          "title": "10. Änderungen dieser Richtlinie",
+          "paragraphs": [
+            "Wir behalten uns vor, diese Richtlinie bei Bedarf zu aktualisieren. Es gilt stets die auf dieser Seite veröffentlichte Fassung mit dem Datum der letzten Aktualisierung."
+          ]
+        }
+      ]
+    },
+    "terms": {
+      "title": "Allgemeine Geschäftsbedingungen",
+      "intro": "Mit der Nutzung dieser Website erklären Sie sich mit den nachstehenden Bedingungen einverstanden. Sollten Sie damit nicht einverstanden sein, bitten wir Sie, die Website nicht zu nutzen.",
+      "sections": [
+        {
+          "title": "1. Identifizierung",
+          "paragraphs": [
+            "Diese Website wird von Rui Da Cruz, Immobilienberater bei RE/MAX Vantagem Platina, betrieben (Prestígio Global – Sociedade de Mediação Imobiliária, S.A., AMI 7772) mit Sitz in der Av. Fernando Pessoa 11B, 1990-108 Lissabon."
+          ]
+        },
+        {
+          "title": "2. Informationen zu Immobilien",
+          "paragraphs": [
+            "Die dargestellten Beschreibungen, Flächenangaben, Fotos, Videos und Preise sind unverbindlich. Sie können ohne vorherige Ankündigung geändert oder entfernt werden und stellen kein vertragliches Angebot dar.",
+            "Die Verfügbarkeit, der Preis und die endgültigen Konditionen jeder Immobilie müssen vor einer Entscheidung mit uns abgeklärt werden."
+          ]
+        },
+        {
+          "title": "3. Projekte in Brasilien",
+          "paragraphs": [
+            "Die Informationen zu den Immobilienprojekten in Brasilien werden von den jeweiligen Bauträgern bereitgestellt. Die Preise sind in Real (R$) angegeben und können vom Bauträger ohne vorherige Ankündigung angepasst oder geändert werden; die aufgeführten Zahlungsbedingungen dienen lediglich als Beispiele.",
+            "Bei den Abbildungen kann es sich um Illustrationen oder Entwürfe des Projekts handeln. Der Inhalt dieser Website ersetzt keine rechtliche, steuerliche oder finanzielle Beratung, die wir Ihnen vor jedem Kauf empfehlen."
+          ]
+        },
+        {
+          "title": "4. Geistiges Eigentum",
+          "paragraphs": [
+            "Die Texte, Bilder, Videos, Marken und sonstigen Inhalte dieser Website sind Eigentum von Rui Da Cruz, RE/MAX, den Bauträgern oder Dritten, die deren Nutzung genehmigt haben, und sind gesetzlich geschützt. Sie dürfen ohne Genehmigung nicht kopiert, vervielfältigt oder kommerziell genutzt werden."
+          ]
+        },
+        {
+          "title": "5. Nutzung der Website",
+          "paragraphs": [
+            "Diese Website ist für den persönlichen Gebrauch und zu Informationszwecken bestimmt. Sie darf weder für rechtswidrige Zwecke genutzt werden noch dazu dienen, auf nicht öffentliche Bereiche zuzugreifen oder den Betrieb der Website zu beeinträchtigen."
+          ]
+        },
+        {
+          "title": "6. Links und Inhalte Dritter",
+          "paragraphs": [
+            "Die Website kann Links und Inhalte von Dritten enthalten, wie beispielsweise Videos, die auf externen Plattformen, bei WhatsApp oder bei Google gehostet werden. Wir haben keine Kontrolle über diese Dienste und sind weder für deren Inhalte noch für deren Richtlinien verantwortlich."
+          ]
+        },
+        {
+          "title": "7. Haftungsbeschränkung",
+          "paragraphs": [
+            "Wir bemühen uns in angemessener Weise, die Informationen korrekt und aktuell zu halten, können jedoch nicht garantieren, dass die Website stets verfügbar oder fehlerfrei ist. Soweit gesetzlich zulässig, haften wir nicht für Schäden, die durch die Nutzung der Website oder der darin enthaltenen Informationen entstehen."
+          ]
+        },
+        {
+          "title": "8. Reklamationen",
+          "paragraphs": [
+            "Sie können Beschwerden über das elektronische Beschwerdebuch (www.livroreclamacoes.pt) oder direkt bei uns einreichen, wobei Sie die in der Datenschutzerklärung angegebenen Kontaktdaten nutzen können."
+          ]
+        },
+        {
+          "title": "9. Anwendbares Recht",
+          "paragraphs": [
+            "Diese Bedingungen unterliegen portugiesischem Recht. Streitigkeiten werden den zuständigen portugiesischen Gerichten vorgelegt, unbeschadet der Rechte, die das Gesetz den Verbrauchern einräumt."
+          ]
+        },
+        {
+          "title": "10. Änderungen",
+          "paragraphs": [
+            "Wir können diese Bedingungen jederzeit ändern. Es gilt die auf dieser Seite veröffentlichte Fassung mit dem Datum der letzten Aktualisierung."
+          ]
+        }
+      ]
+    }
   }
 }

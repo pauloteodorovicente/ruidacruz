@@ -7,6 +7,7 @@
 
 import type { AppLocale } from "@/i18n/routing";
 import { BRASIL_PHOTO_FILES } from "@/lib/brasil-photos";
+import { toPtBr } from "@/lib/ptbr-adapt";
 
 type L = Record<AppLocale, string>;
 
@@ -40,7 +41,7 @@ export type BrasilDevelopment = {
 
 const cap = (pt: string, en: string, es: string, fr: string, it: string, de: string, ptBR?: string): L => ({
   "pt-PT": pt,
-  "pt-BR": ptBR ?? pt,
+  "pt-BR": ptBR ?? toPtBr(pt),
   en,
   es,
   fr,

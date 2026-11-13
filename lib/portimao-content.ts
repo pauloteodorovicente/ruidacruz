@@ -1,3 +1,5 @@
+import { adaptPtBrInPlace } from "@/lib/ptbr-adapt";
+
 export type Locale = "pt-PT" | "pt-BR" | "en" | "es" | "fr" | "it" | "de";
 
 export const galleryPhotos = [
@@ -71,7 +73,7 @@ export const content: Record<
       description: "Apartamento T1 para arrendamento semanal, Edifício Alto da Foz, Praia da Rocha, Portimão. Piscina, varanda e a poucos minutos da praia.",
     },
     breadcrumb: "Apartamento · Praia da Rocha, Portimão",
-    nav: { sobre: "Sobre", contacto: "Contacto", guia: "Guia", faq: "FAQ", vender: "Venda" },
+    nav: { sobre: "Sobre", contacto: "Contacto", guia: "Guia", faq: "FAQ", vender: "Vender" },
     hero: { eyebrow: "Arrendamento de Férias", location: "Praia da Rocha, Portimão" },
     identification: {
       tags: ["Apartamento T1", "Edifício Alto da Foz", "Piscina"],
@@ -131,7 +133,7 @@ export const content: Record<
       description: "Apartamento T1 para arrendamento semanal, Edifício Alto da Foz, Praia da Rocha, Portimão. Piscina, varanda e a poucos minutos da praia.",
     },
     breadcrumb: "Apartamento · Praia da Rocha, Portimão",
-    nav: { sobre: "Sobre", contacto: "Contato", guia: "Guia", faq: "FAQ", vender: "Venda" },
+    nav: { sobre: "Sobre", contacto: "Contato", guia: "Guia", faq: "FAQ", vender: "Vender" },
     hero: { eyebrow: "Arrendamento de Férias", location: "Praia da Rocha, Portimão" },
     identification: {
       tags: ["Apartamento T1", "Edifício Alto da Foz", "Piscina"],
@@ -486,3 +488,6 @@ export const content: Record<
     whatsappMessage: "Hallo Rui, ich interessiere mich für die 1-Zimmer-Wohnung in Praia da Rocha (Wochenvermietung). Ich würde gerne wissen, ob sie verfügbar ist.",
   },
 };
+
+// Páginas de campanha: o pt-BR é sempre adaptado do texto em português (ver lib/ptbr-adapt.ts).
+adaptPtBrInPlace((content as unknown as Record<string, unknown>)["pt-BR"]);

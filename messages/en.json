@@ -1,7 +1,7 @@
 {
   "siteNav": {
     "sobre": "About",
-    "vender": "Homeowner, Are You Thinking About Selling?",
+    "vender": "Sell",
     "contacto": "Contact",
     "guia": "Guide",
     "faq": "FAQ"
@@ -126,7 +126,8 @@
       "email": "Email",
       "notes": "Notes",
       "submit": "Send",
-      "close": "Close"
+      "close": "Close",
+      "consent": "I hereby declare that I have read, understood, and accepted the <terms>Terms and Conditions</terms> and the <privacy>Privacy Policy</privacy>."
     },
     "article": {
       "headline": "Are you planning to sell your house? Start by making sure your documents are in order.",
@@ -291,5 +292,155 @@
     "title": "Page not found",
     "text": "The address you tried to open doesn't exist or has been moved.",
     "cta": "Back to home"
+  },
+  "legal": {
+    "updated": "Last updated: November 13, 2026",
+    "footer": {
+      "terms": "Terms and Conditions",
+      "privacy": "Privacy Policy"
+    },
+    "privacy": {
+      "title": "Privacy Policy",
+      "intro": "This Policy explains how we process the personal data of individuals who visit this website or contact us through it, in compliance with the General Data Protection Regulation (GDPR) and applicable Portuguese law.",
+      "sections": [
+        {
+          "title": "1. Who is the data controller?",
+          "paragraphs": [
+            "The data controller is Rui Da Cruz, a real estate consultant at RE/MAX Vantagem Platina (Prestígio Global – Sociedade de Mediação Imobiliária, S.A., AMI 7772), headquartered at Av. Fernando Pessoa 11B, 1990-108 Lisbon.",
+            "You can contact us by email at consultor@ruidacruzconsultor.com, by phone at +351 939 081 583, or by mail at Av. Fernando Pessoa 11B, 1990-108 Lisbon."
+          ]
+        },
+        {
+          "title": "2. What Data We Collect",
+          "paragraphs": [
+            "Information you provide to us on forms and when you contact us: name, phone number, email address, message, and the property or development you are interested in.",
+            "Browsing data: pages visited, clicks on buttons and links, document downloads, and the source of the visit (for example, a campaign or an email). This data is used to understand what works on the website and is not used to directly identify you.",
+            "Preferences saved in your browser, such as language, light or dark theme, and the properties you've marked as favorites."
+          ]
+        },
+        {
+          "title": "3. What we use the data for and on what legal basis",
+          "paragraphs": [
+            "To respond to your requests for information, property viewings, and property appraisals: processing necessary to follow up on your request and, where applicable, for pre-contractual steps.",
+            "To send you marketing communications about real estate and development projects: with your consent, which you may withdraw at any time.",
+            "Measuring and improving website and campaign performance: based on our legitimate interest and, for advertising technologies, on your consent."
+          ]
+        },
+        {
+          "title": "4. Who We Share Data With",
+          "paragraphs": [
+            "We do not sell your data. It may be processed by service providers acting on our behalf and in accordance with our instructions: contact management and email delivery platforms, website and database hosting within the European Union, and analytics and advertising tools, such as Meta, when active.",
+            "When any of these service providers is located outside the European Economic Area, the transfer is carried out in accordance with the safeguards provided by law, such as standard contractual clauses.",
+            "We may also share data with RE/MAX and with the developers or owners of the properties, but only to the extent necessary to process your request."
+          ]
+        },
+        {
+          "title": "5. How long do we retain the data?",
+          "paragraphs": [
+            "We retain data only for as long as necessary to fulfill the purposes for which it was collected and to comply with legal obligations. Contact information for commercial purposes is retained until you withdraw your consent or request its deletion."
+          ]
+        },
+        {
+          "title": "6. Your Rights",
+          "paragraphs": [
+            "You may request access to your data, its correction, erasure, restriction of processing, or portability; object to the processing; and withdraw your consent at any time, without affecting any processing that has already taken place.",
+            "To exercise these rights, please use the contact information provided above. If you believe that the processing of your data violates the law, you may file a complaint with the National Data Protection Commission (www.cnpd.pt)."
+          ]
+        },
+        {
+          "title": "7. Cookies and Similar Technologies",
+          "paragraphs": [
+            "The website stores simple information in your browser—such as language, theme, and bookmarks—so that it works as you expect.",
+            "You can also use Meta Pixel, which is used to track campaigns and show more relevant ads. You can limit or block these technologies in your browser settings."
+          ]
+        },
+        {
+          "title": "8. Email Communications and Cancellation",
+          "paragraphs": [
+            "All marketing emails include a link to unsubscribe. Once you unsubscribe, we will no longer send you marketing communications."
+          ]
+        },
+        {
+          "title": "9. Safety",
+          "paragraphs": [
+            "We have implemented appropriate technical and organizational measures to protect data against unauthorized access, loss, or alteration. However, no system is completely secure."
+          ]
+        },
+        {
+          "title": "10. Changes to This Policy",
+          "paragraphs": [
+            "We may update this Policy as needed. The current version is the one published on this page, along with the date of the last update."
+          ]
+        }
+      ]
+    },
+    "terms": {
+      "title": "Terms and Conditions",
+      "intro": "By using this website, you agree to the terms below. If you do not agree, please do not use it.",
+      "sections": [
+        {
+          "title": "1. Identification",
+          "paragraphs": [
+            "This website is operated by Rui Da Cruz, a real estate consultant at RE/MAX Vantagem Platina (Prestígio Global – Sociedade de Mediação Imobiliária, S.A., AMI 7772), headquartered at Av. Fernando Pessoa 11B, 1990-108 Lisbon."
+          ]
+        },
+        {
+          "title": "2. Real Estate Information",
+          "paragraphs": [
+            "The descriptions, areas, photographs, videos, and prices shown are for illustrative purposes only. They are subject to change or removal without prior notice and do not constitute a contractual offer.",
+            "The availability, price, and final terms for each property must be confirmed with us before any decision is made."
+          ]
+        },
+        {
+          "title": "3. Business Ventures in Brazil",
+          "paragraphs": [
+            "Information about real estate developments in Brazil is provided by the respective developers. Prices are in Brazilian reais (R$), subject to adjustment and change without prior notice by the developer, and the payment terms shown are examples.",
+            "The images may be illustrations or renderings of the project. The content of this website is not a substitute for legal, tax, or financial advice, which we recommend you seek before making any purchase."
+          ]
+        },
+        {
+          "title": "4. Intellectual Property",
+          "paragraphs": [
+            "The text, images, videos, trademarks, and other content on this website belong to Rui Da Cruz, RE/MAX, the developers, or third parties who have authorized their use, and are protected by law. They may not be copied, reproduced, or used for commercial purposes without authorization."
+          ]
+        },
+        {
+          "title": "5. Use of the Website",
+          "paragraphs": [
+            "This website is intended for personal and informational use. It may not be used for unlawful purposes, nor to attempt to access non-public areas or interfere with its operation."
+          ]
+        },
+        {
+          "title": "6. Third-Party Links and Content",
+          "paragraphs": [
+            "The website may include links and content from third parties, such as videos hosted on external platforms, WhatsApp, or Google. We do not control these services, nor are we responsible for their content or policies."
+          ]
+        },
+        {
+          "title": "7. Limitation of Liability",
+          "paragraphs": [
+            "We make reasonable efforts to keep the information accurate and up-to-date, but we do not guarantee that the website will always be available or free of errors. To the extent permitted by law, we are not liable for any damages resulting from the use of the website or the information contained therein."
+          ]
+        },
+        {
+          "title": "8. Complaints",
+          "paragraphs": [
+            "You can submit complaints through the Electronic Complaint Book (www.livroreclamacoes.pt) or directly to us using the contact information provided in the Privacy Policy."
+          ]
+        },
+        {
+          "title": "9. Governing Law",
+          "paragraphs": [
+            "These terms are governed by Portuguese law. Any disputes shall be submitted to the competent Portuguese courts, without prejudice to the rights granted to consumers by law."
+          ]
+        },
+        {
+          "title": "10. Changes",
+          "paragraphs": [
+            "We may change these terms at any time. The current version is the one published on this page, along with the date of the last update."
+          ]
+        }
+      ]
+    }
   }
 }

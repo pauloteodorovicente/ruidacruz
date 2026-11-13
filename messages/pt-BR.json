@@ -4,7 +4,7 @@
     "contacto": "Contato",
     "guia": "Guia",
     "faq": "FAQ",
-    "vender": "Senhor proprietário Está a Pensar Vender?"
+    "vender": "Vender"
   },
   "siteFooter": {
     "whatsapp": "+351 939 081 583",
@@ -195,7 +195,7 @@
         "body": "O tempo entre o CPCV e a escritura varia — normalmente algumas semanas a poucos meses, dependendo sobretudo de financiamento. Além do preço de compra, há impostos e taxas a considerar (como o IMT e o Imposto de Selo, entre outros custos de registro e notário) — o seu advogado ou contabilista em Portugal consegue calcular o valor exato para o seu caso."
       }
     ],
-    "disclaimer": "Este guia é informativo e de carácter geral — não substitui aconselhamento jurídico, fiscal ou financeiro personalizado. Recomendamos sempre consultar um advogado ou contabilista licenciado em Portugal antes de avançar com qualquer decisão."
+    "disclaimer": "Este guia é informativo e de caráter geral — não substitui aconselhamento jurídico, fiscal ou financeiro personalizado. Recomendamos sempre consultar um advogado ou contabilista licenciado em Portugal antes de avançar com qualquer decisão."
   },
   "faq": {
     "meta": {
@@ -220,7 +220,7 @@
       },
       {
         "question": "O Rui atende compradores estrangeiros / não residentes?",
-        "answer": "Sim. Para quem está a comprar em Portugal vindo de fora, preparámos um guia próprio com o processo, prazos e documentos habituais."
+        "answer": "Sim. Para quem está comprando em Portugal vindo de fora, preparámos um guia próprio com o processo, prazos e documentos habituais."
       },
       {
         "question": "Quanto tempo demora normalmente o processo de compra ou venda?",
@@ -235,18 +235,19 @@
   "vender": {
     "meta": {
       "title": "Vender o Seu Imóvel | Rui Da Cruz — Consultor Imobiliário",
-      "description": "Ajudamo-lo a apresentar o seu imóvel da melhor forma e a maximizar o seu potencial de venda."
+      "description": "Ajudamos você a apresentar o seu imóvel da melhor forma e a maximizar o seu potencial de venda."
     },
     "eyebrow": "Venda",
-    "title": "Senhor proprietário Está a Pensar Vender?",
-    "subtitle": "Ajudamo-lo a apresentar o seu imóvel da melhor forma e a maximizar o seu potencial de venda.",
-    "submit": "Fale Connosco",
+    "title": "Senhor proprietário, Está Pensando em Vender?",
+    "subtitle": "Ajudamos você a apresentar o seu imóvel da melhor forma e a maximizar o seu potencial de venda.",
+    "submit": "Fale conosco",
     "cta": "Quero preparar a venda do meu imóvel",
     "form": {
       "email": "E-mail",
       "notes": "Observações",
       "submit": "Enviar",
-      "close": "Fechar"
+      "close": "Fechar",
+      "consent": "Declaro que li, compreendi e aceito os <terms>Termos e condições</terms> e a <privacy>Política de Privacidade</privacy>."
     },
     "article": {
       "headline": "Vai vender casa? Comece por ter os documentos em ordem.",
@@ -256,12 +257,12 @@
       "listTitle": "5 documentos e informações que deve ter em atenção:",
       "items": [
         {
-          "title": "Certidão do Registo Predial",
-          "text": "Permite confirmar a titularidade do imóvel e identificar eventuais hipotecas, penhoras ou outros encargos registados."
+          "title": "Certidão do Registro Predial",
+          "text": "Permite confirmar a titularidade do imóvel e identificar eventuais hipotecas, penhoras ou outros encargos registrados."
         },
         {
           "title": "Caderneta Predial Urbana",
-          "text": "Contém a informação fiscal do imóvel, incluindo a localização, as áreas registadas e o Valor Patrimonial Tributário (VPT)."
+          "text": "Contém a informação fiscal do imóvel, incluindo a localização, as áreas registradas e o Valor Patrimonial Tributário (VPT)."
         },
         {
           "title": "Certificado Energético",
@@ -280,16 +281,166 @@
       "detail1": "Se realizou obras, fechou uma varanda ou alterou a distribuição da casa, confirme se essas intervenções exigiam procedimentos urbanísticos e se a situação está regularizada.",
       "detail2": "Nem todas as alterações representam um problema, mas algumas podem levantar questões durante a avaliação bancária ou a preparação da compra e venda.",
       "closing": "Antecipar problemas é evitar complicações.",
-      "askTitle": "Está a pensar vender?",
+      "askTitle": "Está pensando em vender?",
       "ask1": "No Grupo Valor, ajudamos os proprietários a identificar os passos necessários para preparar a venda, esclarecer dúvidas e organizar o processo desde o início.",
       "ask2": "Porque uma venda bem preparada não começa com a primeira visita. Começa muito antes.",
-      "ctaTitle": "Está a pensar vender o seu imóvel?",
-      "ctaText": "Fale com a nossa equipa e descubra como podemos ajudá-lo a preparar uma venda com maior tranquilidade."
+      "ctaTitle": "Está pensando em vender o seu imóvel?",
+      "ctaText": "Fale com a nossa equipe e descubra como podemos ajudá-lo a preparar uma venda com maior tranquilidade."
     }
   },
   "notFound": {
     "title": "Página não encontrada",
     "text": "O endereço que você tentou abrir não existe ou foi movido.",
     "cta": "Voltar ao início"
+  },
+  "legal": {
+    "updated": "Última atualização: 13 de novembro de 2026",
+    "footer": {
+      "terms": "Termos e Condições",
+      "privacy": "Política de Privacidade"
+    },
+    "privacy": {
+      "title": "Política de Privacidade",
+      "intro": "Esta Política explica como são tratados os dados pessoais de quem visita este site ou nos contacta através dele, em cumprimento do Regulamento Geral sobre a Proteção de Dados (RGPD) e da lei portuguesa aplicável.",
+      "sections": [
+        {
+          "title": "1. Quem é o responsável pelo tratamento",
+          "paragraphs": [
+            "O responsável pelo tratamento dos dados é Rui Da Cruz, consultor imobiliário da RE/MAX Vantagem Platina (Prestígio Global – Sociedade de Mediação Imobiliária, S.A., AMI 7772), com sede na Av. Fernando Pessoa 11B, 1990-108 Lisboa.",
+            "Pode nos contatar através do e-mail consultor@ruidacruzconsultor.com, do telefone +351 939 081 583 ou por correio para Av. Fernando Pessoa 11B, 1990-108 Lisboa."
+          ]
+        },
+        {
+          "title": "2. Que dados coletamos",
+          "paragraphs": [
+            "Dados que nos fornece nos formulários e nos contatos que nos faz: nome, telefone, e-mail, mensagem e o imóvel ou empreendimento em que tem interesse.",
+            "Dados de navegação: páginas visitadas, cliques em botões e links, downloads de documentos e a origem da visita (por exemplo, uma campanha ou um e-mail). Estes dados são usados para perceber o que funciona no site e não servem para o identificar diretamente.",
+            "Preferências guardadas no seu próprio navegador, como o idioma, o tema claro ou escuro e os imóveis que marcou como favoritos."
+          ]
+        },
+        {
+          "title": "3. Para que usamos os dados e com que fundamento",
+          "paragraphs": [
+            "Responder aos seus pedidos de informação, visitas e avaliações de imóveis: tratamento necessário para dar seguimento ao seu pedido e, quando aplicável, para diligências pré-contratuais.",
+            "Enviar-lhe comunicações comerciais sobre imóveis e empreendimentos: com o seu consentimento, que pode retirar a qualquer momento.",
+            "Medir e melhorar o desempenho do site e das campanhas: com base no nosso interesse legítimo e, para as tecnologias de publicidade, no seu consentimento."
+          ]
+        },
+        {
+          "title": "4. Com quem compartilhamos os dados",
+          "paragraphs": [
+            "Os dados não são vendidos. Podem ser tratados por prestadores de serviços que atuam em nosso nome e segundo as nossas instruções: plataforma de gestão de contatos e envio de e-mails, hospedagem do site e da base de dados na União Europeia, e ferramentas de medição e publicidade, como a Meta, quando ativas.",
+            "Quando algum destes prestadores se encontra fora do Espaço Econômico Europeu, a transferência é feita com as garantias previstas na lei, como as cláusulas contratuais-tipo.",
+            "Podemos ainda comunicar dados à RE/MAX e aos promotores ou proprietários dos imóveis, apenas na medida necessária para dar seguimento ao seu pedido."
+          ]
+        },
+        {
+          "title": "5. Durante quanto tempo conservamos os dados",
+          "paragraphs": [
+            "Conservamos os dados apenas pelo tempo necessário às finalidades para que foram coletados e para cumprir obrigações legais. Os contatos para fins comerciais mantêm-se até retirar o seu consentimento ou pedir a eliminação."
+          ]
+        },
+        {
+          "title": "6. Os seus direitos",
+          "paragraphs": [
+            "Pode pedir o acesso aos seus dados, a retificação, o apagamento, a limitação do tratamento, a portabilidade, opor-se ao tratamento e retirar o consentimento a qualquer momento, sem prejuízo do tratamento já feito.",
+            "Para exercer estes direitos, use os contatos indicados acima. Se considerar que o tratamento viola a lei, pode apresentar reclamação à Comissão Nacional de Proteção de Dados (www.cnpd.pt)."
+          ]
+        },
+        {
+          "title": "7. Cookies e tecnologias semelhantes",
+          "paragraphs": [
+            "O site guarda no seu navegador informação simples, como o idioma, o tema e os favoritos, para funcionar como espera.",
+            "Pode também usar o Pixel da Meta, que serve para medir campanhas e mostrar anúncios mais relevantes. Pode limitar ou bloquear estas tecnologias nas definições do seu navegador."
+          ]
+        },
+        {
+          "title": "8. Comunicações por e-mail e cancelamento",
+          "paragraphs": [
+            "Todos os e-mails comerciais têm um link para cancelar a inscrição. Depois de cancelar, deixamos de lhe enviar comunicações comerciais."
+          ]
+        },
+        {
+          "title": "9. Segurança",
+          "paragraphs": [
+            "Adotamos medidas técnicas e organizativas adequadas para proteger os dados contra acesso, perda ou alteração indevidos. Nenhum sistema é, ainda assim, totalmente seguro."
+          ]
+        },
+        {
+          "title": "10. Alterações a esta Política",
+          "paragraphs": [
+            "Podemos atualizar esta Política sempre que necessário. A versão em vigor é a publicada nesta página, com a data da última atualização."
+          ]
+        }
+      ]
+    },
+    "terms": {
+      "title": "Termos e Condições",
+      "intro": "Ao usar este site, aceita os termos abaixo. Se não concordar, pedimos que não o utilize.",
+      "sections": [
+        {
+          "title": "1. Identificação",
+          "paragraphs": [
+            "Este site é operado por Rui Da Cruz, consultor imobiliário da RE/MAX Vantagem Platina (Prestígio Global – Sociedade de Mediação Imobiliária, S.A., AMI 7772), com sede na Av. Fernando Pessoa 11B, 1990-108 Lisboa."
+          ]
+        },
+        {
+          "title": "2. Informação sobre imóveis",
+          "paragraphs": [
+            "As descrições, áreas, fotografias, vídeos e valores apresentados são indicativos. Podem ser alterados ou retirados sem aviso prévio e não constituem uma proposta contratual.",
+            "A disponibilidade, o preço e as condições finais de cada imóvel têm de ser confirmados conosco antes de qualquer decisão."
+          ]
+        },
+        {
+          "title": "3. Empreendimentos no Brasil",
+          "paragraphs": [
+            "A informação sobre os empreendimentos no Brasil é fornecida pelas respectivas incorporadoras. Os valores estão em reais (R$), sujeitos a atualização e a alteração sem aviso prévio pela incorporadora, e as condições de pagamento apresentadas são exemplos.",
+            "As imagens podem ser ilustrações ou projeções do projeto. O conteúdo do site não substitui aconselhamento jurídico, fiscal ou financeiro, que recomendamos obter antes de qualquer compra."
+          ]
+        },
+        {
+          "title": "4. Propriedade intelectual",
+          "paragraphs": [
+            "Os textos, imagens, vídeos, marcas e restantes conteúdos do site pertencem a Rui Da Cruz, à RE/MAX, aos promotores ou a terceiros que autorizaram o seu uso, e estão protegidos por lei. Não podem ser copiados, reproduzidos ou usados comercialmente sem autorização."
+          ]
+        },
+        {
+          "title": "5. Utilização do site",
+          "paragraphs": [
+            "O site destina-se a uso pessoal e informativo. Não pode ser usado para fins ilícitos, nem para tentar acessar a áreas não públicas ou prejudicar o seu funcionamento."
+          ]
+        },
+        {
+          "title": "6. Links e conteúdos de terceiros",
+          "paragraphs": [
+            "O site pode incluir links e conteúdos de terceiros, como vídeos hospedados em plataformas externas, o WhatsApp ou o Google. Não controlamos esses serviços nem somos responsáveis pelo seu conteúdo ou pelas suas políticas."
+          ]
+        },
+        {
+          "title": "7. Limitação de responsabilidade",
+          "paragraphs": [
+            "Fazemos um esforço razoável para manter a informação correta e atualizada, mas não garantimos que o site esteja sempre disponível ou livre de erros. Na medida permitida por lei, não respondemos por danos resultantes do uso do site ou da informação nele contida."
+          ]
+        },
+        {
+          "title": "8. Reclamações",
+          "paragraphs": [
+            "Pode apresentar reclamações através do Livro de Reclamações Eletrônico (www.livroreclamacoes.pt) ou diretamente conosco, pelos contatos indicados na Política de Privacidade."
+          ]
+        },
+        {
+          "title": "9. Lei aplicável",
+          "paragraphs": [
+            "Estes termos regem-se pela lei portuguesa. Os litígios serão submetidos aos tribunais portugueses competentes, sem prejuízo dos direitos que a lei reconhece aos consumidores."
+          ]
+        },
+        {
+          "title": "10. Alterações",
+          "paragraphs": [
+            "Podemos alterar estes termos a qualquer momento. A versão em vigor é a publicada nesta página, com a data da última atualização."
+          ]
+        }
+      ]
+    }
   }
 }

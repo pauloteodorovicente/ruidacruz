@@ -18,6 +18,7 @@ const INSTAGRAM_URL = "https://www.instagram.com/_ruidacruz_yourbestchoice/";
 export function SiteFooterClient({ sellerCtaEnabled }: { sellerCtaEnabled: boolean }) {
   const nav = useTranslations("siteNav");
   const f = useTranslations("siteFooter");
+  const legal = useTranslations("legal.footer");
   const locale = useLocale();
   const brasilLabel = (BRASIL_UI[locale as AppLocale] ?? BRASIL_UI["pt-PT"]).navLabel;
 
@@ -64,6 +65,15 @@ export function SiteFooterClient({ sellerCtaEnabled }: { sellerCtaEnabled: boole
       <p className="mt-1">{f("whatsapp")}</p>
       <p className="mt-1">
         {BUSINESS_INFO.streetAddress}, {BUSINESS_INFO.postalCode} {BUSINESS_INFO.addressLocality}
+      </p>
+      <p className="mt-3 text-[10px] tracking-wide text-foreground/35">
+        <Link href="/termos-e-condicoes" className="hover:text-foreground/60 transition-colors">
+          {legal("terms")}
+        </Link>
+        {" · "}
+        <Link href="/politica-de-privacidade" className="hover:text-foreground/60 transition-colors">
+          {legal("privacy")}
+        </Link>
       </p>
     </footer>
   );

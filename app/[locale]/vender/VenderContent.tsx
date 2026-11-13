@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { useLocale, useTranslations } from "next-intl";
+import { Link } from "@/i18n/navigation";
 import { useLeadForm } from "@/lib/use-lead-form";
 import { PhoneField } from "@/app/components/PhoneField";
 
@@ -142,7 +143,20 @@ export function VenderContent() {
                 />
                 <label className="flex items-start gap-2 text-[11px] text-foreground/50 leading-relaxed mt-1">
                   <input type="checkbox" name="consent" required className="mt-0.5" />
-                  {t("consent")}
+                  <span>
+                    {v.rich("form.consent", {
+                      terms: (chunks) => (
+                        <Link href="/termos-e-condicoes" target="_blank" className="underline hover:text-accent">
+                          {chunks}
+                        </Link>
+                      ),
+                      privacy: (chunks) => (
+                        <Link href="/politica-de-privacidade" target="_blank" className="underline hover:text-accent">
+                          {chunks}
+                        </Link>
+                      ),
+                    })}
+                  </span>
                 </label>
                 <button
                   type="submit"

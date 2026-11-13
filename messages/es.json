@@ -4,7 +4,7 @@
     "contacto": "Contacto",
     "guia": "Guía",
     "faq": "FAQ",
-    "vender": "Estimado propietario, ¿está pensando en vender?"
+    "vender": "Vender"
   },
   "siteFooter": {
     "whatsapp": "+351 939 081 583",
@@ -246,7 +246,8 @@
       "email": "Correo electrónico",
       "notes": "Observaciones",
       "submit": "Enviar",
-      "close": "Cerrar"
+      "close": "Cerrar",
+      "consent": "Declaro que he leído, comprendido y aceptado los <terms>Términos y condiciones</terms> y la <privacy>Política de privacidad</privacy>."
     },
     "article": {
       "headline": "¿Vas a vender tu casa? Empieza por tener la documentación en regla.",
@@ -291,5 +292,155 @@
     "title": "Página no encontrada",
     "text": "La dirección que intentó abrir no existe o ha sido movida.",
     "cta": "Volver al inicio"
+  },
+  "legal": {
+    "updated": "Última actualización: 13 de noviembre de 2026",
+    "footer": {
+      "terms": "Términos y condiciones",
+      "privacy": "Política de privacidad"
+    },
+    "privacy": {
+      "title": "Política de privacidad",
+      "intro": "La presente Política explica cómo se tratan los datos personales de quienes visitan este sitio web o se ponen en contacto con nosotros a través de él, de conformidad con el Reglamento General de Protección de Datos (RGPD) y la legislación portuguesa aplicable.",
+      "sections": [
+        {
+          "title": "1. ¿Quién es el responsable del tratamiento?",
+          "paragraphs": [
+            "El responsable del tratamiento de los datos es Rui Da Cruz, asesor inmobiliario de RE/MAX Vantagem Platina (Prestígio Global – Sociedade de Mediação Imobiliária, S.A., AMI 7772), con sede en Av. Fernando Pessoa 11B, 1990-108 Lisboa.",
+            "Puede ponerse en contacto con nosotros por correo electrónico en consultor@ruidacruzconsultor.com, por teléfono en el +351 939 081 583 o por correo postal en Av. Fernando Pessoa 11B, 1990-108 Lisboa."
+          ]
+        },
+        {
+          "title": "2. Qué datos recopilamos",
+          "paragraphs": [
+            "Los datos que nos facilitas en los formularios y en los contactos que nos envías: nombre, teléfono, correo electrónico, mensaje y el inmueble o promoción en la que estás interesado.",
+            "Datos de navegación: páginas visitadas, clics en botones y enlaces, descargas de documentos y el origen de la visita (por ejemplo, una campaña o un correo electrónico). Estos datos se utilizan para comprender qué funciona en la web y no sirven para identificarle directamente.",
+            "Preferencias guardadas en tu propio navegador, como el idioma, el tema claro u oscuro y los inmuebles que has marcado como favoritos."
+          ]
+        },
+        {
+          "title": "3. Para qué utilizamos los datos y con qué fundamento",
+          "paragraphs": [
+            "Responder a sus solicitudes de información, visitas y valoraciones de inmuebles: tratamiento necesario para dar curso a su solicitud y, en su caso, para llevar a cabo gestiones precontractuales.",
+            "Enviarle comunicaciones comerciales sobre inmuebles y promociones inmobiliarias: con su consentimiento, que puede retirar en cualquier momento.",
+            "Medir y mejorar el rendimiento del sitio web y de las campañas: en virtud de nuestro interés legítimo y, en el caso de las tecnologías publicitarias, con su consentimiento."
+          ]
+        },
+        {
+          "title": "4. Con quién compartimos los datos",
+          "paragraphs": [
+            "Los datos no se venden. Pueden ser tratados por proveedores de servicios que actúan en nuestro nombre y siguiendo nuestras instrucciones: plataforma de gestión de contactos y envío de correos electrónicos, alojamiento de la página web y de la base de datos en la Unión Europea, y herramientas de medición y publicidad, como Meta, cuando estén activas.",
+            "Cuando alguno de estos proveedores se encuentra fuera del Espacio Económico Europeo, la transferencia se realiza con las garantías previstas por la ley, como las cláusulas contractuales tipo.",
+            "También podemos facilitar datos a RE/MAX y a los promotores o propietarios de los inmuebles, únicamente en la medida necesaria para dar curso a su solicitud."
+          ]
+        },
+        {
+          "title": "5. ¿Durante cuánto tiempo conservamos los datos?",
+          "paragraphs": [
+            "Conservamos los datos únicamente durante el tiempo necesario para los fines para los que se recopilaron y para cumplir con las obligaciones legales. Los datos de contacto con fines comerciales se conservan hasta que retires tu consentimiento o solicites su eliminación."
+          ]
+        },
+        {
+          "title": "6. Tus derechos",
+          "paragraphs": [
+            "Puede solicitar el acceso a sus datos, su rectificación, su supresión, la limitación del tratamiento, la portabilidad, oponerse al tratamiento y retirar su consentimiento en cualquier momento, sin que ello afecte al tratamiento ya realizado.",
+            "Para ejercer estos derechos, utilice los datos de contacto indicados anteriormente. Si considera que el tratamiento incumple la ley, puede presentar una reclamación ante la Comisión Nacional de Protección de Datos (www.cnpd.pt)."
+          ]
+        },
+        {
+          "title": "7. Cookies y tecnologías similares",
+          "paragraphs": [
+            "La página web almacena en tu navegador información básica, como el idioma, el tema y los favoritos, para que funcione tal y como esperas.",
+            "También puedes utilizar el Pixel de Meta, que sirve para medir el rendimiento de las campañas y mostrar anuncios más relevantes. Puedes limitar o bloquear estas tecnologías en la configuración de tu navegador."
+          ]
+        },
+        {
+          "title": "8. Comunicaciones por correo electrónico y cancelación",
+          "paragraphs": [
+            "Todos los correos electrónicos comerciales incluyen un enlace para darse de baja. Una vez que te hayas dado de baja, dejaremos de enviarte comunicaciones comerciales."
+          ]
+        },
+        {
+          "title": "9. Seguridad",
+          "paragraphs": [
+            "Hemos adoptado las medidas técnicas y organizativas adecuadas para proteger los datos contra el acceso, la pérdida o la alteración indebidos. Sin embargo, ningún sistema es totalmente seguro."
+          ]
+        },
+        {
+          "title": "10. Modificaciones de esta política",
+          "paragraphs": [
+            "Podemos actualizar esta Política siempre que sea necesario. La versión vigente es la publicada en esta página, con la fecha de la última actualización."
+          ]
+        }
+      ]
+    },
+    "terms": {
+      "title": "Términos y condiciones",
+      "intro": "Al utilizar esta página web, aceptas las condiciones que se indican a continuación. Si no estás de acuerdo, te rogamos que no la utilices.",
+      "sections": [
+        {
+          "title": "1. Identificación",
+          "paragraphs": [
+            "Esta página web está gestionada por Rui Da Cruz, asesor inmobiliario de RE/MAX Vantagem Platina (Prestígio Global – Sociedade de Mediação Imobiliária, S.A., AMI 7772), con sede en Av. Fernando Pessoa 11B, 1990-108 Lisboa."
+          ]
+        },
+        {
+          "title": "2. Información sobre inmuebles",
+          "paragraphs": [
+            "Las descripciones, superficies, fotografías, vídeos y precios que se muestran son orientativos. Pueden modificarse o eliminarse sin previo aviso y no constituyen una oferta contractual.",
+            "La disponibilidad, el precio y las condiciones definitivas de cada inmueble deben confirmarse con nosotros antes de tomar cualquier decisión."
+          ]
+        },
+        {
+          "title": "3. Proyectos en Brasil",
+          "paragraphs": [
+            "La información sobre los proyectos inmobiliarios en Brasil la facilitan las respectivas promotoras. Las cantidades se expresan en reales (R$), están sujetas a actualizaciones y modificaciones sin previo aviso por parte de la promotora, y las condiciones de pago que se muestran son a título de ejemplo.",
+            "Las imágenes pueden ser ilustraciones o representaciones del proyecto. El contenido de la página web no sustituye al asesoramiento jurídico, fiscal o financiero, que recomendamos solicitar antes de realizar cualquier compra."
+          ]
+        },
+        {
+          "title": "4. Propiedad intelectual",
+          "paragraphs": [
+            "Los textos, imágenes, vídeos, marcas y demás contenidos de la página web son propiedad de Rui Da Cruz, de RE/MAX, de los promotores o de terceros que hayan autorizado su uso, y están protegidos por la ley. No pueden copiarse, reproducirse ni utilizarse con fines comerciales sin autorización."
+          ]
+        },
+        {
+          "title": "5. Uso de la página web",
+          "paragraphs": [
+            "Esta página web está destinada a un uso personal e informativo. No puede utilizarse con fines ilícitos, ni para intentar acceder a áreas no públicas ni para perjudicar su funcionamiento."
+          ]
+        },
+        {
+          "title": "6. Enlaces y contenidos de terceros",
+          "paragraphs": [
+            "La página web puede incluir enlaces y contenidos de terceros, como vídeos alojados en plataformas externas, WhatsApp o Google. No controlamos dichos servicios ni somos responsables de su contenido ni de sus políticas."
+          ]
+        },
+        {
+          "title": "7. Limitación de responsabilidad",
+          "paragraphs": [
+            "Hacemos todo lo posible por mantener la información correcta y actualizada, pero no garantizamos que el sitio web esté siempre disponible o libre de errores. En la medida en que lo permita la ley, no nos hacemos responsables de los daños derivados del uso del sitio web o de la información que contiene."
+          ]
+        },
+        {
+          "title": "8. Reclamaciones",
+          "paragraphs": [
+            "Puede presentar reclamaciones a través del Libro de reclamaciones electrónico (www.livroreclamacoes.pt) o directamente con nosotros, utilizando los datos de contacto que figuran en la Política de privacidad."
+          ]
+        },
+        {
+          "title": "9. Legislación aplicable",
+          "paragraphs": [
+            "Las presentes condiciones se rigen por la legislación portuguesa. Los litigios se someterán a los tribunales portugueses competentes, sin perjuicio de los derechos que la ley reconoce a los consumidores."
+          ]
+        },
+        {
+          "title": "10. Modificaciones",
+          "paragraphs": [
+            "Podemos modificar estas condiciones en cualquier momento. La versión vigente es la publicada en esta página, con la fecha de la última actualización."
+          ]
+        }
+      ]
+    }
   }
 }

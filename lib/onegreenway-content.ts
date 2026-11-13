@@ -1,3 +1,5 @@
+import { adaptPtBrInPlace } from "@/lib/ptbr-adapt";
+
 export type Locale = "pt-PT" | "pt-BR" | "en" | "es" | "fr" | "it" | "de";
 
 export const galleryPhotos = ["gallery-1.jpg", "gallery-2.jpg", "gallery-3.jpg", "hero-3.jpg"];
@@ -64,7 +66,7 @@ export const content: Record<
       "contacto": "Contacto",
       "guia": "Guia",
       "faq": "FAQ",
-      "vender": "Venda"
+      "vender": "Vender"
     },
     "hero": {
       "eyebrow": "Empreendimento Residencial",
@@ -155,7 +157,7 @@ export const content: Record<
       "contacto": "Contato",
       "guia": "Guia",
       "faq": "FAQ",
-      "vender": "Venda"
+      "vender": "Vender"
     },
     "hero": {
       "eyebrow": "Empreendimento Residencial",
@@ -691,3 +693,6 @@ export const content: Record<
     "whatsappMessage": "Hallo Rui, ich interessiere mich für das „One Green Way“ (Quinta do Lago). Ich hätte gerne weitere Informationen."
   },
 };
+
+// Páginas de campanha: o pt-BR é sempre adaptado do texto em português (ver lib/ptbr-adapt.ts).
+adaptPtBrInPlace((content as unknown as Record<string, unknown>)["pt-BR"]);

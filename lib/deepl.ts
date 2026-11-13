@@ -1,4 +1,5 @@
 import "server-only";
+import { toPtBr } from "@/lib/ptbr-adapt";
 
 // Helper fino sobre a API do DeepL — usado hoje pelo script de tradução dos
 // textos estáticos (scripts/translate-messages.mjs) e, mais adiante, pela
@@ -44,5 +45,6 @@ export async function translateBatch(texts: string[], targetLocale: string): Pro
   }
 
   const data = (await res.json()) as { translations: { text: string }[] };
-  return data.translations.map((t) => t.text);
+  // O DeepL mantém o português de Portugal quando o texto de origem já é pt-PT; o adaptador garante o pt-BR.
+  return data.translations.map((t) => (targetLocale === "pt-BR" ? toPtBr(t.text) : t.text));
 }

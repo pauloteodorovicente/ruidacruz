@@ -1,3 +1,5 @@
+import { adaptPtBrInPlace } from "@/lib/ptbr-adapt";
+
 export type Locale = "pt-PT" | "pt-BR" | "en" | "es" | "fr" | "it" | "de";
 
 export const content = {
@@ -7,7 +9,7 @@ export const content = {
       description:
         "Apartamentos T2 e T3 no Verdelago Resort, um empreendimento turístico de 5 estrelas entre Altura e a Praia Verde, Algarve. Acesso direto à praia, SPA, piscinas e Resort Club. Representação por Rui Da Cruz, RE/MAX Collection.",
     },
-    nav: { whatsapp: "WhatsApp Direto", sobre: "Sobre", contacto: "Contacto", guia: "Guia", faq: "FAQ", vender: "Venda" },
+    nav: { whatsapp: "WhatsApp Direto", sobre: "Sobre", contacto: "Contacto", guia: "Guia", faq: "FAQ", vender: "Vender" },
     hero: { eyebrow: "Verdelago Resort", location: "Altura · Algarve" },
     overview: {
       tags: ["Resort 5 Estrelas", "T2 e T3", "Acesso Direto à Praia", "Elegível para NHR"],
@@ -161,7 +163,7 @@ export const content = {
       description:
         "Apartamentos T2 e T3 no Verdelago Resort, um empreendimento turístico cinco estrelas entre Altura e a Praia Verde, Algarve, Portugal. Acesso direto à praia, spa, piscinas e Resort Club. Representação de Rui Da Cruz, RE/MAX Collection.",
     },
-    nav: { whatsapp: "WhatsApp Direto", sobre: "Sobre", contacto: "Contato", guia: "Guia", faq: "FAQ", vender: "Venda" },
+    nav: { whatsapp: "WhatsApp Direto", sobre: "Sobre", contacto: "Contato", guia: "Guia", faq: "FAQ", vender: "Vender" },
     hero: { eyebrow: "Verdelago Resort", location: "Altura · Algarve" },
     overview: {
       tags: ["Resort Cinco Estrelas", "T2 e T3", "Acesso Direto à Praia", "Elegível para NHR"],
@@ -1095,3 +1097,6 @@ export const galleryImages = [
   { src: "/images/verdelago/11-sports.jpg", alt: { "pt-PT": "Campo de padel do resort", "pt-BR": "Quadra de padel do resort", en: "Resort padel court", es: "Pista de pádel del resort", fr: "Terrain de padel du resort", it: "Campo da padel del resort", de: "Padel-Platz des Resorts" } },
   { src: "/images/verdelago/12-food-beverage.jpg", alt: { "pt-PT": "Gastronomia de excelência", "pt-BR": "Gastronomia de excelência", en: "Fine dining", es: "Gastronomía de excelencia", fr: "Gastronomie raffinée", it: "Gastronomia raffinata", de: "Exzellente Gastronomie" } },
 ] as const;
+
+// Páginas de campanha: o pt-BR é sempre adaptado do texto em português (ver lib/ptbr-adapt.ts).
+adaptPtBrInPlace((content as unknown as Record<string, unknown>)["pt-BR"]);
