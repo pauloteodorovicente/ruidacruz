@@ -57,7 +57,7 @@ export function VerdelagoHeader({ sellerCtaEnabled = false }: { sellerCtaEnabled
           {t.nav.sobre}
         </Link>
         {sellerCtaEnabled && (
-          <Link href="/vender" className={`text-accent hover:text-accent-strong transition-colors ${overHero ? "drop-shadow-sm" : ""}`}>
+          <Link href="/vender" className={`bg-accent px-4 py-2 font-medium text-black shadow-sm hover:bg-accent-strong hover:text-black transition-colors`}>
             {t.nav.vender}
           </Link>
         )}

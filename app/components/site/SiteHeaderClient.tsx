@@ -61,7 +61,7 @@ export function SiteHeaderClient({ sellerCtaEnabled }: { sellerCtaEnabled: boole
         {sellerCtaEnabled && (
           <Link
             href="/vender"
-            className={`text-accent hover:text-accent-strong transition-colors ${overHero ? "drop-shadow-sm" : ""}`}
+            className={`bg-accent px-4 py-2 font-medium text-black shadow-sm hover:bg-accent-strong hover:text-black transition-colors`}
           >
             {t("vender")}
           </Link>
