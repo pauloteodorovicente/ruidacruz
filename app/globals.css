@@ -160,6 +160,19 @@ body::before {
   .cta-talk { animation: none; }
 }
 
+/* Item "Vender" do menu (pedido do Rui, 15/11): só o contorno na cor de destaque, com um anel que pulsa
+   para chamar a atenção. Pára ao passar o mouse e com "reduzir movimento". */
+@keyframes nav-sell-pulse {
+  0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--c-accent) 60%, transparent); }
+  70% { box-shadow: 0 0 0 10px transparent; }
+  100% { box-shadow: 0 0 0 0 transparent; }
+}
+.nav-sell { animation: nav-sell-pulse 2.4s ease-out infinite; }
+.nav-sell:hover { animation: none; }
+@media (prefers-reduced-motion: reduce) {
+  .nav-sell { animation: none; }
+}
+
 /* Card em Super-Destaque com "brilho que pulsa" (opção no admin): mesmo ritmo do botão
    "Falar com Rui", na cor de destaque do próprio card (a paleta escolhida entra pelo
    --c-accent). Pára ao passar o mouse e com "reduzir movimento". */

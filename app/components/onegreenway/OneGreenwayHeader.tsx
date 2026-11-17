@@ -57,7 +57,7 @@ export function OneGreenwayHeader({ sellerCtaEnabled = false }: { sellerCtaEnabl
           {t.nav.sobre}
         </Link>
         {sellerCtaEnabled && (
-          <Link href="/vender" className={`bg-accent px-4 py-2 font-medium text-black shadow-sm hover:bg-accent-strong hover:text-black transition-colors`}>
+          <Link href="/vender" className={`nav-sell border border-accent px-4 py-2 hover:bg-accent/15 transition-colors`}>
             {t.nav.vender}
           </Link>
         )}
