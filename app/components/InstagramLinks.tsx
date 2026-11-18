@@ -84,7 +84,7 @@ export function InstagramProfileLink({ href, handle, label }: { href: string; ha
         {GLYPH}
       </svg>
       <span>{label}</span>
-      <span className="text-foreground-muted">{handle}</span>
+      <span className="hidden text-foreground-muted sm:inline">{handle}</span>
     </a>
   );
 }
