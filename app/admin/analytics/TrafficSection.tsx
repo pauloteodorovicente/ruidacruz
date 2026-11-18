@@ -75,6 +75,8 @@ const CLICK_LABELS: Record<string, string> = {
   falar_contacto: "Botão “Falar com o Rui”",
   whatsapp: "WhatsApp",
   enviar_formulario: "Formulário enviado",
+  instagram_post: "Post do Instagram (Home)",
+  instagram_perfil: "Perfil do Instagram (Home)",
 };
 
 function clickLabel(link: string): string {

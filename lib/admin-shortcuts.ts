@@ -13,6 +13,7 @@ export const SHORTCUT_ACTIONS: ShortcutAction[] = [
   { id: "imoveis", label: "Imóveis", href: "/admin", defaultKeys: ["g", "i"] },
   { id: "novo", label: "+ Novo Imóvel", href: "/admin/imoveis/novo", defaultKeys: ["n"] },
   { id: "hero", label: "Hero da Home", href: "/admin/hero", defaultKeys: ["g", "h"] },
+  { id: "instagram", label: "Instagram", href: "/admin/instagram", defaultKeys: ["g", "t"] },
   { id: "depoimentos", label: "Depoimentos", href: "/admin/depoimentos", defaultKeys: ["g", "d"] },
   { id: "analytics", label: "Analytics", href: "/admin/analytics", defaultKeys: ["g", "a"] },
 ];

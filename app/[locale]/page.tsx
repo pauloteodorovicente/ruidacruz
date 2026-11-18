@@ -6,6 +6,7 @@ import { DynamicHero } from "@/app/components/site/DynamicHero";
 import { CredibilityStrip } from "@/app/components/CredibilityStrip";
 import { CuratedCollection } from "@/app/components/CuratedCollection";
 import { AboutRui } from "@/app/components/AboutRui";
+import { InstagramSection } from "@/app/components/InstagramSection";
 import { SiteTestimonials } from "@/app/components/site/SiteTestimonials";
 import { SiteWhatsAppFloating } from "@/app/components/site/SiteWhatsAppFloating";
 import { ScheduleCallFloating } from "@/app/components/ScheduleCallFloating";
@@ -91,6 +92,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
           layout={homeCollection.layout}
           extraCards={brasilHomeCards(locale)}
         />
+        <InstagramSection locale={locale} />
         <AboutRui />
         <SiteTestimonials testimonials={testimonials} />
       </main>

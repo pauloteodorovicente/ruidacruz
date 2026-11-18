@@ -4,8 +4,10 @@ import { sanitizeCardCarousel, type CardCarouselSettings } from "@/lib/cover";
 import { sanitizeTypeColorThemes, type TypeColorThemes } from "@/lib/property-colors";
 import { sanitizeVerdelagoPhaseNotes, type VerdelagoPhaseNotes } from "@/lib/verdelago-phase-notes";
 import { sanitizeContentOverrides, type ContentOverrides } from "@/lib/content-overrides";
+import { sanitizeInstagramSettings, type InstagramSettings } from "@/lib/instagram";
 
 export type { CardCarouselSettings } from "@/lib/cover";
+export type { InstagramSettings } from "@/lib/instagram";
 
 export type MetaPixelSettings = {
   pixelId: string;
@@ -111,6 +113,18 @@ export async function getCardCarouselSettingsForAdmin(): Promise<CardCarouselSet
   const supabase = createAdminClient();
   const { data } = await supabase.from("settings").select("value").eq("key", "card_carousel").maybeSingle();
   return sanitizeCardCarousel(data?.value as Partial<CardCarouselSettings> | undefined);
+}
+
+// Seção "No Instagram" da Home (Admin → Instagram): liga/desliga, layout e limite de posts.
+// Desligada por padrão. Cache de 60s como as demais.
+export async function getInstagramSettings(): Promise<InstagramSettings> {
+  return sanitizeInstagramSettings(await getPublicSetting<Record<string, unknown>>("instagram_section", {}));
+}
+
+export async function getInstagramSettingsForAdmin(): Promise<InstagramSettings> {
+  const supabase = createAdminClient();
+  const { data } = await supabase.from("settings").select("value").eq("key", "instagram_section").maybeSingle();
+  return sanitizeInstagramSettings(data?.value);
 }
 
 // Cor da paleta por tipo de imóvel (Admin → Integrações → "Cores por tipo").

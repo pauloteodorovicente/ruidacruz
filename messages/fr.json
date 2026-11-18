@@ -70,6 +70,14 @@
       "viewProperty": "Voir le bien immobilier",
       "viewAll": "Voir le Portefeuille Complet"
     },
+    "instagram": {
+      "eyebrow": "Sur Instagram",
+      "title": "Coulisses et histoires vraies",
+      "subtitle": "Une sélection de publications choisies à la main : le quotidien du travail de Rui et les biens en avant-première.",
+      "follow": "Suivre sur Instagram",
+      "openPost": "Voir la publication sur Instagram",
+      "video": "Vidéo"
+    },
     "portfolioPage": {
       "meta": {
         "title": "Portefeuille Complet | Rui Da Cruz",

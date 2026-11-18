@@ -70,6 +70,14 @@
       "viewProperty": "Ver Imóvel",
       "viewAll": "Ver Portfólio Completo"
     },
+    "instagram": {
+      "eyebrow": "No Instagram",
+      "title": "Bastidores e histórias reais",
+      "subtitle": "Uma seleção de publicações escolhidas a dedo, com o dia a dia do trabalho do Rui e os imóveis em primeira mão.",
+      "follow": "Seguir no Instagram",
+      "openPost": "Ver publicação no Instagram",
+      "video": "Vídeo"
+    },
     "portfolioPage": {
       "meta": {
         "title": "Portfólio Completo | Rui Da Cruz",

@@ -70,6 +70,14 @@
       "viewProperty": "Visualizza l'immobile",
       "viewAll": "Vedi il Portfolio Completo"
     },
+    "instagram": {
+      "eyebrow": "Su Instagram",
+      "title": "Dietro le quinte e storie vere",
+      "subtitle": "Una selezione di post scelti a mano: la quotidianità del lavoro di Rui e gli immobili in anteprima.",
+      "follow": "Segui su Instagram",
+      "openPost": "Vedi il post su Instagram",
+      "video": "Video"
+    },
     "portfolioPage": {
       "meta": {
         "title": "Portfolio Completo | Rui Da Cruz",

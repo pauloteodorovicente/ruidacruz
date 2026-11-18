@@ -70,6 +70,14 @@
       "viewProperty": "View Property",
       "viewAll": "View Full Portfolio"
     },
+    "instagram": {
+      "eyebrow": "On Instagram",
+      "title": "Behind the scenes and real stories",
+      "subtitle": "A hand-picked selection of posts: the day-to-day of Rui's work and properties, first-hand.",
+      "follow": "Follow on Instagram",
+      "openPost": "View post on Instagram",
+      "video": "Video"
+    },
     "portfolioPage": {
       "meta": {
         "title": "Full Portfolio | Rui Da Cruz",
