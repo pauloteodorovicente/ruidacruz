@@ -1,6 +1,7 @@
 import { getTranslations } from "next-intl/server";
 import { Reveal } from "@/app/components/Reveal";
 import { InstagramProfileLink, InstagramTile } from "@/app/components/InstagramLinks";
+import { InstagramPhoneTour } from "@/app/components/InstagramPhoneTour";
 import { getInstagramSettings } from "@/lib/settings";
 import { getInstagramPosts } from "@/lib/instagram-posts";
 import { instagramHandle } from "@/lib/instagram";
@@ -27,6 +28,29 @@ export async function InstagramSection({ locale }: { locale: string }) {
   const profileUrl = BUSINESS_INFO.instagramUrl;
   const handle = instagramHandle(profileUrl);
   const tileProps = { label: t("openPost"), videoLabel: t("video") };
+
+  // Celular animado (padrão): texto à esquerda e celular que gira com os posts descendo ao rolar.
+  if (settings.layout === "phone") {
+    return (
+      <InstagramPhoneTour
+        posts={posts}
+        profileUrl={profileUrl}
+        handle={handle}
+        avatar="/images/rui/rui-cruz.jpg"
+        copy={{
+          eyebrow: t("eyebrow"),
+          title: t("title"),
+          titleAccent: t("titleAccent"),
+          subtitle: t("subtitle"),
+          follow: t("follow"),
+          openPost: t("openPost"),
+          videoLabel: t("video"),
+          tapHint: t("tapHint"),
+          steps: [1, 2, 3, 4].map((n) => ({ title: t(`step${n}Title`), text: t(`step${n}Text`) })),
+        }}
+      />
+    );
+  }
 
   let carouselItems: { post: (typeof posts)[number]; duplicate: boolean }[] = [];
   let duration = 40;

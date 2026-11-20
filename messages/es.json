@@ -72,11 +72,21 @@
     },
     "instagram": {
       "eyebrow": "En Instagram",
-      "title": "Bastidores e historias reales",
+      "title": "Entre bastidores y historias reales",
       "subtitle": "Una selección de publicaciones elegidas a mano: el día a día del trabajo de Rui y los inmuebles de primera mano.",
       "follow": "Seguir en Instagram",
       "openPost": "Ver publicación en Instagram",
-      "video": "Vídeo"
+      "video": "Vídeo",
+      "titleAccent": "historias reales",
+      "step1Title": "El trabajo entre bastidores",
+      "step1Text": "Las visitas, las reuniones y todo lo que ocurre antes de cerrar cada operación.",
+      "step2Title": "Inmuebles de primera mano",
+      "step2Text": "Apartamentos, casas y promociones en cuanto llegan, con las imágenes que Rui publica.",
+      "step3Title": "Vídeos cortos, conversación directa",
+      "step3Text": "Reels sobre comprar y vender, contados sin rodeos por quien lo hace cada día.",
+      "step4Title": "Eventos, premios y equipo",
+      "step4Text": "Lo que hay detrás de cada elección: la red, el reconocimiento y las personas con las que trabaja Rui.",
+      "tapHint": "Toca una publicación del móvil para abrirla en el Instagram de Rui."
     },
     "portfolioPage": {
       "meta": {

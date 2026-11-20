@@ -42,6 +42,7 @@ async function shrinkImage(file: File): Promise<Blob> {
 }
 
 const LAYOUTS: { value: InstagramLayout; title: string; hint: string }[] = [
+  { value: "phone", title: "Celular animado", hint: "Texto ao lado de um celular que gira devagar enquanto os posts descem, ligado à rolagem da página. Fica melhor com 8 a 12 posts." },
   { value: "grid", title: "Galeria fixa", hint: "Quadrados lado a lado, 4 por linha (2 no celular). Fica melhor com 4, 8 ou 12 posts." },
   { value: "carousel", title: "Carrossel infinito", hint: "Uma fita que anda sozinha, devagar, e pausa quando o mouse passa por cima. Aceita qualquer quantidade." },
 ];
@@ -251,7 +252,7 @@ export function InstagramManager({
 
         <div>
           <span className={labelClass}>Layout</span>
-          <div className="grid gap-3 sm:grid-cols-2">
+          <div className="grid gap-3 sm:grid-cols-3">
             {LAYOUTS.map((layout) => (
               <button
                 key={layout.value}

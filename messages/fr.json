@@ -76,7 +76,17 @@
       "subtitle": "Une sélection de publications choisies à la main : le quotidien du travail de Rui et les biens en avant-première.",
       "follow": "Suivre sur Instagram",
       "openPost": "Voir la publication sur Instagram",
-      "video": "Vidéo"
+      "video": "Vidéo",
+      "titleAccent": "histoires vraies",
+      "step1Title": "Les coulisses du travail",
+      "step1Text": "Les visites, les réunions et tout ce qui se passe avant la signature de chaque affaire.",
+      "step2Title": "Des biens en avant-première",
+      "step2Text": "Appartements, maisons et programmes dès leur arrivée, avec les images que Rui publie.",
+      "step3Title": "Vidéos courtes, parole directe",
+      "step3Text": "Des reels sur l'achat et la vente, dits sans détour par quelqu'un qui le fait tous les jours.",
+      "step4Title": "Événements, prix et équipe",
+      "step4Text": "Ce qui se cache derrière chaque choix : le réseau, la reconnaissance et les personnes avec qui Rui travaille.",
+      "tapHint": "Touchez une publication du téléphone pour l'ouvrir sur l'Instagram de Rui."
     },
     "portfolioPage": {
       "meta": {

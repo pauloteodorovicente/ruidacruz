@@ -2,7 +2,9 @@
 // do painel e da página). Os posts ficam em instagram_posts; layout, limite e liga/desliga em
 // settings.instagram_section.
 
-export type InstagramLayout = "grid" | "carousel";
+// "phone": celular animado (padrão) — gira devagar e os posts descem ao rolar a página.
+// "grid": galeria fixa. "carousel": carrossel infinito.
+export type InstagramLayout = "phone" | "grid" | "carousel";
 
 export type InstagramSettings = {
   enabled: boolean;
@@ -13,7 +15,7 @@ export type InstagramSettings = {
 export const INSTAGRAM_LIMITS = { maxPosts: { min: 3, max: 24 } } as const;
 
 // Desligado por padrão: a seção só aparece quando alguém liga no admin e há posts cadastrados.
-export const INSTAGRAM_DEFAULTS: InstagramSettings = { enabled: false, layout: "grid", maxPosts: 8 };
+export const INSTAGRAM_DEFAULTS: InstagramSettings = { enabled: false, layout: "phone", maxPosts: 12 };
 
 export type InstagramPost = {
   id: string;
@@ -31,7 +33,7 @@ export function sanitizeInstagramSettings(raw: unknown): InstagramSettings {
   const maxRaw = Number(source.maxPosts);
   return {
     enabled: typeof source.enabled === "boolean" ? source.enabled : INSTAGRAM_DEFAULTS.enabled,
-    layout: source.layout === "carousel" ? "carousel" : "grid",
+    layout: source.layout === "grid" || source.layout === "carousel" || source.layout === "phone" ? source.layout : INSTAGRAM_DEFAULTS.layout,
     maxPosts: Number.isFinite(maxRaw) ? Math.min(max, Math.max(min, Math.round(maxRaw))) : INSTAGRAM_DEFAULTS.maxPosts,
   };
 }
