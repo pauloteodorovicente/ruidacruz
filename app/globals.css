@@ -48,6 +48,9 @@
 /* Variante "light:" — estilos que valem só no tema claro (o site marca o tema
    no atributo data-theme do <html>). */
 @custom-variant light (&:where([data-theme="light"], [data-theme="light"] *));
+/* Computador com janela baixa (notebook com barra do navegador): cenas fixas em 100svh precisam caber. */
+@custom-variant short (@media (min-width: 768px) and (max-height: 820px));
+@custom-variant tiny (@media (min-width: 768px) and (max-height: 700px));
 
 /* Cross-fade entre páginas (ver ViewTransitions.tsx) — só ajusta o ritmo
    pro mesmo compasso pausado do resto do site; o cross-fade em si é o

@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useId, useRef, useState, useSyncExternalStore } from "react";
+import { useCallback, useEffect, useLayoutEffect, useRef, useState, useSyncExternalStore } from "react";
 import Image from "next/image";
 import { trackLinkClick } from "@/lib/track-event";
 import type { InstagramPost } from "@/lib/instagram";
@@ -91,74 +91,18 @@ function PostCard({ post, handle, avatar, openPost, videoLabel }: { post: Instag
   );
 }
 
-// ── Mão segurando o celular (ilustração em SVG, coordenadas do corpo do celular: 304 x 640) ──
-// Atrás do celular ficam o punho e os dedos que dão a volta na borda esquerda; na frente, o polegar
-// (mão direita), que pivota na base e "rola" a tela. A parte que desce abaixo do celular some num
-// degradê, como se a mão viesse de fora da cena.
-const HAND_PIVOT = { x: 330, y: 640 };
-const THUMB_ANGLE = { from: -12, to: 28 }; // graus: ponta embaixo/esquerda → ponta em cima/direita
-
-function HandFade({ uid }: { uid: string }) {
-  return (
-    <defs>
-      <linearGradient id={`${uid}-fadeg`} gradientUnits="userSpaceOnUse" x1="0" y1="640" x2="0" y2="770">
-        <stop offset="0" stopColor="#fff" />
-        <stop offset="1" stopColor="#000" />
-      </linearGradient>
-      <mask id={`${uid}-fade`} maskUnits="userSpaceOnUse" x="-160" y="-60" width="640" height="960">
-        <rect x="-160" y="-60" width="640" height="960" fill={`url(#${uid}-fadeg)`} />
-      </mask>
-      <linearGradient id={`${uid}-skin`} x1="0" y1="0" x2="1" y2="1">
-        <stop offset="0" stopColor="#dcb899" />
-        <stop offset="1" stopColor="#b98a6c" />
-      </linearGradient>
-      <linearGradient id={`${uid}-shade`} x1="0" y1="0" x2="1" y2="1">
-        <stop offset="0" stopColor="#b88c70" />
-        <stop offset="1" stopColor="#8d644d" />
-      </linearGradient>
-    </defs>
-  );
-}
-
-function HandBack({ uid }: { uid: string }) {
-  return (
-    <svg viewBox="0 0 304 640" aria-hidden className="pointer-events-none absolute left-0 top-0 -z-10 h-full w-full overflow-visible">
-      <HandFade uid={uid} />
-      <g mask={`url(#${uid}-fade)`}>
-        {/* punho e palma, aparecem à direita e abaixo do celular */}
-        <path d="M 226 460 C 332 460, 376 560, 370 690 L 356 840 L 100 840 L 92 600 C 92 520, 150 460, 226 460 Z" fill={`url(#${uid}-shade)`} />
-        {/* dedos que dão a volta na borda esquerda */}
-        <rect x="-30" y="232" width="58" height="50" rx="25" fill={`url(#${uid}-shade)`} />
-        <rect x="-30" y="296" width="60" height="54" rx="27" fill={`url(#${uid}-shade)`} />
-        <rect x="-28" y="364" width="56" height="50" rx="25" fill={`url(#${uid}-shade)`} />
-        <rect x="-22" y="428" width="48" height="42" rx="21" fill={`url(#${uid}-shade)`} />
-      </g>
-    </svg>
-  );
-}
-
-function HandFront({ uid, thumbRef }: { uid: string; thumbRef: React.RefObject<SVGGElement | null> }) {
-  return (
-    <svg
-      viewBox="0 0 304 640"
-      aria-hidden
-      className="pointer-events-none absolute left-0 top-0 z-30 h-full w-full overflow-visible"
-      style={{ filter: "drop-shadow(0 10px 12px rgba(0,0,0,0.45))" }}
-    >
-      <HandFade uid={uid} />
-      <g mask={`url(#${uid}-fade)`}>
-        <g ref={thumbRef} transform={`rotate(${THUMB_ANGLE.from + 0.4 * (THUMB_ANGLE.to - THUMB_ANGLE.from)} ${HAND_PIVOT.x} ${HAND_PIVOT.y})`}>
-          <g transform={`translate(${HAND_PIVOT.x} ${HAND_PIVOT.y}) rotate(221.4)`}>
-            <rect x="-120" y="-25" width="366" height="50" rx="25" fill={`url(#${uid}-skin)`} stroke="rgba(70,35,15,0.4)" strokeWidth="1.5" />
-            {/* unha e dobra da articulação */}
-            <rect x="192" y="-15" width="38" height="30" rx="13" fill="#f0d8c6" opacity="0.8" />
-            <path d="M 52 -22 Q 61 0 52 22" fill="none" stroke="rgba(70,35,15,0.28)" strokeWidth="2" strokeLinecap="round" />
-          </g>
-        </g>
-      </g>
-    </svg>
-  );
-}
+// ── Mão segurando o celular: foto real recortada (fundo verde e tela magenta viraram transparência) ──
+// Duas camadas em public/images/instagram: "phone-hand" (celular + mão, tela vazada, o polegar sai
+// daqui) e "phone-thumb" (só a ponta do polegar, que pivota na emenda para "rolar" a tela).
+// Medidas em pixels da foto original (941 x 1672).
+const PHOTO = { w: 941, h: 1672 };
+const SCREEN = { x: 185, y: 241, w: 569, h: 1189 }; // área da tela
+const BLEED = 14; // a tela passa 14 px por baixo da moldura, para não sobrar fresta
+const THUMB = { x: 471, y: 957, w: 320, h: 245, pivotX: 690, pivotY: 1078 };
+const THUMB_ANGLE = { from: -3, to: 12 }; // graus (positivo = ponta do polegar sobe)
+const UI_W = 281; // largura de projeto da tela do app, em px de CSS; é escalada para a largura real
+const UI_H = Math.round((UI_W * SCREEN.h) / SCREEN.w);
+const pct = (value: number, total: number) => `${(value / total) * 100}%`;
 
 // Seção "No Instagram" no estilo do tour do app (Fase 27): à esquerda o texto, com o passo ativo em
 // destaque; à direita um celular que gira devagar enquanto os posts descem, tudo ligado à rolagem da
@@ -180,8 +124,8 @@ export function InstagramPhoneTour({
   const reduced = useSyncExternalStore(subscribeReducedMotion, reducedMotionNow, () => false);
   const tourRef = useRef<HTMLDivElement>(null);
   const deviceRef = useRef<HTMLDivElement>(null);
-  const thumbRef = useRef<SVGGElement>(null);
-  const handUid = `ig${useId().replace(/[^a-zA-Z0-9]/g, "")}`;
+  const thumbRef = useRef<HTMLDivElement>(null);
+  const uiRef = useRef<HTMLDivElement>(null);
   const feedRef = useRef<HTMLDivElement>(null);
   const viewportRef = useRef<HTMLDivElement>(null);
   const [active, setActive] = useState(0);
@@ -206,22 +150,24 @@ export function InstagramPhoneTour({
       }
     }
 
+    // a tela do app é desenhada em 281 px de largura e escalada para caber na tela da foto
+    const ui = uiRef.current;
+    if (ui) ui.style.transform = `scale(${((device.clientWidth * SCREEN.w) / PHOTO.w / UI_W).toFixed(4)})`;
+
     const travel = Math.max(0, feed.scrollHeight - viewport.clientHeight);
     feed.style.transform = `translate3d(0, ${-p * travel}px, 0)`;
     const tilt = reduced ? 0 : (p - 0.5) * 2; // -1 (início) .. 1 (fim)
     const lift = reduced ? 1 : 0.97 + 0.05 * Math.sin(p * Math.PI);
-    device.style.transform = `perspective(1600px) rotateY(${tilt * -10}deg) rotateZ(${tilt * 3.5}deg) scale(${lift})`;
+    device.style.transform = `perspective(1600px) rotateY(${tilt * -8}deg) rotateZ(${tilt * 2.5}deg) scale(${lift})`;
 
     // Polegar: um "gesto de rolar" a cada ~280 px de feed — arrasta enquanto o feed sobe e, no fim de
-    // cada gesto, volta rápido ao ponto de partida (levemente mais claro, como se levantasse do vidro).
+    // cada gesto, volta rápido ao ponto de partida.
     const thumb = thumbRef.current;
     if (thumb) {
       const swipes = clamp(Math.round(travel / 280), 3, 20);
       const phase = reduced ? 0.4 : p >= 1 ? 0.8 : (p * swipes) % 1;
       const drag = phase < 0.8 ? phase / 0.8 : 1 - (phase - 0.8) / 0.2;
-      const angle = THUMB_ANGLE.from + (THUMB_ANGLE.to - THUMB_ANGLE.from) * drag;
-      thumb.setAttribute("transform", `rotate(${angle.toFixed(2)} ${HAND_PIVOT.x} ${HAND_PIVOT.y})`);
-      thumb.style.opacity = phase >= 0.8 && !reduced ? "0.78" : "1";
+      thumb.style.transform = `rotate(${(THUMB_ANGLE.from + (THUMB_ANGLE.to - THUMB_ANGLE.from) * drag).toFixed(2)}deg)`;
     }
     setActive(clamp(Math.floor(p * stepCount), 0, stepCount - 1));
   }, [reduced, stepCount]);
@@ -246,27 +192,36 @@ export function InstagramPhoneTour({
     };
   }, [update]);
 
+  useLayoutEffect(() => {
+    const device = deviceRef.current;
+    const ui = uiRef.current;
+    if (device && ui) ui.style.transform = `scale(${((device.clientWidth * SCREEN.w) / PHOTO.w / UI_W).toFixed(4)})`;
+  }, []);
+
   return (
     <section id="instagram" aria-labelledby="instagram-title" className="bg-background">
       <div ref={tourRef} className={reduced ? "" : "md:h-[330vh]"}>
         <div className={`flex items-center px-6 py-16 md:px-12 ${reduced ? "md:py-24" : "md:sticky md:top-0 md:h-svh md:overflow-hidden md:py-0 md:pt-16"}`}>
           <div className="mx-auto grid w-full max-w-6xl items-center gap-12 md:grid-cols-[1.05fr_1fr] md:gap-16">
             <div>
-              <p className="mb-3 text-xs uppercase tracking-[0.25em] text-accent">{copy.eyebrow}</p>
-              <h2 id="instagram-title" className="mb-4 font-display text-4xl leading-[1.08] md:text-5xl">
+              <p className="mb-3 text-xs uppercase tracking-[0.25em] text-accent tiny:mb-2">{copy.eyebrow}</p>
+              <h2 id="instagram-title" className="mb-4 font-display text-4xl leading-[1.08] md:text-5xl short:mb-3 short:text-4xl tiny:text-3xl">
                 <TitleWithAccent title={copy.title} accent={copy.titleAccent} />
               </h2>
-              <p className="mb-8 max-w-md text-sm text-foreground-muted">{copy.subtitle}</p>
+              <p className="mb-8 max-w-md text-sm text-foreground-muted short:mb-5">{copy.subtitle}</p>
 
-              <ol className="mb-8 flex flex-col gap-1">
+              <ol className="mb-8 flex flex-col gap-1 short:mb-5">
                 {copy.steps.map((step, index) => {
                   const on = index === active;
                   return (
                     // O realce do passo ativo só existe no computador, onde a cena fica fixa e o texto acompanha
                     // o celular; no celular o texto passa antes do aparelho, então todos ficam iguais.
-                    <li key={step.title} className={`border-l-2 border-border py-2 pl-5 transition-colors duration-500 ${on ? "md:border-accent" : ""}`}>
-                      <p className={`font-display text-xl text-foreground transition-colors duration-500 md:text-2xl ${on ? "md:text-accent" : ""}`}>{step.title}</p>
-                      <p className={`mt-0.5 max-w-md text-sm leading-relaxed text-foreground-muted transition-colors duration-500 ${on ? "md:text-foreground" : ""}`}>{step.text}</p>
+                    <li key={step.title} className={`border-l-2 border-border py-2 pl-5 transition-colors duration-500 short:py-1.5 ${on ? "md:border-accent" : ""}`}>
+                      <p className={`font-display text-xl text-foreground transition-colors duration-500 md:text-2xl short:text-xl ${on ? "md:text-accent" : ""}`}>{step.title}</p>
+                      {/* Em janela baixa só o passo ativo mostra a descrição (a linha abre e fecha); nas altas todos mostram. */}
+                      <div className={`grid transition-[grid-template-rows,opacity] duration-500 ${on ? "" : "short:grid-rows-[0fr] short:opacity-0"}`}>
+                        <p className={`mt-0.5 min-h-0 max-w-md overflow-hidden text-sm leading-relaxed text-foreground-muted transition-colors duration-500 ${on ? "md:text-foreground" : ""}`}>{step.text}</p>
+                      </div>
                     </li>
                   );
                 })}
@@ -288,38 +243,64 @@ export function InstagramPhoneTour({
                 <span>{copy.follow}</span>
                 <span className="hidden text-foreground-muted sm:inline">{handle}</span>
               </a>
-              <p className="mt-4 hidden max-w-xs text-xs text-foreground-muted md:block">{copy.tapHint}</p>
+              <p className="mt-4 hidden max-w-xs text-xs text-foreground-muted md:block short:hidden">{copy.tapHint}</p>
             </div>
 
-            <div className="relative mx-auto mb-16 w-[min(17rem,78%)] md:mb-0 md:w-[min(19rem,100%)]" style={{ perspective: "1600px" }}>
-              <div ref={deviceRef} className="relative will-change-transform">
-                <HandBack uid={handUid} />
-                <div className="rounded-[2.4rem] bg-[#10141d] p-2 shadow-[0_0_0_1px_rgba(255,255,255,0.09),0_40px_80px_-30px_rgba(0,0,0,0.8)]">
-                  <div className="relative aspect-[560/1214] overflow-hidden rounded-[1.9rem] bg-[#0a0d13]">
-                    {/* ilha e barra de status */}
-                    <span aria-hidden className="absolute left-1/2 top-2 z-20 h-[18px] w-[60px] -translate-x-1/2 rounded-full bg-black" />
-                    <div aria-hidden className="absolute inset-x-0 top-0 z-10 flex h-9 items-end justify-between bg-[#0a0d13] px-6 pb-1 text-[9px] font-medium text-white/80">
-                      <span>9:41</span>
-                      <span className="tracking-widest">●●●</span>
-                    </div>
-                    {/* cabeçalho do app */}
-                    <div aria-hidden className="absolute inset-x-0 top-9 z-10 flex h-8 items-center justify-between border-b border-white/10 bg-[#0a0d13] px-3">
-                      <span className="font-display text-[15px] italic text-white/90">Instagram</span>
-                      <svg viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.8)" strokeWidth="1.8" className="h-[15px] w-[15px]">
-                        <path d="M12 5v14M5 12h14" strokeLinecap="round" />
-                      </svg>
-                    </div>
-                    {/* feed: sobe com a rolagem da página */}
-                    <div ref={viewportRef} className={`absolute inset-x-0 bottom-0 top-[4.25rem] ${reduced ? "overflow-y-auto" : "overflow-hidden"}`}>
-                      <div ref={feedRef} className="will-change-transform">
-                        {posts.map((post) => (
-                          <PostCard key={post.id} post={post} handle={handle} avatar={avatar} openPost={copy.openPost} videoLabel={copy.videoLabel} />
-                        ))}
+            {/* Celular na mão (foto real): a tela do app fica ATRÁS da foto, que tem a tela vazada. */}
+            <div className="relative mx-auto -my-10 w-[min(22rem,92%)] md:my-0 md:w-[min(29rem,100%,calc((100svh-1rem)*0.5628))]" style={{ perspective: "1600px" }}>
+              <div ref={deviceRef} className="relative aspect-[941/1672] will-change-transform">
+                <div
+                  className="absolute overflow-hidden bg-[#0a0d13]"
+                  style={{ left: pct(SCREEN.x - BLEED, PHOTO.w), top: pct(SCREEN.y - BLEED, PHOTO.h), width: pct(SCREEN.w + BLEED * 2, PHOTO.w), height: pct(SCREEN.h + BLEED * 2, PHOTO.h) }}
+                >
+                  <div
+                    ref={uiRef}
+                    className="absolute origin-top-left"
+                    style={{ left: pct(BLEED, SCREEN.w + BLEED * 2), top: pct(BLEED, SCREEN.h + BLEED * 2), width: UI_W, height: UI_H }}
+                  >
+                    <div className="relative h-full w-full overflow-hidden">
+                      {/* barra de status */}
+                      <div aria-hidden className="absolute inset-x-0 top-0 z-10 flex h-8 items-end justify-between bg-[#0a0d13] px-7 pb-1 text-[9px] font-medium text-white/80">
+                        <span>9:41</span>
+                        <span className="tracking-widest">●●●</span>
+                      </div>
+                      {/* cabeçalho do app */}
+                      <div aria-hidden className="absolute inset-x-0 top-8 z-10 flex h-8 items-center justify-between border-b border-white/10 bg-[#0a0d13] px-3">
+                        <span className="font-display text-[15px] italic text-white/90">Instagram</span>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.8)" strokeWidth="1.8" className="h-[15px] w-[15px]">
+                          <path d="M12 5v14M5 12h14" strokeLinecap="round" />
+                        </svg>
+                      </div>
+                      {/* feed: sobe com a rolagem da página */}
+                      <div ref={viewportRef} className={`absolute inset-x-0 bottom-0 top-16 ${reduced ? "overflow-y-auto" : "overflow-hidden"}`}>
+                        <div ref={feedRef} className="will-change-transform">
+                          {posts.map((post) => (
+                            <PostCard key={post.id} post={post} handle={handle} avatar={avatar} openPost={copy.openPost} videoLabel={copy.videoLabel} />
+                          ))}
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
-                <HandFront uid={handUid} thumbRef={thumbRef} />
+
+                {/* foto: celular + mão (tela transparente) */}
+                <Image src="/images/instagram/phone-hand.webp" alt="" width={PHOTO.w} height={PHOTO.h} unoptimized draggable={false} className="pointer-events-none absolute inset-0 h-full w-full select-none" />
+
+                {/* ponta do polegar: pivota na emenda e "rola" a tela */}
+                <div
+                  ref={thumbRef}
+                  aria-hidden
+                  className="pointer-events-none absolute will-change-transform"
+                  style={{
+                    left: pct(THUMB.x, PHOTO.w),
+                    top: pct(THUMB.y, PHOTO.h),
+                    width: pct(THUMB.w, PHOTO.w),
+                    height: pct(THUMB.h, PHOTO.h),
+                    transformOrigin: `${((THUMB.pivotX - THUMB.x) / THUMB.w) * 100}% ${((THUMB.pivotY - THUMB.y) / THUMB.h) * 100}%`,
+                  }}
+                >
+                  <Image src="/images/instagram/phone-thumb.webp" alt="" width={THUMB.w} height={THUMB.h} unoptimized draggable={false} className="h-full w-full select-none" />
+                </div>
               </div>
             </div>
           </div>
